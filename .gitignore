@@ -1,0 +1,27 @@
+# Virtual Environment
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environment Variables
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Distribution
+dist/
+build/
+*.spec
+
+# Database
+*.db
+
+# Logs
+*.log

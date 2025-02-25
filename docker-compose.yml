@@ -1,0 +1,40 @@
+
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./:/app
+    environment:
+      - FLASK_APP=run.py
+      - FLASK_ENV=development
+      - DATABASE_URL=postgresql://wineuser:winepassword@db:5432/wineinventory
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - wine_network
+
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=wineuser
+      - POSTGRES_PASSWORD=winepassword
+      - POSTGRES_DB=wineinventory
+    ports:
+      - "5432:5432"
+    networks:
+      - wine_network
+    restart: always
+
+volumes:
+  postgres_data:
+
+networks:
+  wine_network:
+    driver: bridge

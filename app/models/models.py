@@ -32,17 +32,31 @@ class User(db.Model):
 
     #set and check passwords
     def set_password(self, password):
+        """
+        this method sets and hashes the passwords
+        """
         self.password_hash = generate_password_hash(password)
+
+
     def check_password(self, password):
+        """
+        this method checks if the passwords are hashed 
+        """
         return check_password_hash(self.password_hash, password)
     
 
     #add role
     def add_role(self, role_name):
+        """
+        this method adds a new role to the database
+        """
         role = Role.query.Filter_by(name=role_name).first()
         if role and role not in self.roles:
             self.roles.append(role)
     def remove_role(self, role_name):
+        """
+        this method removes a role and authorities it bears from the database
+        """
         role = Role.query.Filter_by(name=role_name).first()
         if role and role in self.roles:
             self.roles.remove(role)

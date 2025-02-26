@@ -145,7 +145,7 @@ def log_action(user_id, action, message, additional_data=None, save_to_db=True, 
     # Save to database if requested
     if save_to_db:
         try:
-            log_entry = LogEntry(
+            log_entry = logEntry(
                 user_id=user_id,
                 action=action,
                 message=message,

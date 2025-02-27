@@ -11,9 +11,9 @@ from app import db
 class logEntry(db.Model):
     #table name
     __tablename__ = 'log_entries'
-    id = db.Column(db.Interger, primary_key = True)
+    id = db.Column(db.Integer, primary_key = True)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-    user_id = db.Column(db.Interger, db.foreignKey('users_id'), nullable=True)#i will chang this to false later to test the logging feature
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)#i will chang this to false later to test the logging feature
     action = db.Column(db.String(100), nullable=False)
     message = db.Column(db.Text, nullable=False)
     ip_address = db.Column(db.String(45), nullable=True)

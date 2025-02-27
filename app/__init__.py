@@ -1,56 +1,49 @@
-import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
-from config.development import DevelopmentConfig
 from flask_migrate import Migrate
+import os
 
+# Initialize extensions
 db = SQLAlchemy()
-migrate = Migrate()
 jwt = JWTManager()
+migrate = Migrate()
 
+def create_app(config_class=None):
+    app = Flask(__name__)
 
+    # Load configuration based on FLASK_ENV
+    if not config_class:
+        env = os.environ.get('FLASK_ENV', 'development')
+        if env == 'production':
+            from config.production import ProductionConfig
+            config_class = ProductionConfig
+        else:
+            from config.development import DevelopmentConfig
+            config_class = DevelopmentConfig
 
+    app.config.from_object(config_class)
 
-
-def create_app(config=None):
-    app = Flask(__name__,instance_relative_config=True)
-
-
-
-    app.config.from_mapping(
-        SECRET_KEY=os.environ.get('SECRET_KEY', 'dev-key-please-change'),
-        SQLALCHEMY_DATABASE_URI=os.environ.get('DATABASE_URL', 'postgresql://wineuser:winepassword@db:5432/wineinventory'),
-        SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        JWT_SECRET_KEY=os.environ.get('JWT_SECRET_KEY', 'jwt-secret-key-please-change'),
-        JWT_ACCESS_TOKEN_EXPIRES=86400, #24hour expiry for the token
-    )
-
-
-    #load the config 
-    if config:
-        app.config.from_object(config)
-
-    #load the extensions
+    # Initialize extensions
     db.init_app(app)
-    migrate.init_app(app, db)
     jwt.init_app(app)
-    
+    migrate.init_app(app, db)
 
-    #configure logging
-    from app.utils import logger
-    logger.init_app(app)
-
-    #register my blueprints
+    # Register blueprints (definitive registrations)
     from app.routes.auth import auth_bp
-    app.register_blueprint(auth_bp, urll_prefix = '/auth')
+    from app.routes.cart import carts_bp
+    from app.routes.invoice import invoices_bp
+    from app.routes.invoice_items import invoice_items_bp
 
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(carts_bp)
+    app.register_blueprint(invoices_bp)
+    app.register_blueprint(invoice_items_bp)
 
+    # Automatically create roles and admin user
+    with app.app_context():
+        db.create_all()  # Create tables if they don't exist
+        from app.models import User
+        User.initialize_roles_and_admin()  # Initialize roles and admin user
 
-
-    #create database tables if context is true
-    if app.config.get('ENV') == 'development':
-        with app.app_context():
-            db.create_all()
-    
     return app

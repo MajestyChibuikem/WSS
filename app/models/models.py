@@ -53,14 +53,28 @@ class User(db.Model):
 
     def has_role(self, role_name):
         return role_name in [role.name for role in self.roles]
+    
+    def can_manage_inventory(self):
+        """Check if the user can add to wine inventory"""
+        return self.has_role('admin') or self.has_role('super_user')
+    
+    def can_manage_users(self):
+        """Check if the user can manage other users"""
+        return self.has_role('admin')
 
     # Admin controls
     @staticmethod
-    def create_user(admin_user, username, password):
+    def create_user(admin_user, username, password, roles=None):
         if not admin_user.has_role('admin'):
             raise PermissionError("Only administrators can create new users")
         new_user = User(username=username)
         new_user.set_password(password)
+        
+        # Add roles if provided
+        if roles:
+            for role_name in roles:
+                new_user.add_role(role_name)
+                
         db.session.add(new_user)
         db.session.commit()
         return new_user
@@ -80,7 +94,7 @@ class User(db.Model):
     @staticmethod
     def initialize_roles_and_admin():
         # Create roles if they don't exist
-        roles = ['admin', 'staff']
+        roles = ['admin', 'staff', 'super_user']
         for role_name in roles:
             role = Role.query.filter_by(name=role_name).first()
             if not role:
@@ -111,9 +125,36 @@ class Wine(db.Model):
     bottle_size = db.Column(db.String(10), nullable=False)
     description = db.Column(db.Text)
     tags = db.Column(JSON, default=[])  # Fixed JSON column definition
+    added_by = db.Column(db.Integer, db.ForeignKey('users.id'))
+    added_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     # Relationships
     invoice_items = db.relationship('InvoiceItem', backref='wine', lazy='dynamic')
+    creator = db.relationship('User', foreign_keys=[added_by])
+    
+    @staticmethod
+    def add_to_inventory(user, wine_data):
+        """Add wine to inventory, only admin and super_user can do this"""
+        if not user.can_manage_inventory():
+            raise PermissionError("Only administrators and super users can add wines")
+        
+        wine = Wine(
+            name=wine_data.get('name'),
+            vintage=wine_data.get('vintage'),
+            varietal=wine_data.get('varietal'),
+            region=wine_data.get('region'),
+            country=wine_data.get('country'),
+            price=wine_data.get('price'),
+            stock_quantity=wine_data.get('stock_quantity', 0),
+            bottle_size=wine_data.get('bottle_size'),
+            description=wine_data.get('description'),
+            tags=wine_data.get('tags', []),
+            added_by=user.id
+        )
+        
+        db.session.add(wine)
+        db.session.commit()
+        return wine
 
 class Invoice(db.Model):
     __tablename__ = 'invoices'

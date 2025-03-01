@@ -21,7 +21,3 @@ with app.app_context():
 
 
 
-curl -X POST http://localhost:5000/auth/create_user \
--H "Content-Type: application/json" \
--H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MDYwMjAzMSwianRpIjoiNjA1MTc3YjgtODkzYy00YjE4LTk2M2UtODYyYzA1YTkwZGY1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NDA2MDIwMzEsImNzcmYiOiIwODY1MTU5Yy01ZTBjLTQ5MDAtODcwOS1mNDhhYTNkMzkwMWYiLCJleHAiOjE3NDA2MDI5MzF9.NV_Z72nOHs3uANbzn-o47m5-5vTntorZdRVSLi4X1Sk" \
--d '{"username": "testuser", "password": "testpassword", "is_admin": false}'

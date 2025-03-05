@@ -111,27 +111,29 @@ class User(db.Model):
         
         db.session.commit()
 
+from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.postgresql import JSON
+
+# Initialize SQLAlchemy
+db = SQLAlchemy()
+
 class Wine(db.Model):
     __tablename__ = 'wines'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
-    vintage = db.Column(db.Integer)
-    varietal = db.Column(db.String(100))
-    region = db.Column(db.String(100))
-    country = db.Column(db.String(100))
-    price = db.Column(db.Numeric(10, 2))
-    stock_quantity = db.Column(db.Integer, default=0)
-    bottle_size = db.Column(db.String(10), nullable=False)
-    description = db.Column(db.Text)
-    tags = db.Column(JSON, default=[])  # Fixed JSON column definition
+    abv = db.Column(db.Float, nullable=False)  # Alcohol by Volume %
+    price = db.Column(db.Numeric(10, 2), nullable=False)  # Price in Naira
+    category = db.Column(db.Enum("Red", "White", "Rosé", "Sparkling", "Dessert", "Fortified", name="wine_category"), nullable=False)
+    bottle_size = db.Column(db.Integer, nullable=False)  # Bottle size in ml
+    in_stock = db.Column(db.Integer, default=0, nullable=False)  # Number of bottles available
     added_by = db.Column(db.Integer, db.ForeignKey('users.id'))
     added_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     # Relationships
-    invoice_items = db.relationship('InvoiceItem', backref='wine', lazy='dynamic')
     creator = db.relationship('User', foreign_keys=[added_by])
-    
+
     @staticmethod
     def add_to_inventory(user, wine_data):
         """Add wine to inventory, only admin and super_user can do this"""
@@ -140,15 +142,11 @@ class Wine(db.Model):
         
         wine = Wine(
             name=wine_data.get('name'),
-            vintage=wine_data.get('vintage'),
-            varietal=wine_data.get('varietal'),
-            region=wine_data.get('region'),
-            country=wine_data.get('country'),
+            abv=wine_data.get('abv'),
             price=wine_data.get('price'),
-            stock_quantity=wine_data.get('stock_quantity', 0),
-            bottle_size=wine_data.get('bottle_size'),
-            description=wine_data.get('description'),
-            tags=wine_data.get('tags', []),
+            category=wine_data.get('category'),
+            bottle_size=wine_data.get('bottleSize'),
+            in_stock=wine_data.get('inStock', 0),
             added_by=user.id
         )
         

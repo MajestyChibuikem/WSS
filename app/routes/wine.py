@@ -7,7 +7,7 @@ from app.utils.logger import log_action
 
 wine_bp = Blueprint('wine', __name__, url_prefix='/wine')
 
-@wine_bp.route('/total-stock', methods=['GET'])
+@wine_bp.route('/total_stock', methods=['GET'])
 @jwt_required()
 def get_total_stock():
     """Get total wine stock count"""

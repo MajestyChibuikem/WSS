@@ -40,7 +40,7 @@ def get_invoice_items(invoice_id):
         log_action(current_user_id, 'GET_INVOICE_ITEMS_ERROR', f'Error retrieving invoice items: {str(e)}', level='error')
         return jsonify({'message': 'An error occurred while retrieving invoice items'}), 500
 
-@invoice_items_bp.route('', methods=['POST'])
+@invoice_items_bp.route('/invoice_items', methods=['POST'])
 @jwt_required()
 def create_invoice_item():
     """

@@ -1,8 +1,8 @@
-"""Updated models
+"""Updated models with updated wine
 
-Revision ID: cf2299f2f535
+Revision ID: 0faf0490cf20
 Revises: 
-Create Date: 2025-03-01 22:44:15.503069
+Create Date: 2025-03-06 06:30:33.854343
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'cf2299f2f535'
+revision = '0faf0490cf20'
 down_revision = None
 branch_labels = None
 depends_on = None

@@ -64,18 +64,24 @@ def register_cli_commands(app):
         from app.models import User, Role
 
         with app.app_context():
+            # Create the 'admin' role if it doesn't exist
+            admin_role = Role.query.filter_by(name='admin').first()
+            if not admin_role:
+                admin_role = Role(name='admin')
+                db.session.add(admin_role)
+                db.session.commit()
+                print("Created 'admin' role.")
+
+            # Check if the admin user already exists
             admin = User.query.filter_by(username=username).first()
             if admin:
                 print(f"User '{username}' already exists.")
                 return
 
-            admin = User(username=username)
+            # Create the admin user
+            admin = User(username=username, is_admin=True)  # Set is_admin=True
             admin.set_password(password)
-            admin_role = Role.query.filter_by(name='admin').first()
-            if admin_role:
-                admin.roles.append(admin_role)
-                db.session.add(admin)
-                db.session.commit()
-                print(f"Admin user '{username}' created successfully!")
-            else:
-                print("Admin role does not exist. Please create the 'admin' role first.")
+            admin.roles.append(admin_role)  # Assign the 'admin' role
+            db.session.add(admin)
+            db.session.commit()
+            print(f"Admin user '{username}' created successfully!")

@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 import os
+import click  # Import click for CLI commands
+from app.utils.logger import init_app as init_logger
 
 # Initialize extensions
 db = SQLAlchemy()
@@ -26,6 +28,7 @@ def create_app(config_class=None):
 
     # Initialize extensions
     db.init_app(app)
+    init_logger(app)  # Initialize logging
     jwt.init_app(app)
     migrate.init_app(app, db)
 
@@ -34,16 +37,45 @@ def create_app(config_class=None):
     from app.routes.cart import carts_bp
     from app.routes.invoice import invoices_bp
     from app.routes.invoice_items import invoice_items_bp
+    from app.routes.logs import logs_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(carts_bp)
     app.register_blueprint(invoices_bp)
     app.register_blueprint(invoice_items_bp)
+    app.register_blueprint(logs_bp)
 
-    # Automatically create roles and admin user
+    # Automatically create tables if they don't exist
     with app.app_context():
-        db.create_all()  # Create tables if they don't exist
-        from app.models import User
-        User.initialize_roles_and_admin()  # Initialize roles and admin user
+        db.create_all()
+
+    # Register CLI commands
+    register_cli_commands(app)
 
     return app
+
+def register_cli_commands(app):
+    """Register custom CLI commands."""
+    @app.cli.command("create-admin")
+    @click.argument("username")
+    @click.argument("password")
+    def create_admin(username, password):
+        """Create an admin user."""
+        from app.models import User, Role
+
+        with app.app_context():
+            admin = User.query.filter_by(username=username).first()
+            if admin:
+                print(f"User '{username}' already exists.")
+                return
+
+            admin = User(username=username)
+            admin.set_password(password)
+            admin_role = Role.query.filter_by(name='admin').first()
+            if admin_role:
+                admin.roles.append(admin_role)
+                db.session.add(admin)
+                db.session.commit()
+                print(f"Admin user '{username}' created successfully!")
+            else:
+                print("Admin role does not exist. Please create the 'admin' role first.")

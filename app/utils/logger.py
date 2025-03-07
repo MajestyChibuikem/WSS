@@ -1,44 +1,16 @@
-import logging
-import json
-import os
+# app/utils/logger.py
 from datetime import datetime
 from flask import request, g, has_request_context
 from logging.handlers import RotatingFileHandler, TimedRotatingFileHandler
 import traceback
-from app import db
+import json
+import os
+import logging # Import logEntry from the models
 
-#models to log records into the database
-class logEntry(db.Model):
-    #table name
-    __tablename__ = 'log_entries'
-    id = db.Column(db.Integer, primary_key = True)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)#i will chang this to false later to test the logging feature
-    action = db.Column(db.String(100), nullable=False)
-    message = db.Column(db.Text, nullable=False)
-    ip_address = db.Column(db.String(45), nullable=True)
-    user_agent = db.Column(db.String(255), nullable=True)
-    endpoint = db.Column(db.String(255), nullable=True)
-    method = db.Column(db.String(10), nullable=True)
-    status_code = db.Column(db.Integer, nullable=True)
-    additional_data = db.Column(db.Text, nullable=True)
-
-    #table indexing
-    __table_args__ =(
-        db.Index('idx_log_timestamp', timestamp),
-        db.Index('idx_log_user_id', user_id),
-        db.Index('idx_log_action', action),
-    )
-
-
-
-
-
-
-# logger configuration
+# Logger configuration
 def setup_logger(app):
     """
-    this method configures the applications logging system
+    Configure the application's logging system.
     """
     # Ensure log directory exists
     log_dir = os.path.join(app.root_path, 'logs')
@@ -98,19 +70,13 @@ def setup_logger(app):
     
     return logger
 
-
 def log_action(user_id, action, message, additional_data=None, save_to_db=True, level='info'):
     """
-    Log user actions with detailed information
-    
-    Args:
-        user_id (int): ID of the user performing the action (None for anonymous)
-        action (str): Type of action being performed (e.g., LOGIN, LOGOUT, CREATE_WINE)
-        message (str): Description of the action
-        additional_data (dict, optional): Any extra data to log
-        save_to_db (bool): Whether to save the log to the database
-        level (str): Log level (debug, info, warning, error, critical)
+    Log user actions with detailed information.
+
     """
+    from app import db 
+    from app.models import logEntry  # Import db from the app package
     logger = logging.getLogger('wine_inventory')
     
     # Build log data object
@@ -165,16 +131,14 @@ def log_action(user_id, action, message, additional_data=None, save_to_db=True, 
     
     return log_data
 
-
 # Request logging middleware
 def log_request():
-    """To be called before each request to log incoming requests"""
+    """Log incoming requests."""
     logger = logging.getLogger('wine_inventory')
     logger.debug(f"Request: {request.method} {request.path} from {request.remote_addr}")
 
-
 def log_response(response):
-    """To be called after each request to log the response"""
+    """Log the response."""
     logger = logging.getLogger('wine_inventory')
     
     # Store the status code in Flask's g object for potential use in log_action
@@ -184,10 +148,9 @@ def log_response(response):
     logger.debug(f"Response: {response.status_code}")
     return response
 
-
 # Error logging
 def log_exception(exception):
-    """Log unhandled exceptions"""
+    """Log unhandled exceptions."""
     logger = logging.getLogger('wine_inventory')
     
     user_id = None
@@ -220,10 +183,9 @@ def log_exception(exception):
     # Continue with the normal exception handling
     raise exception
 
-
 # Setup function for Flask app
 def init_app(app):
-    """Initialize logging for the Flask app"""
+    """Initialize logging for the Flask app."""
     logger = setup_logger(app)
     
     # Register before_request handlers

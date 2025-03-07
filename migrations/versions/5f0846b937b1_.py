@@ -1,8 +1,8 @@
-"""Updated models with updated wine
+"""empty message
 
-Revision ID: 0faf0490cf20
+Revision ID: 5f0846b937b1
 Revises: 
-Create Date: 2025-03-06 06:30:33.854343
+Create Date: 2025-03-07 13:37:25.766946
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '0faf0490cf20'
+revision = '5f0846b937b1'
 down_revision = None
 branch_labels = None
 depends_on = None

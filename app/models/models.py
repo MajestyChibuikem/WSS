@@ -3,6 +3,7 @@ from datetime import datetime
 from sqlalchemy.dialects.postgresql import UUID, JSON
 from werkzeug.security import check_password_hash, generate_password_hash
 import uuid
+from sqlalchemy import func, and_
 
 # Initialize SQLAlchemy
 from app import db
@@ -77,21 +78,51 @@ class User(db.Model):
 
     @staticmethod
     def initialize_roles_and_admin():
+        # Create roles if they don't exist
         roles = ['admin', 'staff', 'super_user']
         for role_name in roles:
             role = Role.query.filter_by(name=role_name).first()
             if not role:
                 role = Role(name=role_name)
                 db.session.add(role)
+                print(f"Created role: {role_name}")
+            else:
+                print(f"Role already exists: {role_name}")
 
+        # Commit roles to the database
+        db.session.commit()
+
+        # Create admin user if it doesn't exist
         admin = User.query.filter_by(username='admin').first()
         if not admin:
-            admin = User(username='admin')
-            admin.set_password('adminpassword')
-            admin.add_role('admin')
+            admin = User(username='admin', is_admin=True)
+            admin.set_password('adminpassword')  # Set a secure password
             db.session.add(admin)
+            print("Created admin user.")
+        else:
+            print("Admin user already exists.")
 
+        # Assign the 'admin' role to the admin user if not already assigned
+        admin_role = Role.query.filter_by(name='admin').first()
+        if admin_role and admin_role not in admin.roles:
+            admin.roles.append(admin_role)
+            print("Assigned 'admin' role to the admin user.")
+        elif admin_role in admin.roles:
+            print("Admin user already has the 'admin' role.")
+        else:
+            print("Admin role not found. Cannot assign role to admin user.")
+
+        # Commit changes to the database
         db.session.commit()
+        def get_user_sales(self):
+            """
+            Track the total sales (invoices) for a particular user.
+            """
+            user_sales = db.session.query(
+                func.sum(Invoice.total_amount).label('total_sales')
+            ).filter(Invoice.user_id == self.id).scalar()
+
+            return user_sales or 0
 
 class Wine(db.Model):
     __tablename__ = 'wines'
@@ -127,6 +158,18 @@ class Wine(db.Model):
         db.session.commit()
         return wine
 
+    @staticmethod
+    def get_inventory_value_by_category():
+        """
+        Get the total value of the current inventory, grouped by category.
+        """
+        inventory_value = db.session.query(
+            Wine.category,
+            func.sum(Wine.price * Wine.in_stock).label('total_value')
+        ).group_by(Wine.category).all()
+
+        return {category: total_value for category, total_value in inventory_value}
+
 class Cart(db.Model):
     __tablename__ = 'cart_items'
 
@@ -159,6 +202,30 @@ class Invoice(db.Model):
 
     items = db.relationship('InvoiceItem', backref='invoice', lazy='dynamic')
 
+    @staticmethod
+    def calculate_revenue(start_date, end_date):
+        """
+        Calculate the total revenue within a specified time period.
+        """
+        total_revenue = db.session.query(func.sum(Invoice.total_amount)).filter(
+            and_(Invoice.created_at >= start_date, Invoice.created_at <= end_date)
+        ).scalar()
+        return total_revenue or 0
+
+    @staticmethod
+    def compare_sales_periods(period1_start, period1_end, period2_start, period2_end):
+        """
+        Compare revenue between two time periods and calculate the percentage increase or decrease.
+        """
+        revenue_period1 = Invoice.calculate_revenue(period1_start, period1_end)
+        revenue_period2 = Invoice.calculate_revenue(period2_start, period2_end)
+
+        if revenue_period1 == 0:
+            return 0  # Avoid division by zero
+
+        percentage_change = ((revenue_period2 - revenue_period1) / revenue_period1) * 100
+        return percentage_change
+
 class InvoiceItem(db.Model):
     __tablename__ = 'invoice_items'
 
@@ -172,3 +239,42 @@ class InvoiceItem(db.Model):
         db.Index('idx_invoice_item_invoice', 'invoice_id'),
         db.Index('idx_invoice_item_wine', 'wine_id')
     )
+
+
+
+class logEntry(db.Model):
+    # Table name
+    __tablename__ = 'log_entries'
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
+    action = db.Column(db.String(100), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    ip_address = db.Column(db.String(45), nullable=True)
+    user_agent = db.Column(db.String(255), nullable=True)
+    endpoint = db.Column(db.String(255), nullable=True)
+    method = db.Column(db.String(10), nullable=True)
+    status_code = db.Column(db.Integer, nullable=True)
+    additional_data = db.Column(db.Text, nullable=True)
+
+    # Table indexing
+    __table_args__ = (
+        db.Index('idx_log_timestamp', timestamp),
+        db.Index('idx_log_user_id', user_id),
+        db.Index('idx_log_action', action),
+    )
+    def to_dict(self):
+        """Convert log entry to a dictionary for JSON responses."""
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "action": self.action,
+            "message": self.message,
+            "timestamp": self.timestamp.isoformat(),
+            "ip_address": self.ip_address,
+            "user_agent": self.user_agent,
+            "endpoint": self.endpoint,
+            "method": self.method,
+            "additional_data": self.additional_data,
+            "status_code": self.status_code,
+        }

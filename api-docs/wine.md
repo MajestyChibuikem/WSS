@@ -35,3 +35,36 @@ get stock by category
         {
             "message" : "error fetching stock by category"
         }
+
+
+get revenue for a specified time period
+    endpoint : /revenue
+    methods : GET
+    description: Calculates revenue within a specified time period.
+    request body
+    {
+        "start_date" : "YYYY-MM-DD",
+        "end_date" : "YYYY-MM-DD"
+    }
+    response
+        success:
+        {
+            "revenue" : "<float>"
+        }
+        error 400 : bad request
+        {
+            "message" : "Invalid date time format. use YYYY-MM-DD"
+        }
+        error 500 : internal server error
+        {
+            "message" : "error calculating revenue"
+        }
+
+
+compare sales
+    endpoint : /compare-sales
+    method : GET
+    description : Compares revenue between two time periods and calculates percentage change.
+    request body{
+        "message" : 
+    }

@@ -1,0 +1,34 @@
+# Ignore everything inside cedar-frontend/ folder
+cedar-frontend/node_modules/
+cedar-frontend/.pnp/
+cedar-frontend/.pnp.js
+cedar-frontend/.yarn/
+cedar-frontend/coverage/
+cedar-frontend/.next/
+cedar-frontend/out/
+cedar-frontend/build/
+cedar-frontend/.DS_Store
+cedar-frontend/*.pem
+cedar-frontend/npm-debug.log*
+cedar-frontend/yarn-debug.log*
+cedar-frontend/yarn-error.log*
+cedar-frontend/.env*.local
+cedar-frontend/.vercel/
+cedar-frontend/*.tsbuildinfo
+cedar-frontend/next-env.d.ts
+
+# Ignore everything inside majesty-backend/ folder
+majesty-backend/venv/
+majesty-backend/env/
+majesty-backend/__pycache__/
+majesty-backend/*.py[cod]
+majesty-backend/*$py.class
+majesty-backend/*.so
+majesty-backend/.env
+majesty-backend/.vscode/
+majesty-backend/.idea/
+majesty-backend/dist/
+majesty-backend/build/
+majesty-backend/*.spec
+majesty-backend/*.db
+majesty-backend/*.log

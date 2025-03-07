@@ -20,15 +20,22 @@ cedar-frontend/next-env.d.ts
 # Ignore everything inside majesty-backend/ folder
 majesty-backend/venv/
 majesty-backend/env/
-majesty-backend/__pycache__/
-majesty-backend/*.py[cod]
-majesty-backend/*$py.class
-majesty-backend/*.so
-majesty-backend/.env
 majesty-backend/.vscode/
 majesty-backend/.idea/
 majesty-backend/dist/
 majesty-backend/build/
 majesty-backend/*.spec
-majesty-backend/*.db
 majesty-backend/*.log
+majesty-backend/.env
+
+# Ignore Python cache and compiled files
+majesty-backend/__pycache__/
+majesty-backend/**/*.pyc
+majesty-backend/**/*.pyo
+majesty-backend/**/*.pyd
+majesty-backend/**/*.pyd
+majesty-backend/*$py.class
+
+# Ignore database files
+majesty-backend/*.db
+majesty-backend/instance/*.db

@@ -33,8 +33,9 @@ def create_app(config_class=None):
     init_logger(app)  # Initialize logging
     jwt.init_app(app)
     migrate.init_app(app, db)
-    cors.init_app(app, resources={r"/*": {"origins": "http://localhost:3000"}})  # Enable CORS for frontend
+    #cors.init_app(app, resources={r"/*": {"origins": "http://localhost:3000"}})  # Enable CORS for frontend
 
+    CORS(app)
     # Register blueprints (definitive registrations)
     from app.routes.auth import auth_bp
     from app.routes.cart import carts_bp

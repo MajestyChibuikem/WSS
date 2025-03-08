@@ -29,12 +29,23 @@ function Page() {
         username: user.username,
         password: user.password,
       }).unwrap(); // RTK Query call
-      sessionStorage.setItem("authToken", response.token); // Store token
-      router.push("/"); // Redirect to dashboard
+
+      console.log("token: ", response.token);
+      localStorage.setItem("authToken", response.token); // Use localStorage
+
+      // Ensure localStorage is set before redirecting
+      setTimeout(() => {
+        if (localStorage.getItem("authToken")) {
+          router.push("/");
+        } else {
+          console.error("LocalStorage failed to set authToken");
+        }
+      }, 100);
     } catch (error) {
       console.error("Login failed:", error);
     }
   };
+
   return (
     <div className="fixed top-0 right-0 h-[100vh] w-[100vw] flex overflow-y-auto justify-center bg-background ">
       <div className="h-max w-[25rem] border border-accent p-8 rounded-xl space-y-8 relative top-[15vh] shadow-2xl">

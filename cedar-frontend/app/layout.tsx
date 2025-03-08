@@ -3,6 +3,7 @@ import Sidebar from "./components/sidebar";
 import Topbar from "./components/topbar";
 import "./globals.css";
 import ProviderWrapper from "./components/ProviderWrapper";
+import ProtectedRoute from "./ProtectedRoutes";
 
 export default function RootLayout({
   children,
@@ -13,11 +14,21 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ProviderWrapper>
-          <Topbar />
           <div className="flex">
-            {/* <Sidebar /> */}
-            <div>{children}</div>
-            {/* <NewWineSideBar /> */}
+            {typeof window !== "undefined" &&
+            window.location.pathname === "/login" ? (
+              <div>
+                <Topbar />
+                {children}
+              </div> // Show login page without protection
+            ) : (
+              <ProtectedRoute>
+                <div>
+                  <Topbar />
+                  {children}
+                </div>
+              </ProtectedRoute>
+            )}
           </div>
         </ProviderWrapper>
       </body>

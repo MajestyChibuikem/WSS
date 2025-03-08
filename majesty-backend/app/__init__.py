@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
+from flask_cors import CORS  # Import CORS
 import os
 import click  # Import click for CLI commands
 from app.utils.logger import init_app as init_logger
@@ -10,6 +11,7 @@ from app.utils.logger import init_app as init_logger
 db = SQLAlchemy()
 jwt = JWTManager()
 migrate = Migrate()
+cors = CORS()  # Initialize CORS
 
 def create_app(config_class=None):
     app = Flask(__name__)
@@ -31,6 +33,7 @@ def create_app(config_class=None):
     init_logger(app)  # Initialize logging
     jwt.init_app(app)
     migrate.init_app(app, db)
+    cors.init_app(app, resources={r"/*": {"origins": "http://localhost:3000"}})  # Enable CORS for frontend
 
     # Register blueprints (definitive registrations)
     from app.routes.auth import auth_bp

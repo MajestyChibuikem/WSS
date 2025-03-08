@@ -124,33 +124,53 @@ get user by id
         }
 
     
-update user roles
-    endpoint: /auth/user/<int:user_id>/roles
-    method: PUT
-    description : Updates the roles of a specific user. Only users with the admin role can access this endpoint.
-    request headers : Authorization: Bearer <JWT_TOKEN>
-    request body :
+
+update user details
+    endpoint: /users/<int:user_id>
+    method : PUT
+    description : to update user details, the parameters are optional so you can target the one you want to change, others remain the same, it allows updating a user's details, including their username, password, roles, and admin status. Admins can update any user, while non-admins can only update their own username and password.
+    authentication : Bearer <your_jwt_token>
+    permissions: 
+        admin - Can update any user's details, including roles and admin status. 
+        non-admins - can only update their own username and password
+
+    request parameters:
+        user_id - int - id of the user
+    request body
     {
-        "roles" : ['admin", "staff", "super_user"]
+        "username" : "string",
+        "password" : "password",
+        "is_admin" : "boolean",
+        "roles" : "string or array will work here"
     }
-    response:
-        success:
+    reponses:
+        success: !!!this is a sample json cedar!!!
         {
-            "message" : "user roles updated successfully",
-            "roles" : ["admin", "staff"]
+            "message" : "user updated succesfully",
+            "user":{
+                "id" : 1,
+                "username" : "new_username",
+                "is_admin" : "true",
+                "roles" : "staff"
+            }
         }
-        error 400: 
+        error 400 : bad request
         {
-            "message" : "roles are required"   
+            "message" : "username already exists"
         }
-        error 403 : unauthorised
+        error 403: forbidden : Non-admin user attempting to update another user's details.
         {
-            "message" : "unauthorized - only admins can update user roles"
+            "message" : "unauthorized"
         }
-        error 404 : user not found
+        error 404 
         {
             "message" : "user not found"
         }
+        error 500: internal server error
+        {
+            "message" : "error updating user: <erro_details>"
+        }
+
 
 
 delete user

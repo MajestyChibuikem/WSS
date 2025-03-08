@@ -70,6 +70,8 @@ class User(db.Model):
         new_user = User(username=username)
         new_user.set_password(password)
         if roles:
+            if isinstance(roles, str):
+                roles = [roles]
             for role_name in roles:
                 new_user.add_role(role_name)
         db.session.add(new_user)

@@ -68,3 +68,152 @@ compare sales
     request body{
         "message" : 
     }
+
+
+delete wine
+    endpoint: 
+    method :PUT
+    description : Deletes a specific wine from the inventory by its ID.
+    Authentication: JWT required.
+    Permissions: Only administrators or super users can delete wines.
+
+    repsonse
+    {
+        "message" : "wine deleted succesfully"
+    }
+    error 403 : forbidden
+    {
+        "message" : "user lacks permission"
+    }
+    error 404 : 
+    {
+        "message" : "wine_id does not exist"
+    }
+    error 500:internal server error
+    {
+        "message" : "an error occured when deleting the wine"
+    }
+
+Update Wine
+Endpoint: /wine/<int:wine_id>
+Method: PUT
+Description: Updates details of a specific wine (e.g., name, price, stock).
+Authentication: JWT required.
+Permissions: Only administrators or super users can update wines.
+
+Request Body (Partial fields allowed):
+
+json
+Copy
+{
+  "name": "Updated Cabernet Sauvignon",  // Optional
+  "abv": 14.5,                          // Optional
+  "price": 35.99,                       // Optional
+  "category": "Red",                    // Optional
+  "bottle_size": 750,                   // Optional
+  "in_stock": 50                        // Optional
+}
+Example Request:
+
+http
+Copy
+PUT /wine/1 HTTP/1.1
+Authorization: Bearer <your_jwt_token>
+Content-Type: application/json
+
+{
+  "price": 35.99,
+  "in_stock": 50
+}
+Example Response (Success):
+
+json
+Copy
+{
+  "message": "Wine updated successfully",
+  "wine": {
+    "id": 1,
+    "name": "Updated Cabernet Sauvignon",
+    "abv": 14.5,
+    "price": 35.99,
+    "category": "Red",
+    "bottle_size": 750,
+    "in_stock": 50
+  }
+}
+Possible Errors:
+
+400 Bad Request: Invalid or missing data.
+
+403 Forbidden: User lacks permission.
+
+404 Not Found: Wine ID does not exist.
+
+500 Internal Server Error: Database error.
+
+Add Wine
+Endpoint: /wine
+Method: POST
+Description: Adds a new wine to the inventory.
+Authentication: JWT required.
+Permissions: Only administrators or super users can add wines.
+
+Request Body:
+
+json
+Copy
+{
+  "name": "Cabernet Sauvignon",  // Required
+  "abv": 14.5,                   // Required
+  "price": 29.99,                // Required
+  "category": "Red",             // Required
+  "bottle_size": 750,            // Required
+  "in_stock": 50                 // Optional (default: 0)
+}
+Example Request:
+
+http
+Copy
+POST /wine HTTP/1.1
+Authorization: Bearer <your_jwt_token>
+Content-Type: application/json
+
+{
+  "name": "Chardonnay",
+  "abv": 13.0,
+  "price": 19.99,
+  "category": "White",
+  "bottle_size": 750
+}
+Example Response (Success):
+
+json
+Copy
+{
+  "message": "Wine added successfully",
+  "wine": {
+    "id": 2,
+    "name": "Chardonnay",
+    "abv": 13.0,
+    "price": 19.99,
+    "category": "White",
+    "bottle_size": 750,
+    "in_stock": 0,
+    "added_by": 1,
+    "added_at": "2023-10-01T12:34:56"
+  }
+}
+Possible Errors:
+
+400 Bad Request: Missing required fields.
+
+403 Forbidden: User lacks permission.
+
+500 Internal Server Error: Database error.
+
+Notes:
+Replace <your_jwt_token> with a valid JWT.
+
+All timestamps (e.g., added_at) are in ISO 8601 format.
+
+Numeric fields (price, abv) must be valid numbers.

@@ -653,3 +653,77 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-08 02:16:51,419] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: No stock data found
 [2025-03-08 17:21:59,447] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-03-08 17:22:07,703] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-08 20:05:36,892] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-08 20:05:42,999] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully
+[2025-03-08 20:06:24,793] ERROR in logger: [EXCEPTION] User None: Unhandled exception: MethodNotAllowed
+[2025-03-08 20:06:24,800] ERROR in app: Exception on /wine/add [GET]
+Traceback (most recent call last):
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 184, in log_exception
+    raise exception
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/werkzeug/routing/map.py", line 624, in match
+    raise MethodNotAllowed(valid_methods=list(e.have_match_for)) from None
+werkzeug.exceptions.MethodNotAllowed: 405 Method Not Allowed: The method is not allowed for the requested URL.
+[2025-03-08 20:06:24,804] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2025-03-08 20:08:31,064] ERROR in logger: [EXCEPTION] User None: Unhandled exception: MethodNotAllowed
+[2025-03-08 20:08:31,075] ERROR in app: Exception on /wine/add [GET]
+Traceback (most recent call last):
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 184, in log_exception
+    raise exception
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/werkzeug/routing/map.py", line 624, in match
+    raise MethodNotAllowed(valid_methods=list(e.have_match_for)) from None
+werkzeug.exceptions.MethodNotAllowed: 405 Method Not Allowed: The method is not allowed for the requested URL.
+[2025-03-08 20:08:31,108] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2025-03-08 20:10:31,854] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-08 20:10:37,870] INFO in logger: [ADD_WINE_SUCCESS] User 1: Wine added: 1

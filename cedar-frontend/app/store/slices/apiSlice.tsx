@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Wine } from "@/app/utils/types";
+import { User, Wine } from "@/app/utils/types";
 
-// Base query with authorization setup
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
@@ -17,7 +16,7 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     // Login
     login: builder.mutation<
-      { token: string },
+      { token: string; roles: string[]; is_admin: boolean },
       { username: string; password: string }
     >({
       query: (credentials) => ({
@@ -27,8 +26,74 @@ export const apiSlice = createApi({
       }),
     }),
 
-    // 🔹 NEW: Get all wines
-    getWines: builder.query<Wine[], void>({
+    // Create User
+    createUser: builder.mutation<
+      { message: string; user_id: number; roles: string[] },
+      { username: string; password: string; is_admin: boolean; roles: string[] }
+    >({
+      query: (body) => ({
+        url: "/auth/create_user",
+        method: "POST",
+        body,
+      }),
+    }),
+
+    // Logout
+    logout: builder.mutation<{ message: string }, void>({
+      query: () => ({
+        url: "/auth/logout",
+        method: "POST",
+      }),
+    }),
+
+    // Get All Users (Admin Only)
+    getUsers: builder.query<
+      {
+        users: User[];
+      },
+      void
+    >({
+      query: () => "/auth/users",
+    }),
+
+    // Get User by ID (Admin Only)
+    getUserById: builder.query<
+      {
+        user: {
+          id: number;
+          username: string;
+          created_at: string;
+          is_admin: boolean;
+          roles: string[];
+        };
+      },
+      number
+    >({
+      query: (user_id) => `/auth/user/${user_id}`,
+    }),
+
+    // Update User Roles (Admin Only)
+    updateUserRoles: builder.mutation<
+      { message: string; roles: string[] },
+      { user_id: number; roles: string[] }
+    >({
+      query: ({ user_id, roles }) => ({
+        url: `/auth/user/${user_id}/roles`,
+        method: "PUT",
+        body: { roles },
+      }),
+    }),
+
+    // Delete User (Admin Only)
+    deleteUser: builder.mutation<{ message: string }, number>({
+      query: (user_id) => ({
+        url: `/auth/user/${user_id}`,
+        method: "DELETE",
+      }),
+    }),
+
+    // Fetch all wines
+    getWines: builder.query<{ wines: [] }, void>({
       query: () => "/wine",
     }),
 
@@ -73,7 +138,13 @@ export const apiSlice = createApi({
 
 export const {
   useLoginMutation,
-  useGetWinesQuery, // 🔹 Added this
+  useCreateUserMutation,
+  useLogoutMutation,
+  useGetUsersQuery,
+  useGetUserByIdQuery,
+  useUpdateUserRolesMutation,
+  useDeleteUserMutation,
+  useGetWinesQuery,
   useGetTotalWineStockQuery,
   useGetStockByCategoryQuery,
   useGetRevenueMutation,

@@ -14,40 +14,17 @@ const config: Config = {
         background: "#0f171b",
         accent: "#39da79",
         background_light: "#19262d",
-
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        chart: {
-          "1": "hsl(var(--chart-1))",
-          "2": "hsl(var(--chart-2))",
-          "3": "hsl(var(--chart-3))",
-          "4": "hsl(var(--chart-4))",
-          "5": "hsl(var(--chart-5))",
-        },
+      },
+      fontSize: {
+        base: "var(--fs-base)",
+        big: "var(--fs-big)",
+        bigger: "var(--fs-bigger)",
+        h1: "var(--fs-h1)",
+        h2: "var(--fs-h2)",
+        h3: "var(--fs-h3)",
+        h4: "var(--fs-h4)",
+        h5: "var(--fs-h5)",
+        h6: "var(--fs-h6)",
       },
     },
   },

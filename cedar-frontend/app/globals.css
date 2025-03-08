@@ -6,7 +6,18 @@
   --foreground: #ffffff;
   --background: #0f171b;
   --accent: #39da79;
+
+  --fs-base: clamp(16px, 1.1vw, 18px);
+  --fs-big: clamp(18px, 1.4vw, 22px);
+  --fs-bigger: clamp(24px, 2.2vw, 32px);
+  --fs-h1: clamp(35px, 3.8vw, 55px);
+  --fs-h2: clamp(30px, 3.3vw, 48px);
+  --fs-h3: clamp(28px, 2.8vw, 40px);
+  --fs-h4: clamp(26px, 2.4vw, 35px);
+  --fs-h5: clamp(24px, 2vw, 28px);
+  --fs-h6: clamp(20px, 1.4vw, 20px);
 }
+
 
 /* @media (prefers-color-scheme: dark) {
   :root {
@@ -19,6 +30,10 @@
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+.fs-h1 {
+  font-size: var(--fs-h1);
 }
 
 @layer components {

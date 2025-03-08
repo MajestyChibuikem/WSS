@@ -15,6 +15,7 @@ import { toggleWineEditor } from "../store/slices/wineSlice";
 import CheckboxSelector from "../components/checkbox_selector";
 import { updateInventoryFilter } from "../store/slices/inventorySlice";
 import { useGetWinesQuery } from "../store/slices/apiSlice";
+import Empty from "../components/empty";
 
 function Page() {
   const showWineEditor = useSelector(
@@ -25,9 +26,9 @@ function Page() {
   );
   const dispatch = useDispatch();
 
-  const { data: wines, error, isLoading } = useGetWinesQuery();
+  const { data: wineData, error, isLoading } = useGetWinesQuery();
 
-  console.log("wines", wines);
+  console.log("wines", wineData, wineData?.wines.length);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error fetching wines</p>;
@@ -190,13 +191,23 @@ function Page() {
         </div>
         <div className="px-8 w-[calc(100vw-25rem)]">
           <div className="space-y-2">
-            {wineInventory.map((wine, idx) => (
-              <TableRow
-                id={"inventory_wine_card_" + idx}
-                key={idx}
-                wine={wine}
+            {!wineData ? (
+              <Empty
+                info={
+                  "there seems to currently be an issue with the server... Try again later"
+                }
               />
-            ))}
+            ) : wineData.wines.length == 0 ? (
+              <Empty info={"Inventory is currently empty."} />
+            ) : (
+              wineInventory.map((wine, idx) => (
+                <TableRow
+                  id={"inventory_wine_card_" + idx}
+                  key={idx}
+                  wine={wine}
+                />
+              ))
+            )}
           </div>
         </div>
       </div>

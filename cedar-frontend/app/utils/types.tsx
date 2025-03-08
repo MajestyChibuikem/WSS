@@ -10,15 +10,17 @@ export const enum Actions {
 }
 
 export const enum Roles {
-  ADMIN = "ADMIN",
-  SUPERUSER = "SUPERUSER",
-  STAFF = "STAFF",
+  ADMIN = "admin",
+  SUPERUSER = "superuser",
+  STAFF = "staff",
 }
 
 export interface User {
-  firstname: string;
-  lastname: string;
-  role: Roles;
+  id: number;
+  username: string;
+  created_at: string;
+  is_admin: boolean;
+  roles: string[];
 }
 
 export interface DropdownItem<T> {

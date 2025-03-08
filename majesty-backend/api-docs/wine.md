@@ -152,7 +152,7 @@ Possible Errors:
 500 Internal Server Error: Database error.
 
 Add Wine
-Endpoint: /wine
+Endpoint: /wine/add
 Method: POST
 Description: Adds a new wine to the inventory.
 Authentication: JWT required.

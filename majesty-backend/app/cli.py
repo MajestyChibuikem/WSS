@@ -1,3 +1,5 @@
+import click
+
 def register_cli_commands(app):
     """Register custom CLI commands."""
     @app.cli.command("create-admin")
@@ -6,6 +8,7 @@ def register_cli_commands(app):
     def create_admin(username, password):
         """Create an admin user."""
         from app.models import User, Role
+        from app import db
 
         with app.app_context():
             # Create the 'admin' role if it doesn't exist

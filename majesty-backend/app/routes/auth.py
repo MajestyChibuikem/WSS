@@ -27,6 +27,8 @@ def login():
         }
 
         # Create a JWT with the user's ID as the identity (must be a string)
+        # and the additional claims as the JWT body itself
+        #the token was a dictionary
         access_token = create_access_token(identity=str(user.id), additional_claims=additional_claims)
         
         log_action(user.id, 'LOGIN_SUCCESS', 'User logged in successfully', 

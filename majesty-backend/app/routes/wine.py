@@ -178,3 +178,163 @@ def get_all_wines():
 def test():
     current_user_id = get_jwt_identity()
     return jsonify({"user_id": current_user_id}), 200
+
+
+@wine_bp.route('/', methods=['POST'])
+@jwt_required()
+def add_wine():
+    """
+    Add a new wine to the inventory.
+    """
+    current_user_id = get_jwt_identity()
+    if isinstance(current_user_id, dict):
+        current_user_id = current_user_id.get('id')
+
+    # Check if the user has permission to manage inventory
+    user = User.query.get(current_user_id)
+    if not user.can_manage_inventory():
+        log_action(current_user_id, 'ADD_WINE_ERROR', 'Unauthorized attempt to add wine')
+        return jsonify({'message': 'Only administrators and super users can add wines'}), 403
+
+    # Get the wine data from the request
+    data = request.get_json()
+    if not data:
+        log_action(current_user_id, 'ADD_WINE_ERROR', 'No data provided for new wine')
+        return jsonify({'message': 'No data provided for new wine'}), 400
+
+    # Validate required fields
+    required_fields = ['name', 'abv', 'price', 'category', 'bottle_size']
+    for field in required_fields:
+        if field not in data:
+            log_action(current_user_id, 'ADD_WINE_ERROR', f'Missing required field: {field}')
+            return jsonify({'message': f'Missing required field: {field}'}), 400
+
+    try:
+        # Create a new wine
+        wine = Wine(
+            name=data['name'],
+            abv=data['abv'],
+            price=data['price'],
+            category=data['category'],
+            bottle_size=data['bottle_size'],
+            in_stock=data.get('in_stock', 0),  # Default to 0 if not provided
+            added_by=current_user_id
+        )
+
+        # Add the wine to the database
+        db.session.add(wine)
+        db.session.commit()
+
+        log_action(current_user_id, 'ADD_WINE_SUCCESS', f'Wine added: {wine.id}')
+        return jsonify({
+            'message': 'Wine added successfully',
+            'wine': {
+                'id': wine.id,
+                'name': wine.name,
+                'abv': wine.abv,
+                'price': float(wine.price),
+                'category': wine.category,
+                'bottle_size': wine.bottle_size,
+                'in_stock': wine.in_stock,
+                'added_by': wine.added_by,
+                'added_at': wine.added_at.isoformat() if wine.added_at else None
+            }
+        }), 201
+    except Exception as e:
+        db.session.rollback()
+        log_action(current_user_id, 'ADD_WINE_ERROR', str(e), level='error')
+        return jsonify({'message': f'Error adding wine: {str(e)}'}), 500
+
+@wine_bp.route('/<int:wine_id>', methods=['PUT'])
+@jwt_required()
+def update_wine(wine_id):
+    """
+    Update a wine's details.
+    """
+    current_user_id = get_jwt_identity()
+    if isinstance(current_user_id, dict):
+        current_user_id = current_user_id.get('id')
+
+    # Check if the user has permission to manage inventory
+    user = User.query.get(current_user_id)
+    if not user.can_manage_inventory():
+        log_action(current_user_id, 'UPDATE_WINE_ERROR', 'Unauthorized attempt to update wine')
+        return jsonify({'message': 'Only administrators and super users can update wines'}), 403
+
+    # Get the wine to update
+    wine = Wine.query.get(wine_id)
+    if not wine:
+        log_action(current_user_id, 'UPDATE_WINE_ERROR', f'Wine not found: {wine_id}')
+        return jsonify({'message': 'Wine not found'}), 404
+
+    # Get the updated data from the request
+    data = request.get_json()
+    if not data:
+        log_action(current_user_id, 'UPDATE_WINE_ERROR', 'No data provided for update')
+        return jsonify({'message': 'No data provided for update'}), 400
+
+    try:
+        # Update the wine's details
+        if 'name' in data:
+            wine.name = data['name']
+        if 'abv' in data:
+            wine.abv = data['abv']
+        if 'price' in data:
+            wine.price = data['price']
+        if 'category' in data:
+            wine.category = data['category']
+        if 'bottle_size' in data:
+            wine.bottle_size = data['bottle_size']
+        if 'in_stock' in data:
+            wine.in_stock = data['in_stock']
+
+        db.session.commit()
+
+        log_action(current_user_id, 'UPDATE_WINE_SUCCESS', f'Wine updated: {wine_id}')
+        return jsonify({'message': 'Wine updated successfully', 'wine': {
+            'id': wine.id,
+            'name': wine.name,
+            'abv': wine.abv,
+            'price': float(wine.price),
+            'category': wine.category,
+            'bottle_size': wine.bottle_size,
+            'in_stock': wine.in_stock
+        }}), 200
+    except Exception as e:
+        db.session.rollback()
+        log_action(current_user_id, 'UPDATE_WINE_ERROR', str(e), level='error')
+        return jsonify({'message': f'Error updating wine: {str(e)}'}), 500
+    
+@wine_bp.route('/<int:wine_id>', methods=['DELETE'])
+@jwt_required()
+def delete_wine(wine_id):
+    """
+    Delete a wine from the inventory.
+    """
+    current_user_id = get_jwt_identity()
+    if isinstance(current_user_id, dict):
+        current_user_id = current_user_id.get('id')
+
+    # Check if the user has permission to manage inventory
+    user = User.query.get(current_user_id)
+    if not user.can_manage_inventory():
+        log_action(current_user_id, 'DELETE_WINE_ERROR', 'Unauthorized attempt to delete wine')
+        return jsonify({'message': 'Only administrators and super users can delete wines'}), 403
+
+    # Get the wine to delete
+    wine = Wine.query.get(wine_id)
+    if not wine:
+        log_action(current_user_id, 'DELETE_WINE_ERROR', f'Wine not found: {wine_id}')
+        return jsonify({'message': 'Wine not found'}), 404
+
+    try:
+        # Delete the wine
+        db.session.delete(wine)
+        db.session.commit()
+
+        log_action(current_user_id, 'DELETE_WINE_SUCCESS', f'Wine deleted: {wine_id}')
+        return jsonify({'message': 'Wine deleted successfully'}), 200
+    except Exception as e:
+        db.session.rollback()
+        log_action(current_user_id, 'DELETE_WINE_ERROR', str(e), level='error')
+        return jsonify({'message': f'Error deleting wine: {str(e)}'}), 500

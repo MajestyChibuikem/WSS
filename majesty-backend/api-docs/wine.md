@@ -217,3 +217,35 @@ Replace <your_jwt_token> with a valid JWT.
 All timestamps (e.g., added_at) are in ISO 8601 format.
 
 Numeric fields (price, abv) must be valid numbers.
+
+
+get inventory value
+    endpoint : /wine/inventory-value
+    method : GET
+    description : Retrieves the total value of the current inventory, grouped by category.
+    responses:
+        success
+        {
+            {<category> : <value>}
+        }
+        error 500: internal server error
+        {
+            "message" : "error while fetching inventory value "
+        }
+get user sales
+    endpoint : /wine/user-sales/{user_id}
+    description : Tracks the total sales (invoices) for a specific user.
+    response:
+        success
+        {
+            { "user_id": <int>, "total_sales": <float> }
+        }
+        error 404:
+        {
+            "message" : "user not found"
+        }
+        error 500 : internal server error
+        {
+            "message" : "error fetching the user sales"
+        }
+

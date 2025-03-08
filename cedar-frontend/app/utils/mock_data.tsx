@@ -1,5 +1,14 @@
 import { ArrowDownAZ, ArrowUpAZ } from "lucide-react";
-import { Actions, DropdownItem, Roles, SortOrder, User, Wine } from "./types";
+import {
+  Actions,
+  DropdownItem,
+  Roles,
+  SortOrder,
+  User,
+  Wine,
+  WineCategory,
+  WineCategoryEnum,
+} from "./types";
 
 export const wineCategories = [
   { content: "Red", stock_count: 1073 },
@@ -65,6 +74,39 @@ export const actionDropdownItems: DropdownItem<Actions>[] = [
     icon: null,
     content: "DELETE",
     value: Actions.DELETE,
+  },
+];
+
+export const categoryDropdownItems: DropdownItem<WineCategoryEnum>[] = [
+  {
+    icon: null,
+    content: WineCategoryEnum.WHITE,
+    value: WineCategoryEnum.WHITE,
+  },
+  {
+    icon: null,
+    content: WineCategoryEnum.RED,
+    value: WineCategoryEnum.RED,
+  },
+  {
+    icon: null,
+    content: WineCategoryEnum.ROSE,
+    value: WineCategoryEnum.ROSE,
+  },
+  {
+    icon: null,
+    content: WineCategoryEnum.SPARKLING,
+    value: WineCategoryEnum.SPARKLING,
+  },
+  {
+    icon: null,
+    content: WineCategoryEnum.DESSERT,
+    value: WineCategoryEnum.DESSERT,
+  },
+  {
+    icon: null,
+    content: WineCategoryEnum.FORTIFIED,
+    value: WineCategoryEnum.FORTIFIED,
   },
 ];
 

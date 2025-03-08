@@ -13,9 +13,10 @@ interface Params<T> {
   id: string;
   items: DropdownItem<T>[];
   className?: string;
+  action?: () => void;
 }
 
-function Dropdown<T>({ id, items, className }: Params<T>) {
+function Dropdown<T>({ id, items, className, action }: Params<T>) {
   const dispatch = useDispatch();
   const dropdown = useSelector(
     (state: RootState) => state.dropdown.dropdowns[id]
@@ -49,7 +50,10 @@ function Dropdown<T>({ id, items, className }: Params<T>) {
           {items.map((item, idx) => (
             <div
               key={idx}
-              onClick={() => dispatch(updateToggleItem({ id, item }))}
+              onClick={() => {
+                action && action();
+                dispatch(updateToggleItem({ id, item }));
+              }}
               className="flex gap-3 p-3 hover:bg-background_light/70 rounded-lg cursor-pointer"
             >
               {item.icon}

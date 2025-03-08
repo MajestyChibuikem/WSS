@@ -11,11 +11,12 @@ import Dropdown from "../components/dropdown";
 import NewWineSideBar from "../components/new_wine_sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
-import { toggleWineEditor } from "../store/slices/wineSlice";
+import { toggleWineEditor, updateAction } from "../store/slices/wineSlice";
 import CheckboxSelector from "../components/checkbox_selector";
 import { updateInventoryFilter } from "../store/slices/inventorySlice";
 import { useGetWinesQuery } from "../store/slices/apiSlice";
 import Empty from "../components/empty";
+import { Actions } from "../utils/types";
 
 function Page() {
   const showWineEditor = useSelector(
@@ -56,7 +57,10 @@ function Page() {
 
           <div>
             <button
-              onClick={() => dispatch(toggleWineEditor())}
+              onClick={() => {
+                dispatch(toggleWineEditor());
+                dispatch(dispatch(updateAction(Actions.CREATE)));
+              }}
               className="px-5 py-2 bg-accent text-background rounded-xl"
             >
               Add Product
@@ -65,7 +69,7 @@ function Page() {
         </div>
       </div>
       <div className="flex w-[100vw]">
-        <div className="w-[25rem] h-[100vh]">
+        <div className="w-[25rem] h-[100vh] overflow-y-auto">
           <div className="fixed w-[24rem] h-[calc(100vh-9rem)] top-[9rem] p-10 pr-0 pt-0 left-0">
             <div className="p-6 rounded-lg space-y-8 bg-background_light/60 h-full">
               <div className="space-y-4">
@@ -133,7 +137,10 @@ function Page() {
                   </div>
                 </div>
               </div>
-              <div className="text-sm relative">
+              <div className="text-sm relative space-y-4">
+                <p className="text-xs text-foreground/60 font-medium">
+                  SORT ORDER
+                </p>
                 <Dropdown id="inventory_abv_range" items={dropdownItems} />
               </div>
               <div className="space-y-4">

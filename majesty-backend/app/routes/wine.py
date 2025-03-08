@@ -180,7 +180,7 @@ def test():
     return jsonify({"user_id": current_user_id}), 200
 
 
-@wine_bp.route('/', methods=['POST'])
+@wine_bp.route('/add', methods=['POST'])
 @jwt_required()
 def add_wine():
     """

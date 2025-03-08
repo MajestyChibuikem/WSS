@@ -651,3 +651,5 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-08 02:13:01,182] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-03-08 02:16:32,678] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully
 [2025-03-08 02:16:51,419] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: No stock data found
+[2025-03-08 17:21:59,447] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-08 17:22:07,703] INFO in logger: Wine Inventory API Started - Environment: development

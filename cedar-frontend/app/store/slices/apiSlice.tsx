@@ -94,7 +94,7 @@ export const apiSlice = createApi({
 
     // Fetch all wines
     getWines: builder.query<{ wines: [] }, void>({
-      query: () => "/wine",
+      query: () => "/wine/all",
     }),
 
     // Fetch total wine stock
@@ -111,26 +111,73 @@ export const apiSlice = createApi({
     }),
 
     // Get revenue within a specified time period
-    getRevenue: builder.mutation<
+    getRevenue: builder.query<
       { revenue: number },
       { start_date: string; end_date: string }
     >({
-      query: (body) => ({
+      query: ({ start_date, end_date }) => ({
         url: "/revenue",
+        method: "GET",
+        body: { start_date, end_date },
+      }),
+    }),
+
+    // Add Wine
+    addWine: builder.mutation<
+      { message: string; wine: Wine },
+      {
+        name: string;
+        abv: number;
+        price: number;
+        category: string;
+        bottle_size: number;
+        in_stock?: number;
+      }
+    >({
+      query: (body) => ({
+        url: "/wine/add",
         method: "POST",
         body,
       }),
     }),
 
+    // Update Wine
+    updateWine: builder.mutation<
+      { message: string; wine: Wine },
+      {
+        wine_id: number;
+        name?: string;
+        abv?: number;
+        price?: number;
+        category?: string;
+        bottle_size?: number;
+        in_stock?: number;
+      }
+    >({
+      query: ({ wine_id, ...body }) => ({
+        url: `/wine/${wine_id}`,
+        method: "PUT",
+        body,
+      }),
+    }),
+
+    // Delete Wine
+    deleteWine: builder.mutation<{ message: string }, { wine_id: number }>({
+      query: ({ wine_id }) => ({
+        url: `/wine/${wine_id}`,
+        method: "PUT",
+      }),
+    }),
+
     // Compare sales between two time periods
-    compareSales: builder.mutation<
+    compareSales: builder.query<
       { message: string },
       { start_date: string; end_date: string }
     >({
-      query: (body) => ({
+      query: ({ start_date, end_date }) => ({
         url: "/compare-sales",
-        method: "POST",
-        body,
+        method: "GET",
+        body: { start_date, end_date },
       }),
     }),
   }),
@@ -147,8 +194,11 @@ export const {
   useGetWinesQuery,
   useGetTotalWineStockQuery,
   useGetStockByCategoryQuery,
-  useGetRevenueMutation,
-  useCompareSalesMutation,
+  useGetRevenueQuery,
+  useCompareSalesQuery,
+  useAddWineMutation,
+  useUpdateWineMutation,
+  useDeleteWineMutation,
 } = apiSlice;
 
 export default apiSlice;

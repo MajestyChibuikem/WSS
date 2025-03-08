@@ -39,6 +39,15 @@ export interface Wine {
   inStock: number; // Number of bottles available
 }
 
+export const enum WineCategoryEnum {
+  RED = "Red",
+  WHITE = "White",
+  ROSE = "Rosé",
+  SPARKLING = "Sparkling",
+  DESSERT = "Dessert",
+  FORTIFIED = "Fortified",
+}
+
 export type WineCategory =
   | "Red"
   | "White"

@@ -28,6 +28,8 @@ majesty-backend/*.spec
 majesty-backend/*.log
 majesty-backend/.env
 
+
+venv/ 
 # Ignore Python cache and compiled files
 majesty-backend/__pycache__/
 majesty-backend/**/*.pyc

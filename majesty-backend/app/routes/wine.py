@@ -132,4 +132,36 @@ def get_user_sales(user_id):
         return jsonify({"user_id": user_id, "total_sales": user_sales}), 200
     except Exception as e:
         log_action(current_user_id, 'GET_USER_SALES_ERROR', str(e), level='error')
-        return jsonify({"error": f"Error fetching user sales: {str(e)}"}), 500
+        return jsonify({"error": f"Error fetching user sales: {str(e)}"}), 500   
+@wine_bp.route('/all', methods=['GET'])
+@jwt_required()
+def get_all_wines():
+    """
+    Get all wines in the inventory.
+    """
+    current_user_id = get_jwt_identity()
+    if isinstance(current_user_id, dict):
+        current_user_id = current_user_id.get('id')
+
+    try:
+        # Fetch all wines from the database
+        wines = Wine.query.all()
+        
+        # Convert wines to a list of dictionaries
+        wines_list = [{
+            "id": wine.id,
+            "name": wine.name,
+            "abv": wine.abv,
+            "price": float(wine.price),  # Convert Decimal to float for JSON serialization
+            "category": wine.category,
+            "bottle_size": wine.bottle_size,
+            "in_stock": wine.in_stock,
+            "added_by": wine.added_by,
+            "added_at": wine.added_at.isoformat() if wine.added_at else None
+        } for wine in wines]
+
+        log_action(current_user_id, 'GET_ALL_WINES', 'All wines fetched successfully')
+        return jsonify({"wines": wines_list}), 200
+    except Exception as e:
+        log_action(current_user_id, 'GET_ALL_WINES_ERROR', str(e), level='error')
+        return jsonify({"error": f"Error fetching all wines: {str(e)}"}), 500

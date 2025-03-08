@@ -77,3 +77,5 @@ Retrieve Logs by Action Type
                 "details": "User logged in successfully"
             }
         ]
+
+    

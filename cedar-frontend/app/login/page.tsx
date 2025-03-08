@@ -32,15 +32,7 @@ function Page() {
 
       console.log("token: ", response.token);
       localStorage.setItem("authToken", response.token); // Use localStorage
-
-      // Ensure localStorage is set before redirecting
-      setTimeout(() => {
-        if (localStorage.getItem("authToken")) {
-          router.push("/");
-        } else {
-          console.error("LocalStorage failed to set authToken");
-        }
-      }, 100);
+      router.push("/");
     } catch (error) {
       console.error("Login failed:", error);
     }

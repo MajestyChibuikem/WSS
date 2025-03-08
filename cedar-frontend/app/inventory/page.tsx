@@ -14,6 +14,7 @@ import { RootState } from "../store";
 import { toggleWineEditor } from "../store/slices/wineSlice";
 import CheckboxSelector from "../components/checkbox_selector";
 import { updateInventoryFilter } from "../store/slices/inventorySlice";
+import { useGetWinesQuery } from "../store/slices/apiSlice";
 
 function Page() {
   const showWineEditor = useSelector(
@@ -23,6 +24,13 @@ function Page() {
     (state: RootState) => state.inventory.inventoryFilter
   );
   const dispatch = useDispatch();
+
+  const { data: wines, error, isLoading } = useGetWinesQuery();
+
+  console.log("wines", wines);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error fetching wines</p>;
 
   return (
     <div className="">

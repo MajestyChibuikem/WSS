@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Wine } from "@/app/utils/types";
 
+// Base query with authorization setup
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
@@ -14,6 +15,7 @@ export const apiSlice = createApi({
     },
   }),
   endpoints: (builder) => ({
+    // Login
     login: builder.mutation<
       { token: string },
       { username: string; password: string }
@@ -23,6 +25,11 @@ export const apiSlice = createApi({
         method: "POST",
         body: credentials,
       }),
+    }),
+
+    // 🔹 NEW: Get all wines
+    getWines: builder.query<Wine[], void>({
+      query: () => "/wine",
     }),
 
     // Fetch total wine stock
@@ -66,6 +73,7 @@ export const apiSlice = createApi({
 
 export const {
   useLoginMutation,
+  useGetWinesQuery, // 🔹 Added this
   useGetTotalWineStockQuery,
   useGetStockByCategoryQuery,
   useGetRevenueMutation,

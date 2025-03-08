@@ -15,7 +15,7 @@ export default function ProtectedRoute({
     const checkAuth = () => {
       const token = localStorage.getItem("authToken");
       setIsAuthenticated(!!token);
-      console.log("token", token);
+      console.log("token in here", token);
       if (!token) {
         router.push("/login"); // Redirect if not authenticated
       }

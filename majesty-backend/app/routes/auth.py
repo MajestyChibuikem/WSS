@@ -8,6 +8,8 @@ from app.utils.logger import log_action
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
+from flask_jwt_extended import create_access_token
+
 @auth_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -17,13 +19,15 @@ def login():
     
     user = User.query.filter_by(username=data['username']).first()
     if user and user.check_password(data['password']):
-        # Include user roles in the token identity
+        # Include user roles and admin status in additional claims
         user_roles = [role.name for role in user.roles]
-        access_token = create_access_token(identity={
-            'id': str(user.id),
+        additional_claims = {
             'roles': user_roles,
             'is_admin': user.is_admin
-        })
+        }
+
+        # Create a JWT with the user's ID as the identity (must be a string)
+        access_token = create_access_token(identity=str(user.id), additional_claims=additional_claims)
         
         log_action(user.id, 'LOGIN_SUCCESS', 'User logged in successfully', 
                   additional_data={'username': user.username, 'roles': user_roles})
@@ -36,7 +40,6 @@ def login():
     log_action(None, 'LOGIN_FAILURE', 'Invalid login attempt', 
               additional_data={'attempted_username': data.get('username')})
     return jsonify({'message': 'Invalid credentials'}), 401
-
 @auth_bp.route('/create_user', methods=['POST'])
 @jwt_required()
 def create_user():

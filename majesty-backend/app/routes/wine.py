@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt 
 from sqlalchemy.sql import func, and_
 from datetime import datetime
 from app.models import User, Wine, Invoice
@@ -27,20 +27,27 @@ def get_total_stock():
 @wine_bp.route('/stock-by-category', methods=['GET'])
 @jwt_required()
 def get_stock_by_category():
-    """Get wine stock count grouped by category"""
     current_user_id = get_jwt_identity()
     if isinstance(current_user_id, dict):
         current_user_id = current_user_id.get('id')
 
     try:
+        # Fetch stock data grouped by category
         stock_data = db.session.query(Wine.category, func.sum(Wine.in_stock)).group_by(Wine.category).all()
+        
+        # If the database is empty, return an empty response
+        if not stock_data:
+            log_action(current_user_id, 'GET_STOCK_BY_CATEGORY', 'No stock data found')
+            return jsonify({'stock_by_category': {}}), 200
+        
+        # Convert stock data to a dictionary
         result = {row[0]: row[1] for row in stock_data if row[0] is not None}
+        
         log_action(current_user_id, 'GET_STOCK_BY_CATEGORY', 'Stock by category fetched successfully')
         return jsonify({'stock_by_category': result}), 200
     except Exception as e:
         log_action(current_user_id, 'GET_STOCK_BY_CATEGORY_ERROR', str(e), level='error')
         return jsonify({'message': f'Error fetching stock by category: {str(e)}'}), 500
-
 @wine_bp.route('/revenue', methods=['GET'])
 @jwt_required()
 def get_revenue():
@@ -165,3 +172,9 @@ def get_all_wines():
     except Exception as e:
         log_action(current_user_id, 'GET_ALL_WINES_ERROR', str(e), level='error')
         return jsonify({"error": f"Error fetching all wines: {str(e)}"}), 500
+    
+@wine_bp.route('/test', methods=['GET'])
+@jwt_required()
+def test():
+    current_user_id = get_jwt_identity()
+    return jsonify({"user_id": current_user_id}), 200

@@ -48,6 +48,7 @@ def get_stock_by_category():
     except Exception as e:
         log_action(current_user_id, 'GET_STOCK_BY_CATEGORY_ERROR', str(e), level='error')
         return jsonify({'message': f'Error fetching stock by category: {str(e)}'}), 500
+
 @wine_bp.route('/revenue', methods=['GET'])
 @jwt_required()
 def get_revenue():
@@ -58,6 +59,11 @@ def get_revenue():
 
     start_date_str = request.args.get('start_date')
     end_date_str = request.args.get('end_date')
+
+    # Check if start_date and end_date are provided
+    if not start_date_str or not end_date_str:
+        log_action(current_user_id, 'GET_REVENUE_ERROR', 'Missing start_date or end_date', level='error')
+        return jsonify({"error": "Both start_date and end_date are required."}), 400
 
     try:
         start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
@@ -73,7 +79,6 @@ def get_revenue():
     except Exception as e:
         log_action(current_user_id, 'GET_REVENUE_ERROR', str(e), level='error')
         return jsonify({"error": f"Error calculating revenue: {str(e)}"}), 500
-
 @wine_bp.route('/compare-sales', methods=['GET'])
 @jwt_required()
 def compare_sales():
@@ -82,12 +87,19 @@ def compare_sales():
     if isinstance(current_user_id, dict):
         current_user_id = current_user_id.get('id')
 
+    # Get query parameters
     period1_start_str = request.args.get('period1_start')
     period1_end_str = request.args.get('period1_end')
     period2_start_str = request.args.get('period2_start')
     period2_end_str = request.args.get('period2_end')
 
+    # Check if all required parameters are provided
+    if not all([period1_start_str, period1_end_str, period2_start_str, period2_end_str]):
+        log_action(current_user_id, 'COMPARE_SALES_ERROR', 'Missing required query parameters', level='error')
+        return jsonify({"error": "All parameters (period1_start, period1_end, period2_start, period2_end) are required."}), 400
+
     try:
+        # Parse dates
         period1_start = datetime.strptime(period1_start_str, '%Y-%m-%d')
         period1_end = datetime.strptime(period1_end_str, '%Y-%m-%d')
         period2_start = datetime.strptime(period2_start_str, '%Y-%m-%d')
@@ -97,13 +109,13 @@ def compare_sales():
         return jsonify({"error": "Invalid date format. Use YYYY-MM-DD."}), 400
 
     try:
+        # Compare sales
         percentage_change = Invoice.compare_sales_periods(period1_start, period1_end, period2_start, period2_end)
         log_action(current_user_id, 'COMPARE_SALES', f'Sales compared: {percentage_change}%')
         return jsonify({"percentage_change": percentage_change}), 200
     except Exception as e:
         log_action(current_user_id, 'COMPARE_SALES_ERROR', str(e), level='error')
         return jsonify({"error": f"Error comparing sales: {str(e)}"}), 500
-
 @wine_bp.route('/inventory-value', methods=['GET'])
 @jwt_required()
 def get_inventory_value():

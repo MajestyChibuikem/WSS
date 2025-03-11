@@ -1,7 +1,7 @@
 base url : /logs
 
 
-
+#this works
 retrieve all logs
     endpoint : /logs
     method : GET
@@ -25,6 +25,9 @@ retrieve all logs
             }
         ]
     
+
+
+#this works
 retrieve logs for a specific user
     endpoint : /logs/user/<int:user_id>
     method : GET
@@ -49,6 +52,8 @@ retrieve logs for a specific user
             }
         ]
 
+
+#this works now
 Retrieve Logs by Action Type
     endpoint : /logs/action/<string:action>
     method : GET

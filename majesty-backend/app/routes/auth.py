@@ -1,9 +1,12 @@
 # app/routes/auth.py
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from datetime import datetime
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
 from app.models import User, Role
 from app import db
 from app.utils.logger import log_action
+from app.models.models import BlacklistedToken
+from app.extensions import jwt
 
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -102,15 +105,35 @@ def create_user():
 @auth_bp.route('/logout', methods=['POST'])
 @jwt_required()
 def logout():
-    # JWT doesn't have a built-in logout mechanism, but we can log the action
+    # Get the current user's identity
     current_user_id = get_jwt_identity()
     if isinstance(current_user_id, dict):
         current_user_id = current_user_id.get('id')
-        
+
+    # Log the logout action
     log_action(current_user_id, 'LOGOUT', 'User logged out')
-    
-    # In a production app, you might implement token blacklisting here
+
+    # Blacklist the token
+    jti = get_jwt()['jti']
+    blacklisted_token = BlacklistedToken(jti=jti, created_at=datetime.utcnow())
+    db.session.add(blacklisted_token)
+    db.session.commit()
+
     return jsonify({'message': 'Successfully logged out'}), 200
+
+# Check Token Expiry Route
+@auth_bp.route('/check-token', methods=['GET'])
+@jwt_required()
+def check_token():
+    jwt_payload = get_jwt()
+    expiry_timestamp = jwt_payload['exp']
+    expiry_datetime = datetime.utcfromtimestamp(expiry_timestamp)  # Correct usage
+
+    if datetime.utcnow() > expiry_datetime:
+        return jsonify({'message': 'Token has expired'}), 401
+    else:
+        return jsonify({'message': 'Token is valid', 'expires_at': expiry_datetime.isoformat()}), 200
+    
 
 @auth_bp.route('/users', methods=['GET'])
 @jwt_required()

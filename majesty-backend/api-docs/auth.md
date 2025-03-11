@@ -198,3 +198,6 @@ delete user
 
 
 
+check token
+    endpoint : /auth/check-token
+    method : GET

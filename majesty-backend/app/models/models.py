@@ -116,15 +116,15 @@ class User(db.Model):
 
         # Commit changes to the database
         db.session.commit()
-        def get_user_sales(self):
-            """
-            Track the total sales (invoices) for a particular user.
-            """
-            user_sales = db.session.query(
-                func.sum(Invoice.total_amount).label('total_sales')
-            ).filter(Invoice.user_id == self.id).scalar()
+    def get_user_sales(self):
+        """
+        Track the total sales (invoices) for a particular user.
+        """
+        user_sales = db.session.query(
+            func.sum(Invoice.total_amount).label('total_sales')
+        ).filter(Invoice.user_id == self.id).scalar()
 
-            return user_sales or 0
+        return user_sales or 0
 
 class Wine(db.Model):
     __tablename__ = 'wines'
@@ -280,3 +280,13 @@ class logEntry(db.Model):
             "additional_data": self.additional_data,
             "status_code": self.status_code,
         }
+    
+class BlacklistedToken(db.Model):
+    __tablename__ = 'blacklisted_tokens'
+
+    id = db.Column(db.Integer, primary_key=True)
+    jti = db.Column(db.String(36), nullable=False, unique=True)  # JWT ID
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+
+    def __repr__(self):
+        return f"<BlacklistedToken {self.jti}>"

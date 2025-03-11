@@ -1,5 +1,6 @@
 base url : /wine
 
+#this works
 get total wine stock
     endpoint : /wine/total_stock
     method : GET
@@ -16,9 +17,9 @@ get total wine stock
         }
 
 
-
+#works now
 get stock by category
-    endpoint: /wine/stock_by_category
+    endpoint: /wine/stock-by-category
     method : GET
     description : Retrieves the stock quantity of wines grouped by their category.
     request headers : Authorization: Bearer <JWT_TOKEN>
@@ -36,6 +37,37 @@ get stock by category
             "message" : "error fetching stock by category"
         }
 
+
+
+
+
+#works now
+
+for the request it should look like this:
+//
+import axios from 'axios';
+
+const startDate = '2025-03-01';
+const endDate = '2025-03-11';
+
+axios.get('http://localhost:5000/wine/revenue', {
+    params: {
+        start_date: startDate,
+        end_date: endDate
+    },
+    headers: {
+        'Authorization': `Bearer ${your_jwt_token_here}`, // Add JWT token if required
+        'Content-Type': 'application/json'
+    }
+})
+.then(response => {
+    console.log(response.data); // Handle the response data
+})
+.catch(error => {
+    console.error('Error:', error); // Handle errors
+});
+
+//
 
 get revenue for a specified time period
     endpoint : /revenue
@@ -61,6 +93,43 @@ get revenue for a specified time period
         }
 
 
+
+
+
+
+
+#works now
+to use this structure your request like this
+//
+
+
+import axios from 'axios';
+
+const period1Start = '2025-03-01';
+const period1End = '2025-03-11';
+const period2Start = '2025-03-12';
+const period2End = '2025-03-20';
+
+axios.get('http://localhost:5000/wine/compare-sales', {
+    params: {
+        period1_start: period1Start,
+        period1_end: period1End,
+        period2_start: period2Start,
+        period2_end: period2End
+    },
+    headers: {
+        'Authorization': `Bearer ${your_jwt_token_here}`, // Add JWT token if required
+        'Content-Type': 'application/json'
+    }
+})
+.then(response => {
+    console.log(response.data); // Handle the response data
+})
+.catch(error => {
+    console.error('Error:', error); // Handle errors
+});
+
+//
 compare sales
     endpoint : /compare-sales
     method : GET
@@ -69,10 +138,10 @@ compare sales
         "message" : 
     }
 
-
+#this is the url: http://127.0.0.1:5000/wine/1
 delete wine
     endpoint: 
-    method :PUT
+    method :DELETE
     description : Deletes a specific wine from the inventory by its ID.
     Authentication: JWT required.
     Permissions: Only administrators or super users can delete wines.
@@ -94,6 +163,7 @@ delete wine
         "message" : "an error occured when deleting the wine"
     }
 
+#this works
 Update Wine
 Endpoint: /wine/<int:wine_id>
 Method: PUT
@@ -151,6 +221,8 @@ Possible Errors:
 
 500 Internal Server Error: Database error.
 
+
+#this works
 Add Wine
 Endpoint: /wine/add
 Method: POST
@@ -218,7 +290,7 @@ All timestamps (e.g., added_at) are in ISO 8601 format.
 
 Numeric fields (price, abv) must be valid numbers.
 
-
+#this works
 get inventory value
     endpoint : /wine/inventory-value
     method : GET
@@ -232,6 +304,7 @@ get inventory value
         {
             "message" : "error while fetching inventory value "
         }
+#this works
 get user sales
     endpoint : /wine/user-sales/{user_id}
     description : Tracks the total sales (invoices) for a specific user.

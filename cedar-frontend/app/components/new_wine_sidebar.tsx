@@ -1,14 +1,25 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  clearCurrentlyEditing,
   closeWineEditor,
   setCurrentlyEditing,
 } from "../store/slices/wineSlice";
 import { RootState } from "../store";
 import Dropdown from "./dropdown";
 import { categoryDropdownItems } from "../utils/mock_data";
-import { useAddWineMutation } from "../store/slices/apiSlice";
+import {
+  useAddWineMutation,
+  useUpdateWineMutation,
+} from "../store/slices/apiSlice";
 import { Actions } from "../utils/types";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 function NewWineSideBar() {
   const dispatch = useDispatch();
@@ -20,20 +31,38 @@ function NewWineSideBar() {
   );
 
   const [addWine] = useAddWineMutation();
+  const [updateWine] = useUpdateWineMutation();
 
   const handleSubmit = async () => {
-    console.log(wineSelector, dropdown.item?.value);
     if (
       wineSelector.action_type == Actions.CREATE &&
-      wineSelector.currentlyEditing &&
-      dropdown.item
+      wineSelector.currentlyEditing
     ) {
       try {
         const response = await addWine({
           ...wineSelector.currentlyEditing,
-          bottle_size: wineSelector.currentlyEditing.bottleSize,
-          category: dropdown.item.value as string,
+          bottle_size: wineSelector.currentlyEditing.bottle_size,
         });
+
+        dispatch(clearCurrentlyEditing());
+        dispatch(closeWineEditor());
+
+        console.log("response: ", response);
+      } catch {
+        console.log("Could not create wine");
+      }
+    } else if (
+      wineSelector.action_type == Actions.UPDATE &&
+      wineSelector.currentlyEditing
+    ) {
+      try {
+        const response = await updateWine({
+          ...wineSelector.currentlyEditing,
+          wine_id: wineSelector.currentlyEditing.id,
+        });
+
+        dispatch(clearCurrentlyEditing());
+        dispatch(closeWineEditor());
 
         console.log("response: ", response);
       } catch {
@@ -44,11 +73,13 @@ function NewWineSideBar() {
 
   return (
     <div className="fixed w-[100vw] h-[100vh] bg-black/45 top-0 right-0 z-20 border-2 overflow-y-auto">
-      <div className="h-full w-[25rem] bg-background fixed top-0 right-0 p-6 space-y-8">
+      <div className="h-full w-[25rem] bg-wBrand-background fixed top-0 right-0 p-6 space-y-8">
         <h1 className="text-2xl font-semibold mt-8">Add new wine</h1>
         <div className="space-y-8">
           <div className="space-y-4">
-            <p className="text-xs text-foreground/60 font-medium">WINE NAME</p>
+            <p className="text-xs text-wBrand-foreground/60 font-medium">
+              WINE NAME
+            </p>
             <div className="text-sm">
               <input
                 type="text"
@@ -57,13 +88,13 @@ function NewWineSideBar() {
                   dispatch(setCurrentlyEditing({ name: e.target.value }))
                 }
                 placeholder="Enter wine name"
-                className="outline-none rounded-xl h-11 border border-foreground/20 overflow-clip bg-background/40 pl-4 w-full"
+                className="outline-none rounded-xl h-11 border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40 pl-4 w-full"
               />
             </div>
           </div>
           <div className="flex space-x-4">
             <div className="space-y-4">
-              <p className="text-xs text-foreground/60 font-medium">
+              <p className="text-xs text-wBrand-foreground/60 font-medium">
                 WINE ABV %
               </p>
               <div className="text-sm">
@@ -78,34 +109,34 @@ function NewWineSideBar() {
                     )
                   }
                   placeholder="Enter wine abv %"
-                  className="outline-none rounded-xl h-11 border border-foreground/20 overflow-clip bg-background/40 pl-4 w-full"
+                  className="outline-none rounded-xl h-11 border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40 pl-4 w-full"
                 />
               </div>
             </div>
             <div className="space-y-4">
-              <p className="text-xs text-foreground/60 font-medium">
+              <p className="text-xs text-wBrand-foreground/60 font-medium">
                 BOTTLE SIZE
               </p>
               <div className="text-sm">
                 <input
                   type="number"
-                  value={wineSelector?.currentlyEditing?.bottleSize}
+                  value={wineSelector?.currentlyEditing?.bottle_size}
                   onChange={(e) =>
                     dispatch(
                       setCurrentlyEditing({
-                        bottleSize: (e.target.value as unknown) as number,
+                        bottle_size: (e.target.value as unknown) as number,
                       })
                     )
                   }
                   placeholder="Enter bottle size"
-                  className="outline-none rounded-xl h-11 border border-foreground/20 overflow-clip bg-background/40 pl-4 w-full"
+                  className="outline-none rounded-xl h-11 border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40 pl-4 w-full"
                 />
               </div>
             </div>
           </div>
           <div className="flex space-x-4">
             <div className="space-y-4 flex-1">
-              <p className="text-xs text-foreground/60 font-medium">
+              <p className="text-xs text-wBrand-foreground/60 font-medium">
                 WINE PRICE
               </p>
               <div className="text-sm">
@@ -120,32 +151,48 @@ function NewWineSideBar() {
                   }
                   type="number"
                   placeholder="Enter wine name"
-                  className="outline-none rounded-xl h-11 border border-foreground/20 overflow-clip bg-background/40 pl-4 w-full"
+                  className="outline-none rounded-xl h-11 border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40 pl-4 w-full"
                 />
               </div>
             </div>
             <div className="space-y-4 flex-1">
-              <p className="text-xs text-foreground/60 font-medium">
+              <p className="text-xs text-wBrand-foreground/60 font-medium">
                 WINE CATEGORY
               </p>
-              <Dropdown
-                className="right-0"
-                id="add_wine_sidbar_category"
-                items={categoryDropdownItems}
-              />
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue
+                    placeholder={wineSelector.currentlyEditing?.category}
+                  />
+                </SelectTrigger>
+                <SelectContent>
+                  {categoryDropdownItems.map((item, idx) => (
+                    <SelectItem
+                      key={idx}
+                      onClick={() =>
+                        item.content &&
+                        dispatch(setCurrentlyEditing({ category: item.value }))
+                      }
+                      value={item.value.toString()}
+                    >
+                      {item.content}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
         </div>
         <div className="w-full flex gap-4 justify-end">
           <button
             onClick={() => dispatch(closeWineEditor())}
-            className="py-2 px-5 text-sm border duration-700 border-accent/30 hover:border-accent font-semibold rounded-lg text-accent/30 hover:text-accent"
+            className="py-2 px-5 text-sm border duration-700 border-wBrand-accent/30 hover:border-wBrand-accent font-semibold rounded-lg text-wBrand-accent/30 hover:text-wBrand-accent"
           >
             Close
           </button>
           <button
             onClick={handleSubmit}
-            className="py-2 px-5 text-sm bg-accent font-semibold rounded-lg text-background"
+            className="py-2 px-5 text-sm bg-wBrand-accent font-semibold rounded-lg text-wBrand-background"
           >
             Add wine
           </button>

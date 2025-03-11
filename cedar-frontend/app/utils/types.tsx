@@ -27,6 +27,7 @@ export interface DropdownItem<T> {
   icon: React.JSX.Element | null;
   content: string;
   value: T;
+  active: boolean;
 }
 
 export interface Wine {
@@ -35,7 +36,7 @@ export interface Wine {
   abv: number; // Alcohol by Volume %
   price: number; // Price in Naira
   category: WineCategory;
-  bottleSize: number; // in ml
+  bottle_size: number; // in ml
   inStock: number; // Number of bottles available
 }
 

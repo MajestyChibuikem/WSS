@@ -10,10 +10,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        foreground: "#ffffff",
-        background: "#0f171b",
-        accent: "#39da79",
-        background_light: "#19262d",
+        "wBrand-foreground": "#ffffff",
+        "wBrand-background": "#0f171b",
+        "wBrand-accent": "#39da79",
+        "wBrand-background_light": "#19262d",
       },
       fontSize: {
         base: "var(--fs-base)",

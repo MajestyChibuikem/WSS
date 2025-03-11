@@ -1,9 +1,10 @@
-import { Actions, Wine } from "@/app/utils/types";
+import { Actions, DropdownItem, Wine } from "@/app/utils/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface WineState {
   show_wine_editor: boolean;
   currentlyEditing: Wine | null;
+  currentWineCategory?: DropdownItem<Actions>;
   action_type: Actions | null;
 }
 
@@ -23,6 +24,12 @@ const wineSlice = createSlice({
     closeWineEditor: (state) => {
       state.show_wine_editor = false;
     },
+    setCurrentWineCategory: (
+      state: WineState,
+      action: PayloadAction<DropdownItem<Actions>>
+    ) => {
+      state.currentWineCategory = action.payload;
+    },
     setCurrentlyEditing: (
       state: WineState,
       action: PayloadAction<Partial<Wine>>
@@ -35,6 +42,9 @@ const wineSlice = createSlice({
     updateAction: (state: WineState, action: PayloadAction<Actions>) => {
       state.action_type = action.payload;
     },
+    clearCurrentlyEditing: (state) => {
+      state.currentlyEditing = null;
+    },
   },
 });
 
@@ -43,5 +53,7 @@ export const {
   closeWineEditor,
   setCurrentlyEditing,
   updateAction,
+  clearCurrentlyEditing,
+  setCurrentWineCategory,
 } = wineSlice.actions;
 export default wineSlice.reducer;

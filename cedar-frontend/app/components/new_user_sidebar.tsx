@@ -51,11 +51,13 @@ function NewUserSideBar() {
 
   return (
     <div className="fixed w-[100vw] h-[100vh] bg-black/45 top-0 right-0 z-20">
-      <div className="h-full w-[25rem] bg-background fixed top-0 right-0 p-6 space-y-8">
+      <div className="h-full w-[25rem] bg-wBrand-background fixed top-0 right-0 p-6 space-y-8">
         <h1 className="text-2xl font-semibold mt-8">Add new user</h1>
         <div className="space-y-8">
           <div className="space-y-4">
-            <p className="text-xs text-foreground/60 font-medium">USER NAME</p>
+            <p className="text-xs text-wBrand-foreground/60 font-medium">
+              USER NAME
+            </p>
             <div className="text-sm">
               <input
                 type="text"
@@ -64,12 +66,14 @@ function NewUserSideBar() {
                 }
                 value={user.currentlyEditing?.username}
                 placeholder="Enter firstname"
-                className="outline-none rounded-xl h-11 border border-foreground/20 overflow-clip bg-background/40 pl-4 w-full"
+                className="outline-none rounded-xl h-11 border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40 pl-4 w-full"
               />
             </div>
           </div>
           <div className="space-y-4">
-            <p className="text-xs text-foreground/60 font-medium">PASSWORD</p>
+            <p className="text-xs text-wBrand-foreground/60 font-medium">
+              PASSWORD
+            </p>
             <div className="text-sm">
               <input
                 type="password"
@@ -78,12 +82,14 @@ function NewUserSideBar() {
                 }
                 value={user.currentlyEditing?.password}
                 placeholder="Enter password"
-                className="outline-none rounded-xl h-11 border border-foreground/20 overflow-clip bg-background/40 pl-4 w-full"
+                className="outline-none rounded-xl h-11 border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40 pl-4 w-full"
               />
             </div>
           </div>
           <div className="space-y-4 relative">
-            <p className="text-xs text-foreground/60 font-medium">ROLE</p>
+            <p className="text-xs text-wBrand-foreground/60 font-medium">
+              ROLE
+            </p>
             <Dropdown
               className="text-sm h-11 p-0 pl-4"
               id={"user_roles_dropdown"}
@@ -94,7 +100,7 @@ function NewUserSideBar() {
         <div className="w-full flex gap-4 justify-end">
           <button
             onClick={() => dispatch(closeUserEditor())}
-            className="py-2 px-5 text-sm border duration-700 border-accent/30 hover:border-accent font-semibold rounded-lg text-accent/30 hover:text-accent"
+            className="py-2 px-5 text-sm border duration-700 border-wBrand-accent/30 hover:border-wBrand-accent font-semibold rounded-lg text-wBrand-accent/30 hover:text-wBrand-accent"
           >
             Close
           </button>
@@ -105,7 +111,7 @@ function NewUserSideBar() {
             }
             onClick={handleSubmit}
             className={clsx(
-              "py-2 px-5 text-sm bg-accent font-semibold rounded-lg text-background",
+              "py-2 px-5 text-sm bg-wBrand-accent font-semibold rounded-lg text-wBrand-background",
               user.action_type !== Actions.CREATE &&
                 user.action_type !== Actions.UPDATE &&
                 "bg-gray-700"

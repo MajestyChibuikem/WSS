@@ -16,7 +16,7 @@ interface Params {
 function UserCard({ user }: Params) {
   const dispatch = useDispatch();
   return (
-    <div className="border border-foreground/10 flex items-center rounded-xl p-4 gap-x-3 bg-background/5 relative">
+    <div className="border border-wBrand-foreground/10 flex items-center rounded-xl p-4 gap-x-3 bg-wBrand-background/5 relative">
       <button
         onClick={() => {
           dispatch(toggleUserEditor());
@@ -25,7 +25,7 @@ function UserCard({ user }: Params) {
           dispatch(updateAction(Actions.UPDATE));
         }}
       >
-        <PenLine className="absolute right-5 top-5 h-4 text-accent/50 hover:text-accent w-4 cursor-pointer" />
+        <PenLine className="absolute right-5 top-5 h-4 text-wBrand-accent/50 hover:text-wBrand-accent w-4 cursor-pointer" />
       </button>
       <div className="min-h-12 h-12 min-w-12 w-12 rounded-full bg-gray-200"></div>
       <div className="space-y-1">
@@ -33,9 +33,9 @@ function UserCard({ user }: Params) {
         <div className="flex justify-between text-xs gap-x-4">
           <p
             className={clsx(
-              "text-foreground/50 font-semibold uppercase",
+              "text-wBrand-foreground/50 font-semibold uppercase",
               user.roles[0] == Roles.ADMIN
-                ? "text-accent/60"
+                ? "text-wBrand-accent/60"
                 : user.roles[0] == Roles.SUPERUSER && "text-yellow-500/60"
             )}
           >

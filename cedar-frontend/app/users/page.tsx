@@ -5,7 +5,6 @@ import NewUserSideBar from "../components/new_user_sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { toggleUserEditor, updateAction } from "../store/slices/userSlice";
-import { mockUsers } from "../utils/mock_data";
 import { useGetUsersQuery } from "../store/slices/apiSlice";
 import Empty from "../components/empty";
 import { Actions } from "../utils/types";
@@ -33,7 +32,7 @@ function Page() {
             dispatch(updateAction(Actions.CREATE));
             dispatch(toggleUserEditor());
           }}
-          className="px-5 py-2 font-medium bg-accent text-background rounded-xl"
+          className="px-5 py-2 font-medium bg-wBrand-accent text-wBrand-background rounded-xl"
         >
           Add User
         </button>

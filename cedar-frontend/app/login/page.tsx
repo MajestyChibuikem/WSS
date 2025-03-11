@@ -39,15 +39,15 @@ function Page() {
   };
 
   return (
-    <div className="fixed top-0 right-0 h-[100vh] w-[100vw] flex overflow-y-auto justify-center bg-background ">
-      <div className="h-max w-[25rem] border border-accent p-8 rounded-xl space-y-8 relative top-[15vh] shadow-2xl">
+    <div className="fixed top-0 right-0 h-[100vh] w-[100vw] flex overflow-y-auto justify-center bg-wBrand-background ">
+      <div className="h-max w-[25rem] border border-wBrand-accent p-8 rounded-xl space-y-8 relative top-[15vh] shadow-2xl">
         <div className="space-y-2">
           <h1 className="text-xl">Welcome </h1>
           <p className="text-sm text-gray-300">Login to get started.</p>
         </div>
         <div className="space-y-10">
-          <div className="border group border-gray-300/20 rounded-lg flex relative py-2 px-2 flex-col focus-within:border-accent/60">
-            <label className="text-xs left-3 text-white/70 bg-background -top-2 px-3 absolute group-focus-within:text-accent/60">
+          <div className="border group border-gray-300/20 rounded-lg flex relative py-2 px-2 flex-col focus-within:border-wBrand-accent/60">
+            <label className="text-xs left-3 text-white/70 bg-wBrand-background -top-2 px-3 absolute group-focus-within:text-wBrand-accent/60">
               Username
             </label>
             <input
@@ -63,8 +63,8 @@ function Page() {
               </p>
             )}
           </div>
-          <div className="border border-gray-300/20 rounded-lg flex relative py-2 px-2 flex-col group focus-within:border-accent/60">
-            <label className="text-xs left-3 text-white/70 bg-background -top-2 px-3 absolute group-focus-within:text-accent/60">
+          <div className="border border-gray-300/20 rounded-lg flex relative py-2 px-2 flex-col group focus-within:border-wBrand-accent/60">
+            <label className="text-xs left-3 text-white/70 bg-wBrand-background -top-2 px-3 absolute group-focus-within:text-wBrand-accent/60">
               Password
             </label>
             <input
@@ -82,7 +82,7 @@ function Page() {
           </div>
           <button
             onClick={handleLogin}
-            className={"w-full py-2 rounded-lg cursor-pointer bg-accent"}
+            className={"w-full py-2 rounded-lg cursor-pointer bg-wBrand-accent"}
           >
             Get started
           </button>

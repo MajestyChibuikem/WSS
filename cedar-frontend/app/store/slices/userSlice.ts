@@ -1,17 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Actions, Roles, User } from "@/app/utils/types";
-import { mockUsers } from "@/app/utils/mock_data";
 
 interface UserSlice {
   show_user_editor: boolean;
-  users: User[];
   action_type: Actions | null;
   currentlyEditing: (User & { password: string }) | null; // Track the user being edited
 }
 
 const initialState: UserSlice = {
   show_user_editor: false,
-  users: mockUsers,
   action_type: null,
   currentlyEditing: null,
 };
@@ -44,23 +41,23 @@ const userSlice = createSlice({
       state.currentlyEditing = { ...state.currentlyEditing, ...action.payload };
     },
 
-    // ✅ Update user details using `currentlyEditing`
-    updateUser: (state, action: PayloadAction<User>) => {
-      if (state.currentlyEditing) {
-        const index = state.users.findIndex(
-          (u) => u.username === state.currentlyEditing?.username
-        );
-        if (index !== -1) {
-          state.users[index] = action.payload;
-        }
-        state.currentlyEditing = null; // Reset after updating
-      }
-    },
+    // // ✅ Update user details using `currentlyEditing`
+    // updateUser: (state, action: PayloadAction<User>) => {
+    //   if (state.currentlyEditing) {
+    //     const index = state.users.findIndex(
+    //       (u) => u.username === state.currentlyEditing?.username
+    //     );
+    //     if (index !== -1) {
+    //       state.users[index] = action.payload;
+    //     }
+    //     state.currentlyEditing = null; // Reset after updating
+    //   }
+    // },
 
-    // ✅ Delete user by index
-    deleteUser: (state, action: PayloadAction<number>) => {
-      state.users = state.users.filter((_, i) => i !== action.payload);
-    },
+    // // ✅ Delete user by index
+    // deleteUser: (state, action: PayloadAction<number>) => {
+    //   state.users = state.users.filter((_, i) => i !== action.payload);
+    // },
 
     // ✅ Clear currently editing user (for cancel or reset)
     clearCurrentlyEditing: (state) => {
@@ -73,8 +70,6 @@ export const {
   toggleUserEditor,
   closeUserEditor,
   setCurrentlyEditing,
-  updateUser,
-  deleteUser,
   clearCurrentlyEditing,
   updateAction,
 } = userSlice.actions;

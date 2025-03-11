@@ -39,10 +39,10 @@ function CartCard({ wine }: Params) {
 
       <div className="w-[25%] flex justify-center">
         <div className="space-y-4 text-sm w-[8.4rem] flex flex-col justify-center">
-          <div className="flex border border-foreground/30 overflow-clip space-x-2 w-full h-8 justify-between items-center rounded-lg">
+          <div className="flex border border-wBrand-foreground/30 overflow-clip space-x-2 w-full h-8 justify-between items-center rounded-lg">
             <button
               onClick={() => dispatch(decrementCartItemQuantity(wine.id))}
-              className="h-8 w-8 hover:bg-foreground/10"
+              className="h-8 w-8 hover:bg-wBrand-foreground/10"
             >
               -
             </button>
@@ -51,7 +51,7 @@ function CartCard({ wine }: Params) {
             </div>
             <button
               onClick={() => dispatch(incrementCartItemQuantity(wine.id))}
-              className="h-8 w-8 hover:bg-foreground/10"
+              className="h-8 w-8 hover:bg-wBrand-foreground/10"
             >
               +
             </button>

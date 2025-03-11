@@ -31,15 +31,16 @@ function CheckboxSelector({ id, idx, item }: Params) {
         )
       }
       className={clsx(
-        "border text-sm border-foreground/20 rounded-xl px-3 py-2 flex justify-between items-center",
-        selectedItems[idx.toString()] && "border-accent"
+        "border text-sm border-wBrand-foreground/20 rounded-xl px-3 py-2 flex justify-between items-center",
+        selectedItems[idx.toString()] && "border-wBrand-accent"
       )}
     >
       <p>{item.content}</p>
       <p
         className={clsx(
-          "p-1 px-2 text-xs bg-foreground/10 rounded-lg",
-          selectedItems[idx.toString()] && "bg-accent/10 text-accent"
+          "p-1 px-2 text-xs bg-wBrand-foreground/10 rounded-lg",
+          selectedItems[idx.toString()] &&
+            "bg-wBrand-accent/10 text-wBrand-accent"
         )}
       >
         {item.stock_count}

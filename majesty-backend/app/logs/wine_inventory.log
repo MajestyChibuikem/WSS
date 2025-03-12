@@ -1755,3 +1755,8 @@ Traceback (most recent call last):
 AttributeError: module 'datetime' has no attribute 'utcfromtimestamp'
 [2025-03-12 00:16:31,351] ERROR in logger: [EXCEPTION] User 1: Unhandled exception: InternalServerError
 [2025-03-12 00:16:42,815] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-12 04:09:47,373] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-12 04:16:15,006] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-12 04:16:25,087] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-12 04:18:31,256] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-12 04:19:15,534] INFO in logger: Wine Inventory API Started - Environment: development

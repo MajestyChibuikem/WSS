@@ -21,7 +21,7 @@ export default function RootLayout({
               <div>{children}</div> // Show login page without protection
             ) : (
               <ProtectedRoute>
-                <div>
+                <div className="">
                   <Topbar />
                   {children}
                 </div>

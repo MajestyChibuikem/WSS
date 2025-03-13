@@ -13,7 +13,7 @@ function Page() {
   const { total, discountedTotal } = useSelector(getCartTotal);
 
   return (
-    <div className="px-10">
+    <div className="px-10 w-full">
       <h1 className="text-3xl py-8 pl-2 font-semibold">Cart</h1>
       <div className="flex space-x-16">
         <section className="w-[60vw] space-y-2  divide-y divide-wBrand-foreground/5">
@@ -60,7 +60,7 @@ function Page() {
               ))}
             </div>
           </div>
-          <div className="space-y-4">
+          {/* <div className="space-y-4">
             <h2 className="font-medium">Discount Code</h2>
             <div className="text-sm flex gap-4">
               <div className="flex w-full rounded-xl border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40">
@@ -77,7 +77,7 @@ function Page() {
                 Apply
               </button>
             </div>
-          </div>
+          </div> */}
           <div className="space-y-4">
             <h2 className="font-medium">Customer Email</h2>
             <div>
@@ -95,17 +95,17 @@ function Page() {
               </div>
             </div>
           </div>
-          <div className="border-t border-wBrand-foreground/10 pt-5 space-y-2">
-            <div className="flex justify-between text-wBrand-foreground/70">
+          <div className="border-t border-wBrand-foreground/10 pt-3 space-y-2">
+            {/* <div className="flex justify-between text-wBrand-foreground/70">
               <h3>Subtotal</h3>
               <p className="text-lg text-wBrand-foreground">N{total}</p>
-            </div>
-            <div className="flex justify-between text-wBrand-foreground/70">
+            </div> */}
+            {/* <div className="flex justify-between text-wBrand-foreground/70">
               <h3>Discount</h3>
               <p>-N{inventoryCart.discount}</p>
-            </div>
+            </div> */}
           </div>
-          <div className="flex justify-between text-wBrand-foreground border-t pt-5 border-t-wBrand-foreground/10">
+          <div className="flex justify-between text-wBrand-foreground  border-t-wBrand-foreground/10">
             <h3>Grand total</h3>
             <p className="text-xl font-medium">N{discountedTotal}</p>
           </div>

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loginFailure,
@@ -11,6 +11,7 @@ import {
 } from "../store/slices/authSlice";
 import { useLoginMutation } from "../store/slices/apiSlice";
 import { useRouter } from "next/navigation";
+import { Eye, EyeOff } from "lucide-react";
 
 function Page() {
   const router = useRouter();
@@ -18,6 +19,8 @@ function Page() {
   const user = useSelector(selectAuthUser);
   const validationErrors = useSelector(selectValidationErrors);
   const [login] = useLoginMutation();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (field: "username" | "password", value: string) => {
     dispatch(updateUserField({ field, value }));
@@ -74,13 +77,22 @@ function Page() {
             <label className="text-xs left-3 text-white/70 bg-wBrand-background -top-2 px-3 absolute group-focus-within:text-wBrand-accent/60">
               Password
             </label>
-            <input
-              value={user.password}
-              onChange={(e) => handleChange("password", e.target.value)}
-              type="password"
-              className="bg-transparent outline-none text-sm"
-              placeholder="Enter password"
-            />
+            <div className="flex items-center">
+              <input
+                value={user.password}
+                onChange={(e) => handleChange("password", e.target.value)}
+                type={showPassword ? "text" : "password"}
+                className="bg-transparent outline-none text-sm flex-1 pr-10"
+                placeholder="Enter password"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-3 text-white/50 hover:text-white focus:outline-none"
+              >
+                {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
+              </button>
+            </div>
             {validationErrors.password && (
               <p className="text-xs text-red-600">
                 {validationErrors.password}

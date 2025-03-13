@@ -71,7 +71,7 @@ function TableRow({ wine, id }: Params) {
     //     </button>
     //   </div>
     // </div>
-    <div className="flex w-full rounded-xl bg-wBrand-background_light/60 space-x-24 justify-between p-4">
+    <div className="grid grid-cols-1 xl:flex w-full rounded-xl bg-wBrand-background_light/60 gap-6 justify-between p-4">
       <div className="space-y-2">
         <h2 className="text-base font-medium">{wine.name}</h2>
         <div className="text-gray-400 flex items-center gap-2 text-xs flex-wrap">
@@ -95,7 +95,7 @@ function TableRow({ wine, id }: Params) {
         </div>
       </div>
 
-      <div className="flex items-center border-l border-l-wBrand-foreground/30 text-sm px-6 gap-x-14">
+      <div className="flex items-center xl:border-l border-l-wBrand-foreground/30 text-sm xl:px-6 gap-x-14">
         <div className="space-y-2">
           <p className="text-xs text-gray-300">PRICE</p>
           <p>N{wine.price}</p>
@@ -104,7 +104,7 @@ function TableRow({ wine, id }: Params) {
           <p className="text-xs text-gray-300">CATEGORY</p>
           <p>{wine.category}</p>
         </div>
-        <div className="space-y-2">
+        <div className="flex gap-3 items-center xl:flex-col xl:gap-2">
           {!inventoryCart.some((item) => item.id === wine.id) && (
             <DropdownMenu>
               {" "}

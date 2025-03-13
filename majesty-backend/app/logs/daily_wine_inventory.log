@@ -1,0 +1,48 @@
+[2025-03-13 18:03:57,456] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-13 18:04:36,147] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully
+[2025-03-13 18:09:26,604] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-13 18:10:31,029] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully
+[2025-03-13 18:11:23,028] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully
+[2025-03-13 18:11:28,731] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully
+[2025-03-13 18:11:28,735] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 7000
+[2025-03-13 18:11:28,741] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0
+[2025-03-13 18:11:28,746] INFO in logger: [COMPARE_SALES] User 1: Sales compared: 0%
+[2025-03-13 18:14:02,226] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully
+[2025-03-13 18:14:09,547] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully
+[2025-03-13 18:15:11,278] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully
+[2025-03-13 18:15:29,462] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully
+[2025-03-13 18:15:34,713] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully
+[2025-03-13 18:18:05,688] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully
+[2025-03-13 18:18:09,155] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully
+[2025-03-13 18:18:09,157] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0
+[2025-03-13 18:18:09,165] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 7000
+[2025-03-13 18:18:09,171] INFO in logger: [COMPARE_SALES] User 1: Sales compared: 0%
+[2025-03-13 18:22:56,178] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully
+[2025-03-13 18:22:59,121] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0
+[2025-03-13 18:22:59,132] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully
+[2025-03-13 18:22:59,144] INFO in logger: [COMPARE_SALES] User 1: Sales compared: 0%
+[2025-03-13 18:22:59,155] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 7000
+[2025-03-13 18:24:19,926] INFO in logger: [GET_ALL_WINES] User 1: All wines fetched successfully
+[2025-03-13 18:24:39,416] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list
+[2025-03-13 18:30:16,244] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: Anny
+[2025-03-13 18:31:26,273] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list
+[2025-03-13 18:31:27,112] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0
+[2025-03-13 18:31:27,129] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 7000
+[2025-03-13 18:31:27,138] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully
+[2025-03-13 18:31:27,152] INFO in logger: [COMPARE_SALES] User 1: Sales compared: 0%
+[2025-03-13 18:45:51,097] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list
+[2025-03-13 18:45:51,865] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully
+[2025-03-13 18:45:51,866] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0
+[2025-03-13 18:45:51,875] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 7000
+[2025-03-13 18:45:51,889] INFO in logger: [COMPARE_SALES] User 1: Sales compared: 0%
+[2025-03-13 18:46:55,414] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0
+[2025-03-13 18:46:55,419] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 7000
+[2025-03-13 18:46:55,430] INFO in logger: [COMPARE_SALES] User 1: Sales compared: 0%
+[2025-03-13 18:46:55,430] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully
+[2025-03-13 18:47:11,838] INFO in logger: [GET_ALL_WINES] User 1: All wines fetched successfully
+[2025-03-13 18:47:18,930] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list
+[2025-03-13 18:48:23,460] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0
+[2025-03-13 18:48:23,496] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully
+[2025-03-13 18:48:23,497] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 7000
+[2025-03-13 18:48:23,517] INFO in logger: [COMPARE_SALES] User 1: Sales compared: 0%
+[2025-03-13 18:48:26,736] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list

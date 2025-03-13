@@ -1,15 +1,15 @@
 export const enum SortOrder {
-  ASC = 0,
-  DSC = 1,
+  ASC = "ASCENDING ORDER",
+  DSC = "DESCENDING ORDER",
 }
 
 export const enum Actions {
-  DELETE = 0,
-  UPDATE = 1,
-  CREATE = 2,
+  DELETE = "Delete",
+  UPDATE = "Update",
+  CREATE = "Create",
 }
 
-export const enum Roles {
+export enum Roles {
   ADMIN = "admin",
   SUPERUSER = "superuser",
   STAFF = "staff",

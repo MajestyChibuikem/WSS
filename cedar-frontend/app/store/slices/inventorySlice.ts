@@ -5,7 +5,9 @@ import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/app/store";
 
 interface InventoryState {
+  filteredData: Wine[];
   inventoryFilter: {
+    name: string;
     productCategory: string;
     sort_by: SortOrder;
     price_range: { min: number; max: number };
@@ -18,12 +20,14 @@ interface InventoryState {
 
 const initialState: InventoryState = {
   inventoryFilter: {
+    name: "",
     productCategory: "",
-    sort_by: 0,
-    price_range: { min: 0, max: 0 },
-    abv_range: { min: 0, max: 0 },
-    bottle_size: { min: 0, max: 0 },
+    sort_by: SortOrder.ASC,
+    price_range: { min: 0, max: Infinity },
+    abv_range: { min: 0, max: Infinity },
+    bottle_size: { min: 0, max: Infinity },
   },
+  filteredData: [],
   discount: 0,
   cart: [],
 };
@@ -69,6 +73,80 @@ const inventorySlice = createSlice({
         item.quantity -= 1;
       }
     },
+
+    filterInventory: (
+      state,
+      action: PayloadAction<{ wines: Wine[]; categories?: string[] }>
+    ) => {
+      const { inventoryFilter } = state;
+      let { wines: filtered, categories } = action.payload;
+
+      console.log("Original wine list: ", filtered);
+      console.log("Filtering categories: ", categories);
+
+      // Apply category filter (if categories array is not empty)
+      if (categories && categories.length > 0) {
+        filtered = filtered.filter(
+          (wine) => categories && categories.includes(wine.category)
+        );
+      }
+
+      // Apply name filter (if set)
+      if (inventoryFilter.name?.trim()) {
+        const nameFilter = inventoryFilter.name.toLowerCase();
+        filtered = filtered.filter((wine) => {
+          const wineName = wine.name.toLowerCase();
+
+          // Check if every character in the input exists somewhere in the wine name
+          return nameFilter.split("").every((char) => wineName.includes(char));
+        });
+      }
+      // Apply price range filter
+      filtered = filtered.filter(
+        (wine) =>
+          wine.price >= inventoryFilter.price_range.min &&
+          wine.price <= (inventoryFilter.price_range.max || Infinity)
+      );
+
+      // Apply ABV range filter
+      filtered = filtered.filter(
+        (wine) =>
+          wine.abv >= inventoryFilter.abv_range.min &&
+          wine.abv <= (inventoryFilter.abv_range.max || Infinity)
+      );
+
+      // Apply bottle size filter
+      filtered = filtered.filter(
+        (wine) =>
+          wine.bottle_size >= inventoryFilter.bottle_size.min &&
+          wine.bottle_size <= (inventoryFilter.bottle_size.max || Infinity)
+      );
+
+      // Apply sorting
+      filtered.sort((a, b) => {
+        if (inventoryFilter.sort_by === SortOrder.ASC) {
+          return a.price - b.price;
+        }
+        return b.price - a.price;
+      });
+
+      console.log("Filtered wine list: ", filtered);
+
+      state.filteredData = filtered;
+      state.inventoryFilter.name = "";
+    },
+
+    clearFilter: (state) => {
+      state.inventoryFilter = {
+        name: "",
+        productCategory: "",
+        sort_by: SortOrder.ASC,
+        price_range: { min: 0, max: Infinity },
+        abv_range: { min: 0, max: Infinity },
+        bottle_size: { min: 0, max: Infinity },
+      };
+      state.filteredData = [];
+    },
   },
 });
 
@@ -78,6 +156,8 @@ export const {
   removeFromCart,
   incrementCartItemQuantity,
   decrementCartItemQuantity,
+  filterInventory,
+  clearFilter,
 } = inventorySlice.actions;
 export default inventorySlice.reducer;
 

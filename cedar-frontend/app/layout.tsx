@@ -10,6 +10,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  typeof window !== "undefined" && console.log(window.location.pathname);
   return (
     <html lang="en">
       <body>
@@ -17,10 +18,7 @@ export default function RootLayout({
           <div className="flex">
             {typeof window !== "undefined" &&
             window.location.pathname === "/login" ? (
-              <div>
-                <Topbar />
-                {children}
-              </div> // Show login page without protection
+              <div>{children}</div> // Show login page without protection
             ) : (
               <ProtectedRoute>
                 <div>

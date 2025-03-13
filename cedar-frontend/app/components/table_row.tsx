@@ -29,6 +29,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useDeleteWineMutation } from "../store/slices/apiSlice";
 
 interface Params {
   wine: Wine;
@@ -42,6 +43,7 @@ function TableRow({ wine, id }: Params) {
       (state.dropdown as DropdownState<Actions>).dropdowns[id]
   );
   const inventoryCart = useSelector((state: RootState) => state.inventory.cart);
+  const [deleteWine] = useDeleteWineMutation();
 
   return (
     // <div className="flex text-sm rounded-xl items-center p-3 px-5 w-full justify-between gap-x-8">
@@ -72,17 +74,18 @@ function TableRow({ wine, id }: Params) {
     <div className="flex w-full rounded-xl bg-wBrand-background_light/60 space-x-24 justify-between p-4">
       <div className="space-y-2">
         <h2 className="text-base font-medium">{wine.name}</h2>
-        <div className="text-gray-400 flex items-center gap-2 text-xs">
+        <div className="text-gray-400 flex items-center gap-2 text-xs flex-wrap">
           <p>
             ID: <span className="text-gray-200">#{wine.id}</span>
           </p>
           <div className="h-1 w-1 rounded-full bg-gray-400" />
           <p>
-            NO IN STOCK: <span className="text-gray-200">{wine.inStock}</span>
+            ABV: <span className="text-gray-200">{wine.abv}%</span>
           </p>
           <div className="h-1 w-1 rounded-full bg-gray-400" />
           <p>
-            ABV: <span className="text-gray-200">{wine.abv}%</span>
+            NO IN STOCK:{" "}
+            <span className="text-gray-200">{wine.inStock ?? 1}</span>
           </p>
           <div className="h-1 w-1 rounded-full bg-gray-400" />
           <p>
@@ -111,11 +114,14 @@ function TableRow({ wine, id }: Params) {
               <DropdownMenuContent className="bg-wBrand-background z-10 p-2 space-y-1 rounded-xl border border-wBrand-foreground/20 top-7 shadow-xl">
                 {actionDropdownItems.map((item, idx) => (
                   <DropdownMenuItem
-                    onClick={() => {
+                    onClick={async () => {
                       if (item.value == Actions.UPDATE) {
                         dispatch(setCurrentlyEditing(wine));
                         dispatch(toggleWineEditor());
                         dispatch(dispatch(updateAction(Actions.UPDATE)));
+                      } else if (item.value == Actions.DELETE) {
+                        const response = deleteWine({ wine_id: wine.id });
+                        console.log("response: ", response);
                       }
                     }}
                     className="cursor-pointer"

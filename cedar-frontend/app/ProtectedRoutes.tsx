@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useCheckTokenQuery } from "./store/slices/apiSlice";
+import Page from "./login/page";
 
 export default function ProtectedRoute({
   children,
@@ -10,25 +12,23 @@ export default function ProtectedRoute({
 }) {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { data, error, isLoading } = useCheckTokenQuery(); // Call the query
 
   useEffect(() => {
-    const checkAuth = () => {
-      const token = localStorage.getItem("authToken");
-      setIsAuthenticated(!!token);
-      console.log("token in here", token);
-      if (!token) {
-        router.push("/login"); // Redirect if not authenticated
+    if (!isLoading) {
+      if (error || data?.message !== "Token is valid") {
+        console.log("Token is invalid or expired");
       }
-    };
 
-    checkAuth();
-    window.addEventListener("storage", checkAuth); // Listen for changes in localStorage
-    return () => window.removeEventListener("storage", checkAuth);
-  }, [router]);
+      if (data?.message == "Token is valid") {
+        console.log("Token is valid, expires at:", data.expires_at);
+        setIsAuthenticated(true);
+        router.push("/");
+      }
+    }
+  }, [data, error, isLoading, router]);
 
-  //   if (!isAuthenticated) {
-  //     router.push("/login");
-  //   }
+  if (isLoading) return <p>Checking authentication...</p>;
 
-  return <>{children}</>;
+  return isAuthenticated ? <>{children}</> : <Page />;
 }

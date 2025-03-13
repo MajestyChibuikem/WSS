@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TableRow from "../components/table_row";
 import {
   dropdownItems,
@@ -13,7 +13,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { toggleWineEditor, updateAction } from "../store/slices/wineSlice";
 import CheckboxSelector from "../components/checkbox_selector";
-import { updateInventoryFilter } from "../store/slices/inventorySlice";
+import {
+  clearFilter,
+  filterInventory,
+  updateInventoryFilter,
+} from "../store/slices/inventorySlice";
 import { useGetWinesQuery } from "../store/slices/apiSlice";
 import {
   Select,
@@ -24,20 +28,39 @@ import {
 } from "@/components/ui/select";
 
 import Empty from "../components/empty";
-import { Actions } from "../utils/types";
+import { Actions, Wine as IWine } from "../utils/types";
 
 function Page() {
+  const [data, setData] = useState<IWine[]>();
   const showWineEditor = useSelector(
     (state: RootState) => state.winer.show_wine_editor
   );
   const inventoryFilter = useSelector(
     (state: RootState) => state.inventory.inventoryFilter
   );
+  const selectedItems = useSelector(
+    (state: RootState) =>
+      state.checkboxSelector.selectors["inventory_product_category"]?.items ||
+      {}
+  );
+  const inventory = useSelector((state: RootState) => state.inventory);
   const dispatch = useDispatch();
 
   const { data: wineData, error, isLoading } = useGetWinesQuery();
+  const categoryArr: string[] = Object.values(selectedItems).map(
+    (item) => item.content
+  );
 
-  console.log("wines", wineData, wineData?.wines.length);
+  useEffect(() => {
+    console.log("filtered: ", inventory.filteredData);
+    if (inventory.filteredData.length > 0) {
+      setData(inventory.filteredData);
+    } else if (wineData && wineData.wines.length > 0) {
+      setData(wineData.wines);
+    }
+  }, [wineData, inventory.filteredData]);
+
+  console.log("categories: ", categoryArr);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error fetching wines</p>;
@@ -54,16 +77,32 @@ function Page() {
           </p>
         </div>
 
-        <div className="flex justify-between items-center px-10 w-[calc(100vw-22rem)]">
-          <div className="icon-input">
-            <Search className="h-4" />
-            <input
-              type="text"
-              className="outline-none h-full bg-transparent w-full"
-            />
+        <div className="flex justify-between items-center pl-9 w-[calc(100vw-22rem)]">
+          <div className="flex w-[70%] gap-5">
+            <div className="icon-input w-full">
+              <Search className="h-4" />
+              <input
+                type="text"
+                value={inventoryFilter.name}
+                onChange={(e) =>
+                  dispatch(updateInventoryFilter({ name: e.target.value }))
+                }
+                className="outline-none h-full bg-transparent w-full"
+              />
+            </div>
+            {wineData && (
+              <button
+                onClick={() => {
+                  dispatch(filterInventory({ wines: wineData.wines }));
+                }}
+                className="px-5 py-2 h-full bg-wBrand-accent text-wBrand-background rounded-xl"
+              >
+                Search
+              </button>
+            )}
           </div>
 
-          <div>
+          <div className="">
             <button
               onClick={() => {
                 dispatch(toggleWineEditor());
@@ -79,7 +118,30 @@ function Page() {
       <div className="flex w-[100vw]">
         <div className="w-[25rem] h-[100vh]">
           <div className="fixed w-[24rem] h-[calc(100vh-9rem)] top-[9rem] p-10 pr-0 pt-0 left-0">
-            <div className="rounded-lg space-y-8 pt-10 overflow-y-auto relative bg-wBrand-background_light/60 h-full">
+            <div className="rounded-lg space-y-8 pb-10 overflow-y-auto relative bg-wBrand-background_light/60 h-full">
+              {wineData && wineData.wines.length != 0 && (
+                <div className="bg-wBrand-background_light gap-4 px-10 h-[5.5rem] flex items-center w-full justify-center sticky top-0">
+                  <button
+                    onClick={() =>
+                      dispatch(
+                        filterInventory({
+                          wines: wineData.wines,
+                          categories: categoryArr,
+                        })
+                      )
+                    }
+                    className="px-5 py-2 bg-wBrand-accent w-full text-wBrand-background rounded-xl"
+                  >
+                    Filter
+                  </button>
+                  <button
+                    onClick={() => dispatch(clearFilter())}
+                    className="px-5 py-2 border border-white/40 w-full text-white rounded-xl"
+                  >
+                    Reset
+                  </button>
+                </div>
+              )}
               <div className="space-y-4 px-6">
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
                   PRODUCT CATEGORY
@@ -150,19 +212,28 @@ function Page() {
                   SORT ORDER
                 </p>
                 <Select>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Theme" />
+                  <SelectTrigger className="w-full p-3 h-max outline-none rounded-xl">
+                    <SelectValue placeholder={inventoryFilter.sort_by} />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-wBrand-background mt-2">
                     {dropdownItems.map((item, idx) => (
-                      <SelectItem key={idx} value={item.value.toString()}>
+                      <SelectItem
+                        className="p-3"
+                        onClick={() =>
+                          dispatch(
+                            updateInventoryFilter({ sort_by: item.value })
+                          )
+                        }
+                        key={idx}
+                        value={item.value.toString()}
+                      >
                         {item.content}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
 
-                <Dropdown id="inventory_abv_range" items={dropdownItems} />
+                {/* <Dropdown id="inventory_abv_range" items={dropdownItems} /> */}
               </div>
               <div className="space-y-4 px-6">
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
@@ -214,26 +285,20 @@ function Page() {
                   </div>
                 </div>
               </div>
-              <div className="bg-wBrand-background_light px-10 h-[5.5rem] flex items-center w-full justify-center sticky bottom-0">
-                <button className="px-5 py-2 bg-wBrand-accent w-full text-wBrand-background rounded-xl">
-                  Filter
-                </button>
-              </div>
             </div>
           </div>
         </div>
         <div className="px-8 w-[calc(100vw-25rem)]">
           <div className="space-y-2">
-            {!wineData ? (
+            {!data ? (
               <Empty
                 info={
                   "there seems to currently be an issue with the server... Try again later"
                 }
               />
-            ) : wineData.wines.length == 0 ? (
-              <Empty info={"Inventory is currently empty."} />
             ) : (
-              wineData.wines.map((wine, idx) => (
+              data &&
+              data.map((wine, idx) => (
                 <TableRow
                   id={"inventory_wine_card_" + idx}
                   key={idx}

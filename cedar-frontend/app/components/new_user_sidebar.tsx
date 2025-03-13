@@ -10,8 +10,19 @@ import {
 import { RootState } from "../store";
 import { updateToggleItem } from "../store/slices/dropdownSlice";
 import { Actions, DropdownItem, Roles } from "../utils/types";
-import { useCreateUserMutation } from "../store/slices/apiSlice";
+import {
+  useCreateUserMutation,
+  useUpdateUserMutation,
+} from "../store/slices/apiSlice";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import clsx from "clsx";
+import { clearCurrentlyEditing } from "../store/slices/wineSlice";
 
 function NewUserSideBar() {
   const dispatch = useDispatch();
@@ -21,30 +32,39 @@ function NewUserSideBar() {
   );
 
   const [createUser] = useCreateUserMutation();
+  const [updateUser] = useUpdateUserMutation();
 
   const handleSubmit = async () => {
-    if (
-      user.currentlyEditing &&
-      dropdown.item &&
-      user.action_type == Actions.CREATE
-    ) {
-      const is_admin = dropdown.item?.value == Roles.ADMIN;
-      console.log("in here");
-      console.log(
-        user.currentlyEditing,
-        dropdown.item.value as string,
-        user.action_type
-      );
+    if (user.currentlyEditing && user.action_type == Actions.CREATE) {
       try {
+        console.log(
+          "in here: ",
+          user.currentlyEditing,
+          user.currentlyEditing.roles
+        );
         const response = await createUser({
           username: user.currentlyEditing.username,
           password: user.currentlyEditing.password,
-          is_admin,
-          roles: [dropdown.item.value as string],
+          is_admin: user.currentlyEditing.roles[0] == Roles.ADMIN,
+          roles: user.currentlyEditing.roles,
+        });
+        console.log("response: ", response); //impement response for 409(confilict user already exists) and 200 created successfully
+        dispatch(clearCurrentlyEditing());
+      } catch {
+        console.log("couldnt create user");
+      }
+    } else if (user.currentlyEditing && user.action_type == Actions.UPDATE) {
+      try {
+        const response = await updateUser({
+          username: user.currentlyEditing.username,
+          password: user.currentlyEditing.password,
+          is_admin: user.currentlyEditing.roles[0] == Roles.ADMIN,
+          roles: user.currentlyEditing.roles,
+          userId: user.currentlyEditing.id,
         });
         console.log("response: ", response); //impement response for 409(confilict user already exists) and 200 created successfully
       } catch {
-        console.log("couldnt create user");
+        console.log("couldnt update user");
       }
     }
   };
@@ -52,7 +72,7 @@ function NewUserSideBar() {
   return (
     <div className="fixed w-[100vw] h-[100vh] bg-black/45 top-0 right-0 z-20">
       <div className="h-full w-[25rem] bg-wBrand-background fixed top-0 right-0 p-6 space-y-8">
-        <h1 className="text-2xl font-semibold mt-8">Add new user</h1>
+        <h1 className="text-2xl font-semibold mt-8">{user.action_type} user</h1>
         <div className="space-y-8">
           <div className="space-y-4">
             <p className="text-xs text-wBrand-foreground/60 font-medium">
@@ -90,11 +110,35 @@ function NewUserSideBar() {
             <p className="text-xs text-wBrand-foreground/60 font-medium">
               ROLE
             </p>
-            <Dropdown
-              className="text-sm h-11 p-0 pl-4"
-              id={"user_roles_dropdown"}
-              items={usersDropdownItems}
-            />
+            <Select>
+              <SelectTrigger className="w-full rounded-xl h-max p-3">
+                <SelectValue
+                  placeholder={
+                    user.currentlyEditing?.roles ?? "Select user role"
+                  }
+                />
+              </SelectTrigger>
+              <SelectContent className="bg-wBrand-background mt-2 rounded-xl">
+                {usersDropdownItems.map((item, idx) => (
+                  <SelectItem
+                    className="p-3"
+                    key={idx}
+                    onClick={() => {
+                      console.log("item: ", item.value.toLocaleUpperCase());
+                      item.content &&
+                        dispatch(
+                          setCurrentlyEditing({
+                            roles: [item.value.toLocaleUpperCase()],
+                          })
+                        );
+                    }}
+                    value={item.value.toString()}
+                  >
+                    {item.content}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
         <div className="w-full flex gap-4 justify-end">
@@ -117,9 +161,7 @@ function NewUserSideBar() {
                 "bg-gray-700"
             )}
           >
-            {user.action_type == Actions.CREATE
-              ? "Add user"
-              : user.action_type == Actions.UPDATE && "Update user"}
+            {user.action_type} user
           </button>
         </div>
       </div>

@@ -1,17 +1,50 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import ActionTableRow from "../components/action_table_row";
 import { DollarSign, User } from "lucide-react";
 import { actions } from "../utils/mock_data";
+import { DatePickerWithRange } from "../components/range_calendar";
+import { useGetAllLogsQuery } from "../store/slices/apiSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store";
+import { setActivities, setFilters } from "../store/slices/activitySlice";
 
 function Page() {
+  const {
+    data: allLogs,
+    error: allLogsError,
+    isLoading: allLogsLoading,
+  } = useGetAllLogsQuery({});
+
+  const dispatch = useDispatch();
+  const activities = useSelector(
+    (state: RootState) => state.activity.activities
+  );
+
+  useEffect(() => {
+    allLogs && dispatch(setActivities(allLogs));
+  }, [allLogs]);
+
+  useEffect(() => {
+    console.log("activities: ", activities);
+  }, [activities]);
+
   return (
     <div className="w-[100vw] px-10 space-y-10">
       <h1 className="text-2xl font-medium">Activity Log</h1>
       <section className="w-full flex">
         <div className="w-[25rem] h-[100vh]">
           <div className="fixed w-[24rem] h-[calc(100vh-9rem)] top-[9rem] p-10 pr-0 pt-0 left-0">
-            <div className="p-6 rounded-lg space-y-8 bg-wBrand-background_light/60 h-full">
-              <div className="space-y-4">
+            <div className="rounded-lg space-y-8 pb-10 overflow-y-auto relative bg-wBrand-background_light/60 h-full">
+              <div className="bg-wBrand-background_light gap-4 px-10 h-[5.5rem] flex items-center w-full justify-center sticky top-0">
+                <button className="px-5 py-2 bg-wBrand-accent w-full text-wBrand-background rounded-xl">
+                  Filter
+                </button>
+                <button className="px-5 py-2 border border-white/40 w-full text-white rounded-xl">
+                  Reset
+                </button>
+              </div>
+              <div className="space-y-4 px-6">
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
                   ACTIONS
                 </p>
@@ -29,7 +62,7 @@ function Page() {
                   ))}
                 </div>
               </div>
-              <div className="space-y-4">
+              <div className="space-y-4 px-6">
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
                   FILTER BY USER
                 </p>
@@ -40,11 +73,41 @@ function Page() {
                     </div>
                     <input
                       type="text"
+                      onChange={(e) =>
+                        dispatch(setFilters({ username: e.target.value }))
+                      }
                       placeholder="ENTER USER NAME"
                       className="outline-none min-h-full pl-4 bg-transparent w-full"
                     />
                   </div>
                 </div>
+              </div>
+              <div className="space-y-4 px-6">
+                <p className="text-xs text-wBrand-foreground/60 font-medium">
+                  FILTER BY ITEM
+                </p>
+                <div className="text-sm">
+                  <div className="flex w-full rounded-xl border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40">
+                    <div className="border-r bg-wBrand-background border-wBrand-foreground/20 p-3">
+                      <User className="h-4" />
+                    </div>
+                    <input
+                      type="text"
+                      placeholder="ENTER ITEM NAME"
+                      className="outline-none min-h-full pl-4 bg-transparent w-full"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="relative w-max px-6 space-y-4">
+                <p className="text-xs text-wBrand-foreground/60 font-medium">
+                  FILTER BY DATE RANGE
+                </p>
+                <DatePickerWithRange
+                  period1={true}
+                  className="!w-full bg-transparent"
+                  triggerClassname="h-max text-xs bg-wBrand-background/40 rounded-xl px-4 py-3 !w-full border border-wBrand-foreground/20 items-center justify-center flex"
+                />
               </div>
             </div>
           </div>

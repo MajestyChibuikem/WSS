@@ -6,7 +6,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://127.0.0.1:5000",
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem("authToken");
+      const token = localStorage.getItem("wineryAuthToken");
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
@@ -72,6 +72,33 @@ export const apiSlice = createApi({
       query: (user_id) => `/auth/user/${user_id}`,
     }),
 
+    updateUser: builder.mutation<
+      {
+        message: string;
+        user: {
+          id: number;
+          username: string;
+          is_admin: boolean;
+          roles: string | string[];
+        };
+      },
+      {
+        userId: number;
+        username?: string;
+        password?: string;
+        is_admin?: boolean;
+        roles?: string | string[];
+      }
+    >({
+      query: ({ userId, ...updateData }) => ({
+        url: `/users/${userId}`,
+        method: "PUT",
+        body: updateData,
+      }),
+      transformResponse: (response: any) => response, // Optional: Modify response if needed
+      transformErrorResponse: (error: any) => error.data, // Optional: Extract meaningful error data
+    }),
+
     // Update User Roles (Admin Only)
     updateUserRoles: builder.mutation<
       { message: string; roles: string[] },
@@ -95,31 +122,6 @@ export const apiSlice = createApi({
     // Fetch all wines
     getWines: builder.query<{ wines: [] }, void>({
       query: () => "/wine/all",
-    }),
-
-    // Fetch total wine stock
-    getTotalWineStock: builder.query<{ total_stock: number }, void>({
-      query: () => "/wine/total_stock",
-    }),
-
-    // Fetch stock by category
-    getStockByCategory: builder.query<
-      { stock_by_category: Record<string, number> },
-      void
-    >({
-      query: () => "/wine/stock_by_category",
-    }),
-
-    // Get revenue within a specified time period
-    getRevenue: builder.query<
-      { revenue: number },
-      { start_date: string; end_date: string }
-    >({
-      query: ({ start_date, end_date }) => ({
-        url: "/revenue",
-        method: "GET",
-        body: { start_date, end_date },
-      }),
     }),
 
     // Add Wine
@@ -161,6 +163,30 @@ export const apiSlice = createApi({
       }),
     }),
 
+    checkToken: builder.query<
+      { message: string; expires_at: string | null },
+      void
+    >({
+      query: () => ({
+        url: "/auth/check-token",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("wineryAuthToken")}`,
+        },
+      }),
+      transformResponse: (response: {
+        message: string;
+        expires_at: string;
+      }) => ({
+        message: response?.message || "Invalid token",
+        expires_at: response?.expires_at || null,
+      }),
+      transformErrorResponse: (response) => ({
+        message: "Invalid token",
+        expires_at: null,
+      }),
+    }),
+
     // Delete Wine
     deleteWine: builder.mutation<{ message: string }, { wine_id: number }>({
       query: ({ wine_id }) => ({
@@ -169,16 +195,89 @@ export const apiSlice = createApi({
       }),
     }),
 
-    // Compare sales between two time periods
-    compareSales: builder.query<
-      { message: string },
-      { start_date: string; end_date: string }
-    >({
-      query: ({ start_date, end_date }) => ({
-        url: "/compare-sales",
-        method: "GET",
-        body: { start_date, end_date },
+    // Get Inventory Value
+    getInventoryValue: builder.query<{ [category: string]: number }, void>({
+      query: () => "/wine/inventory-value",
+      transformErrorResponse: (response) => ({
+        message: "Error while fetching inventory value",
       }),
+    }),
+
+    // Get User Sales by ID
+    getUserSales: builder.query<
+      { user_id: number; total_sales: number },
+      number
+    >({
+      query: (userId) => `/wine/user-sales/${userId}`,
+      transformErrorResponse: (response) => ({
+        message:
+          response.status === 404
+            ? "User not found"
+            : "Error fetching user sales",
+      }),
+    }),
+
+    // Compare Sales Between Two Periods
+    compareSales: builder.query<
+      { percentage_change: number },
+      {
+        period1_start: string;
+        period1_end: string;
+        period2_start: string;
+        period2_end: string;
+      }
+    >({
+      query: ({ period1_start, period1_end, period2_start, period2_end }) => ({
+        url: "/wine/compare-sales",
+        method: "GET",
+        params: { period1_start, period1_end, period2_start, period2_end },
+      }),
+      transformErrorResponse: (response) => ({
+        message: "Error fetching sales comparison data",
+      }),
+    }),
+
+    // Get Revenue for a Given Date Range
+    getRevenue: builder.query<any, { start_date: string; end_date: string }>({
+      query: ({ start_date, end_date }) => ({
+        url: "/wine/revenue",
+        method: "GET",
+        params: { start_date, end_date },
+      }),
+      transformErrorResponse: (response) => ({
+        message: "Error fetching revenue data",
+      }),
+    }),
+
+    // Get Stock by Category
+    getStockByCategory: builder.query<
+      { stock_by_category: Record<string, number> },
+      void
+    >({
+      query: () => "/wine/stock-by-category",
+      transformErrorResponse: (response) => ({
+        message: "Error fetching stock by category",
+      }),
+    }),
+
+    // Get Total Wine Stock
+    getTotalWineStock: builder.query<{ total_stock: number }, void>({
+      query: () => "/wine/total_stock",
+      transformErrorResponse: (response) => ({
+        message: "Error fetching total stock",
+      }),
+    }),
+
+    getAllLogs: builder.query({
+      query: () => "/logs/logs",
+    }),
+
+    getUserLogs: builder.query({
+      query: (userId) => `logs/user/${userId}`,
+    }),
+
+    getLogsByAction: builder.query({
+      query: (action) => `logs/action/${action}`,
     }),
   }),
 });
@@ -199,6 +298,11 @@ export const {
   useAddWineMutation,
   useUpdateWineMutation,
   useDeleteWineMutation,
+  useCheckTokenQuery,
+  useGetUserSalesQuery,
+  useGetInventoryValueQuery,
+  useUpdateUserMutation,
+  useGetAllLogsQuery,
 } = apiSlice;
 
 export default apiSlice;

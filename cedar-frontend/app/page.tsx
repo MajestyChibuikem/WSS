@@ -12,6 +12,7 @@ import {
 } from "./store/slices/apiSlice";
 import { RootState } from "./store";
 import { useSelector } from "react-redux";
+import { calculateRevenueChange, formatDecimal } from "./utils/helpers";
 
 export default function Home() {
   const { calendarRange } = useSelector((state: RootState) => state.stats);
@@ -20,7 +21,10 @@ export default function Home() {
     data: revenueData,
     error: revenueErr,
     isLoading: loadingRevenue,
-  } = useGetRevenueQuery(calendarRange);
+  } = useGetRevenueQuery({
+    start_date: calendarRange.period1_start_date,
+    end_date: calendarRange.period1_end_date,
+  });
   const {
     data: stockCategoryData,
     error: stockCategoryErr,
@@ -35,7 +39,12 @@ export default function Home() {
     data: compareSales,
     error: compareSalesErr,
     isLoading: loadingcompareSales,
-  } = useCompareSalesQuery(calendarRange);
+  } = useCompareSalesQuery({
+    period1_start: calendarRange.period1_start_date,
+    period1_end: calendarRange.period1_end_date,
+    period2_start: calendarRange.period2_start_date,
+    period2_end: calendarRange.period2_end_date,
+  });
 
   useEffect(() => {
     console.log("Fetching Data...");
@@ -70,6 +79,10 @@ export default function Home() {
     compareSalesErr,
     loadingcompareSales,
   ]);
+  // const revenue = revenueQuery.data?.revenue;
+  // const percentageChange = compareSalesQuery.data?.percentage_change;
+
+  revenueData && console.log("formatted: ", formatDecimal(revenueData.revenue));
 
   return (
     <main className="w-[100vw] px-10 space-y-8 py-6">
@@ -92,7 +105,10 @@ export default function Home() {
           {/* <h1 className="text-2xl font-medium text-wBrand-foreground/20">Dashboard</h1> */}
           <div></div>
           <div className="relative w-max">
-            <DatePickerWithRange />
+            <DatePickerWithRange
+              period1={true}
+              triggerClassname="h-7 text-xs rounded-full px-3 bg-gray-400/30 items-center justify-center flex"
+            />
           </div>
         </div>
       </section>
@@ -101,24 +117,63 @@ export default function Home() {
         <div className="space-y-2">
           <h3 className="font-medium">Revenue</h3>
           <div className="flex items-center gap-4">
-            <h4 className="text-4xl font-semibold">
-              N200,459<span className="text-wBrand-foreground/40">.83</span>
-            </h4>
+            {revenueData && revenueData.revenue !== undefined && (
+              <h4 className="text-4xl font-semibold">
+                {formatDecimal(
+                  revenueData.revenue as number
+                ).formatted.toString()}
+                <span className="text-wBrand-foreground/40">
+                  .
+                  {formatDecimal(
+                    revenueData.revenue as number
+                  ).decimal.toString()}
+                </span>
+              </h4>
+            )}
+
             <div className="flex gap-x-1">
               <div className="h-5 text-xs flex items-center px-1 rounded-full bg-wBrand-accent text-black w-max">
                 <ArrowUpNarrowWide className="h-3 w-3" />
-                <p>7.9%</p>
+                {compareSales && compareSales.percentage_change && (
+                  <p>
+                    {(compareSales.percentage_change as number).toString()}%
+                  </p>
+                )}
               </div>
-              <div className="h-5 text-xs flex items-center px-1 rounded-full bg-wBrand-accent text-black w-max">
-                N59,000.40
-              </div>
+              {revenueData &&
+                revenueData.revenue &&
+                compareSales &&
+                compareSales.percentage_change && (
+                  <div className="h-5 text-xs flex items-center px-1 rounded-full bg-wBrand-accent text-black w-max">
+                    {calculateRevenueChange(
+                      revenueData.revenue as number,
+                      compareSales.percentage_change as number
+                    ).amountChange.toString()}
+                  </div>
+                )}
             </div>
           </div>
-          <div className="text-xs font-medium flex gap-2 text-gray-400">
-            <p>vs. prev. N109,245.32 </p>
-            <button className="flex w-max">
-              <p>Jun 1 - Aug 31, 2025</p> <ChevronDown className="h-4" />
-            </button>
+          <div className="text-xs font-medium flex gap-2 text-gray-400 items-center">
+            {revenueData &&
+              revenueData.revenue &&
+              compareSales &&
+              compareSales.percentage_change && (
+                <p>
+                  vs. prev.{" "}
+                  {calculateRevenueChange(
+                    revenueData.revenue as number,
+                    compareSales.percentage_change as number
+                  ).previousRevenue.toString()}{" "}
+                </p>
+              )}
+            <div className="flex w-max items-center">
+              <DatePickerWithRange
+                period1={false}
+                triggerClassname="flex w-max h-6 text-xs"
+                className="border-none"
+              />
+              <ChevronDown className="h-4" />
+            </div>
           </div>
         </div>
 

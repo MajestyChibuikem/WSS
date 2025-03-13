@@ -9,6 +9,8 @@ import {
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
+import { Roles } from "../utils/types";
+import { getRoleEnum } from "../utils/helpers";
 
 //Inventory
 //
@@ -19,16 +21,38 @@ function Topbar() {
       name: "Dashboard",
       href: "/",
       icon: <LayoutDashboard className="h-4" />,
+      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPERUSER],
     },
     {
       name: "Inventory",
       href: "/inventory",
       icon: <ChartNoAxesGantt className="h-4" />,
+      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPERUSER],
     },
-    { name: "Cart", href: "/cart", icon: <ShoppingBasket className="h-4" /> },
-    { name: "Activity", href: "/activity", icon: <Activity className="h-4" /> },
-    { name: "Users", href: "/users", icon: <UsersRound className="h-4" /> },
+    {
+      name: "Cart",
+      href: "/cart",
+      icon: <ShoppingBasket className="h-4" />,
+      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPERUSER],
+    },
+    {
+      name: "Activity",
+      href: "/activity",
+      icon: <Activity className="h-4" />,
+      showFor: [Roles.ADMIN],
+    },
+    {
+      name: "Users",
+      href: "/users",
+      icon: <UsersRound className="h-4" />,
+      showFor: [Roles.ADMIN],
+    },
   ];
+
+  const userRole = getRoleEnum(
+    localStorage.getItem("wineryUserRole")?.toLowerCase() ?? ""
+  );
+  console.log("user role: ", userRole);
 
   return (
     <div className="w-full h-[5rem] bg-wBrand-background">
@@ -59,19 +83,23 @@ function Topbar() {
           {links.map((link, index) => {
             const isActive = pathname === link.href;
             return (
-              <Link href={link.href}>
-                <li
-                  key={index}
-                  className={`hover:bg-wBrand-accent/10 px-4 border py-1 flex items-center gap-2 text-sm rounded-full cursor-pointer ${
-                    isActive
-                      ? "bg-wBrand-accent/20 border-transparent"
-                      : "text-wBrand-foreground/40 border-wBrand-foreground/40"
-                  }`}
-                >
-                  <span className="text-sm">{link.icon}</span>
-                  {link.name}
-                </li>
-              </Link>
+              <>
+                {userRole && link.showFor.includes(userRole) && (
+                  <Link href={link.href}>
+                    <li
+                      key={index}
+                      className={`hover:bg-wBrand-accent/10 px-4 border py-1 flex items-center gap-2 text-sm rounded-full cursor-pointer ${
+                        isActive
+                          ? "bg-wBrand-accent/20 border-transparent"
+                          : "text-wBrand-foreground/40 border-wBrand-foreground/40"
+                      }`}
+                    >
+                      <span className="text-sm">{link.icon}</span>
+                      {link.name}
+                    </li>
+                  </Link>
+                )}
+              </>
             );
           })}
         </ul>

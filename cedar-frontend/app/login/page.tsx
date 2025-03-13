@@ -25,14 +25,21 @@ function Page() {
 
   const handleLogin = async () => {
     try {
+      console.log("in here", user);
       const response = await login({
         username: user.username,
         password: user.password,
       }).unwrap(); // RTK Query call
 
+      console.log("login; ", response);
+
       console.log("token: ", response.token);
-      localStorage.setItem("authToken", response.token); // Use localStorage
+      localStorage.setItem("wineryAuthToken", response.token); // Use localStorage
+      localStorage.setItem("wineryUserRole", response.roles[0]);
       router.push("/");
+      if (typeof window != undefined) {
+        window.location.href = "/";
+      }
     } catch (error) {
       console.error("Login failed:", error);
     }

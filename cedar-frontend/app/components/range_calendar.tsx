@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { addDays, format } from "date-fns";
+import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { DateRange } from "react-day-picker";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,17 +19,28 @@ import { setStatsState } from "../store/slices/statsSlice";
 
 export function DatePickerWithRange({
   className,
-}: React.HTMLAttributes<HTMLDivElement>) {
+  triggerClassname,
+  period1,
+}: React.HTMLAttributes<HTMLDivElement> & {
+  triggerClassname?: string;
+  period1: boolean;
+}) {
   const dispatch = useDispatch();
   const { calendarRange } = useSelector((state: RootState) => state.stats);
 
+  // Determine the correct period's dates
+  const start_date = period1
+    ? calendarRange.period1_start_date
+    : calendarRange.period2_start_date;
+  const end_date = period1
+    ? calendarRange.period1_end_date
+    : calendarRange.period2_end_date;
+
   // Convert Redux state to DateRange format
-  const initialDateRange: DateRange | undefined = calendarRange.start_date
+  const initialDateRange: DateRange | undefined = start_date
     ? {
-        from: new Date(calendarRange.start_date),
-        to: calendarRange.end_date
-          ? new Date(calendarRange.end_date)
-          : undefined,
+        from: new Date(start_date),
+        to: end_date ? new Date(end_date) : undefined,
       }
     : undefined;
 
@@ -42,13 +53,21 @@ export function DatePickerWithRange({
       dispatch(
         setStatsState({
           calendarRange: {
-            start_date: date.from.toISOString().split("T")[0], // Format as YYYY-MM-DD
-            end_date: date.to.toISOString().split("T")[0],
+            ...calendarRange, // Keep the existing state to avoid losing other properties
+            ...(period1
+              ? {
+                  period1_start_date: date.from.toISOString().split("T")[0],
+                  period1_end_date: date.to.toISOString().split("T")[0],
+                }
+              : {
+                  period2_start_date: date.from.toISOString().split("T")[0],
+                  period2_end_date: date.to.toISOString().split("T")[0],
+                }),
           },
         })
       );
     }
-  }, [date, dispatch]);
+  }, [date, dispatch, period1]);
 
   return (
     <div className={cn("grid gap-2", className)}>
@@ -56,10 +75,10 @@ export function DatePickerWithRange({
         <PopoverTrigger asChild>
           <Button
             id="date"
-            variant={"outline"}
             className={cn(
-              "h-7 text-xs rounded-full px-3 bg-gray-400/30 items-center justify-center flex",
-              !date && "text-muted-foreground"
+              "h-10 text-xs rounded-full px-3 bg-gray-400/30 items-center justify-center flex",
+              !date && "text-muted-foreground",
+              triggerClassname
             )}
           >
             <CalendarIcon />

@@ -2,8 +2,10 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from sqlalchemy.dialects.postgresql import UUID, JSON
 from werkzeug.security import check_password_hash, generate_password_hash
-import uuid
-from sqlalchemy import func, and_
+from uuid import UUID, uuid4
+from sqlalchemy import func, and_, String
+
+
 
 # Initialize SQLAlchemy
 from app import db
@@ -186,11 +188,13 @@ class Cart(db.Model):
         db.Index('idx_cart_user', 'user_id')
     )
 
+
+
 class Invoice(db.Model):
     __tablename__ = 'invoices'
 
     id = db.Column(db.Integer, primary_key=True)
-    invoice_number = db.Column(UUID(as_uuid=True), default=uuid.uuid4, unique=True)
+    invoice_number = db.Column(String(36), default=lambda: str(uuid4()), unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     total_amount = db.Column(db.Numeric(10, 2), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -202,7 +206,8 @@ class Invoice(db.Model):
         db.Index('idx_invoice_user', 'user_id')
     )
 
-    items = db.relationship('InvoiceItem', backref='invoice', lazy='dynamic')
+    # Relationship to InvoiceItem with cascade delete
+    items = db.relationship('InvoiceItem', backref='invoice', lazy='dynamic', cascade='all, delete-orphan')
 
     @staticmethod
     def calculate_revenue(start_date, end_date):
@@ -228,6 +233,21 @@ class Invoice(db.Model):
         percentage_change = ((revenue_period2 - revenue_period1) / revenue_period1) * 100
         return percentage_change
 
+    def to_dict(self):
+        """
+        Convert the Invoice object to a dictionary, including its items.
+        """
+        return {
+            'id': self.id,
+            'invoice_number': str(self.invoice_number),
+            'user_id': self.user_id,
+            'total_amount': str(self.total_amount),
+            'created_at': self.created_at.isoformat(),
+            'status': self.status,
+            'notes': self.notes,
+            'items': [item.to_dict() for item in self.items]
+        }
+
 class InvoiceItem(db.Model):
     __tablename__ = 'invoice_items'
 
@@ -242,7 +262,21 @@ class InvoiceItem(db.Model):
         db.Index('idx_invoice_item_wine', 'wine_id')
     )
 
-
+    def to_dict(self):
+        """
+        Convert the InvoiceItem object to a dictionary, including wine details.
+        """
+        wine = Wine.query.get(self.wine_id)
+        return {
+            'id': self.id,
+            'invoice_id': self.invoice_id,
+            'wine': {
+                'id': wine.id,
+                'name': wine.name
+            },
+            'quantity': self.quantity,
+            'price': str(self.price)
+        }
 
 class logEntry(db.Model):
     # Table name

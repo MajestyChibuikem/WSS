@@ -3,27 +3,41 @@
 @tailwind utilities;
 
 :root {
-  --foreground: #ffffff;
-  --background: #0f171b;
-  --accent: #39da79;
+  --wBrand-foreground: #ffffff;
+  --wBrand-background: #0f171b;
+  --wBrand-accent: #39da79;
+
+  --fs-base: clamp(16px, 1.1vw, 18px);
+  --fs-big: clamp(18px, 1.4vw, 22px);
+  --fs-bigger: clamp(24px, 2.2vw, 32px);
+  --fs-h1: clamp(35px, 3.8vw, 55px);
+  --fs-h2: clamp(30px, 3.3vw, 48px);
+  --fs-h3: clamp(28px, 2.8vw, 40px);
+  --fs-h4: clamp(26px, 2.4vw, 35px);
+  --fs-h5: clamp(24px, 2vw, 28px);
+  --fs-h6: clamp(20px, 1.4vw, 20px);
 }
 
 /* @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --wBrand-foreground-rgb: 255, 255, 255;
+    --wBrand-background-start-rgb: 0, 0, 0;
+    --wBrand-background-end-rgb: 0, 0, 0;
   }
 } */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--wBrand-background);
+  color: var(--wBrand-foreground);
+}
+
+.fs-h1 {
+  font-size: var(--fs-h1);
 }
 
 @layer components {
   .icon-input {
-    @apply flex space-x-3 items-center w-[70%] bg-black/20 border-2 border-accent/10 pl-5 pr-2 py-3 rounded-xl
+    @apply flex space-x-3 items-center w-[70%] bg-black/20 border-2 border-wBrand-accent/10 pl-5 pr-2 py-3 rounded-xl;
   }
 }
 
@@ -32,8 +46,6 @@ body {
     text-wrap: balance;
   }
 }
-
-
 
 /* Hide number input arrows in all browsers */
 input[type="number"]::-webkit-inner-spin-button,
@@ -46,7 +58,5 @@ input[type="number"] {
   -moz-appearance: textfield; /* Firefox */
 }
 
-
-
-@layer base {}
-
+@layer base {
+}

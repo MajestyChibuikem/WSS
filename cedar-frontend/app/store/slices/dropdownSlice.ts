@@ -3,7 +3,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Dropdown<T> {
   show: boolean;
-  item: DropdownItem<T> | null;
+  active: DropdownItem<T> | null;
+  items: Array<DropdownItem<T>> | null;
 }
 
 export interface DropdownState<T> {
@@ -35,7 +36,8 @@ const dropdownSlice = createSlice({
       // Toggle the selected dropdown
       state.dropdowns[id] = {
         show: !state.dropdowns[id]?.show,
-        item: state.dropdowns[id]?.item ?? null,
+        items: state.dropdowns[id]?.items ?? null,
+        active: state.dropdowns[id]?.active ?? null,
       };
     },
 
@@ -47,18 +49,16 @@ const dropdownSlice = createSlice({
       const { id, item } = action.payload;
       if (!state.dropdowns[id]) {
         console.log("in here");
-        state.dropdowns[id] = { show: false, item: null };
+        state.dropdowns[id] = { show: false, items: null, active: null };
       }
 
-      console.log("item: ", item);
+      state.dropdowns[id].items?.forEach((currentItem) => {
+        currentItem == item
+          ? (currentItem.active = true)
+          : (currentItem.active = false);
+      });
 
-      state.dropdowns[id] = {
-        ...state.dropdowns[id],
-        item,
-        show: false, // Close after selecting item
-      };
-
-      console.log("here", state.dropdowns[id] && state.dropdowns[id].item);
+      console.log("here", state.dropdowns[id] && state.dropdowns[id].items);
     },
   },
 });

@@ -13,9 +13,10 @@ interface Params<T> {
   id: string;
   items: DropdownItem<T>[];
   className?: string;
+  action?: () => void;
 }
 
-function Dropdown<T>({ id, items, className }: Params<T>) {
+function Dropdown<T>({ id, items, className, action }: Params<T>) {
   const dispatch = useDispatch();
   const dropdown = useSelector(
     (state: RootState) => state.dropdown.dropdowns[id]
@@ -26,34 +27,43 @@ function Dropdown<T>({ id, items, className }: Params<T>) {
   }, []);
 
   return (
-    <div className="flex w-full rounded-xl border border-foreground/20 overflow-clip bg-background/40">
+    <div className="flex w-full rounded-xl border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40">
       <div
         onClick={() => dispatch(toggleDropdown(id))}
         className={clsx(
-          "border-r space-x-4 cursor-pointer bg-background border-foreground/20 p-3 flex w-full items-center",
+          "border-r space-x-4 cursor-pointer bg-wBrand-background border-wBrand-foreground/20 p-3 flex w-full items-center",
           className
         )}
       >
-        {dropdown && (
-          <>
-            {(dropdown.item as DropdownItem<T>).icon}
-            <p className="text-foreground/80 font-medium">
-              {(dropdown.item as DropdownItem<T>).content}
-            </p>
-          </>
-        )}
+        {dropdown &&
+          dropdown.items?.map(
+            (item, idx) =>
+              item.active && (
+                <div key={idx}>
+                  {item.icon}
+                  <p className="text-wBrand-foreground/80 font-medium">
+                    {item.content}
+                  </p>
+                </div>
+              )
+          )}
       </div>
 
       {dropdown && dropdown.show && (
-        <div className="w-full absolute bg-background p-2 space-y-3 rounded-xl border border-foreground/20 top-14 shadow-xl">
+        <div className="w-full absolute bg-wBrand-background p-2 space-y-3 rounded-xl border border-wBrand-foreground/20 top-14 shadow-xl">
           {items.map((item, idx) => (
             <div
               key={idx}
-              onClick={() => dispatch(updateToggleItem({ id, item }))}
-              className="flex gap-3 p-3 hover:bg-background_light/70 rounded-lg cursor-pointer"
+              onClick={() => {
+                action && action();
+                dispatch(updateToggleItem({ id, item }));
+              }}
+              className="flex gap-3 p-3 hover:bg-wBrand-background_light/70 rounded-lg cursor-pointer"
             >
               {item.icon}
-              <p className="text-foreground/80 font-medium">{item.content}</p>
+              <p className="text-wBrand-foreground/80 font-medium">
+                {item.content}
+              </p>
             </div>
           ))}
         </div>

@@ -15,6 +15,21 @@ import {
   incrementCartItemQuantity,
   removeFromCart,
 } from "../store/slices/inventorySlice";
+import {
+  setCurrentWineCategory,
+  setCurrentlyEditing,
+  toggleWineEditor,
+  updateAction,
+} from "../store/slices/wineSlice";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useDeleteWineMutation } from "../store/slices/apiSlice";
 
 interface Params {
   wine: Wine;
@@ -28,6 +43,7 @@ function TableRow({ wine, id }: Params) {
       (state.dropdown as DropdownState<Actions>).dropdowns[id]
   );
   const inventoryCart = useSelector((state: RootState) => state.inventory.cart);
+  const [deleteWine] = useDeleteWineMutation();
 
   return (
     // <div className="flex text-sm rounded-xl items-center p-3 px-5 w-full justify-between gap-x-8">
@@ -44,7 +60,7 @@ function TableRow({ wine, id }: Params) {
     //     <p>N100,000</p>
     //   </div>
     //   <div className="flex justify-center w-[25%]">
-    //     <button className="text-sm flex items-center gap-2 p-4 justify-center h-[1.5rem] bg-accent/60 text-foreground rounded-lg">
+    //     <button className="text-sm flex items-center gap-2 p-4 justify-center h-[1.5rem] bg-wBrand-accent/60 text-wBrand-foreground rounded-lg">
     //       <ShoppingBasket className="h-4" />
     //       <p>Add to cart</p>
     //     </button>
@@ -55,16 +71,12 @@ function TableRow({ wine, id }: Params) {
     //     </button>
     //   </div>
     // </div>
-    <div className="flex w-full rounded-xl bg-background_light/60 space-x-24 justify-between p-4">
+    <div className="grid grid-cols-1 xl:flex w-full rounded-xl bg-wBrand-background_light/60 gap-6 justify-between p-4">
       <div className="space-y-2">
         <h2 className="text-base font-medium">{wine.name}</h2>
-        <div className="text-gray-400 flex items-center gap-2 text-xs">
+        <div className="text-gray-400 flex items-center gap-2 text-xs flex-wrap">
           <p>
             ID: <span className="text-gray-200">#{wine.id}</span>
-          </p>
-          <div className="h-1 w-1 rounded-full bg-gray-400" />
-          <p>
-            NO IN STOCK: <span className="text-gray-200">{wine.inStock}</span>
           </p>
           <div className="h-1 w-1 rounded-full bg-gray-400" />
           <p>
@@ -72,13 +84,18 @@ function TableRow({ wine, id }: Params) {
           </p>
           <div className="h-1 w-1 rounded-full bg-gray-400" />
           <p>
+            NO IN STOCK:{" "}
+            <span className="text-gray-200">{wine.inStock ?? 1}</span>
+          </p>
+          <div className="h-1 w-1 rounded-full bg-gray-400" />
+          <p>
             BOTTLE SIZE:{" "}
-            <span className="text-gray-200">{wine.bottleSize}ML</span>
+            <span className="text-gray-200">{wine.bottle_size}ML</span>
           </p>
         </div>
       </div>
 
-      <div className="flex items-center border-l border-l-foreground/30 text-sm px-6 gap-x-14">
+      <div className="flex items-center xl:border-l border-l-wBrand-foreground/30 text-sm xl:px-6 gap-x-14">
         <div className="space-y-2">
           <p className="text-xs text-gray-300">PRICE</p>
           <p>N{wine.price}</p>
@@ -87,44 +104,40 @@ function TableRow({ wine, id }: Params) {
           <p className="text-xs text-gray-300">CATEGORY</p>
           <p>{wine.category}</p>
         </div>
-        <div className="space-y-2">
+        <div className="flex gap-3 items-center xl:flex-col xl:gap-2">
           {!inventoryCart.some((item) => item.id === wine.id) && (
-            <button
-              onClick={() => dispatch(toggleDropdown(id))}
-              className="text-sm flex items-center relative gap-2 w-[8.4rem] justify-center h-8 border-2 border-foreground/40 rounded-lg"
-            >
-              <Ellipsis className="h-4" />
-              {dropdown && dropdown.show && (
-                <div className="w-full absolute bg-background z-10 p-2 space-y-1 rounded-xl border border-foreground/20 top-7 shadow-xl">
-                  {actionDropdownItems.map((item, idx) => (
-                    <div
-                      key={idx}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        dispatch(
-                          updateToggleItem({
-                            id,
-                            item,
-                          })
-                        );
-                      }}
-                      className="flex gap-3 p-3 hover:bg-background_light/70 rounded-lg cursor-pointer"
-                    >
-                      {item.icon}
-                      <p className="text-foreground/80 font-medium">
-                        {item.content}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </button>
+            <DropdownMenu>
+              {" "}
+              <DropdownMenuTrigger className="text-sm flex items-center gap-2 w-[8.4rem] justify-center h-8 border-2 border-wBrand-foreground/40 rounded-lg">
+                <Ellipsis className="h-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-wBrand-background z-10 p-2 space-y-1 rounded-xl border border-wBrand-foreground/20 top-7 shadow-xl">
+                {actionDropdownItems.map((item, idx) => (
+                  <DropdownMenuItem
+                    onClick={async () => {
+                      if (item.value == Actions.UPDATE) {
+                        dispatch(setCurrentlyEditing(wine));
+                        dispatch(toggleWineEditor());
+                        dispatch(dispatch(updateAction(Actions.UPDATE)));
+                      } else if (item.value == Actions.DELETE) {
+                        const response = deleteWine({ wine_id: wine.id });
+                        console.log("response: ", response);
+                      }
+                    }}
+                    className="cursor-pointer"
+                    key={idx}
+                  >
+                    {item.content.toString()}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           )}
 
           {!inventoryCart.some((item) => item.id === wine.id) && (
             <button
               onClick={() => dispatch(addToCart(wine))}
-              className="text-sm flex items-center gap-2 w-[8.4rem] justify-center h-8 bg-accent/80 text-background rounded-lg"
+              className="text-sm flex items-center gap-2 w-[8.4rem] justify-center h-8 bg-wBrand-accent/80 text-wBrand-background rounded-lg"
             >
               <ShoppingBasket className="h-4" />
               <p>Add to cart</p>
@@ -132,10 +145,10 @@ function TableRow({ wine, id }: Params) {
           )}
           {inventoryCart.some((item) => item.id === wine.id) && (
             <div className="space-y-4 text-sm w-[8.4rem] flex flex-col justify-center">
-              <div className="flex border border-foreground/30 overflow-clip space-x-2 w-full h-8 justify-between items-center rounded-lg">
+              <div className="flex border border-wBrand-foreground/30 overflow-clip space-x-2 w-full h-8 justify-between items-center rounded-lg">
                 <button
                   onClick={() => dispatch(decrementCartItemQuantity(wine.id))}
-                  className="h-8 w-8 hover:bg-foreground/10"
+                  className="h-8 w-8 hover:bg-wBrand-foreground/10"
                 >
                   -
                 </button>
@@ -144,7 +157,7 @@ function TableRow({ wine, id }: Params) {
                 </div>
                 <button
                   onClick={() => dispatch(incrementCartItemQuantity(wine.id))}
-                  className="h-8 w-8 hover:bg-foreground/10"
+                  className="h-8 w-8 hover:bg-wBrand-foreground/10"
                 >
                   +
                 </button>

@@ -25,8 +25,8 @@ function Sidebar() {
   return (
     <div className="w-[18rem] ">
       <div className="w-[18rem] fixed top-0 left-0 h-[100vh] space-y-6">
-        <div className="text-xl p-4 flex gap-x-4 items-center border-b border-b-accent/50">
-          <div className="p-2 text-2xl text-background stroke-4 bg-accent rounded-lg">
+        <div className="text-xl p-4 flex gap-x-4 items-center border-b border-b-wBrand-accent/50">
+          <div className="p-2 text-2xl text-wBrand-background stroke-4 bg-wBrand-accent rounded-lg">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -54,8 +54,10 @@ function Sidebar() {
               <Link href={link.href}>
                 <li
                   key={index}
-                  className={`hover:bg-accent/10 p-3 rounded-lg flex items-center gap-3 text-lg cursor-pointer ${
-                    isActive ? "bg-accent/20" : "text-foreground/60"
+                  className={`hover:bg-wBrand-accent/10 p-3 rounded-lg flex items-center gap-3 text-lg cursor-pointer ${
+                    isActive
+                      ? "bg-wBrand-accent/20"
+                      : "text-wBrand-foreground/60"
                   }`}
                 >
                   <span>{link.icon}</span>

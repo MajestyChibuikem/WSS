@@ -9,6 +9,8 @@ import {
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
+import { Roles } from "../utils/types";
+import { getRoleEnum } from "../utils/helpers";
 
 //Inventory
 //
@@ -19,22 +21,44 @@ function Topbar() {
       name: "Dashboard",
       href: "/",
       icon: <LayoutDashboard className="h-4" />,
+      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPERUSER],
     },
     {
       name: "Inventory",
       href: "/inventory",
       icon: <ChartNoAxesGantt className="h-4" />,
+      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPERUSER],
     },
-    { name: "Cart", href: "/cart", icon: <ShoppingBasket className="h-4" /> },
-    { name: "Activity", href: "/activity", icon: <Activity className="h-4" /> },
-    { name: "Users", href: "/users", icon: <UsersRound className="h-4" /> },
+    {
+      name: "Cart",
+      href: "/cart",
+      icon: <ShoppingBasket className="h-4" />,
+      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPERUSER],
+    },
+    {
+      name: "Activity",
+      href: "/activity",
+      icon: <Activity className="h-4" />,
+      showFor: [Roles.ADMIN],
+    },
+    {
+      name: "Users",
+      href: "/users",
+      icon: <UsersRound className="h-4" />,
+      showFor: [Roles.ADMIN],
+    },
   ];
 
+  const userRole = getRoleEnum(
+    localStorage.getItem("wineryUserRole")?.toLowerCase() ?? ""
+  );
+  console.log("user role: ", userRole);
+
   return (
-    <div className="w-full h-[5rem] bg-background">
-      <div className="w-full h-[5rem] flex items-center px-10 bg-background justify-between fixed top-0 left-0">
+    <div className="w-full h-[5rem] bg-wBrand-background">
+      <div className="w-full h-[5rem] flex items-center px-10 bg-wBrand-background justify-between fixed top-0 left-0">
         <div className="text-sm flex gap-x-4 items-center">
-          <div className="p-2 text-2xl text-background stroke-4 bg-accent rounded-lg">
+          <div className="p-2 text-2xl text-wBrand-background stroke-4 bg-wBrand-accent rounded-lg">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -53,25 +77,29 @@ function Topbar() {
               <path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z" />
             </svg>
           </div>
-          <h1 className="font-medium text-2xl text-accent">WINERY</h1>
+          <h1 className="font-medium text-2xl text-wBrand-accent">WINERY</h1>
         </div>
         <ul className="px-4 flex h-full items-center space-x-2">
           {links.map((link, index) => {
             const isActive = pathname === link.href;
             return (
-              <Link href={link.href}>
-                <li
-                  key={index}
-                  className={`hover:bg-accent/10 px-4 border py-1 flex items-center gap-2 text-sm rounded-full cursor-pointer ${
-                    isActive
-                      ? "bg-accent/20 border-transparent"
-                      : "text-foreground/40 border-foreground/40"
-                  }`}
-                >
-                  <span className="text-sm">{link.icon}</span>
-                  {link.name}
-                </li>
-              </Link>
+              <>
+                {userRole && link.showFor.includes(userRole) && (
+                  <Link href={link.href}>
+                    <li
+                      key={index}
+                      className={`hover:bg-wBrand-accent/10 px-4 border py-1 flex items-center gap-2 text-sm rounded-full cursor-pointer ${
+                        isActive
+                          ? "bg-wBrand-accent/20 border-transparent"
+                          : "text-wBrand-foreground/40 border-wBrand-foreground/40"
+                      }`}
+                    >
+                      <span className="text-sm">{link.icon}</span>
+                      {link.name}
+                    </li>
+                  </Link>
+                )}
+              </>
             );
           })}
         </ul>

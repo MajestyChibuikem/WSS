@@ -2,28 +2,99 @@
 import { ArrowUpNarrowWide, ChevronDown, Plus } from "lucide-react";
 import { wineInventory } from "./utils/mock_data";
 import TableRowDashboard from "./components/table_row_dashboard";
-import RangeCalendar from "./components/range_calendar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { DatePickerWithRange } from "./components/range_calendar";
+import {
+  useCompareSalesQuery,
+  useGetRevenueQuery,
+  useGetStockByCategoryQuery,
+  useGetTotalWineStockQuery,
+} from "./store/slices/apiSlice";
+import { RootState } from "./store";
+import { useSelector } from "react-redux";
+import { calculateRevenueChange, formatDecimal } from "./utils/helpers";
 
 export default function Home() {
-  const [selectedRange, setSelectedRange] = useState<{
-    start: Date | null;
-    end: Date | null;
-  }>({
-    start: null,
-    end: null,
+  const { calendarRange } = useSelector((state: RootState) => state.stats);
+
+  const {
+    data: revenueData,
+    error: revenueErr,
+    isLoading: loadingRevenue,
+  } = useGetRevenueQuery({
+    start_date: calendarRange.period1_start_date,
+    end_date: calendarRange.period1_end_date,
   });
+  const {
+    data: stockCategoryData,
+    error: stockCategoryErr,
+    isLoading: loadingStockCategory,
+  } = useGetStockByCategoryQuery();
+  const {
+    data: totalWineStock,
+    error: totalWineStockErr,
+    isLoading: loadingTotalWineStock,
+  } = useGetTotalWineStockQuery();
+  const {
+    data: compareSales,
+    error: compareSalesErr,
+    isLoading: loadingcompareSales,
+  } = useCompareSalesQuery({
+    period1_start: calendarRange.period1_start_date,
+    period1_end: calendarRange.period1_end_date,
+    period2_start: calendarRange.period2_start_date,
+    period2_end: calendarRange.period2_end_date,
+  });
+
+  useEffect(() => {
+    console.log("Fetching Data...");
+    console.table({
+      revenueData,
+      revenueErr,
+      loadingRevenue,
+
+      stockCategoryData,
+      stockCategoryErr,
+      loadingStockCategory,
+
+      totalWineStock,
+      totalWineStockErr,
+      loadingTotalWineStock,
+
+      compareSales,
+      compareSalesErr,
+      loadingcompareSales,
+    });
+  }, [
+    revenueData,
+    revenueErr,
+    loadingRevenue,
+    stockCategoryData,
+    stockCategoryErr,
+    loadingStockCategory,
+    totalWineStock,
+    totalWineStockErr,
+    loadingTotalWineStock,
+    compareSales,
+    compareSalesErr,
+    loadingcompareSales,
+  ]);
+  // const revenue = revenueQuery.data?.revenue;
+  // const percentageChange = compareSalesQuery.data?.percentage_change;
+
+  revenueData && console.log("formatted: ", formatDecimal(revenueData.revenue));
+
   return (
     <main className="w-[100vw] px-10 space-y-8 py-6">
       <section className="flex gap-x-2 text-xs items-center">
-        <button className="h-7 w-7 rounded-full flex items-center justify-center border border-accent/50">
-          <Plus className="h-4 w-4 stroke-accent" />
+        <button className="h-7 w-7 rounded-full flex items-center justify-center border border-wBrand-accent/50">
+          <Plus className="h-4 w-4 stroke-wBrand-accent" />
         </button>
-        <button className="flex gap-x-2 h-8 px-2 pr-3 items-center rounded-full border border-foreground/10">
+        <button className="flex gap-x-2 h-8 px-2 pr-3 items-center rounded-full border border-wBrand-foreground/10">
           <div className="h-5 w-5 rounded-full bg-white"></div>
           <p>Joe Shlonger</p>
         </button>
-        <button className="flex gap-x-2 h-8 px-2 pr-3 items-center rounded-full border border-foreground/10">
+        <button className="flex gap-x-2 h-8 px-2 pr-3 items-center rounded-full border border-wBrand-foreground/10">
           <div className="h-5 w-5 rounded-full bg-white"></div>
           <p>Alice Rice</p>
         </button>
@@ -31,18 +102,12 @@ export default function Home() {
 
       <section className="w-full">
         <div className="flex justify-between">
-          {/* <h1 className="text-2xl font-medium text-foreground/20">Dashboard</h1> */}
+          {/* <h1 className="text-2xl font-medium text-wBrand-foreground/20">Dashboard</h1> */}
           <div></div>
           <div className="relative w-max">
-            <button className="h-7 text-xs rounded-full px-1 pl-3 bg-gray-400/30 items-center justify-center flex">
-              <p>Sept 1 - Nov 30, 2024</p>
-              <span>
-                <ChevronDown className="h-4" />
-              </span>
-            </button>
-            <RangeCalendar
-              className="right-0 z-20 mt-4"
-              onRangeSelect={setSelectedRange}
+            <DatePickerWithRange
+              period1={true}
+              triggerClassname="h-7 text-xs rounded-full px-3 bg-gray-400/30 items-center justify-center flex"
             />
           </div>
         </div>
@@ -52,30 +117,69 @@ export default function Home() {
         <div className="space-y-2">
           <h3 className="font-medium">Revenue</h3>
           <div className="flex items-center gap-4">
-            <h4 className="text-4xl font-semibold">
-              N200,459<span className="text-foreground/40">.83</span>
-            </h4>
+            {revenueData && revenueData.revenue !== undefined && (
+              <h4 className="text-4xl font-semibold">
+                {formatDecimal(
+                  revenueData.revenue as number
+                ).formatted.toString()}
+                <span className="text-wBrand-foreground/40">
+                  .
+                  {formatDecimal(
+                    revenueData.revenue as number
+                  ).decimal.toString()}
+                </span>
+              </h4>
+            )}
+
             <div className="flex gap-x-1">
-              <div className="h-5 text-xs flex items-center px-1 rounded-full bg-accent text-black w-max">
+              <div className="h-5 text-xs flex items-center px-1 rounded-full bg-wBrand-accent text-black w-max">
                 <ArrowUpNarrowWide className="h-3 w-3" />
-                <p>7.9%</p>
+                {compareSales && compareSales.percentage_change && (
+                  <p>
+                    {(compareSales.percentage_change as number).toString()}%
+                  </p>
+                )}
               </div>
-              <div className="h-5 text-xs flex items-center px-1 rounded-full bg-accent text-black w-max">
-                N59,000.40
-              </div>
+              {revenueData &&
+                revenueData.revenue &&
+                compareSales &&
+                compareSales.percentage_change && (
+                  <div className="h-5 text-xs flex items-center px-1 rounded-full bg-wBrand-accent text-black w-max">
+                    {calculateRevenueChange(
+                      revenueData.revenue as number,
+                      compareSales.percentage_change as number
+                    ).amountChange.toString()}
+                  </div>
+                )}
             </div>
           </div>
-          <div className="text-xs font-medium flex gap-2 text-gray-400">
-            <p>vs. prev. N109,245.32 </p>
-            <button className="flex w-max">
-              <p>Jun 1 - Aug 31, 2025</p> <ChevronDown className="h-4" />
-            </button>
+          <div className="text-xs font-medium flex gap-2 text-gray-400 items-center">
+            {revenueData &&
+              revenueData.revenue &&
+              compareSales &&
+              compareSales.percentage_change && (
+                <p>
+                  vs. prev.{" "}
+                  {calculateRevenueChange(
+                    revenueData.revenue as number,
+                    compareSales.percentage_change as number
+                  ).previousRevenue.toString()}{" "}
+                </p>
+              )}
+            <div className="flex w-max items-center">
+              <DatePickerWithRange
+                period1={false}
+                triggerClassname="flex w-max h-6 text-xs"
+                className="border-none"
+              />
+              <ChevronDown className="h-4" />
+            </div>
           </div>
         </div>
 
         <div className="flex gap-x-4">
           <div className="relative w-max">
-            <div className="w-[13rem] h-[6rem] flex flex-col justify-center border relative z-10 border-foreground/30 bg-background rounded-xl p-3 space-y-1">
+            <div className="w-[13rem] h-[6rem] flex flex-col justify-center border relative z-10 border-wBrand-foreground/30 bg-wBrand-background rounded-xl p-3 space-y-1">
               <h5 className="text-xs text-gray-400 font-medium">
                 Total bottles in stock
               </h5>
@@ -92,11 +196,11 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="w-[11.3rem] h-[4rem] -top-2 translate-x-[50%] right-[50%] absolute rounded-xl bg-foreground/10"></div>
+            <div className="w-[11.3rem] h-[4rem] -top-2 translate-x-[50%] right-[50%] absolute rounded-xl bg-wBrand-foreground/10"></div>
           </div>
 
           <div className="relative w-max">
-            <div className="w-[13rem] h-[6rem] flex flex-col justify-center border relative z-10 border-foreground/30 bg-background rounded-xl p-3 space-y-1">
+            <div className="w-[13rem] h-[6rem] flex flex-col justify-center border relative z-10 border-wBrand-foreground/30 bg-wBrand-background rounded-xl p-3 space-y-1">
               <h5 className="text-xs text-gray-400 font-medium">
                 Total Value of Inventory
               </h5>
@@ -113,17 +217,17 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="w-[11.3rem] h-[4rem] -top-2 translate-x-[50%] right-[50%] absolute rounded-xl bg-foreground/10"></div>
+            <div className="w-[11.3rem] h-[4rem] -top-2 translate-x-[50%] right-[50%] absolute rounded-xl bg-wBrand-foreground/10"></div>
           </div>
 
           <div className="relative">
-            <h3 className=" font-medium absolute -top-8 text-foreground/80">
+            <h3 className=" font-medium absolute -top-8 text-wBrand-foreground/80">
               Top Bestsellers
             </h3>
             <div className="flex gap-x-2">
-              <div className="h-[6rem] w-[6rem] text-xs bg-accent/10 rounded-xl flex flex-col justify-center items-center p-1 gap-y-2">
+              <div className="h-[6rem] w-[6rem] text-xs bg-wBrand-accent/10 rounded-xl flex flex-col justify-center items-center p-1 gap-y-2">
                 <h4 className="text-sm">Château...</h4>
-                <p className="rounded-full bg-accent/30 w-max py-1 px-2">
+                <p className="rounded-full bg-wBrand-accent/30 w-max py-1 px-2">
                   300K
                 </p>
                 <p>+10%</p>
@@ -131,15 +235,15 @@ export default function Home() {
 
               <div className="h-[6rem] w-[6rem] text-xs bg-gray-300/10 rounded-xl flex flex-col justify-center items-center p-1 gap-y-2">
                 <h4 className="text-sm">Château...</h4>
-                <p className="rounded-full bg-foreground/30 w-max py-1 px-2">
+                <p className="rounded-full bg-wBrand-foreground/30 w-max py-1 px-2">
                   230K
                 </p>
                 <p>+10%</p>
               </div>
 
-              <div className="h-[6rem] w-[6rem] text-xs bg-background border border-foreground/20 rounded-xl flex flex-col justify-center items-center p-1 gap-y-2">
+              <div className="h-[6rem] w-[6rem] text-xs bg-wBrand-background border border-wBrand-foreground/20 rounded-xl flex flex-col justify-center items-center p-1 gap-y-2">
                 <h4 className="text-sm">Château...</h4>
-                <p className="rounded-full border border-foreground/30 w-max py-1 px-2">
+                <p className="rounded-full border border-wBrand-foreground/30 w-max py-1 px-2">
                   100K
                 </p>
                 <p>+10%</p>
@@ -151,28 +255,28 @@ export default function Home() {
 
       <section className="py-3">
         <div className="p-1 bg-gray-300/5 mx-auto w-max relative rounded-full flex gap-4">
-          <div className="flex justify-between w-max bg-background rounded-full items-center p-1 px-2 gap-x-20">
+          <div className="flex justify-between w-max bg-wBrand-background rounded-full items-center p-1 px-2 gap-x-20">
             <div className="flex gap-3 items-center">
               <div className="h-5 w-5 rounded-full bg-white"></div>
               <h4 className="text-sm font-medium">N109,000</h4>
             </div>
             <p className="text-gray-300/40 text-xs">32.82%</p>
           </div>
-          <div className="flex justify-between w-max bg-background rounded-full items-center p-1 px-2 gap-x-20">
+          <div className="flex justify-between w-max bg-wBrand-background rounded-full items-center p-1 px-2 gap-x-20">
             <div className="flex gap-3 items-center">
               <div className="h-5 w-5 rounded-full bg-white"></div>
               <h4 className="text-sm font-medium">N109,000</h4>
             </div>
             <p className="text-gray-300/40 text-xs">32.82%</p>
           </div>
-          <div className="flex justify-between w-max bg-background rounded-full items-center p-1 px-2 gap-x-20">
+          <div className="flex justify-between w-max bg-wBrand-background rounded-full items-center p-1 px-2 gap-x-20">
             <div className="flex gap-3 items-center">
               <div className="h-5 w-5 rounded-full bg-white"></div>
               <h4 className="text-sm font-medium">N109,000</h4>
             </div>
             <p className="text-gray-300/40 text-xs">32.82%</p>
           </div>
-          <div className="flex justify-between w-max bg-background rounded-full items-center p-1 px-2 gap-x-20">
+          <div className="flex justify-between w-max bg-wBrand-background rounded-full items-center p-1 px-2 gap-x-20">
             <div className="flex gap-3 items-center">
               <div className="h-5 w-5 rounded-full bg-white"></div>
               <h4 className="text-sm font-medium">N109,000</h4>

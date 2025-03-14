@@ -13,7 +13,7 @@ function ActionTableRow() {
         <p>21 Feb, 2025</p>
       </div> */}
 
-      <div className="rounded-xl bg-background_light/60 p-4 space-y-1">
+      <div className="rounded-xl bg-wBrand-background_light/60 p-4 space-y-1">
         <h3 className="text-sm text-green-400/50 font-medium">ADD</h3>
         <h2 className="">Château Margaux</h2>
         <div className="text-xs flex gap-3 text-gray-400">

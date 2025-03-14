@@ -1,30 +1,33 @@
 export const enum SortOrder {
-  ASC = 0,
-  DSC = 1,
+  ASC = "ASCENDING ORDER",
+  DSC = "DESCENDING ORDER",
 }
 
 export const enum Actions {
-  DELETE = 0,
-  UPDATE = 1,
-  CREATE = 2,
+  DELETE = "Delete",
+  UPDATE = "Update",
+  CREATE = "Create",
 }
 
-export const enum Roles {
-  ADMIN = "ADMIN",
-  SUPERUSER = "SUPERUSER",
-  STAFF = "STAFF",
+export enum Roles {
+  ADMIN = "admin",
+  SUPERUSER = "superuser",
+  STAFF = "staff",
 }
 
 export interface User {
-  firstname: string;
-  lastname: string;
-  role: Roles;
+  id: number;
+  username: string;
+  created_at: string;
+  is_admin: boolean;
+  roles: string[];
 }
 
 export interface DropdownItem<T> {
   icon: React.JSX.Element | null;
   content: string;
   value: T;
+  active: boolean;
 }
 
 export interface Wine {
@@ -33,8 +36,17 @@ export interface Wine {
   abv: number; // Alcohol by Volume %
   price: number; // Price in Naira
   category: WineCategory;
-  bottleSize: number; // in ml
+  bottle_size: number; // in ml
   inStock: number; // Number of bottles available
+}
+
+export const enum WineCategoryEnum {
+  RED = "Red",
+  WHITE = "White",
+  ROSE = "Rosé",
+  SPARKLING = "Sparkling",
+  DESSERT = "Dessert",
+  FORTIFIED = "Fortified",
 }
 
 export type WineCategory =

@@ -1,5 +1,15 @@
 import { ArrowDownAZ, ArrowUpAZ } from "lucide-react";
-import { Actions, DropdownItem, Roles, SortOrder, User, Wine } from "./types";
+import {
+  Actions,
+  DropdownItem,
+  Roles,
+  SortOrder,
+  User,
+  Wine,
+  WineCategory,
+  WineCategoryEnum,
+} from "./types";
+import { setCurrentlyEditing } from "../store/slices/wineSlice";
 
 export const wineCategories = [
   { content: "Red", stock_count: 1073 },
@@ -24,11 +34,13 @@ export const dropdownItems: DropdownItem<SortOrder>[] = [
     icon: <ArrowUpAZ className="h-4" />,
     content: "Ascending order",
     value: SortOrder.ASC,
+    active: true,
   },
   {
     icon: <ArrowDownAZ className="h-4" />,
     content: "Descending order",
     value: SortOrder.DSC,
+    active: false,
   },
 ];
 
@@ -37,34 +49,73 @@ export const usersDropdownItems: DropdownItem<Roles>[] = [
     icon: null,
     content: "ADMIN",
     value: Roles.ADMIN,
+    active: true,
   },
   {
     icon: null,
     content: "SUPER USER",
     value: Roles.SUPERUSER,
+    active: false,
   },
   {
     icon: null,
     content: "STAFF",
     value: Roles.STAFF,
+    active: false,
   },
 ];
 
 export const actionDropdownItems: DropdownItem<Actions>[] = [
   {
     icon: null,
-    content: "ADD",
-    value: Actions.CREATE,
-  },
-  {
-    icon: null,
     content: "UPDATE",
     value: Actions.UPDATE,
+    active: false,
   },
   {
     icon: null,
     content: "DELETE",
     value: Actions.DELETE,
+    active: false,
+  },
+];
+
+export const categoryDropdownItems: DropdownItem<WineCategoryEnum>[] = [
+  {
+    icon: null,
+    content: WineCategoryEnum.WHITE,
+    value: WineCategoryEnum.WHITE,
+    active: false,
+  },
+  {
+    icon: null,
+    content: WineCategoryEnum.RED,
+    value: WineCategoryEnum.RED,
+    active: false,
+  },
+  {
+    icon: null,
+    content: WineCategoryEnum.ROSE,
+    value: WineCategoryEnum.ROSE,
+    active: false,
+  },
+  {
+    icon: null,
+    content: WineCategoryEnum.SPARKLING,
+    value: WineCategoryEnum.SPARKLING,
+    active: false,
+  },
+  {
+    icon: null,
+    content: WineCategoryEnum.DESSERT,
+    value: WineCategoryEnum.DESSERT,
+    active: false,
+  },
+  {
+    icon: null,
+    content: WineCategoryEnum.FORTIFIED,
+    value: WineCategoryEnum.FORTIFIED,
+    active: false,
   },
 ];
 
@@ -75,7 +126,7 @@ export const wineInventory: Wine[] = [
     abv: 13.5,
     price: 75000,
     category: "Red",
-    bottleSize: 750,
+    bottle_size: 750,
     inStock: 20,
   },
   {
@@ -84,7 +135,7 @@ export const wineInventory: Wine[] = [
     abv: 12.5,
     price: 30000,
     category: "White",
-    bottleSize: 750,
+    bottle_size: 750,
     inStock: 35,
   },
   {
@@ -93,7 +144,7 @@ export const wineInventory: Wine[] = [
     abv: 12.0,
     price: 95000,
     category: "Sparkling",
-    bottleSize: 750,
+    bottle_size: 750,
     inStock: 15,
   },
   {
@@ -102,7 +153,7 @@ export const wineInventory: Wine[] = [
     abv: 20.0,
     price: 65000,
     category: "Fortified",
-    bottleSize: 750,
+    bottle_size: 750,
     inStock: 10,
   },
   {
@@ -111,7 +162,7 @@ export const wineInventory: Wine[] = [
     abv: 13.0,
     price: 40000,
     category: "Rosé",
-    bottleSize: 750,
+    bottle_size: 750,
     inStock: 25,
   },
   {
@@ -120,37 +171,37 @@ export const wineInventory: Wine[] = [
     abv: 11.5,
     price: 55000,
     category: "Dessert",
-    bottleSize: 500,
+    bottle_size: 500,
     inStock: 12,
   },
 ];
 
-export const mockUsers: User[] = [
-  {
-    firstname: "Alice",
-    lastname: "Johnson",
-    role: Roles.ADMIN,
-  },
-  {
-    firstname: "Bob",
-    lastname: "Smith",
-    role: Roles.SUPERUSER,
-  },
-  {
-    firstname: "Charlie",
-    lastname: "Brown",
-    role: Roles.STAFF,
-  },
-  {
-    firstname: "Diana",
-    lastname: "Williams",
-    role: Roles.STAFF,
-  },
-  {
-    firstname: "Ethan",
-    lastname: "Harris",
-    role: Roles.ADMIN,
-  },
-];
+// export const mockUsers: User[] = [
+//   {
+//     firstname: "Alice",
+//     lastname: "Johnson",
+//     role: Roles.ADMIN,
+//   },
+//   {
+//     firstname: "Bob",
+//     lastname: "Smith",
+//     role: Roles.SUPERUSER,
+//   },
+//   {
+//     firstname: "Charlie",
+//     lastname: "Brown",
+//     role: Roles.STAFF,
+//   },
+//   {
+//     firstname: "Diana",
+//     lastname: "Williams",
+//     role: Roles.STAFF,
+//   },
+//   {
+//     firstname: "Ethan",
+//     lastname: "Harris",
+//     role: Roles.ADMIN,
+//   },
+// ];
 
 export { SortOrder };

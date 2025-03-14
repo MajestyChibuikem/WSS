@@ -147,3 +147,59 @@ def manage_single_invoice(invoice_id):
         db.session.rollback()
         log_action(current_user_id, 'INVOICE_ERROR', f'Error processing invoice: {str(e)}', level='error')
         return jsonify({'message': 'An error occurred while processing the invoice'}), 500
+@invoices_bp.route('/checkout', methods=['POST'])
+@jwt_required()
+def checkout():
+    """
+    Handle the checkout process.
+    """
+    current_user_id = get_jwt_identity()
+    current_user = User.query.get(current_user_id)
+
+    data = request.get_json()
+    if not data or not data.get('items') or not data.get('total_amount'):
+        log_action(current_user_id, 'CHECKOUT_INVALID', 'Missing required fields for checkout')
+        return jsonify({'message': 'items and total_amount are required'}), 400
+
+    try:
+        # Update the stock of each item in the cart
+        for item_data in data['items']:
+            wine = Wine.query.get(item_data['item']['id'])
+            if not wine:
+                log_action(current_user_id, 'CHECKOUT_ERROR', f'Wine {item_data["item"]["id"]} not found', level='error')
+                return jsonify({'message': f'Wine {item_data["item"]["id"]} not found'}), 404
+
+            if wine.in_stock < item_data['number_sold']:
+                log_action(current_user_id, 'CHECKOUT_ERROR', f'Not enough stock for wine {wine.name}', level='error')
+                return jsonify({'message': f'Not enough stock for wine {wine.name}'}), 400
+
+            wine.in_stock -= item_data['number_sold']
+            db.session.add(wine)
+
+        # Create the invoice
+        new_invoice = Invoice(
+            user_id=current_user_id,
+            total_amount=data['total_amount']
+        )
+        db.session.add(new_invoice)
+        db.session.commit()
+
+        # Create invoice items
+        for item_data in data['items']:
+            new_item = InvoiceItem(
+                invoice_id=new_invoice.id,
+                wine_id=item_data['item']['id'],
+                quantity=item_data['number_sold'],
+                price=Wine.query.get(item_data['item']['id']).price
+            )
+            db.session.add(new_item)
+
+        db.session.commit()
+
+        log_action(current_user_id, 'CHECKOUT_SUCCESS', f'Checkout completed for invoice {new_invoice.id}')
+        return jsonify({'message': 'Checkout completed successfully', 'invoice_id': new_invoice.id}), 201
+
+    except Exception as e:
+        db.session.rollback()
+        log_action(current_user_id, 'CHECKOUT_ERROR', f'Error during checkout: {str(e)}', level='error')
+        return jsonify({'message': 'An error occurred during checkout'}), 500

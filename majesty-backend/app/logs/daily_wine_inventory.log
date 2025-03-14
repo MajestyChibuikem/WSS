@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2025-03-13 18:52:56,663] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-03-13 18:53:26,372] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully
 [2025-03-13 18:53:26,375] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0
@@ -26,3 +27,14 @@
 [2025-03-13 19:18:11,518] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully
 [2025-03-13 19:18:11,534] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 150
 [2025-03-13 19:18:11,542] INFO in logger: [COMPARE_SALES] User 1: Sales compared: 0%
+=======
+[2025-03-14 11:42:34,837] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-14 11:45:10,106] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully
+[2025-03-14 11:49:16,477] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully
+[2025-03-14 11:50:25,362] ERROR in logger: [CHECKOUT_ERROR] User 1: Wine 1 not found
+[2025-03-14 11:52:20,305] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 1
+[2025-03-14 12:10:01,885] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: role_user
+[2025-03-14 12:11:28,688] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: super_user
+[2025-03-14 12:15:46,048] INFO in logger: [CREATE_USER_DUPLICATE] User 1: Attempted to create duplicate user: super_user
+[2025-03-14 12:15:59,142] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: third_user_try
+>>>>>>> ad74fc85952ded3691234bbac6226d38802f387b

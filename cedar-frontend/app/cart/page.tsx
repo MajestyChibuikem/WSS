@@ -6,11 +6,30 @@ import { DollarSign, Mail } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { getCartTotal } from "../store/slices/inventorySlice";
+import { useCheckoutMutation } from "../store/slices/apiSlice";
 
 function Page() {
   const dispatch = useDispatch();
   const inventoryCart = useSelector((state: RootState) => state.inventory);
   const { total, discountedTotal } = useSelector(getCartTotal);
+  const [checkout, { isLoading, error }] = useCheckoutMutation();
+
+  const handleCheckout = async () => {
+    console.log("inventroy cart: ", inventoryCart);
+    // try {
+    //   const response = await checkout({
+    //     items: [
+    //       { item: { id: 1 }, number_sold: 2 },
+    //       { item: { id: 3 }, number_sold: 1 },
+    //     ],
+    //     total_amount: 50.00,
+    //   }).unwrap();
+
+    //   console.log("Checkout successful:", response);
+    // } catch (err) {
+    //   console.error("Checkout failed:", err);
+    // }
+  };
 
   return (
     <div className="px-10 w-full">
@@ -109,7 +128,10 @@ function Page() {
             <h3>Grand total</h3>
             <p className="text-xl font-medium">N{discountedTotal}</p>
           </div>
-          <button className="px-5 py-2 font-semibold bg-wBrand-accent w-full text-wBrand-background rounded-xl">
+          <button
+            onClick={handleCheckout}
+            className="px-5 py-2 font-semibold bg-wBrand-accent w-full text-wBrand-background rounded-xl"
+          >
             Checkout Now
           </button>
         </section>

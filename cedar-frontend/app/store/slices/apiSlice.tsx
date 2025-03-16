@@ -279,6 +279,20 @@ export const apiSlice = createApi({
     getLogsByAction: builder.query({
       query: (action) => `logs/action/${action}`,
     }),
+
+    checkout: builder.mutation<
+      { message: string; invoice_id: number },
+      {
+        items: { item: { id: number }; number_sold: number }[];
+        total_amount: number;
+      }
+    >({
+      query: (body) => ({
+        url: "/checkout",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -303,6 +317,7 @@ export const {
   useGetInventoryValueQuery,
   useUpdateUserMutation,
   useGetAllLogsQuery,
+  useCheckoutMutation,
 } = apiSlice;
 
 export default apiSlice;

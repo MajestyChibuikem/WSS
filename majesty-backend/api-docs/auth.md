@@ -124,9 +124,9 @@ get user by id
         }
 
     
-
+##fixed this
 update user details
-    endpoint: /users/<int:user_id>
+    endpoint: /auth/users/<int:user_id>
     method : PUT
     description : to update user details, the parameters are optional so you can target the one you want to change, others remain the same, it allows updating a user's details, including their username, password, roles, and admin status. Admins can update any user, while non-admins can only update their own username and password.
     authentication : Bearer <your_jwt_token>
@@ -138,11 +138,11 @@ update user details
         user_id - int - id of the user
     request body
     {
-        "username" : "string",
-        "password" : "password",
-        "is_admin" : "boolean",
-        "roles" : "string or array will work here"
-    }
+    "username" : "fourth_user",
+    "password" : "password",
+    "is_admin" : false,
+    "roles" : "super_user"
+    }  
     reponses:
         success: !!!this is a sample json cedar!!!
         {
@@ -174,7 +174,7 @@ update user details
 
 
 delete user
-    endpoint : /auth/user/<int:user_id>
+    endpoint : /auth/user/2
     method : DELETE
     description : Deletes a specific user. Only users with the admin role can access this endpoint. Users cannot delete their own accounts.
     request headera: Authorization: Bearer <JWT_TOKEN>

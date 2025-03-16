@@ -1769,3 +1769,5 @@ AttributeError: module 'datetime' has no attribute 'utcfromtimestamp'
 [2025-03-14 12:11:28,688] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: super_user
 [2025-03-14 12:15:46,048] INFO in logger: [CREATE_USER_DUPLICATE] User 1: Attempted to create duplicate user: super_user
 [2025-03-14 12:15:59,142] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: third_user_try
+[2025-03-16 11:49:55,753] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-16 11:53:56,842] INFO in logger: Wine Inventory API Started - Environment: development

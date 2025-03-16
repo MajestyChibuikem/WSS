@@ -1,9 +1,2 @@
-[2025-03-14 11:42:34,837] INFO in logger: Wine Inventory API Started - Environment: development
-[2025-03-14 11:45:10,106] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully
-[2025-03-14 11:49:16,477] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully
-[2025-03-14 11:50:25,362] ERROR in logger: [CHECKOUT_ERROR] User 1: Wine 1 not found
-[2025-03-14 11:52:20,305] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 1
-[2025-03-14 12:10:01,885] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: role_user
-[2025-03-14 12:11:28,688] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: super_user
-[2025-03-14 12:15:46,048] INFO in logger: [CREATE_USER_DUPLICATE] User 1: Attempted to create duplicate user: super_user
-[2025-03-14 12:15:59,142] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: third_user_try
+[2025-03-16 11:49:55,753] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-16 11:53:56,842] INFO in logger: Wine Inventory API Started - Environment: development

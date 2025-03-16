@@ -3107,3 +3107,51 @@ sqlalchemy.exc.StatementError: (raised as a result of Query-invoked autoflush; c
 [2025-03-16 22:48:55,745] INFO in logger: [DELETE_USER_SUCCESS] User 1: Deleted user fourth_user (ID: 4) | Affected: fourth_user
 [2025-03-16 22:50:37,441] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: sparkling fruit juice | Affected: sparkling fruit juice
 [2025-03-16 22:51:07,896] INFO in logger: [DELETE_WINE_SUCCESS] User 1: Deleted sparkling fruit juice | Affected: sparkling fruit juice
+[2025-03-16 23:34:29,939] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-16 23:34:36,324] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-16 23:38:58,892] ERROR in logger: [EXCEPTION] User None: Unhandled exception: MethodNotAllowed
+[2025-03-16 23:38:58,902] ERROR in app: Exception on /invoices/checkout [GET]
+Traceback (most recent call last):
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/werkzeug/routing/map.py", line 624, in match
+    raise MethodNotAllowed(valid_methods=list(e.have_match_for)) from None
+werkzeug.exceptions.MethodNotAllowed: 405 Method Not Allowed: The method is not allowed for the requested URL.
+[2025-03-16 23:38:58,905] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2025-03-16 23:39:36,919] ERROR in logger: [CHECKOUT_ERROR] User 1: Wine 1 not found | Affected: Wine ID 1
+[2025-03-16 23:39:49,142] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 2 | Affected: Invoice ID 2
+[2025-03-16 23:42:04,263] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 144 | Affected: Total Stock
+[2025-03-16 23:42:39,275] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-16 23:43:52,150] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0 | Affected: Revenue
+[2025-03-16 23:44:15,831] INFO in logger: [COMPARE_SALES] User 1: Sales compared: 0% | Affected: Sales Comparison
+[2025-03-16 23:45:01,169] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-16 23:45:26,083] INFO in logger: [GET_USER_SALES] User 1: Sales fetched for user 1 | Affected: User ID 1

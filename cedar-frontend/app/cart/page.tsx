@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { getCartTotal } from "../store/slices/inventorySlice";
 import { useCheckoutMutation } from "../store/slices/apiSlice";
+import clsx from "clsx";
 
 function Page() {
   const dispatch = useDispatch();
@@ -15,20 +16,25 @@ function Page() {
   const [checkout, { isLoading, error }] = useCheckoutMutation();
 
   const handleCheckout = async () => {
-    console.log("inventroy cart: ", inventoryCart);
-    // try {
-    //   const response = await checkout({
-    //     items: [
-    //       { item: { id: 1 }, number_sold: 2 },
-    //       { item: { id: 3 }, number_sold: 1 },
-    //     ],
-    //     total_amount: 50.00,
-    //   }).unwrap();
+    const items: Array<{ item: { id: number }; number_sold: number }> = [];
+    inventoryCart.cart.forEach((item) => {
+      items.push({
+        item: { id: item.id },
+        number_sold: item.quantity,
+      });
+    });
+    console.log("inventroy cart: ", inventoryCart, items);
+    if (items.length == 0) return;
+    try {
+      const response = await checkout({
+        items,
+        total_amount: discountedTotal,
+      }).unwrap();
 
-    //   console.log("Checkout successful:", response);
-    // } catch (err) {
-    //   console.error("Checkout failed:", err);
-    // }
+      console.log("Checkout successful:", response);
+    } catch (err) {
+      console.error("Checkout failed:", err);
+    }
   };
 
   return (
@@ -130,7 +136,13 @@ function Page() {
           </div>
           <button
             onClick={handleCheckout}
-            className="px-5 py-2 font-semibold bg-wBrand-accent w-full text-wBrand-background rounded-xl"
+            disabled={inventoryCart.cart.length == 0}
+            className={clsx(
+              "px-5 py-2 font-semibold bg-wBrand-accent w-full rounded-xl",
+              inventoryCart.cart.length == 0
+                ? "bg-gray-400"
+                : "text-wBrand-background"
+            )}
           >
             Checkout Now
           </button>

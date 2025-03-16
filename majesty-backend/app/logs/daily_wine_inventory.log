@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 [2025-03-13 18:52:56,663] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-03-13 18:53:26,372] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully
 [2025-03-13 18:53:26,375] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0
@@ -61,3 +62,7 @@
 [2025-03-14 17:42:48,257] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully
 [2025-03-14 17:42:48,277] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 0
 [2025-03-14 17:42:48,297] INFO in logger: [COMPARE_SALES] User 1: Sales compared: 0%
+=======
+[2025-03-16 11:49:55,753] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-16 11:53:56,842] INFO in logger: Wine Inventory API Started - Environment: development
+>>>>>>> 9b2b9eaf4247f1e56723d9898f404254bf59d294

@@ -70,13 +70,12 @@ def setup_logger(app):
     
     return logger
 
-def log_action(user_id, action, message, additional_data=None, save_to_db=True, level='info'):
+def log_action(user_id, action, message, additional_data=None, save_to_db=True, level='info', affected_name=None):
     """
-    Log user actions with detailed information.
-
+    Log user actions with detailed information including acting user and affected entity.
     """
     from app import db 
-    from app.models import logEntry  # Import db from the app package
+    from app.models import logEntry, User  # Added User import
     logger = logging.getLogger('wine_inventory')
     
     # Build log data object
@@ -85,6 +84,7 @@ def log_action(user_id, action, message, additional_data=None, save_to_db=True, 
         'user_id': user_id,
         'action': action,
         'message': message,
+        'affected_name': affected_name,  # Added affected name
     }
     
     # Add request context data if available
@@ -103,6 +103,8 @@ def log_action(user_id, action, message, additional_data=None, save_to_db=True, 
     
     # Convert to a string for the logger
     log_message = f"[{action}] User {user_id}: {message}"
+    if affected_name:
+        log_message += f" | Affected: {affected_name}"
     
     # Log with the appropriate level
     log_method = getattr(logger, level.lower())
@@ -111,10 +113,19 @@ def log_action(user_id, action, message, additional_data=None, save_to_db=True, 
     # Save to database if requested
     if save_to_db:
         try:
+            # Get acting username
+            acting_username = None
+            if user_id:
+                user = User.query.get(user_id)
+                acting_username = user.username if user else None
+
+            # Create log entry with additional fields
             log_entry = logEntry(
                 user_id=user_id,
+                acting_username=acting_username,
                 action=action,
                 message=message,
+                affected_name=affected_name,
                 ip_address=log_data.get('ip_address'),
                 user_agent=log_data.get('user_agent'),
                 endpoint=log_data.get('endpoint'),
@@ -130,7 +141,6 @@ def log_action(user_id, action, message, additional_data=None, save_to_db=True, 
             logger.debug(traceback.format_exc())
     
     return log_data
-
 # Request logging middleware
 def log_request():
     """Log incoming requests."""

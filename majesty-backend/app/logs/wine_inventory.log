@@ -1799,6 +1799,7 @@ AttributeError: module 'datetime' has no attribute 'utcfromtimestamp'
 [2025-03-14 12:11:28,688] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: super_user
 [2025-03-14 12:15:46,048] INFO in logger: [CREATE_USER_DUPLICATE] User 1: Attempted to create duplicate user: super_user
 [2025-03-14 12:15:59,142] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: third_user_try
+<<<<<<< HEAD
 >>>>>>> ad74fc85952ded3691234bbac6226d38802f387b
 [2025-03-14 17:37:36,824] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-03-14 17:38:24,110] INFO in logger: [LOGIN_FAILURE] User None: Invalid login attempt
@@ -1823,3 +1824,7 @@ AttributeError: module 'datetime' has no attribute 'utcfromtimestamp'
 [2025-03-14 17:42:48,257] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully
 [2025-03-14 17:42:48,277] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 0
 [2025-03-14 17:42:48,297] INFO in logger: [COMPARE_SALES] User 1: Sales compared: 0%
+=======
+[2025-03-16 11:49:55,753] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-16 11:53:56,842] INFO in logger: Wine Inventory API Started - Environment: development
+>>>>>>> 9b2b9eaf4247f1e56723d9898f404254bf59d294

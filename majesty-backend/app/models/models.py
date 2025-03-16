@@ -292,6 +292,8 @@ class logEntry(db.Model):
     method = db.Column(db.String(10), nullable=True)
     status_code = db.Column(db.Integer, nullable=True)
     additional_data = db.Column(db.Text, nullable=True)
+    acting_username = db.Column(db.String(100), nullable=True)
+    affected_name = db.Column(db.String(255), nullable=True)
 
     # Table indexing
     __table_args__ = (
@@ -313,6 +315,8 @@ class logEntry(db.Model):
             "method": self.method,
             "additional_data": self.additional_data,
             "status_code": self.status_code,
+            "acting_username": self.acting_username,
+            "affected_name": self.affected_name,
         }
     
 class BlacklistedToken(db.Model):

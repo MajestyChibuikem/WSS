@@ -4,11 +4,13 @@ from app.models import Cart
 from app import db
 from app.utils.logger import log_action
 import datetime
+from app.utils.decorators import token_required
 
 carts_bp = Blueprint('carts', __name__, url_prefix='/carts')
 
 @carts_bp.route('', methods=['GET'])
 @jwt_required()
+@token_required
 def get_cart():
     """Retrieve all cart items for the logged-in user."""
     current_user_id = get_jwt_identity()
@@ -41,6 +43,7 @@ def get_cart():
 
 @carts_bp.route('/add', methods=['POST'])
 @jwt_required()
+@token_required
 def add_to_cart():
     """Add a new item to the user's cart or update quantity if it already exists."""
     current_user_id = get_jwt_identity()
@@ -89,6 +92,7 @@ def add_to_cart():
 
 @carts_bp.route('/update', methods=['PUT'])
 @jwt_required()
+@token_required
 def update_cart():
     """Update the quantity of a specific cart item."""
     current_user_id = get_jwt_identity()
@@ -135,6 +139,7 @@ def update_cart():
 
 @carts_bp.route('/remove', methods=['DELETE'])
 @jwt_required()
+@token_required
 def remove_from_cart():
     """Remove a specific item from the user's cart."""
     current_user_id = get_jwt_identity()
@@ -181,6 +186,7 @@ def remove_from_cart():
 
 @carts_bp.route('/clear', methods=['DELETE'])
 @jwt_required()
+@token_required
 def clear_cart():
     """Clear all items from the user's cart."""
     current_user_id = get_jwt_identity()

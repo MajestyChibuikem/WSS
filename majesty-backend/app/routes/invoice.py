@@ -3,11 +3,13 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.models import Invoice, InvoiceItem, User, Wine
 from app import db
 from app.utils.logger import log_action
+from app.utils.decorators import token_required
 
 invoices_bp = Blueprint('invoices', __name__, url_prefix='/invoices')
 
 @invoices_bp.route('/', methods=['GET', 'POST'])
 @jwt_required()
+@token_required
 def manage_invoices():
     """
     Handle GET (retrieve all invoices for the user) and POST (create a new invoice with items).
@@ -102,6 +104,7 @@ def manage_invoices():
 
 @invoices_bp.route('/<int:invoice_id>', methods=['GET', 'PUT', 'DELETE'])
 @jwt_required()
+@token_required
 def manage_single_invoice(invoice_id):
     """
     Handle GET (retrieve a single invoice), PUT (update an invoice), and DELETE (delete an invoice).
@@ -213,6 +216,7 @@ def manage_single_invoice(invoice_id):
 
 @invoices_bp.route('/checkout', methods=['POST'])
 @jwt_required()
+@token_required
 def checkout():
     """
     Handle the checkout process.

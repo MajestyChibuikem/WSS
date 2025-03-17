@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy.sql import func
-from datetime import datetime
-from app.models import User, Wine, Invoice
+from datetime import datetime, timedelta
+from app.models import User, Wine, Invoice, InvoiceItem
 from app import db
 from app.utils.logger import log_action
 
@@ -502,3 +502,53 @@ def delete_wine(wine_id):
             affected_name=f'Wine ID {wine_id}'
         )
         return jsonify({'message': f'Delete error: {str(e)}'}), 500
+
+@wine_bp.route('/top_wines', methods=['GET'])
+def get_top_wines():
+    # Get the current date and the date one month ago
+    now = datetime.utcnow()
+    last_month = now - timedelta(days=30)
+
+    # Query to get the top three most sold wines
+    top_wines = db.session.query(
+        Wine.name,
+        func.sum(InvoiceItem.quantity).label('total_sold'),
+        func.sum(InvoiceItem.quantity * InvoiceItem.price).label('total_revenue')
+    ).join(InvoiceItem, InvoiceItem.wine_id == Wine.id) \
+     .join(Invoice, Invoice.id == InvoiceItem.invoice_id) \
+     .filter(Invoice.created_at >= last_month) \
+     .group_by(Wine.name) \
+     .order_by(func.sum(InvoiceItem.quantity).desc()) \
+     .limit(3).all()
+
+    # Query to get the total sales for the previous month
+    previous_month_start = last_month - timedelta(days=30)
+    previous_month_sales = db.session.query(
+        Wine.name,
+        func.sum(InvoiceItem.quantity).label('total_sold')
+    ).join(InvoiceItem, InvoiceItem.wine_id == Wine.id) \
+     .join(Invoice, Invoice.id == InvoiceItem.invoice_id) \
+     .filter(Invoice.created_at >= previous_month_start, Invoice.created_at < last_month) \
+     .group_by(Wine.name).all()
+
+    # Convert previous month sales to a dictionary for easy lookup
+    previous_sales_dict = {name: total_sold for name, total_sold in previous_month_sales}
+
+    # Prepare the response data
+    result = []
+    for wine in top_wines:
+        name, total_sold, total_revenue = wine
+        previous_sold = previous_sales_dict.get(name, 0)
+        if previous_sold == 0:
+            percentage_change = 0
+        else:
+            percentage_change = ((total_sold - previous_sold) / previous_sold) * 100
+
+        result.append({
+            'name': name,
+            'total_sold': total_sold,
+            'total_revenue': float(total_revenue),
+            'percentage_change': round(percentage_change, 2)
+        })
+
+    return jsonify(result)

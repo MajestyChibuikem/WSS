@@ -10,8 +10,10 @@ import {
   validateUserInput,
 } from "../store/slices/authSlice";
 import { useLoginMutation } from "../store/slices/apiSlice";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
+import { toast } from "react-toastify";
+import clsx from "clsx";
 
 function Page() {
   const router = useRouter();
@@ -19,6 +21,8 @@ function Page() {
   const user = useSelector(selectAuthUser);
   const validationErrors = useSelector(selectValidationErrors);
   const [login] = useLoginMutation();
+  const pathname = usePathname();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -28,22 +32,23 @@ function Page() {
 
   const handleLogin = async () => {
     try {
+      setIsLoading(true);
+      toast("Loggin you in");
       console.log("in here", user);
       const response = await login({
         username: user.username,
         password: user.password,
       }).unwrap(); // RTK Query call
 
-      console.log("login; ", response);
+      // console.log("login; ", response, "\npath: ", pathname);
 
-      console.log("token: ", response.token);
+      // console.log("token: ", response.token);
       localStorage.setItem("wineryAuthToken", response.token); // Use localStorage
       localStorage.setItem("wineryUserRole", response.roles[0]);
-      router.push("/");
-      if (typeof window != undefined) {
-        window.location.href = "/";
-      }
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
+      toast.error("Login failed");
       console.error("Login failed:", error);
     }
   };
@@ -100,8 +105,12 @@ function Page() {
             )}
           </div>
           <button
+            disabled={isLoading}
             onClick={handleLogin}
-            className={"w-full py-2 rounded-lg cursor-pointer bg-wBrand-accent"}
+            className={clsx(
+              "w-full py-2 rounded-lg cursor-pointer",
+              isLoading ? "bg-gray-500" : "bg-wBrand-accent"
+            )}
           >
             Get started
           </button>

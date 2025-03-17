@@ -8,6 +8,7 @@ import { toggleUserEditor, updateAction } from "../store/slices/userSlice";
 import { useGetUsersQuery } from "../store/slices/apiSlice";
 import Empty from "../components/empty";
 import { Actions } from "../utils/types";
+import { LoaderCircle } from "lucide-react";
 
 function Page() {
   const dispatch = useDispatch();
@@ -19,8 +20,13 @@ function Page() {
 
   console.log("users", userData);
 
-  if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error fetching wines</p>;
+  if (isLoading)
+    return (
+      <div className="h-[85vh] w-full flex justify-center items-center">
+        <LoaderCircle className="text-wBrand-accent animate-spin stroke-wBrand-accent h-10 w-10" />
+      </div>
+    );
 
   return (
     <div className="px-10 w-[100vw]">

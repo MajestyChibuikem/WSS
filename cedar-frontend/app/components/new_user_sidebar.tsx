@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Dropdown from "./dropdown";
 import { usersDropdownItems } from "../utils/mock_data";
@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/select";
 import clsx from "clsx";
 import { clearCurrentlyEditing } from "../store/slices/wineSlice";
+import { toast } from "react-toastify";
 
 function NewUserSideBar() {
   const dispatch = useDispatch();
@@ -30,13 +31,16 @@ function NewUserSideBar() {
   const dropdown = useSelector(
     (state: RootState) => state.dropdown.dropdowns["user_roles_dropdown"]
   );
+  const [isLoading, setIsLoading] = useState(false);
 
   const [createUser] = useCreateUserMutation();
   const [updateUser] = useUpdateUserMutation();
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     if (user.currentlyEditing && user.action_type == Actions.CREATE) {
       try {
+        toast("Creating user");
         console.log(
           "in here: ",
           user.currentlyEditing,
@@ -49,12 +53,22 @@ function NewUserSideBar() {
           roles: user.currentlyEditing.roles,
         });
         console.log("response: ", response); //impement response for 409(confilict user already exists) and 200 created successfully
+        if (response.error) {
+          setIsLoading(false);
+          toast.error("Couldn't create user.");
+          return;
+        }
+        setIsLoading(false);
         dispatch(clearCurrentlyEditing());
+        toast.success("Created user successfully.");
       } catch {
+        setIsLoading(false);
+        toast.error("Couldn't create user.");
         console.log("couldnt create user");
       }
     } else if (user.currentlyEditing && user.action_type == Actions.UPDATE) {
       try {
+        toast("Updating user");
         const response = await updateUser({
           username: user.currentlyEditing.username,
           password: user.currentlyEditing.password,
@@ -63,7 +77,16 @@ function NewUserSideBar() {
           userId: user.currentlyEditing.id,
         });
         console.log("response: ", response); //impement response for 409(confilict user already exists) and 200 created successfully
+        if (response.error) {
+          setIsLoading(false);
+          toast.error("Couldn't update user.");
+          return;
+        }
+        setIsLoading(false);
+        toast.success("Updated user successfully.");
       } catch {
+        setIsLoading(false);
+        toast.error("Couldn't update user.");
         console.log("couldnt update user");
       }
     }
@@ -150,15 +173,18 @@ function NewUserSideBar() {
           </button>
           <button
             disabled={
-              user.action_type !== Actions.CREATE &&
-              user.action_type !== Actions.UPDATE
+              (user.action_type !== Actions.CREATE &&
+                user.action_type !== Actions.UPDATE) ||
+              isLoading
             }
             onClick={handleSubmit}
             className={clsx(
-              "py-2 px-5 text-sm bg-wBrand-accent font-semibold rounded-lg text-wBrand-background",
-              user.action_type !== Actions.CREATE &&
-                user.action_type !== Actions.UPDATE &&
-                "bg-gray-700"
+              "py-2 px-5 text-sm bg-wBrand-accent font-semibold rounded-lg ",
+              (user.action_type !== Actions.CREATE &&
+                user.action_type !== Actions.UPDATE) ||
+                isLoading
+                ? "bg-gray-700"
+                : "text-wBrand-background"
             )}
           >
             {user.action_type} user

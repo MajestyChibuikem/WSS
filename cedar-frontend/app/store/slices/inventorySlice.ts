@@ -58,6 +58,10 @@ const inventorySlice = createSlice({
       state.cart = state.cart.filter((item) => item.id !== action.payload);
     },
 
+    clearCart: (state) => {
+      state.cart = [];
+    },
+
     // ✅ Increment quantity of an existing cart item
     incrementCartItemQuantity: (state, action: PayloadAction<number>) => {
       const item = state.cart.find((item) => item.id === action.payload);
@@ -158,6 +162,7 @@ export const {
   decrementCartItemQuantity,
   filterInventory,
   clearFilter,
+  clearCart,
 } = inventorySlice.actions;
 export default inventorySlice.reducer;
 

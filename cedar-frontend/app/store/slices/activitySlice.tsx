@@ -1,13 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { format } from "date-fns";
 
-interface Activity {
+export interface Activity {
   id: number;
+  acting_username: string;
   action: string;
   timestamp: string;
   user_id?: number | null;
   user_agent?: string | null;
   message: string;
+  affected_name: string;
 }
 
 interface FilterState {

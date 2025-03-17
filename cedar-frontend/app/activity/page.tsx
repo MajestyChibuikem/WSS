@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import ActionTableRow from "../components/action_table_row";
-import { DollarSign, User } from "lucide-react";
+import { DollarSign, LoaderCircle, User } from "lucide-react";
 import { actions } from "../utils/mock_data";
 import { DatePickerWithRange } from "../components/range_calendar";
 import { useGetAllLogsQuery } from "../store/slices/apiSlice";
@@ -10,11 +10,11 @@ import { RootState } from "../store";
 import { setActivities, setFilters } from "../store/slices/activitySlice";
 
 function Page() {
-  const {
-    data: allLogs,
-    error: allLogsError,
-    isLoading: allLogsLoading,
-  } = useGetAllLogsQuery({});
+  const { data: allLogs, error: allLogsError, isLoading } = useGetAllLogsQuery(
+    {}
+  );
+
+  // console.log("logs: ", allLogs);
 
   const dispatch = useDispatch();
   const activities = useSelector(
@@ -25,9 +25,16 @@ function Page() {
     allLogs && dispatch(setActivities(allLogs));
   }, [allLogs]);
 
-  useEffect(() => {
-    console.log("activities: ", activities);
-  }, [activities]);
+  // useEffect(() => {
+  //   console.log("activities: ", activities);
+  // }, [activities]);
+
+  if (isLoading)
+    return (
+      <div className="h-[85vh] w-full flex justify-center items-center">
+        <LoaderCircle className="text-wBrand-accent animate-spin stroke-wBrand-accent h-10 w-10" />
+      </div>
+    );
 
   return (
     <div className="w-[100vw] px-10 space-y-10">
@@ -121,13 +128,16 @@ function Page() {
             <p>DATE</p>
           </div> */}
           <div className="grid grid-cols-3 gap-4">
+            {activities.map((activity, idx) => (
+              <ActionTableRow key={idx} activity={activity} />
+            ))}
+
+            {/* <ActionTableRow />
             <ActionTableRow />
             <ActionTableRow />
             <ActionTableRow />
             <ActionTableRow />
-            <ActionTableRow />
-            <ActionTableRow />
-            <ActionTableRow />
+            <ActionTableRow /> */}
           </div>
         </div>
       </section>

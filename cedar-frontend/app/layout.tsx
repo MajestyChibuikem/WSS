@@ -4,6 +4,7 @@ import Topbar from "./components/topbar";
 import "./globals.css";
 import ProviderWrapper from "./components/ProviderWrapper";
 import ProtectedRoute from "./ProtectedRoutes";
+import { ToastContainer } from "react-toastify";
 
 export default function RootLayout({
   children,
@@ -15,20 +16,14 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ProviderWrapper>
-          <div className="flex">
-            {typeof window !== "undefined" &&
-            window.location.pathname === "/login" ? (
-              <div>{children}</div> // Show login page without protection
-            ) : (
-              <ProtectedRoute>
-                <div className="">
-                  <Topbar />
-                  {children}
-                </div>
-              </ProtectedRoute>
-            )}
-          </div>
+          <ProtectedRoute>
+            <div className="">
+              <Topbar />
+              {children}
+            </div>
+          </ProtectedRoute>
         </ProviderWrapper>
+        <ToastContainer />
       </body>
     </html>
   );

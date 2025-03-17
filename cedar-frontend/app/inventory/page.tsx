@@ -6,7 +6,7 @@ import {
   wineCategories,
   wineInventory,
 } from "../utils/mock_data";
-import { DollarSign, Search, Wine } from "lucide-react";
+import { DollarSign, LoaderCircle, Search, Wine } from "lucide-react";
 import Dropdown from "../components/dropdown";
 import NewWineSideBar from "../components/new_wine_sidebar";
 import { useDispatch, useSelector } from "react-redux";
@@ -62,7 +62,12 @@ function Page() {
 
   console.log("categories: ", categoryArr);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <div className="h-[85vh] w-full flex justify-center items-center">
+        <LoaderCircle className="text-wBrand-accent animate-spin stroke-wBrand-accent h-10 w-10" />
+      </div>
+    );
   if (error) return <p>Error fetching wines</p>;
 
   return (

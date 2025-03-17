@@ -5,9 +5,10 @@ import { wineInventory } from "../utils/mock_data";
 import { DollarSign, Mail } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
-import { getCartTotal } from "../store/slices/inventorySlice";
+import { clearCart, getCartTotal } from "../store/slices/inventorySlice";
 import { useCheckoutMutation } from "../store/slices/apiSlice";
 import clsx from "clsx";
+import { toast } from "react-toastify";
 
 function Page() {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function Page() {
   const [checkout, { isLoading, error }] = useCheckoutMutation();
 
   const handleCheckout = async () => {
+    toast("Checking out cart items...");
     const items: Array<{ item: { id: number }; number_sold: number }> = [];
     inventoryCart.cart.forEach((item) => {
       items.push({
@@ -31,8 +33,11 @@ function Page() {
         total_amount: discountedTotal,
       }).unwrap();
 
+      dispatch(clearCart());
       console.log("Checkout successful:", response);
+      toast.success("Checkout successful");
     } catch (err) {
+      toast.error("Couldn't checkout at the moment try again later");
       console.error("Checkout failed:", err);
     }
   };
@@ -136,11 +141,11 @@ function Page() {
           </div>
           <button
             onClick={handleCheckout}
-            disabled={inventoryCart.cart.length == 0}
+            disabled={inventoryCart.cart.length == 0 || isLoading}
             className={clsx(
               "px-5 py-2 font-semibold bg-wBrand-accent w-full rounded-xl",
-              inventoryCart.cart.length == 0
-                ? "bg-gray-400"
+              inventoryCart.cart.length == 0 || isLoading
+                ? "bg-gray-600"
                 : "text-wBrand-background"
             )}
           >

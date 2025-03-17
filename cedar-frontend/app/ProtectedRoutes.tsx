@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useCheckTokenQuery } from "./store/slices/apiSlice";
 import Page from "./login/page";
+import { LoaderCircle } from "lucide-react";
 
 export default function ProtectedRoute({
   children,
@@ -11,24 +12,35 @@ export default function ProtectedRoute({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { data, error, isLoading } = useCheckTokenQuery(); // Call the query
 
   useEffect(() => {
     if (!isLoading) {
-      if (error || data?.message !== "Token is valid") {
+      if (
+        (error || data?.message !== "Token is valid") &&
+        window.location.pathname != "/login"
+      ) {
+        window.location.href = "/login";
         console.log("Token is invalid or expired");
       }
 
-      if (data?.message == "Token is valid") {
+      if (
+        data?.message == "Token is valid" &&
+        window.location.pathname == "/login"
+      ) {
         console.log("Token is valid, expires at:", data.expires_at);
-        setIsAuthenticated(true);
-        router.push("/");
+        window.location.href = "/";
       }
     }
   }, [data, error, isLoading, router]);
 
-  if (isLoading) return <p>Checking authentication...</p>;
+  if (isLoading)
+    return (
+      <div className="h-[85vh] gap-4 w-full flex justify-center items-center">
+        <LoaderCircle className="text-wBrand-accent animate-spin h-10 w-10" />
+        <p>Checking authentication...</p>
+      </div>
+    );
 
-  return isAuthenticated ? <>{children}</> : <Page />;
+  return <>{children}</>;
 }

@@ -1,6 +1,6 @@
 base url : /wine
 
-#this works
+#this works : green
 get total wine stock
     endpoint : /wine/total_stock
     method : GET
@@ -17,7 +17,7 @@ get total wine stock
         }
 
 
-#works now
+#works now : green
 get stock by category
     endpoint: /wine/stock-by-category
     method : GET
@@ -70,7 +70,7 @@ axios.get('http://localhost:5000/wine/revenue', {
 //
 
 get revenue for a specified time period
-    endpoint : /revenue
+    endpoint : /wine/revenue
     methods : GET
     description: Calculates revenue within a specified time period.
     request body
@@ -131,7 +131,7 @@ axios.get('http://localhost:5000/wine/compare-sales', {
 
 //
 compare sales
-    endpoint : /compare-sales
+    endpoint : /wine/compare-sales
     method : GET
     description : Compares revenue between two time periods and calculates percentage change.
     request body{

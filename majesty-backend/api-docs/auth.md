@@ -174,7 +174,7 @@ update user details
 
 
 delete user
-    endpoint : /auth/user/2
+    endpoint : /auth/user/<int:user_id>
     method : DELETE
     description : Deletes a specific user. Only users with the admin role can access this endpoint. Users cannot delete their own accounts.
     request headera: Authorization: Bearer <JWT_TOKEN>

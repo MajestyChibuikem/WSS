@@ -6,6 +6,8 @@ from app import db
 from app.utils.logger import log_action
 from app.models.models import BlacklistedToken
 from app.extensions import jwt
+from functools import wraps
+from app.utils.decorators import token_required
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -54,6 +56,7 @@ def login():
 
 @auth_bp.route('/create_user', methods=['POST'])
 @jwt_required()
+@token_required
 def create_user():
     current_user_id = get_jwt_identity()
     try:
@@ -130,6 +133,7 @@ def create_user():
 
 @auth_bp.route('/logout', methods=['POST'])
 @jwt_required()
+@token_required
 def logout():
     current_user_id = get_jwt_identity()
     if isinstance(current_user_id, dict):
@@ -160,6 +164,7 @@ def logout():
 
 @auth_bp.route('/check-token', methods=['GET'])
 @jwt_required()
+@token_required
 def check_token():
     jwt_payload = get_jwt()
     expiry_timestamp = jwt_payload['exp']
@@ -184,6 +189,7 @@ def check_token():
 
 @auth_bp.route('/users', methods=['GET'])
 @jwt_required()
+@token_required
 def get_users():
     current_user_id = get_jwt_identity()
     if isinstance(current_user_id, dict):
@@ -222,6 +228,7 @@ def get_users():
 
 @auth_bp.route('/user/<int:user_id>', methods=['GET'])
 @jwt_required()
+@token_required
 def get_user(user_id):
     current_user_id = get_jwt_identity()
     if isinstance(current_user_id, dict):
@@ -265,6 +272,7 @@ def get_user(user_id):
 
 @auth_bp.route('/users/<int:user_id>', methods=['PUT'])
 @jwt_required()
+@token_required
 def update_user(user_id):
     current_user_id = get_jwt_identity()
     current_user = User.query.get(current_user_id)
@@ -376,6 +384,7 @@ def update_user(user_id):
 
 @auth_bp.route('/user/<int:user_id>', methods=['DELETE'])
 @jwt_required()
+@token_required
 def delete_user(user_id):
     current_user_id = get_jwt_identity()
     if isinstance(current_user_id, dict):

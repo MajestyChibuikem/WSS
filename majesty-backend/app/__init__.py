@@ -48,7 +48,6 @@ def create_app(config_class=None):
     app.register_blueprint(invoices_bp)
     app.register_blueprint(logs_bp)
     app.register_blueprint(wine_bp)
-
     # Automatically create tables if they don't exist
     with app.app_context():
         db.create_all()

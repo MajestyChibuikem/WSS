@@ -1,15 +1,17 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy.sql import func
-from datetime import datetime
-from app.models import User, Wine, Invoice
+from datetime import datetime, timedelta
+from app.models import User, Wine, Invoice, InvoiceItem
 from app import db
 from app.utils.logger import log_action
+from app.utils.decorators import token_required
 
 wine_bp = Blueprint('wine', __name__, url_prefix='/wine')
 
 @wine_bp.route('/total_stock', methods=['GET'])
 @jwt_required()
+@token_required
 def get_total_stock():
     """Get total wine stock count"""
     current_user_id = get_jwt_identity()
@@ -37,6 +39,7 @@ def get_total_stock():
 
 @wine_bp.route('/stock-by-category', methods=['GET'])
 @jwt_required()
+@token_required
 def get_stock_by_category():
     current_user_id = get_jwt_identity()
     if isinstance(current_user_id, dict):
@@ -74,6 +77,7 @@ def get_stock_by_category():
 
 @wine_bp.route('/revenue', methods=['GET'])
 @jwt_required()
+@token_required
 def get_revenue():
     """Calculate revenue within a specified time period"""
     current_user_id = get_jwt_identity()
@@ -127,6 +131,7 @@ def get_revenue():
 
 @wine_bp.route('/compare-sales', methods=['GET'])
 @jwt_required()
+@token_required
 def compare_sales():
     """Compare revenue between two time periods"""
     current_user_id = get_jwt_identity()
@@ -184,6 +189,7 @@ def compare_sales():
 
 @wine_bp.route('/inventory-value', methods=['GET'])
 @jwt_required()
+@token_required
 def get_inventory_value():
     """Get inventory value by category"""
     current_user_id = get_jwt_identity()
@@ -211,6 +217,7 @@ def get_inventory_value():
 
 @wine_bp.route('/user-sales/<int:user_id>', methods=['GET'])
 @jwt_required()
+@token_required
 def get_user_sales(user_id):
     """Get sales for a specific user"""
     current_user_id = get_jwt_identity()
@@ -249,6 +256,7 @@ def get_user_sales(user_id):
 
 @wine_bp.route('/all', methods=['GET'])
 @jwt_required()
+@token_required
 def get_all_wines():
     """Get all wines in inventory"""
     current_user_id = get_jwt_identity()
@@ -288,6 +296,7 @@ def get_all_wines():
 
 @wine_bp.route('/add', methods=['POST'])
 @jwt_required()
+@token_required
 def add_wine():
     """Add new wine to inventory"""
     current_user_id = get_jwt_identity()
@@ -374,6 +383,7 @@ def add_wine():
 
 @wine_bp.route('/<int:wine_id>', methods=['PUT'])
 @jwt_required()
+@token_required
 def update_wine(wine_id):
     """Update existing wine"""
     current_user_id = get_jwt_identity()
@@ -453,6 +463,7 @@ def update_wine(wine_id):
 
 @wine_bp.route('/<int:wine_id>', methods=['DELETE'])
 @jwt_required()
+@token_required
 def delete_wine(wine_id):
     """Delete a wine"""
     current_user_id = get_jwt_identity()
@@ -502,3 +513,54 @@ def delete_wine(wine_id):
             affected_name=f'Wine ID {wine_id}'
         )
         return jsonify({'message': f'Delete error: {str(e)}'}), 500
+
+@wine_bp.route('/top_wines', methods=['GET'])
+@token_required
+def get_top_wines():
+    # Get the current date and the date one month ago
+    now = datetime.utcnow()
+    last_month = now - timedelta(days=30)
+
+    # Query to get the top three most sold wines
+    top_wines = db.session.query(
+        Wine.name,
+        func.sum(InvoiceItem.quantity).label('total_sold'),
+        func.sum(InvoiceItem.quantity * InvoiceItem.price).label('total_revenue')
+    ).join(InvoiceItem, InvoiceItem.wine_id == Wine.id) \
+     .join(Invoice, Invoice.id == InvoiceItem.invoice_id) \
+     .filter(Invoice.created_at >= last_month) \
+     .group_by(Wine.name) \
+     .order_by(func.sum(InvoiceItem.quantity).desc()) \
+     .limit(3).all()
+
+    # Query to get the total sales for the previous month
+    previous_month_start = last_month - timedelta(days=30)
+    previous_month_sales = db.session.query(
+        Wine.name,
+        func.sum(InvoiceItem.quantity).label('total_sold')
+    ).join(InvoiceItem, InvoiceItem.wine_id == Wine.id) \
+     .join(Invoice, Invoice.id == InvoiceItem.invoice_id) \
+     .filter(Invoice.created_at >= previous_month_start, Invoice.created_at < last_month) \
+     .group_by(Wine.name).all()
+
+    # Convert previous month sales to a dictionary for easy lookup
+    previous_sales_dict = {name: total_sold for name, total_sold in previous_month_sales}
+
+    # Prepare the response data
+    result = []
+    for wine in top_wines:
+        name, total_sold, total_revenue = wine
+        previous_sold = previous_sales_dict.get(name, 0)
+        if previous_sold == 0:
+            percentage_change = 0
+        else:
+            percentage_change = ((total_sold - previous_sold) / previous_sold) * 100
+
+        result.append({
+            'name': name,
+            'total_sold': total_sold,
+            'total_revenue': float(total_revenue),
+            'percentage_change': round(percentage_change, 2)
+        })
+
+    return jsonify(result)

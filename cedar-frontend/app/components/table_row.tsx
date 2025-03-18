@@ -30,6 +30,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useDeleteWineMutation } from "../store/slices/apiSlice";
+import { toast } from "react-toastify";
+import { formatDecimal } from "../utils/helpers";
 
 interface Params {
   wine: Wine;
@@ -98,7 +100,7 @@ function TableRow({ wine, id }: Params) {
       <div className="flex items-center xl:border-l border-l-wBrand-foreground/30 text-sm xl:px-6 gap-x-14">
         <div className="space-y-2">
           <p className="text-xs text-gray-300">PRICE</p>
-          <p>N{wine.price}</p>
+          <p>{formatDecimal(Number(wine.price)).formatted}</p>
         </div>
         <div className="space-y-2">
           <p className="text-xs text-gray-300">CATEGORY</p>
@@ -120,7 +122,13 @@ function TableRow({ wine, id }: Params) {
                         dispatch(toggleWineEditor());
                         dispatch(dispatch(updateAction(Actions.UPDATE)));
                       } else if (item.value == Actions.DELETE) {
-                        const response = deleteWine({ wine_id: wine.id });
+                        toast("Deleting wine...");
+                        const response = await deleteWine({ wine_id: wine.id });
+                        if (response.error) {
+                          toast.error("Couln't delet wine at this time");
+                          return;
+                        }
+                        toast.success("Wine deleted successfuly");
                         console.log("response: ", response);
                       }
                     }}

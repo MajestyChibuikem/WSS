@@ -1,6 +1,7 @@
 import React from "react";
 import { Activity } from "../store/slices/activitySlice";
 import { ArrowRight } from "lucide-react";
+import { truncateText } from "../utils/helpers";
 
 function ActionTableRow({ activity }: { activity: Activity }) {
   return (
@@ -21,11 +22,19 @@ function ActionTableRow({ activity }: { activity: Activity }) {
             {activity.action}
           </h3>
           <ArrowRight className="size-3" />
-          <h2 className="capitalize">{activity.affected_name ?? "N/A"}</h2>
+          <h2 className="capitalize">
+            {(activity.affected_name &&
+              truncateText(activity.affected_name, 8)) ??
+              "N/A"}
+          </h2>
         </div>
         <div className="text-xs flex gap-3 text-gray-400">
           <p>#{activity.id}</p>
-          <p>{activity.acting_username ?? "N/A"}</p>
+          <p>
+            {(activity.acting_username &&
+              truncateText(activity.acting_username, 6)) ??
+              "N/A"}
+          </p>
           <p>{activity.timestamp}</p>
         </div>
       </div>

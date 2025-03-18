@@ -1,22 +1,42 @@
 "use client";
-import { ArrowUpNarrowWide, ChevronDown, Plus } from "lucide-react";
+import {
+  ArrowUpNarrowWide,
+  ChevronDown,
+  LoaderCircle,
+  Plus,
+} from "lucide-react";
 import { wineInventory } from "./utils/mock_data";
 import TableRowDashboard from "./components/table_row_dashboard";
 import { useEffect, useState } from "react";
 import { DatePickerWithRange } from "./components/range_calendar";
 import {
   useCompareSalesQuery,
+  useGetAllLogsQuery,
   useGetRevenueQuery,
   useGetStockByCategoryQuery,
   useGetTotalWineStockQuery,
+  useGetUsersQuery,
+  useGetWinesQuery,
 } from "./store/slices/apiSlice";
 import { RootState } from "./store";
-import { useSelector } from "react-redux";
-import { calculateRevenueChange, formatDecimal } from "./utils/helpers";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  calculateRevenueChange,
+  formatDecimal,
+  getInitials,
+} from "./utils/helpers";
+import { toast } from "react-toastify";
+import { updateAction } from "./store/slices/wineSlice";
+import { toggleUserEditor } from "./store/slices/userSlice";
+import { Actions } from "./utils/types";
+import NewUserSideBar from "./components/new_user_sidebar";
+import UserCard from "./components/user_card";
+import { setActivities } from "./store/slices/activitySlice";
+import ActionTableRow from "./components/action_table_row";
 
 export default function Home() {
+  const dispatch = useDispatch();
   const { calendarRange } = useSelector((state: RootState) => state.stats);
-
   const {
     data: revenueData,
     error: revenueErr,
@@ -45,6 +65,12 @@ export default function Home() {
     period2_start: calendarRange.period2_start_date,
     period2_end: calendarRange.period2_end_date,
   });
+
+  const {
+    data: userData,
+    error: userDataErr,
+    isLoading: userDataLoading,
+  } = useGetUsersQuery();
 
   useEffect(() => {
     console.log("Fetching Data...");
@@ -82,22 +108,84 @@ export default function Home() {
   // const revenue = revenueQuery.data?.revenue;
   // const percentageChange = compareSalesQuery.data?.percentage_change;
 
+  const { data: wineData, error, isLoading } = useGetWinesQuery();
+
+  const {
+    data: allLogs,
+    error: allLogsError,
+    isLoading: logsIsLoading,
+  } = useGetAllLogsQuery({});
+
+  const activities = useSelector(
+    (state: RootState) => state.activity.activities
+  );
+
+  useEffect(() => {
+    allLogs && dispatch(setActivities(allLogs));
+  }, [allLogs]);
+
+  console.log("wineData: ", wineData);
+
+  if (error) {
+    toast.error("Couldn't fetch wine at this time");
+  }
+
+  if (allLogsError) {
+    toast.error("Couldn't fetch activity at this time");
+  }
+
+  if (userDataErr) {
+    toast.error("Couldn't fetch users at this time");
+  }
+
+  const showUserEditor = useSelector(
+    (state: RootState) => state.users.show_user_editor
+  );
+
   revenueData && console.log("formatted: ", formatDecimal(revenueData.revenue));
+  console.log(
+    `data: \nstockCategoryData: ${JSON.stringify(
+      stockCategoryData
+    )}, \ntotalWineStock: ${JSON.stringify(
+      totalWineStock
+    )}, \ncompareSales: ${JSON.stringify(
+      compareSales
+    )}, \nrevenueData: ${JSON.stringify(revenueData)}`
+  );
+
+  if (isLoading || logsIsLoading || userDataLoading)
+    return (
+      <div className="h-[85vh] gap-4 w-full flex justify-center items-center">
+        <LoaderCircle className="text-wBrand-accent animate-spin h-10 w-10" />
+      </div>
+    );
 
   return (
     <main className="w-[100vw] px-10 space-y-8 py-6">
+      {showUserEditor && <NewUserSideBar />}
       <section className="flex gap-x-2 text-xs items-center">
-        <button className="h-7 w-7 rounded-full flex items-center justify-center border border-wBrand-accent/50">
+        <button
+          onClick={() => {
+            dispatch(updateAction(Actions.CREATE));
+            dispatch(toggleUserEditor());
+          }}
+          className="h-7 w-7 rounded-full flex items-center justify-center border border-wBrand-accent/50"
+        >
           <Plus className="h-4 w-4 stroke-wBrand-accent" />
         </button>
-        <button className="flex gap-x-2 h-8 px-2 pr-3 items-center rounded-full border border-wBrand-foreground/10">
-          <div className="h-5 w-5 rounded-full bg-white"></div>
-          <p>Joe Shlonger</p>
-        </button>
-        <button className="flex gap-x-2 h-8 px-2 pr-3 items-center rounded-full border border-wBrand-foreground/10">
+        {userData?.users.map((user) => (
+          <button className="flex gap-x-2 py-1 px-1 pr-3 items-center rounded-full border border-wBrand-foreground/10">
+            <div className="p-1 flex items-center justify-center rounded-full bg-wBrand-accent text-xs">
+              {getInitials(user.username)}
+            </div>
+            <p>{user.username}</p>
+          </button>
+        ))}
+
+        {/* <button className="flex gap-x-2 h-8 px-2 pr-3 items-center rounded-full border border-wBrand-foreground/10">
           <div className="h-5 w-5 rounded-full bg-white"></div>
           <p>Alice Rice</p>
-        </button>
+        </button> */}
       </section>
 
       <section className="w-full">
@@ -119,14 +207,16 @@ export default function Home() {
           <div className="flex items-center gap-4">
             {revenueData && revenueData.revenue !== undefined && (
               <h4 className="text-4xl font-semibold">
-                {formatDecimal(
-                  revenueData.revenue as number
-                ).formatted.toString()}
+                {revenueData.revenue &&
+                  formatDecimal(
+                    revenueData.revenue as number
+                  ).formatted.toString()}
                 <span className="text-wBrand-foreground/40">
                   .
-                  {formatDecimal(
-                    revenueData.revenue as number
-                  ).decimal.toString()}
+                  {revenueData.revenue &&
+                    formatDecimal(
+                      revenueData.revenue as number
+                    ).decimal.toString()}
                 </span>
               </h4>
             )}
@@ -183,7 +273,9 @@ export default function Home() {
               <h5 className="text-xs text-gray-400 font-medium">
                 Total bottles in stock
               </h5>
-              <h4 className="text-xl font-semibold">5000</h4>
+              <h4 className="text-xl font-semibold">
+                {totalWineStock && totalWineStock.total_stock}
+              </h4>
               <div className="flex justify-between text-xs gap-1 text-gray-300">
                 <div className="flex gap-x-1 ">
                   <p>Red: </p> <p>3H</p>
@@ -286,12 +378,23 @@ export default function Home() {
         </div>
       </section>
 
-      <section>
+      <section className="flex gap-10">
         <div className="w-[50%] space-y-4">
           <h3 className="text-xl font-medium">Inventory</h3>
           <div className="space-y-4">
-            {wineInventory.slice(0, 4).map((wine, idx) => (
-              <TableRowDashboard key={idx} wine={wine} />
+            {wineData &&
+              wineData?.wines
+                .slice(0, 3)
+                .map((wine, idx) => (
+                  <TableRowDashboard key={idx} wine={wine} />
+                ))}
+          </div>
+        </div>
+        <div className="w-[50%] space-y-4">
+          <h3 className="text-xl font-medium">Latest Activity</h3>
+          <div className="grid grid-cols-2 gap-6">
+            {activities.slice(0, 6).map((activity, idx) => (
+              <ActionTableRow key={idx} activity={activity} />
             ))}
           </div>
         </div>

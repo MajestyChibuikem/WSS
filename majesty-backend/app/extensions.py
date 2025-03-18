@@ -5,7 +5,7 @@ db = SQLAlchemy()
 jwt = JWTManager()
 
 # Token Blacklisting Logic
-@jwt.token_in_blocklist_LoaderCircle
+@jwt.token_in_blocklist_loader
 def check_if_token_is_blacklisted(jwt_header, jwt_payload):
     jti = jwt_payload['jti']
     from app.models.models import BlacklistedToken

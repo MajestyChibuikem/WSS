@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearCurrentlyEditing,
@@ -20,9 +20,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "react-toastify";
 
 function NewWineSideBar() {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
   const wineSelector = useSelector((state: RootState) => state.winer);
 
@@ -34,21 +36,32 @@ function NewWineSideBar() {
   const [updateWine] = useUpdateWineMutation();
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     if (
       wineSelector.action_type == Actions.CREATE &&
       wineSelector.currentlyEditing
     ) {
       try {
+        toast("Adding wine...");
         const response = await addWine({
           ...wineSelector.currentlyEditing,
           bottle_size: wineSelector.currentlyEditing.bottle_size,
         });
 
+        console.log("response: ", response);
+        if (response.error) {
+          setIsLoading(false);
+          toast.error("Couldn't add wine at the moment.");
+          return;
+        }
+
         dispatch(clearCurrentlyEditing());
         dispatch(closeWineEditor());
-
-        console.log("response: ", response);
+        setIsLoading(false);
+        toast.success("Wine added successfuly");
       } catch {
+        setIsLoading(false);
+        toast.error("Couldn't add wine at the moment.");
         console.log("Could not create wine");
       }
     } else if (
@@ -56,18 +69,27 @@ function NewWineSideBar() {
       wineSelector.currentlyEditing
     ) {
       try {
-        console.log("in stock: ", wineSelector.currentlyEditing.inStock);
+        toast("Updating wine...");
         const response = await updateWine({
           ...wineSelector.currentlyEditing,
           in_stock: wineSelector.currentlyEditing.inStock,
           wine_id: wineSelector.currentlyEditing.id,
         });
 
+        console.log("response: ", response);
+        if (response.error) {
+          setIsLoading(false);
+          toast.error("Couldn't updatew wine at the moment.");
+          return;
+        }
+
         dispatch(clearCurrentlyEditing());
         dispatch(closeWineEditor());
-
-        console.log("response: ", response);
+        setIsLoading(false);
+        toast.success("Wine updated successfuly");
       } catch {
+        setIsLoading(false);
+        toast.error("Couldn't updatew wine at the moment.");
         console.log("Could not create wine");
       }
     }

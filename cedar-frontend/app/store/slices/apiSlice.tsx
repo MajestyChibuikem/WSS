@@ -191,7 +191,7 @@ export const apiSlice = createApi({
     deleteWine: builder.mutation<{ message: string }, { wine_id: number }>({
       query: ({ wine_id }) => ({
         url: `/wine/${wine_id}`,
-        method: "PUT",
+        method: "DELETE",
       }),
     }),
 
@@ -228,11 +228,10 @@ export const apiSlice = createApi({
       }
     >({
       query: ({ period1_start, period1_end, period2_start, period2_end }) => ({
-        url: "/wine/compare-sales",
+        url: `/wine/compare-sales?period1_start=${period1_start}&period1_end=${period1_end}&period2_start=${period2_start}&period2_end=${period2_end}`,
         method: "GET",
-        params: { period1_start, period1_end, period2_start, period2_end },
       }),
-      transformErrorResponse: (response) => ({
+      transformErrorResponse: () => ({
         message: "Error fetching sales comparison data",
       }),
     }),
@@ -240,11 +239,10 @@ export const apiSlice = createApi({
     // Get Revenue for a Given Date Range
     getRevenue: builder.query<any, { start_date: string; end_date: string }>({
       query: ({ start_date, end_date }) => ({
-        url: "/wine/revenue",
+        url: `/wine/revenue?start_date=${start_date}&end_date=${end_date}`,
         method: "GET",
-        params: { start_date, end_date },
       }),
-      transformErrorResponse: (response) => ({
+      transformErrorResponse: () => ({
         message: "Error fetching revenue data",
       }),
     }),

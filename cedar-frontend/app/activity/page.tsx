@@ -131,13 +131,6 @@ function Page() {
             {activities.map((activity, idx) => (
               <ActionTableRow key={idx} activity={activity} />
             ))}
-
-            {/* <ActionTableRow />
-            <ActionTableRow />
-            <ActionTableRow />
-            <ActionTableRow />
-            <ActionTableRow />
-            <ActionTableRow /> */}
           </div>
         </div>
       </section>

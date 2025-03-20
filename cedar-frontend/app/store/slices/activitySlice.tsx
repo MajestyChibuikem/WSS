@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { format } from "date-fns";
+import { format, parseISO, isAfter, isBefore } from "date-fns";
 
 export interface Activity {
   id: number;
   acting_username: string;
   action: string;
-  timestamp: string;
+  timestamp: string; // ISO format string
   user_id?: number | null;
   user_agent?: string | null;
   message: string;
@@ -15,6 +15,7 @@ export interface Activity {
 interface FilterState {
   dateRange?: { start: string; end: string };
   username?: string;
+  item?: string;
   actions?: string[];
 }
 
@@ -33,11 +34,6 @@ const initialState: ActivityState = {
 // Helper function to format action names
 const formatActionName = (action: string) => {
   return action.replace(/_SUCCESS$/, "").replace(/_/g, " ");
-};
-
-// Helper function to format timestamp
-const formatTimestamp = (timestamp: string) => {
-  return format(new Date(timestamp), "dd/MM/yy");
 };
 
 // Slice definition
@@ -60,42 +56,54 @@ const activitySlice = createSlice({
         .map((activity) => ({
           ...activity,
           action: formatActionName(activity.action),
-          timestamp: formatTimestamp(activity.timestamp),
+          timestamp: activity.timestamp, // Store timestamp as is
         }));
 
       state.filteredActivities = state.activities;
     },
 
-    // Only updates the filter criteria
     setFilters: (state, action: PayloadAction<Partial<FilterState>>) => {
       state.filters = { ...state.filters, ...action.payload };
     },
 
-    // Applies the stored filter criteria to the activities list
     applyFilters: (state) => {
       state.filteredActivities = state.activities.filter((activity) => {
         const { dateRange, username, actions } = state.filters;
+        console.log("dateRange: ", dateRange);
+
+        // Convert timestamp to Date object for filtering
+        const activityDate = parseISO(activity.timestamp);
 
         // Date Range Filter
         if (dateRange?.start && dateRange?.end) {
-          const activityDate = new Date(activity.timestamp);
-          const startDate = new Date(dateRange.start);
-          const endDate = new Date(dateRange.end);
-          if (activityDate < startDate || activityDate > endDate) {
+          const startDate = parseISO(dateRange.start);
+          const endDate = parseISO(dateRange.end);
+
+          if (
+            isBefore(activityDate, startDate) ||
+            isAfter(activityDate, endDate)
+          ) {
             return false;
           }
         }
 
-        // Username Filter (Assuming `user_id` can be mapped to a username)
+        // Username Filter
         if (username) {
-          if (!activity.user_id || activity.user_id.toString() !== username) {
+          if (
+            !activity.user_id ||
+            activity.user_id.toString() !== username.toString()
+          ) {
             return false;
           }
         }
 
-        // Actions Filter
+        // Actions Filter (Case Insensitive)
         if (actions && actions.length > 0) {
-          if (!actions.includes(activity.action)) {
+          if (
+            !actions.some(
+              (action) => action.toLowerCase() === activity.action.toLowerCase()
+            )
+          ) {
             return false;
           }
         }

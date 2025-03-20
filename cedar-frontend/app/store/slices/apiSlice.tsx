@@ -286,7 +286,7 @@ export const apiSlice = createApi({
       }
     >({
       query: (body) => ({
-        url: "/checkout",
+        url: "invoices/checkout",
         method: "POST",
         body,
       }),

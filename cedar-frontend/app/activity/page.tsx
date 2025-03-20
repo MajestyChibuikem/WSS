@@ -7,7 +7,13 @@ import { DatePickerWithRange } from "../components/range_calendar";
 import { useGetAllLogsQuery } from "../store/slices/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
-import { setActivities, setFilters } from "../store/slices/activitySlice";
+import {
+  applyFilters,
+  clearFilters,
+  setActivities,
+  setFilters,
+} from "../store/slices/activitySlice";
+import CheckboxSelector from "../components/checkbox_selector";
 
 function Page() {
   const { data: allLogs, error: allLogsError, isLoading } = useGetAllLogsQuery(
@@ -17,17 +23,32 @@ function Page() {
   // console.log("logs: ", allLogs);
 
   const dispatch = useDispatch();
-  const activities = useSelector(
-    (state: RootState) => state.activity.activities
+  const { activities, filteredActivities } = useSelector(
+    (state: RootState) => state.activity
   );
 
   useEffect(() => {
     allLogs && dispatch(setActivities(allLogs));
   }, [allLogs]);
 
-  // useEffect(() => {
-  //   console.log("activities: ", activities);
-  // }, [activities]);
+  useEffect(() => {
+    console.log("activities: ", activities);
+  }, [activities]);
+
+  const activityFilter = useSelector(
+    (state: RootState) => state.activity.filters
+  );
+  const selectedItems = useSelector(
+    (state: RootState) =>
+      state.checkboxSelector.selectors["action_category"]?.items || {}
+  );
+  const calendarRange = useSelector(
+    (state: RootState) => state.stats.calendarRanges["activity_date_range"]
+  );
+
+  const categoryArr: string[] = Object.values(selectedItems).map(
+    (item) => item.content
+  );
 
   if (isLoading)
     return (
@@ -44,10 +65,35 @@ function Page() {
           <div className="fixed w-[24rem] h-[calc(100vh-9rem)] top-[9rem] p-10 pr-0 pt-0 left-0">
             <div className="rounded-lg space-y-8 pb-10 overflow-y-auto relative bg-wBrand-background_light/60 h-full">
               <div className="bg-wBrand-background_light gap-4 px-10 h-[5.5rem] flex items-center w-full justify-center sticky top-0">
-                <button className="px-5 py-2 bg-wBrand-accent w-full text-wBrand-background rounded-xl">
+                <button
+                  onClick={() => {
+                    dispatch(
+                      setFilters({
+                        actions: categoryArr,
+                        dateRange: {
+                          start: calendarRange.period1_start_date,
+                          end: calendarRange.period1_end_date,
+                        },
+                      })
+                    );
+                    console.log(
+                      "activities: ",
+                      activityFilter,
+                      // selectedItems,
+                      calendarRange,
+                      categoryArr
+                    );
+                    dispatch(applyFilters());
+                  }}
+                  className="px-5 py-2 bg-wBrand-accent w-full text-wBrand-background rounded-xl"
+                >
                   Filter
                 </button>
-                <button className="px-5 py-2 border border-white/40 w-full text-white rounded-xl">
+
+                <button
+                  onClick={() => dispatch(clearFilters())}
+                  className="px-5 py-2 border border-white/40 w-full text-white rounded-xl"
+                >
                   Reset
                 </button>
               </div>
@@ -57,15 +103,12 @@ function Page() {
                 </p>
                 <div className="grid grid-cols-2 gap-2">
                   {actions.map((category, idx) => (
-                    <button
+                    <CheckboxSelector
                       key={idx}
-                      className="border text-xs border-wBrand-foreground/20 rounded-xl px-3 py-2 flex justify-between text-left items-center"
-                    >
-                      <p>{category}</p>
-                      <p className="p-1 px-2 text-xs bg-wBrand-foreground/10 rounded-lg">
-                        1078
-                      </p>
-                    </button>
+                      id="action_category"
+                      item={{ content: category }}
+                      idx={idx}
+                    />
                   ))}
                 </div>
               </div>
@@ -100,6 +143,9 @@ function Page() {
                     </div>
                     <input
                       type="text"
+                      onChange={(e) =>
+                        dispatch(setFilters({ item: e.target.value }))
+                      }
                       placeholder="ENTER ITEM NAME"
                       className="outline-none min-h-full pl-4 bg-transparent w-full"
                     />
@@ -114,21 +160,15 @@ function Page() {
                   period1={true}
                   className="!w-full bg-transparent"
                   triggerClassname="h-max text-xs bg-wBrand-background/40 rounded-xl px-4 py-3 !w-full border border-wBrand-foreground/20 items-center justify-center flex"
+                  uniqueKey="activity_date_range"
                 />
               </div>
             </div>
           </div>
         </div>
         <div className="w-[calc(100vw-25rem)]">
-          {/* <div className="grid grid-cols-5 text-xs py-2 px-4 bg-wBrand-accent/10 text-gray-300 rounded-full w-full">
-            <p>ITEM ID</p>
-            <p>ITEM NAME</p>
-            <p>ACTION</p>
-            <p>USER</p>
-            <p>DATE</p>
-          </div> */}
           <div className="grid grid-cols-3 gap-4">
-            {activities.map((activity, idx) => (
+            {filteredActivities.map((activity, idx) => (
               <ActionTableRow key={idx} activity={activity} />
             ))}
           </div>

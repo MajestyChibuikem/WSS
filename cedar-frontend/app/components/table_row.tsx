@@ -87,7 +87,7 @@ function TableRow({ wine, id }: Params) {
           <div className="h-1 w-1 rounded-full bg-gray-400" />
           <p>
             NO IN STOCK:{" "}
-            <span className="text-gray-200">{wine.inStock ?? 1}</span>
+            <span className="text-gray-200">{wine.in_stock ?? 1}</span>
           </p>
           <div className="h-1 w-1 rounded-full bg-gray-400" />
           <p>

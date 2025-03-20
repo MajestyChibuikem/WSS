@@ -46,6 +46,7 @@ function Page() {
       localStorage.setItem("wineryAuthToken", response.token); // Use localStorage
       localStorage.setItem("wineryUserRole", response.roles[0]);
       setIsLoading(false);
+      router.push("/");
     } catch (error) {
       setIsLoading(false);
       toast.error("Login failed");

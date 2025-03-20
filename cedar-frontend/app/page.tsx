@@ -36,7 +36,9 @@ import ActionTableRow from "./components/action_table_row";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const { calendarRange } = useSelector((state: RootState) => state.stats);
+  const calendarRange = useSelector(
+    (state: RootState) => state.stats.calendarRanges["dashboard_date_range"]
+  );
   const {
     data: revenueData,
     error: revenueErr,
@@ -62,8 +64,8 @@ export default function Home() {
   } = useCompareSalesQuery({
     period1_start: calendarRange.period1_start_date,
     period1_end: calendarRange.period1_end_date,
-    period2_start: calendarRange.period2_start_date,
-    period2_end: calendarRange.period2_end_date,
+    period2_start: calendarRange.period2_start_date ?? "",
+    period2_end: calendarRange.period2_end_date ?? "",
   });
 
   const {
@@ -72,39 +74,39 @@ export default function Home() {
     isLoading: userDataLoading,
   } = useGetUsersQuery();
 
-  useEffect(() => {
-    console.log("Fetching Data...");
-    console.table({
-      revenueData,
-      revenueErr,
-      loadingRevenue,
+  // useEffect(() => {
+  //   console.log("Fetching Data...");
+  //   console.table({
+  //     revenueData,
+  //     revenueErr,
+  //     loadingRevenue,
 
-      stockCategoryData,
-      stockCategoryErr,
-      loadingStockCategory,
+  //     stockCategoryData,
+  //     stockCategoryErr,
+  //     loadingStockCategory,
 
-      totalWineStock,
-      totalWineStockErr,
-      loadingTotalWineStock,
+  //     totalWineStock,
+  //     totalWineStockErr,
+  //     loadingTotalWineStock,
 
-      compareSales,
-      compareSalesErr,
-      loadingcompareSales,
-    });
-  }, [
-    revenueData,
-    revenueErr,
-    loadingRevenue,
-    stockCategoryData,
-    stockCategoryErr,
-    loadingStockCategory,
-    totalWineStock,
-    totalWineStockErr,
-    loadingTotalWineStock,
-    compareSales,
-    compareSalesErr,
-    loadingcompareSales,
-  ]);
+  //     compareSales,
+  //     compareSalesErr,
+  //     loadingcompareSales,
+  //   });
+  // }, [
+  //   revenueData,
+  //   revenueErr,
+  //   loadingRevenue,
+  //   stockCategoryData,
+  //   stockCategoryErr,
+  //   loadingStockCategory,
+  //   totalWineStock,
+  //   totalWineStockErr,
+  //   loadingTotalWineStock,
+  //   compareSales,
+  //   compareSalesErr,
+  //   loadingcompareSales,
+  // ]);
   // const revenue = revenueQuery.data?.revenue;
   // const percentageChange = compareSalesQuery.data?.percentage_change;
 
@@ -121,8 +123,10 @@ export default function Home() {
   );
 
   useEffect(() => {
-    allLogs && dispatch(setActivities(allLogs));
-  }, [allLogs]);
+    if (allLogs) {
+      dispatch(setActivities(allLogs));
+    }
+  }, [JSON.stringify(allLogs)]);
 
   console.log("wineData: ", wineData);
 
@@ -196,6 +200,7 @@ export default function Home() {
             <DatePickerWithRange
               period1={true}
               triggerClassname="h-7 text-xs rounded-full px-3 bg-gray-400/30 items-center justify-center flex"
+              uniqueKey="dashboard_date_range"
             />
           </div>
         </div>
@@ -261,6 +266,7 @@ export default function Home() {
                 period1={false}
                 triggerClassname="flex w-max h-6 text-xs"
                 className="border-none"
+                uniqueKey="dashboard_date_range"
               />
               <ChevronDown className="h-4" />
             </div>

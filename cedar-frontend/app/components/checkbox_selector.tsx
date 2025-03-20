@@ -10,7 +10,7 @@ interface Params {
   idx: number;
   item: {
     content: string;
-    stock_count: number;
+    stock_count?: number;
   };
 }
 

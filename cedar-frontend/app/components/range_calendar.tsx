@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { format } from "date-fns";
+import { format, subMonths } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { DateRange } from "react-day-picker";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,14 +21,22 @@ export function DatePickerWithRange({
   className,
   triggerClassname,
   period1,
+  uniqueKey, // New prop for unique identification
 }: React.HTMLAttributes<HTMLDivElement> & {
   triggerClassname?: string;
   period1: boolean;
+  uniqueKey: string;
 }) {
   const dispatch = useDispatch();
-  const { calendarRange } = useSelector((state: RootState) => state.stats);
+  const { calendarRanges } = useSelector((state: RootState) => state.stats);
 
-  // Determine the correct period's dates
+  const calendarRange = calendarRanges[uniqueKey] || {
+    period1_start_date: format(subMonths(new Date(), 1), "yyyy-MM-dd"),
+    period1_end_date: format(new Date(), "yyyy-MM-dd"),
+    period2_start_date: format(subMonths(new Date(), 2), "yyyy-MM-dd"),
+    period2_end_date: format(subMonths(new Date(), 3), "yyyy-MM-dd"),
+  };
+
   const start_date = period1
     ? calendarRange.period1_start_date
     : calendarRange.period2_start_date;
@@ -36,51 +44,51 @@ export function DatePickerWithRange({
     ? calendarRange.period1_end_date
     : calendarRange.period2_end_date;
 
-  // Convert Redux state to DateRange format
-  const initialDateRange: DateRange | undefined = start_date
-    ? {
-        from: new Date(start_date),
-        to: end_date ? new Date(end_date) : undefined,
-      }
-    : undefined;
-
-  const [date, setDate] = React.useState<DateRange | undefined>(
-    initialDateRange
-  );
+  const [date, setDate] = React.useState<DateRange | undefined>({
+    from: new Date(start_date),
+    to: end_date ? new Date(end_date) : undefined,
+  });
 
   React.useEffect(() => {
     if (date?.from && date?.to) {
-      dispatch(
-        setStatsState({
-          calendarRange: {
-            ...calendarRange, // Keep the existing state to avoid losing other properties
-            ...(period1
-              ? {
-                  period1_start_date: date.from.toISOString().split("T")[0],
-                  period1_end_date: date.to.toISOString().split("T")[0],
-                }
-              : {
-                  period2_start_date: date.from.toISOString().split("T")[0],
-                  period2_end_date: date.to.toISOString().split("T")[0],
-                }),
-          },
-        })
-      );
+      const newStartDate = date.from.toISOString().split("T")[0];
+      const newEndDate = date.to.toISOString().split("T")[0];
+
+      const existingRange = calendarRanges[uniqueKey] || {}; // Get existing state
+
+      const isSame = period1
+        ? existingRange.period1_start_date === newStartDate &&
+          existingRange.period1_end_date === newEndDate
+        : existingRange.period2_start_date === newStartDate &&
+          existingRange.period2_end_date === newEndDate;
+
+      if (!isSame) {
+        dispatch(
+          setStatsState({
+            key: uniqueKey,
+            data: {
+              ...calendarRanges[uniqueKey], // Preserve existing state for this key
+              ...(period1
+                ? {
+                    period1_start_date: newStartDate,
+                    period1_end_date: newEndDate,
+                  }
+                : {
+                    period2_start_date: newStartDate,
+                    period2_end_date: newEndDate,
+                  }),
+            },
+          })
+        );
+      }
     }
-  }, [date, dispatch, period1]);
+  }, [date, dispatch, period1, uniqueKey, calendarRanges]); // Keep `calendarRanges` in dependencies
 
   return (
     <div className={cn("grid gap-2", className)}>
       <Popover>
         <PopoverTrigger asChild>
-          <Button
-            id="date"
-            className={cn(
-              "h-10 text-xs rounded-full px-3 bg-gray-400/30 items-center justify-center flex",
-              !date && "text-muted-foreground",
-              triggerClassname
-            )}
-          >
+          <Button className="h-8 text-xs rounded-xl px-3 bg-gray-400/30">
             <CalendarIcon />
             {date?.from ? (
               date.to ? (
@@ -95,10 +103,9 @@ export function DatePickerWithRange({
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0 m-3" align="start">
+        <PopoverContent className="w-auto p-0 m-3 bg-wBrand-background outline-none border-wBrand-accent">
           <Calendar
-            initialFocus
-            className="bg-wBrand-background rounded-2xl"
+            className="outline-none border-none"
             mode="range"
             defaultMonth={date?.from}
             selected={date}

@@ -3535,3 +3535,13 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed
 [2025-03-17 15:32:45,262] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
 [2025-03-17 15:32:56,646] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0 | Affected: Revenue
 [2025-03-17 15:33:03,066] INFO in logger: [LOGOUT] User 1: User logged out | Affected: admin
+[2025-03-19 17:09:43,131] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-19 17:10:06,864] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-19 17:10:21,546] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 3 | Affected: Invoice ID 3
+[2025-03-19 17:14:57,295] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-19 17:26:54,653] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-19 17:27:03,962] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-19 17:27:27,674] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-20 08:21:20,535] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-20 08:21:30,331] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-20 08:24:54,595] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin

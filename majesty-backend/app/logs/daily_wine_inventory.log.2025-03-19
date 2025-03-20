@@ -1,0 +1,7 @@
+[2025-03-19 17:09:43,131] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-19 17:10:06,864] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-19 17:10:21,546] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 3 | Affected: Invoice ID 3
+[2025-03-19 17:14:57,295] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-19 17:26:54,653] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-19 17:27:03,962] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-19 17:27:27,674] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category

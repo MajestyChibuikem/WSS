@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2025-03-19 15:37:50,016] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-03-19 15:38:45,498] INFO in logger: [LOGIN_FAILURE] User None: Invalid login attempt | Affected: admin
 [2025-03-19 15:38:59,718] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
@@ -271,3 +272,12 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-19 22:19:39,345] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-03-19 22:22:08,377] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
 [2025-03-19 22:29:59,373] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+=======
+[2025-03-19 17:09:43,131] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-19 17:10:06,864] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-19 17:10:21,546] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 3 | Affected: Invoice ID 3
+[2025-03-19 17:14:57,295] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-19 17:26:54,653] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-19 17:27:03,962] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-19 17:27:27,674] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+>>>>>>> 918fec5b9a0125d2bae7b1b824334c4e8f6f60f6

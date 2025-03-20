@@ -4372,6 +4372,7 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed
 [2025-03-17 15:32:45,262] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
 [2025-03-17 15:32:56,646] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0 | Affected: Revenue
 [2025-03-17 15:33:03,066] INFO in logger: [LOGOUT] User 1: User logged out | Affected: admin
+<<<<<<< HEAD
 >>>>>>> 820885401de541d70c94d614081eca1acca6416a
 [2025-03-18 13:18:10,484] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-03-18 13:19:17,696] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
@@ -4919,3 +4920,15 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-20 02:01:36,242] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 57 | Affected: Total Stock
 [2025-03-20 02:01:36,257] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% | Affected: Sales Comparison
 [2025-03-20 02:01:36,268] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+=======
+[2025-03-19 17:09:43,131] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-19 17:10:06,864] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-19 17:10:21,546] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 3 | Affected: Invoice ID 3
+[2025-03-19 17:14:57,295] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-19 17:26:54,653] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-19 17:27:03,962] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-19 17:27:27,674] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-20 08:21:20,535] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-20 08:21:30,331] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-20 08:24:54,595] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+>>>>>>> 918fec5b9a0125d2bae7b1b824334c4e8f6f60f6

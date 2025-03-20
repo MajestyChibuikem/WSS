@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2025-03-20 00:46:02,455] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-03-20 01:29:06,586] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
 [2025-03-20 01:29:06,824] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 65199.99 | Affected: Revenue
@@ -146,3 +147,8 @@
 [2025-03-20 02:01:36,242] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 57 | Affected: Total Stock
 [2025-03-20 02:01:36,257] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% | Affected: Sales Comparison
 [2025-03-20 02:01:36,268] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+=======
+[2025-03-20 08:21:20,535] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-20 08:21:30,331] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-20 08:24:54,595] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+>>>>>>> 918fec5b9a0125d2bae7b1b824334c4e8f6f60f6

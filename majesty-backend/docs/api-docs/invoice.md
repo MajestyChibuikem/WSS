@@ -130,3 +130,27 @@ delete invoice
         {
             "message" : "an error occured while deleting the invoice"
         }
+
+checkout
+    endpoint : /invoices/checkout
+    method : POST
+    description : uses all wines in cart and check them out thereby reducing the amount of respective wines removed
+    request headers: Authorization: Bearer <JWT_TOKEN>
+    json request:
+    {
+        "items" :[
+            {
+                "item":{
+                    "id": 3
+                },
+                "number_sold" : 2
+            },
+            {
+                "item":{
+                    "id": 2
+                },
+                "number_sold": 3
+            }
+        ],
+        "total_amount": 113.95
+    }

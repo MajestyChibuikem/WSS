@@ -4932,3 +4932,190 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-20 08:21:30,331] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-03-20 08:24:54,595] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
 >>>>>>> 918fec5b9a0125d2bae7b1b824334c4e8f6f60f6
+[2025-03-20 14:28:30,466] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-20 14:28:46,512] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-20 14:28:53,942] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-20 14:28:55,378] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 65199.99 | Affected: Revenue
+[2025-03-20 14:28:55,383] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 57 | Affected: Total Stock
+[2025-03-20 14:28:55,386] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% | Affected: Sales Comparison
+[2025-03-20 14:28:55,392] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-20 14:28:55,394] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-20 14:28:55,411] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-20 14:31:12,044] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-20 14:31:25,020] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 65199.99 | Affected: Revenue
+[2025-03-20 14:31:25,022] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 57 | Affected: Total Stock
+[2025-03-20 14:31:25,022] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-20 14:31:25,024] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% | Affected: Sales Comparison
+[2025-03-20 15:23:43,848] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2025-03-20 15:23:43,868] ERROR in app: Exception on /users/3 [OPTIONS]
+Traceback (most recent call last):
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2025-03-20 15:23:43,877] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2025-03-20 15:32:42,246] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-20 15:32:49,197] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 65199.99 | Affected: Revenue
+[2025-03-20 15:32:49,199] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-20 15:32:49,209] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 57 | Affected: Total Stock
+[2025-03-20 15:32:49,225] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% | Affected: Sales Comparison
+[2025-03-20 15:33:28,220] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-20 15:33:28,343] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-20 15:33:28,344] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 65199.99 | Affected: Revenue
+[2025-03-20 15:33:28,391] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 57 | Affected: Total Stock
+[2025-03-20 15:33:28,400] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% | Affected: Sales Comparison
+[2025-03-20 15:33:28,407] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-20 15:33:28,412] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-20 20:52:44,239] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-20 20:52:44,449] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 65199.99 | Affected: Revenue
+[2025-03-20 20:52:44,476] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% | Affected: Sales Comparison
+[2025-03-20 20:52:44,480] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 57 | Affected: Total Stock
+[2025-03-20 20:52:44,489] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-20 20:52:44,503] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-20 20:52:44,516] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-20 20:55:56,432] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-20 20:57:16,165] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-20 20:57:20,619] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-20 20:57:20,626] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% | Affected: Sales Comparison
+[2025-03-20 20:57:20,633] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-20 20:57:20,640] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 65199.99 | Affected: Revenue
+[2025-03-20 20:57:20,642] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 57 | Affected: Total Stock
+[2025-03-20 20:57:20,667] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-20 20:59:32,997] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 3 | Affected: Invoice ID 3
+[2025-03-20 20:59:39,381] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 65199.99 | Affected: Revenue
+[2025-03-20 20:59:39,386] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-20 20:59:39,424] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 51 | Affected: Total Stock
+[2025-03-20 20:59:39,438] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% | Affected: Sales Comparison
+[2025-03-20 20:59:39,524] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-20 20:59:45,751] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-20 20:59:45,997] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 65199.99 | Affected: Revenue
+[2025-03-20 20:59:46,007] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-20 20:59:46,024] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% | Affected: Sales Comparison
+[2025-03-20 20:59:46,028] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 51 | Affected: Total Stock
+[2025-03-20 20:59:46,059] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-20 20:59:46,185] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-21 13:07:32,496] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-21 13:07:32,962] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 195399.95 | Affected: Revenue
+[2025-03-21 13:07:32,973] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 51 | Affected: Total Stock
+[2025-03-21 13:07:32,974] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-21 13:07:32,977] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% | Affected: Sales Comparison
+[2025-03-21 13:07:33,046] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-21 13:07:33,065] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-21 15:45:33,075] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-21 15:46:38,770] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-21 15:46:38,961] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 195399.95 | Affected: Revenue
+[2025-03-21 15:46:38,963] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-21 15:46:38,964] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 51 | Affected: Total Stock
+[2025-03-21 15:46:38,967] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% | Affected: Sales Comparison
+[2025-03-21 15:46:38,978] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-21 15:46:39,061] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-21 15:50:58,682] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-21 15:52:02,730] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 4 | Affected: fourth_user_try
+[2025-03-21 15:52:15,786] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-21 15:52:15,858] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-21 15:54:43,379] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 195399.95 | Affected: Revenue
+[2025-03-21 15:54:43,383] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-21 15:54:43,387] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 51 | Affected: Total Stock
+[2025-03-21 15:54:43,395] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-21 15:54:43,398] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% | Affected: Sales Comparison
+[2025-03-21 16:44:09,753] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: new_user | Affected: new_user
+[2025-03-21 16:44:16,947] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-21 16:44:17,009] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-21 16:45:40,499] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 4 | Affected: fourth_user_try
+[2025-03-21 16:45:45,028] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-21 16:45:45,101] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-21 16:49:17,198] INFO in logger: [COMPARE_SALES] User 1: Sales compared: 0% | Affected: Sales Comparison
+[2025-03-21 16:49:36,374] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0 | Affected: Revenue
+[2025-03-21 16:52:20,178] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% | Affected: Sales Comparison
+[2025-03-21 16:54:14,524] INFO in logger: [COMPARE_SALES] User 1: Sales compared: 0% | Affected: Sales Comparison
+[2025-03-21 16:54:37,041] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-21 16:57:15,790] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-22 19:17:15,741] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-22 19:17:30,845] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-22 19:17:48,478] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0 | Affected: Revenue
+[2025-03-22 19:19:53,545] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0 | Affected: Revenue
+[2025-03-22 19:19:56,612] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0 | Affected: Revenue
+[2025-03-22 19:35:59,149] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 150.00 | Affected: Revenue
+[2025-03-22 19:54:55,086] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 150.00 | Affected: Revenue
+[2025-03-22 19:55:12,160] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 150.00 | Affected: Revenue
+[2025-03-22 20:01:22,100] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-22 20:01:35,066] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2025-03-22 20:01:35,127] ERROR in app: Exception on /wine/revenue [GET]
+Traceback (most recent call last):
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2025-03-22 20:01:35,137] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2025-03-22 20:02:15,836] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-22 20:02:20,636] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-22 20:05:24,179] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-22 20:05:29,790] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-22 20:05:33,141] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-22 20:53:15,963] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-22 21:01:27,276] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-22 21:01:41,366] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% change | Affected: Sales Comparison
+[2025-03-22 21:02:03,226] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% change | Affected: Sales Comparison
+[2025-03-22 21:07:08,294] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-22 21:07:28,063] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-22 21:07:32,904] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-22 21:13:23,995] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-22 21:13:31,196] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-22 21:13:36,451] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = inf | Affected: Sales Comparison

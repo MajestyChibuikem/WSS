@@ -75,51 +75,37 @@ def get_stock_by_category():
         )
         return jsonify({'message': f'Error fetching stock by category: {str(e)}'}), 500
 
+
 @wine_bp.route('/revenue', methods=['GET'])
 @jwt_required()
 @token_required
 def get_revenue():
-    """Calculate revenue within a specified time period"""
+    """Calculate revenue for the past 30 days"""
     current_user_id = get_jwt_identity()
     if isinstance(current_user_id, dict):
         current_user_id = current_user_id.get('id')
 
-    start_date_str = request.args.get('start_date')
-    end_date_str = request.args.get('end_date')
-
-    if not start_date_str or not end_date_str:
-        log_action(
-            current_user_id, 
-            'GET_REVENUE_ERROR', 
-            'Missing start_date or end_date', 
-            level='error',
-            affected_name='Revenue'
-        )
-        return jsonify({"error": "Both start_date and end_date are required."}), 400
-
     try:
-        start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
-        end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
-    except ValueError:
-        log_action(
-            current_user_id, 
-            'GET_REVENUE_ERROR', 
-            'Invalid date format. Use YYYY-MM-DD.', 
-            level='error',
-            affected_name='Revenue'
-        )
-        return jsonify({"error": "Invalid date format. Use YYYY-MM-DD."}), 400
+        # Calculate the date range for the past 30 days
+        end_date = datetime.utcnow()  # Current date and time
+        start_date = end_date - timedelta(days=30)  # 30 days ago
 
-    try:
+        # Calculate revenue for the past 30 days
         revenue = Invoice.calculate_revenue(start_date, end_date)
+
+        # Log the action
         log_action(
             current_user_id, 
             'GET_REVENUE', 
-            f'Revenue calculated: {revenue}',
+            f'Revenue calculated for the past 30 days: {revenue}',
             affected_name='Revenue'
         )
+
+        # Return the revenue
         return jsonify({"revenue": revenue}), 200
+
     except Exception as e:
+        # Log the error
         log_action(
             current_user_id, 
             'GET_REVENUE_ERROR', 
@@ -128,56 +114,49 @@ def get_revenue():
             affected_name='Revenue'
         )
         return jsonify({"error": f"Error calculating revenue: {str(e)}"}), 500
-
 @wine_bp.route('/compare-sales', methods=['GET'])
 @jwt_required()
 @token_required
 def compare_sales():
-    """Compare revenue between two time periods"""
+    """Compare revenue between the last 30 days and the previous 30 days using growth factor"""
     current_user_id = get_jwt_identity()
     if isinstance(current_user_id, dict):
         current_user_id = current_user_id.get('id')
 
-    period1_start_str = request.args.get('period1_start')
-    period1_end_str = request.args.get('period1_end')
-    period2_start_str = request.args.get('period2_start')
-    period2_end_str = request.args.get('period2_end')
-
-    if not all([period1_start_str, period1_end_str, period2_start_str, period2_end_str]):
-        log_action(
-            current_user_id, 
-            'COMPARE_SALES_ERROR', 
-            'Missing required query parameters', 
-            level='error',
-            affected_name='Sales Comparison'
-        )
-        return jsonify({"error": "All period parameters are required."}), 400
-
     try:
-        period1_start = datetime.strptime(period1_start_str, '%Y-%m-%d')
-        period1_end = datetime.strptime(period1_end_str, '%Y-%m-%d')
-        period2_start = datetime.strptime(period2_start_str, '%Y-%m-%d')
-        period2_end = datetime.strptime(period2_end_str, '%Y-%m-%d')
-    except ValueError:
-        log_action(
-            current_user_id, 
-            'COMPARE_SALES_ERROR', 
-            'Invalid date format. Use YYYY-MM-DD.', 
-            level='error',
-            affected_name='Sales Comparison'
-        )
-        return jsonify({"error": "Invalid date format. Use YYYY-MM-DD."}), 400
+        # Calculate date ranges for comparison
+        current_time = datetime.utcnow()
+        
+        # Period 1: Last 30 days
+        period1_end = current_time
+        period1_start = current_time - timedelta(days=30)
+        
+        # Period 2: Previous 30 days (before period 1)
+        period2_end = period1_start
+        period2_start = period2_end - timedelta(days=30)
 
-    try:
-        percentage_change = Invoice.compare_sales_periods(period1_start, period1_end, period2_start, period2_end)
+        # Log the date ranges for debugging
+        print(f"Period 1: {period1_start} to {period1_end}")
+        print(f"Period 2: {period2_start} to {period2_end}")
+
+        # Calculate growth factor
+        growth_factor = Invoice.compare_sales_growth_factor(
+            period1_start, period1_end,
+            period2_start, period2_end
+        )
+
+        # Log the action
         log_action(
             current_user_id, 
             'COMPARE_SALES', 
-            f'Sales compared: {percentage_change}%',
+            f'Sales compared: Growth Factor = {growth_factor}',
             affected_name='Sales Comparison'
         )
-        return jsonify({"percentage_change": percentage_change}), 200
+
+        return jsonify({"growth_factor": growth_factor}), 200
+
     except Exception as e:
+        # Log the error
         log_action(
             current_user_id, 
             'COMPARE_SALES_ERROR', 
@@ -186,7 +165,6 @@ def compare_sales():
             affected_name='Sales Comparison'
         )
         return jsonify({"error": f"Error comparing sales: {str(e)}"}), 500
-
 @wine_bp.route('/inventory-value', methods=['GET'])
 @jwt_required()
 @token_required

@@ -53,6 +53,10 @@ const inventorySlice = createSlice({
       }
     },
 
+    setFilteredData: (state, action: PayloadAction<Wine[]>) => {
+      state.filteredData = action.payload;
+    },
+
     // ✅ Initial remove from cart (removes item completely)
     removeFromCart: (state, action: PayloadAction<number>) => {
       state.cart = state.cart.filter((item) => item.id !== action.payload);
@@ -85,7 +89,6 @@ const inventorySlice = createSlice({
       const { inventoryFilter } = state;
       let { wines: filtered, categories } = action.payload;
 
-      console.log("Original wine list: ", filtered);
       console.log("Filtering categories: ", categories);
 
       // Apply category filter (if categories array is not empty)
@@ -94,6 +97,7 @@ const inventorySlice = createSlice({
           (wine) => categories && categories.includes(wine.category)
         );
       }
+      console.log("Original wine list: ", filtered);
 
       // Apply name filter (if set)
       if (inventoryFilter.name?.trim()) {
@@ -158,6 +162,7 @@ export const {
   updateInventoryFilter,
   addToCart,
   removeFromCart,
+  setFilteredData,
   incrementCartItemQuantity,
   decrementCartItemQuantity,
   filterInventory,

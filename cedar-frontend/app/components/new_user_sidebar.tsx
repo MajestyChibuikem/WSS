@@ -6,12 +6,14 @@ import { usersDropdownItems } from "../utils/mock_data";
 import {
   closeUserEditor,
   setCurrentlyEditing,
+  toggleUserEditor,
 } from "../store/slices/userSlice";
 import { RootState } from "../store";
 import { updateToggleItem } from "../store/slices/dropdownSlice";
 import { Actions, DropdownItem, Roles } from "../utils/types";
 import {
   useCreateUserMutation,
+  useDeleteUserMutation,
   useUpdateUserMutation,
 } from "../store/slices/apiSlice";
 import {
@@ -35,6 +37,7 @@ function NewUserSideBar() {
 
   const [createUser] = useCreateUserMutation();
   const [updateUser] = useUpdateUserMutation();
+  const [deleteUser] = useDeleteUserMutation();
 
   const handleSubmit = async () => {
     setIsLoading(true);
@@ -88,6 +91,22 @@ function NewUserSideBar() {
         setIsLoading(false);
         toast.error("Couldn't update user.");
         console.log("couldnt update user");
+      }
+    } else if (user.currentlyEditing && user.action_type == Actions.DELETE) {
+      try {
+        toast("Deleting User");
+        const response = await deleteUser(user.currentlyEditing.id);
+        if (response.error) {
+          setIsLoading(false);
+          toast.error("Couldn't delete user.");
+          return;
+        }
+        setIsLoading(false);
+        toast.success("User deleted successfully.");
+        dispatch(toggleUserEditor());
+      } catch (error) {
+        setIsLoading(false);
+        toast.error("Couldn't delete user.");
       }
     }
   };
@@ -174,14 +193,16 @@ function NewUserSideBar() {
           <button
             disabled={
               (user.action_type !== Actions.CREATE &&
-                user.action_type !== Actions.UPDATE) ||
+                user.action_type !== Actions.UPDATE &&
+                user.action_type !== Actions.DELETE) ||
               isLoading
             }
             onClick={handleSubmit}
             className={clsx(
               "py-2 px-5 text-sm bg-wBrand-accent font-semibold rounded-lg ",
               (user.action_type !== Actions.CREATE &&
-                user.action_type !== Actions.UPDATE) ||
+                user.action_type !== Actions.UPDATE &&
+                user.action_type !== Actions.DELETE) ||
                 isLoading
                 ? "bg-gray-700"
                 : "text-wBrand-background"

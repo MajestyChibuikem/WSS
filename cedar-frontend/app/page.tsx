@@ -12,8 +12,10 @@ import { DatePickerWithRange } from "./components/range_calendar";
 import {
   useCompareSalesQuery,
   useGetAllLogsQuery,
+  useGetInventoryValueQuery,
   useGetRevenueQuery,
   useGetStockByCategoryQuery,
+  useGetTopWinesQuery,
   useGetTotalWineStockQuery,
   useGetUsersQuery,
   useGetWinesQuery,
@@ -23,6 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   calculateRevenueChange,
   formatDecimal,
+  formatNumber,
   getInitials,
 } from "./utils/helpers";
 import { toast } from "react-toastify";
@@ -69,10 +72,22 @@ export default function Home() {
   });
 
   const {
+    data: totalStock,
+    error: totalStockErr,
+    isLoading: loadingTotalStock,
+  } = useGetTotalWineStockQuery();
+
+  const {
     data: userData,
     error: userDataErr,
     isLoading: userDataLoading,
   } = useGetUsersQuery();
+
+  const {
+    data: topWinesData,
+    error: topWinesErr,
+    isLoading: loadingTopWines,
+  } = useGetTopWinesQuery();
 
   // useEffect(() => {
   //   console.log("Fetching Data...");
@@ -111,6 +126,11 @@ export default function Home() {
   // const percentageChange = compareSalesQuery.data?.percentage_change;
 
   const { data: wineData, error, isLoading } = useGetWinesQuery();
+  const {
+    data: inventoryValueData,
+    error: inventoryValueErr,
+    isLoading: loadingInventoryValue,
+  } = useGetInventoryValueQuery();
 
   const {
     data: allLogs,
@@ -134,12 +154,20 @@ export default function Home() {
     toast.error("Couldn't fetch wine at this time");
   }
 
+  if (inventoryValueErr) {
+    toast.error("Couldn't fetch wine at this time");
+  }
+
   if (allLogsError) {
-    toast.error("Couldn't fetch activity at this time");
+    toast.error("Couldn't fetch inventory value at this time");
   }
 
   if (userDataErr) {
     toast.error("Couldn't fetch users at this time");
+  }
+
+  if (totalStockErr) {
+    toast.error("Couldn't fetch total stock price");
   }
 
   const showUserEditor = useSelector(
@@ -147,6 +175,7 @@ export default function Home() {
   );
 
   revenueData && console.log("formatted: ", formatDecimal(revenueData.revenue));
+  console.log("calendarRange: ", calendarRange);
   console.log(
     `data: \nstockCategoryData: ${JSON.stringify(
       stockCategoryData
@@ -154,10 +183,20 @@ export default function Home() {
       totalWineStock
     )}, \ncompareSales: ${JSON.stringify(
       compareSales
-    )}, \nrevenueData: ${JSON.stringify(revenueData)}`
+    )}, \nrevenueData: ${JSON.stringify(
+      revenueData
+    )}, \ntotalStock ${JSON.stringify(totalStock)}
+      revenueData
+    )}, \ninventoryValue ${JSON.stringify(inventoryValueData)}`
   );
 
-  if (isLoading || logsIsLoading || userDataLoading)
+  if (
+    isLoading ||
+    logsIsLoading ||
+    userDataLoading ||
+    loadingTotalStock ||
+    loadingInventoryValue
+  )
     return (
       <div className="h-[85vh] gap-4 w-full flex justify-center items-center">
         <LoaderCircle className="text-wBrand-accent animate-spin h-10 w-10" />
@@ -198,7 +237,7 @@ export default function Home() {
           <div></div>
           <div className="relative w-max">
             <DatePickerWithRange
-              period1={true}
+              period1={false}
               triggerClassname="h-7 text-xs rounded-full px-3 bg-gray-400/30 items-center justify-center flex"
               uniqueKey="dashboard_date_range"
             />
@@ -263,7 +302,7 @@ export default function Home() {
               )}
             <div className="flex w-max items-center">
               <DatePickerWithRange
-                period1={false}
+                period1={true}
                 triggerClassname="flex w-max h-6 text-xs"
                 className="border-none"
                 uniqueKey="dashboard_date_range"
@@ -282,16 +321,21 @@ export default function Home() {
               <h4 className="text-xl font-semibold">
                 {totalWineStock && totalWineStock.total_stock}
               </h4>
-              <div className="flex justify-between text-xs gap-1 text-gray-300">
-                <div className="flex gap-x-1 ">
-                  <p>Red: </p> <p>3H</p>
-                </div>
-                <div className="flex gap-x-1 ">
-                  <p>White: </p> <p>5H</p>
-                </div>
-                <div className="flex gap-x-1 ">
-                  <p>Rose: </p> <p>2H</p>
-                </div>
+              <div className="flex justify-between text-xs gap-2 text-gray-300 overflow-x-auto">
+                {stockCategoryData &&
+                  Object.entries(stockCategoryData.stock_by_category).map(
+                    ([category, value]) => (
+                      <div key={category} className="flex gap-x-1">
+                        <p>{category}: </p>
+                        <p>
+                          {
+                            //@ts-ignore
+                            formatNumber(parseFloat(value))
+                          }
+                        </p>
+                      </div>
+                    )
+                  )}
               </div>
             </div>
             <div className="w-[11.3rem] h-[4rem] -top-2 translate-x-[50%] right-[50%] absolute rounded-xl bg-wBrand-foreground/10"></div>
@@ -302,17 +346,33 @@ export default function Home() {
               <h5 className="text-xs text-gray-400 font-medium">
                 Total Value of Inventory
               </h5>
-              <h4 className="text-xl font-semibold">N300,000</h4>
-              <div className="flex justify-between text-xs gap-1 text-gray-300">
-                <div className="flex gap-x-1 ">
-                  <p>Red: </p> <p>80K</p>
-                </div>
-                <div className="flex gap-x-1 ">
-                  <p>White: </p> <p>10K</p>
-                </div>
-                <div className="flex gap-x-1 ">
-                  <p>Rose: </p> <p>50K</p>
-                </div>
+              <h4 className="text-xl font-semibold">
+                {
+                  formatDecimal(
+                    //@ts-ignore
+                    Object.values(inventoryValueData).reduce(
+                      //@ts-ignore
+                      (sum, value) => sum + parseFloat(value),
+                      0
+                    )
+                  ).formatted
+                }
+              </h4>
+              <div className="flex justify-between text-xs gap-2 text-gray-300 overflow-x-auto">
+                {inventoryValueData &&
+                  Object.entries(inventoryValueData).map(
+                    ([category, value]) => (
+                      <div key={category} className="flex gap-x-1">
+                        <p>{category}: </p>
+                        <p>
+                          {
+                            //@ts-ignore
+                            formatNumber(parseFloat(value))
+                          }
+                        </p>
+                      </div>
+                    )
+                  )}
               </div>
             </div>
             <div className="w-[11.3rem] h-[4rem] -top-2 translate-x-[50%] right-[50%] absolute rounded-xl bg-wBrand-foreground/10"></div>

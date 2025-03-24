@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { subDays, format } from "date-fns";
+import { subDays, format, subMonths } from "date-fns";
 
 const today = new Date();
 
@@ -24,10 +24,10 @@ const initialState: StatsState = {
       period2_end_date: format(subDays(today, 30), "yyyy-MM-dd"),
     },
     dashboard_date_range: {
-      period1_start_date: format(subDays(today, 30), "yyyy-MM-dd"),
-      period1_end_date: format(today, "yyyy-MM-dd"),
-      period2_start_date: format(subDays(today, 60), "yyyy-MM-dd"),
-      period2_end_date: format(subDays(today, 30), "yyyy-MM-dd"),
+      period1_start_date: format(subMonths(new Date(), 2), "yyyy-MM-dd"),
+      period1_end_date: format(subMonths(new Date(), 1), "yyyy-MM-dd"),
+      period2_start_date: format(subMonths(new Date(), 1), "yyyy-MM-dd"),
+      period2_end_date: format(new Date(), "yyyy-MM-dd"),
     },
   },
 };

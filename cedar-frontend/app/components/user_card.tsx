@@ -1,4 +1,4 @@
-import { PenLine } from "lucide-react";
+import { Delete, PenLine, Trash } from "lucide-react";
 import React from "react";
 import { Actions, Roles, User } from "../utils/types";
 import clsx from "clsx";
@@ -25,7 +25,17 @@ function UserCard({ user }: Params) {
           dispatch(updateAction(Actions.UPDATE));
         }}
       >
-        <PenLine className="absolute right-5 top-5 h-4 text-wBrand-accent/50 hover:text-wBrand-accent w-4 cursor-pointer" />
+        <PenLine className="absolute right-12 top-5 h-4 text-wBrand-accent/50 hover:text-wBrand-accent w-4 cursor-pointer" />
+      </button>
+      <button
+        onClick={() => {
+          dispatch(toggleUserEditor());
+          dispatch(setCurrentlyEditing(user));
+          dispatch(setCurrentlyEditing({ roles: user.roles }));
+          dispatch(updateAction(Actions.DELETE));
+        }}
+      >
+        <Trash className="absolute right-5 top-5 h-4 text-red-600/50 hover:text-red-600 w-4 cursor-pointer" />
       </button>
       <div className="min-h-12 h-12 min-w-12 w-12 rounded-full bg-gray-200"></div>
       <div className="space-y-1">

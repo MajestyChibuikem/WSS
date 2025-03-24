@@ -44,6 +44,13 @@ export function getInitials(name: string): string {
   return words[0].slice(0, 2).toUpperCase();
 }
 
+export const formatNumber = (num: number): string => {
+  if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + "M";
+  if (num >= 1_000) return (num / 1_000).toFixed(1) + "K";
+  if (num >= 100) return (num / 100).toFixed(1) + "H";
+  return num.toString();
+};
+
 export function truncateText(text: string, maxLength: number): string {
   if (text.length <= maxLength) {
     return text;

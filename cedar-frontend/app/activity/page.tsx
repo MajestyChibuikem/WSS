@@ -50,6 +50,17 @@ function Page() {
     (item) => item.content
   );
 
+  useEffect(() => {
+    if (categoryArr.length === 0 && activityFilter.categories?.length) {
+      dispatch(clearFilters());
+    } else if (categoryArr.length > 0) {
+      const prevCategories = activityFilter.categories || [];
+      if (JSON.stringify(prevCategories) !== JSON.stringify(categoryArr)) {
+        dispatch(setFilters({ categories: categoryArr }));
+      }
+    }
+  }, [categoryArr, activityFilter.categories, dispatch]);
+
   if (isLoading)
     return (
       <div className="h-[85vh] w-full flex justify-center items-center">
@@ -59,7 +70,9 @@ function Page() {
 
   return (
     <div className="w-[100vw] px-10 space-y-10">
-      <h1 className="text-2xl font-medium">Activity Log</h1>
+      <h1 className="text-2xl font-medium sticky top-[5rem] h-[4rem] items-center flex bg-wBrand-background">
+        Activity Log
+      </h1>
       <section className="w-full flex">
         <div className="w-[25rem] h-[100vh]">
           <div className="fixed w-[24rem] h-[calc(100vh-9rem)] top-[9rem] p-10 pr-0 pt-0 left-0">

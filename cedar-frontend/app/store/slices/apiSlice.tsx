@@ -270,6 +270,10 @@ export const apiSlice = createApi({
       query: () => "/logs/logs",
     }),
 
+    getTopWines: builder.query({
+      query: () => "/wine/top_wines",
+    }),
+
     getUserLogs: builder.query({
       query: (userId) => `logs/user/${userId}`,
     }),
@@ -313,6 +317,7 @@ export const {
   useCheckTokenQuery,
   useGetUserSalesQuery,
   useGetInventoryValueQuery,
+  useGetTopWinesQuery,
   useUpdateUserMutation,
   useGetAllLogsQuery,
   useCheckoutMutation,

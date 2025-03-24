@@ -31,10 +31,10 @@ export function DatePickerWithRange({
   const { calendarRanges } = useSelector((state: RootState) => state.stats);
 
   const calendarRange = calendarRanges[uniqueKey] || {
-    period1_start_date: format(subMonths(new Date(), 1), "yyyy-MM-dd"),
-    period1_end_date: format(new Date(), "yyyy-MM-dd"),
-    period2_start_date: format(subMonths(new Date(), 2), "yyyy-MM-dd"),
-    period2_end_date: format(subMonths(new Date(), 3), "yyyy-MM-dd"),
+    period1_start_date: format(subMonths(new Date(), 3), "yyyy-MM-dd"),
+    period1_end_date: format(subMonths(new Date(), 2), "yyyy-MM-dd"),
+    period2_start_date: format(subMonths(new Date(), 1), "yyyy-MM-dd"),
+    period2_end_date: format(new Date(), "yyyy-MM-dd"),
   };
 
   const start_date = period1

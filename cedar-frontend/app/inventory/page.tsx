@@ -16,6 +16,7 @@ import CheckboxSelector from "../components/checkbox_selector";
 import {
   clearFilter,
   filterInventory,
+  setFilteredData,
   updateInventoryFilter,
 } from "../store/slices/inventorySlice";
 import { useGetWinesQuery } from "../store/slices/apiSlice";
@@ -52,13 +53,28 @@ function Page() {
   );
 
   useEffect(() => {
-    console.log("filtered: ", inventory.filteredData);
-    if (inventory.filteredData.length > 0) {
-      setData(inventory.filteredData);
-    } else if (wineData && wineData.wines.length > 0) {
-      setData(wineData.wines);
+    if (wineData && wineData.wines) {
+      dispatch(setFilteredData(wineData.wines));
     }
-  }, [wineData, inventory.filteredData]);
+  }, [wineData]);
+
+  useEffect(() => {
+    setData(inventory.filteredData);
+  }, [inventory.filteredData]);
+
+  useEffect(() => {
+    if (wineData && categoryArr.length == 0) {
+      dispatch(setFilteredData(wineData.wines));
+    }
+    if (wineData && categoryArr.length > 0) {
+      dispatch(
+        filterInventory({
+          wines: wineData.wines,
+          categories: categoryArr,
+        })
+      );
+    }
+  }, [selectedItems]);
 
   console.log("categories: ", categoryArr);
 
@@ -175,7 +191,7 @@ function Page() {
                       type="number"
                       placeholder="MIN PRICE"
                       value={inventoryFilter.price_range.min}
-                      onChange={(e) =>
+                      onChange={(e) => {
                         dispatch(
                           updateInventoryFilter({
                             price_range: {
@@ -183,8 +199,15 @@ function Page() {
                               max: inventoryFilter.price_range.max,
                             },
                           })
-                        )
-                      }
+                        );
+
+                        dispatch(
+                          filterInventory({
+                            wines: wineData ? wineData.wines : [],
+                            categories: categoryArr,
+                          })
+                        );
+                      }}
                       className="outline-none min-h-full pl-4 bg-transparent w-full"
                     />
                   </div>
@@ -197,7 +220,7 @@ function Page() {
                       type="number"
                       placeholder="MAX PRICE"
                       value={inventoryFilter.price_range.max}
-                      onChange={(e) =>
+                      onChange={(e) => {
                         dispatch(
                           updateInventoryFilter({
                             price_range: {
@@ -205,8 +228,15 @@ function Page() {
                               max: (e.target.value as unknown) as number,
                             },
                           })
-                        )
-                      }
+                        );
+
+                        dispatch(
+                          filterInventory({
+                            wines: wineData ? wineData.wines : [],
+                            categories: categoryArr,
+                          })
+                        );
+                      }}
                       className="outline-none min-h-full pl-4 bg-transparent w-full"
                     />
                   </div>
@@ -223,12 +253,18 @@ function Page() {
                   <SelectContent className="bg-wBrand-background mt-2">
                     {dropdownItems.map((item, idx) => (
                       <SelectItem
-                        className="p-3"
-                        onClick={() =>
+                        className="p-3 cursor-pointer"
+                        onClick={() => {
                           dispatch(
                             updateInventoryFilter({ sort_by: item.value })
-                          )
-                        }
+                          );
+                          dispatch(
+                            filterInventory({
+                              wines: wineData ? wineData.wines : [],
+                              categories: categoryArr,
+                            })
+                          );
+                        }}
                         key={idx}
                         value={item.value.toString()}
                       >
@@ -253,7 +289,7 @@ function Page() {
                       type="number"
                       placeholder="MIN ABV"
                       value={inventoryFilter.abv_range.min}
-                      onChange={(e) =>
+                      onChange={(e) => {
                         dispatch(
                           updateInventoryFilter({
                             abv_range: {
@@ -261,8 +297,14 @@ function Page() {
                               max: inventoryFilter.abv_range.max,
                             },
                           })
-                        )
-                      }
+                        );
+                        dispatch(
+                          filterInventory({
+                            wines: wineData ? wineData.wines : [],
+                            categories: categoryArr,
+                          })
+                        );
+                      }}
                       className="outline-none min-h-full pl-4 bg-transparent w-full"
                     />
                   </div>
@@ -275,7 +317,7 @@ function Page() {
                       type="number"
                       placeholder="MAX ABV"
                       value={inventoryFilter.abv_range.max}
-                      onChange={(e) =>
+                      onChange={(e) => {
                         dispatch(
                           updateInventoryFilter({
                             abv_range: {
@@ -283,8 +325,14 @@ function Page() {
                               max: (e.target.value as unknown) as number,
                             },
                           })
-                        )
-                      }
+                        );
+                        dispatch(
+                          filterInventory({
+                            wines: wineData ? wineData.wines : [],
+                            categories: categoryArr,
+                          })
+                        );
+                      }}
                       className="outline-none min-h-full pl-4 bg-transparent w-full"
                     />
                   </div>

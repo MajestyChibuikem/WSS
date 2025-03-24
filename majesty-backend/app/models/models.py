@@ -232,7 +232,42 @@ class Invoice(db.Model):
 
         percentage_change = ((revenue_period2 - revenue_period1) / revenue_period1) * 100
         return percentage_change
+    
+    @staticmethod
+    def compare_sales_growth_factor(period1_start, period1_end, period2_start, period2_end):
+        """
+        Compare revenue between two periods and calculate the growth factor.
+        """
+        # Calculate revenue for Period 1
+        revenue_period1 = db.session.query(func.sum(Invoice.total_amount)).filter(
+            and_(
+                Invoice.created_at >= period1_start,
+                Invoice.created_at <= period1_end
+            )
+        ).scalar() or 0
 
+        # Calculate revenue for Period 2
+        revenue_period2 = db.session.query(func.sum(Invoice.total_amount)).filter(
+            and_(
+                Invoice.created_at >= period2_start,
+                Invoice.created_at <= period2_end
+            )
+        ).scalar() or 0
+
+        # Log the revenues for debugging
+        print(f"Revenue for Period 1 ({period1_start} to {period1_end}): {revenue_period1}")
+        print(f"Revenue for Period 2 ({period2_start} to {period2_end}): {revenue_period2}")
+
+        # Handle edge cases
+        if revenue_period2 == 0:
+            if revenue_period1 == 0:
+                return 1.0  # No growth if both periods have 0 revenue
+            else:
+                return float('inf')  # Infinite growth if Period 2 has 0 revenue
+
+        # Calculate growth factor
+        growth_factor = revenue_period1 / revenue_period2
+        return round(growth_factor, 2)  # Round to 2 decimal places
     def to_dict(self):
         """
         Convert the Invoice object to a dictionary, including its items.

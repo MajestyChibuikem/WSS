@@ -34,15 +34,10 @@ function Page() {
     try {
       setIsLoading(true);
       toast("Loggin you in");
-      console.log("in here", user);
       const response = await login({
         username: user.username,
         password: user.password,
       }).unwrap(); // RTK Query call
-
-      // console.log("login; ", response, "\npath: ", pathname);
-
-      // console.log("token: ", response.token);
       localStorage.setItem("wineryAuthToken", response.token); // Use localStorage
       localStorage.setItem("wineryUserRole", response.roles[0]);
       setIsLoading(false);

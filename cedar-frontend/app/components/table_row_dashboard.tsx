@@ -7,7 +7,7 @@ interface Params {
 
 function TableRowDashboard({ wine }: Params) {
   return (
-    <div className="flex w-full rounded-xl bg-wBrand-background_light/60 space-x-24 justify-between p-4">
+    <div className="flex w-full rounded-xl bg-wBrand-background_light/60 space-x-24 justify-between p-4 py-4">
       <div className="space-y-2">
         <h2 className="text-sm font-medium">{wine.name}</h2>
         <div className="text-gray-400 flex items-center gap-2 text-[0.5rem]">

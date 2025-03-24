@@ -12,12 +12,12 @@ import {
 import { setCurrentlyEditing } from "../store/slices/wineSlice";
 
 export const wineCategories = [
-  { content: "Red", stock_count: 1073 },
-  { content: "White", stock_count: 103 },
-  { content: "Rosé", stock_count: 1056 },
-  { content: "Sparkling", stock_count: 1273 },
-  { content: "Dessert", stock_count: 73 },
-  { content: "Fortified", stock_count: 113 },
+  { content: "Red" },
+  { content: "White" },
+  { content: "Rosé" },
+  { content: "Sparkling" },
+  { content: "Dessert" },
+  { content: "Fortified" },
 ];
 
 export const actions = [
@@ -54,7 +54,7 @@ export const usersDropdownItems: DropdownItem<Roles>[] = [
   {
     icon: null,
     content: "SUPER USER",
-    value: Roles.SUPERUSER,
+    value: Roles.SUPER_USER,
     active: false,
   },
   {
@@ -185,7 +185,7 @@ export const wineInventory: Wine[] = [
 //   {
 //     firstname: "Bob",
 //     lastname: "Smith",
-//     role: Roles.SUPERUSER,
+//     role: Roles.SUPER_USER,
 //   },
 //   {
 //     firstname: "Charlie",

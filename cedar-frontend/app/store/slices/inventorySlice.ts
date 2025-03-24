@@ -89,15 +89,12 @@ const inventorySlice = createSlice({
       const { inventoryFilter } = state;
       let { wines: filtered, categories } = action.payload;
 
-      console.log("Filtering categories: ", categories);
-
       // Apply category filter (if categories array is not empty)
       if (categories && categories.length > 0) {
         filtered = filtered.filter(
           (wine) => categories && categories.includes(wine.category)
         );
       }
-      console.log("Original wine list: ", filtered);
 
       // Apply name filter (if set)
       if (inventoryFilter.name?.trim()) {
@@ -137,8 +134,6 @@ const inventorySlice = createSlice({
         }
         return b.price - a.price;
       });
-
-      console.log("Filtered wine list: ", filtered);
 
       state.filteredData = filtered;
       state.inventoryFilter.name = "";

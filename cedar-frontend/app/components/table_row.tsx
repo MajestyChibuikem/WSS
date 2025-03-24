@@ -1,7 +1,7 @@
 import { Ellipsis, ShoppingBasket, Trash } from "lucide-react";
 import React, { useEffect } from "react";
 import { actionDropdownItems } from "../utils/mock_data";
-import { Actions, Wine } from "../utils/types";
+import { Actions, Roles, Wine } from "../utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import {
@@ -31,7 +31,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useDeleteWineMutation } from "../store/slices/apiSlice";
 import { toast } from "react-toastify";
-import { formatDecimal } from "../utils/helpers";
+import { formatDecimal, getRoleEnum } from "../utils/helpers";
 
 interface Params {
   wine: Wine;
@@ -46,6 +46,10 @@ function TableRow({ wine, id }: Params) {
   );
   const inventoryCart = useSelector((state: RootState) => state.inventory.cart);
   const [deleteWine] = useDeleteWineMutation();
+
+  const userRole = getRoleEnum(
+    localStorage.getItem("wineryUserRole")?.toLowerCase() ?? ""
+  );
 
   return (
     // <div className="flex text-sm rounded-xl items-center p-3 px-5 w-full justify-between gap-x-8">
@@ -107,40 +111,42 @@ function TableRow({ wine, id }: Params) {
           <p>{wine.category}</p>
         </div>
         <div className="flex gap-3 items-center xl:flex-col xl:gap-2">
-          {!inventoryCart.some((item) => item.id === wine.id) && (
-            <DropdownMenu>
-              {" "}
-              <DropdownMenuTrigger className="text-sm flex items-center gap-2 w-[8.4rem] justify-center h-8 border-2 border-wBrand-foreground/40 rounded-lg">
-                <Ellipsis className="h-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-wBrand-background z-10 p-2 space-y-1 rounded-xl border border-wBrand-foreground/20 top-7 shadow-xl">
-                {actionDropdownItems.map((item, idx) => (
-                  <DropdownMenuItem
-                    onClick={async () => {
-                      if (item.value == Actions.UPDATE) {
-                        dispatch(setCurrentlyEditing(wine));
-                        dispatch(toggleWineEditor());
-                        dispatch(dispatch(updateAction(Actions.UPDATE)));
-                      } else if (item.value == Actions.DELETE) {
-                        toast("Deleting wine...");
-                        const response = await deleteWine({ wine_id: wine.id });
-                        if (response.error) {
-                          toast.error("Couln't delet wine at this time");
-                          return;
+          {userRole != Roles.STAFF &&
+            !inventoryCart.some((item) => item.id === wine.id) && (
+              <DropdownMenu>
+                {" "}
+                <DropdownMenuTrigger className="text-sm flex items-center gap-2 w-[8.4rem] justify-center h-8 border-2 border-wBrand-foreground/40 rounded-lg">
+                  <Ellipsis className="h-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-wBrand-background z-10 p-2 space-y-1 rounded-xl border border-wBrand-foreground/20 top-7 shadow-xl">
+                  {actionDropdownItems.map((item, idx) => (
+                    <DropdownMenuItem
+                      onClick={async () => {
+                        if (item.value == Actions.UPDATE) {
+                          dispatch(setCurrentlyEditing(wine));
+                          dispatch(toggleWineEditor());
+                          dispatch(dispatch(updateAction(Actions.UPDATE)));
+                        } else if (item.value == Actions.DELETE) {
+                          toast("Deleting wine...");
+                          const response = await deleteWine({
+                            wine_id: wine.id,
+                          });
+                          if (response.error) {
+                            toast.error("Couln't delet wine at this time");
+                            return;
+                          }
+                          toast.success("Wine deleted successfuly");
                         }
-                        toast.success("Wine deleted successfuly");
-                        console.log("response: ", response);
-                      }
-                    }}
-                    className="cursor-pointer"
-                    key={idx}
-                  >
-                    {item.content.toString()}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
+                      }}
+                      className="cursor-pointer"
+                      key={idx}
+                    >
+                      {item.content.toString()}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
 
           {!inventoryCart.some((item) => item.id === wine.id) && (
             <button

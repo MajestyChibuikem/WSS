@@ -11,7 +11,7 @@ export const enum Actions {
 
 export enum Roles {
   ADMIN = "admin",
-  SUPERUSER = "superuser",
+  SUPER_USER = "super_user",
   STAFF = "staff",
 }
 

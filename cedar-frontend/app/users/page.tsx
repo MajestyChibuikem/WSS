@@ -18,8 +18,6 @@ function Page() {
 
   const { data: userData, error, isLoading } = useGetUsersQuery();
 
-  console.log("users", userData);
-
   if (error) return <p>Error fetching wines</p>;
   if (isLoading)
     return (

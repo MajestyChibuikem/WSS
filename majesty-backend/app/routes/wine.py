@@ -118,7 +118,7 @@ def get_revenue():
 @jwt_required()
 @token_required
 def compare_sales():
-    """Compare revenue between the last 30 days and the previous 30 days using growth factor"""
+    """Compare revenue between the last 30 days and the previous 30 days using growth factor and percentage change."""
     current_user_id = get_jwt_identity()
     if isinstance(current_user_id, dict):
         current_user_id = current_user_id.get('id')
@@ -139,21 +139,43 @@ def compare_sales():
         print(f"Period 1: {period1_start} to {period1_end}")
         print(f"Period 2: {period2_start} to {period2_end}")
 
-        # Calculate growth factor
+        # Get revenue for both periods
+        revenue_period1 = Invoice.calculate_revenue(period1_start, period1_end)
+        revenue_period2 = Invoice.calculate_revenue(period2_start, period2_end)
+
+        # Calculate growth factor and percentage change
         growth_factor = Invoice.compare_sales_growth_factor(
             period1_start, period1_end,
             period2_start, period2_end
         )
 
+        percentage_change = Invoice.compare_sales_periods(
+            period1_start, period1_end,
+            period2_start, period2_end
+        )
+
+        # Format the previous month's date range (YYYY-MM-DD)
+        previous_month_start = period2_start.strftime('%Y-%m-%d')
+        previous_month_end = period2_end.strftime('%Y-%m-%d')
+
         # Log the action
         log_action(
             current_user_id, 
             'COMPARE_SALES', 
-            f'Sales compared: Growth Factor = {growth_factor}',
+            f'Sales compared: Growth Factor = {growth_factor}, Percentage Change = {percentage_change}%',
             affected_name='Sales Comparison'
         )
 
-        return jsonify({"growth_factor": growth_factor}), 200
+        return jsonify({
+            "growth_factor": growth_factor,
+            "percentage_change": percentage_change,
+            "previous_month_sales": revenue_period2,
+            "current_month_sales": revenue_period1,
+            "previous_month_date_range": {
+                "start": previous_month_start,
+                "end": previous_month_end
+            }
+        }), 200
 
     except Exception as e:
         # Log the error
@@ -165,6 +187,7 @@ def compare_sales():
             affected_name='Sales Comparison'
         )
         return jsonify({"error": f"Error comparing sales: {str(e)}"}), 500
+
 @wine_bp.route('/inventory-value', methods=['GET'])
 @jwt_required()
 @token_required

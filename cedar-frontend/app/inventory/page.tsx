@@ -19,7 +19,10 @@ import {
   setFilteredData,
   updateInventoryFilter,
 } from "../store/slices/inventorySlice";
-import { useGetWinesQuery } from "../store/slices/apiSlice";
+import {
+  useGetTotalWineStockQuery,
+  useGetWinesQuery,
+} from "../store/slices/apiSlice";
 import {
   Select,
   SelectContent,
@@ -29,7 +32,9 @@ import {
 } from "@/components/ui/select";
 
 import Empty from "../components/empty";
-import { Actions, Wine as IWine } from "../utils/types";
+import { Actions, Wine as IWine, Roles } from "../utils/types";
+import { getRoleEnum } from "../utils/helpers";
+import { toast } from "react-toastify";
 
 function Page() {
   const [data, setData] = useState<IWine[]>();
@@ -76,15 +81,30 @@ function Page() {
     }
   }, [selectedItems]);
 
-  console.log("categories: ", categoryArr);
+  const {
+    data: totalWineStock,
+    error: totalWineStockErr,
+    isLoading: loadingTotalWineStock,
+  } = useGetTotalWineStockQuery();
 
-  if (isLoading)
+  if (isLoading || loadingTotalWineStock)
     return (
       <div className="h-[85vh] w-full flex justify-center items-center">
         <LoaderCircle className="text-wBrand-accent animate-spin stroke-wBrand-accent h-10 w-10" />
       </div>
     );
-  if (error) return <p>Error fetching wines</p>;
+  if (error) {
+    toast.error("Couldn't fetch total stock price");
+    return <p>Error fetching wines</p>;
+  }
+
+  if (totalWineStockErr) {
+    toast.error("Couldn't fetch wine stock currently");
+  }
+
+  const userRole = getRoleEnum(
+    localStorage.getItem("wineryUserRole")?.toLowerCase() ?? ""
+  );
 
   return (
     <div className="">
@@ -93,7 +113,7 @@ function Page() {
         <div className="w-[calc(25rem)] flex items-baseline justify-between">
           <h1 className="text-2xl font-medium">Inventory</h1>
           <p className="border border-wBrand-foreground/20 px-3 text-sm rounded-full py-1">
-            1078{" "}
+            {totalWineStock && totalWineStock.total_stock}{" "}
             <span className="text-xs text-gray-300">wines in available</span>
           </p>
         </div>
@@ -124,23 +144,25 @@ function Page() {
           </div>
 
           <div className="">
-            <button
-              onClick={() => {
-                dispatch(toggleWineEditor());
-                dispatch(dispatch(updateAction(Actions.CREATE)));
-              }}
-              className="px-5 py-2 bg-wBrand-accent text-wBrand-background rounded-xl"
-            >
-              Add Product
-            </button>
+            {userRole !== Roles.STAFF && (
+              <button
+                onClick={() => {
+                  dispatch(toggleWineEditor());
+                  dispatch(dispatch(updateAction(Actions.CREATE)));
+                }}
+                className="px-5 py-2 bg-wBrand-accent text-wBrand-background rounded-xl"
+              >
+                Add Product
+              </button>
+            )}
           </div>
         </div>
       </div>
       <div className="flex w-[100vw]">
         <div className="w-[25rem] h-[100vh]">
           <div className="fixed w-[24rem] h-[calc(100vh-9rem)] top-[9rem] p-10 pr-0 pt-0 left-0">
-            <div className="rounded-lg space-y-8 pb-10 overflow-y-auto relative bg-wBrand-background_light/60 h-full">
-              {wineData && wineData.wines.length != 0 && (
+            <div className="rounded-lg space-y-8 py-10 overflow-y-auto relative bg-wBrand-background_light/60 h-full">
+              {/* {wineData && wineData.wines.length != 0 && (
                 <div className="bg-wBrand-background_light gap-4 px-10 h-[5.5rem] flex items-center w-full justify-center sticky top-0">
                   <button
                     onClick={() =>
@@ -162,7 +184,7 @@ function Page() {
                     Reset
                   </button>
                 </div>
-              )}
+              )} */}
               <div className="space-y-4 px-6">
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
                   PRODUCT CATEGORY

@@ -21,14 +21,12 @@ export default function ProtectedRoute({
         window.location.pathname != "/login"
       ) {
         window.location.href = "/login";
-        console.log("Token is invalid or expired");
       }
 
       if (
         data?.message == "Token is valid" &&
         window.location.pathname == "/login"
       ) {
-        console.log("Token is valid, expires at:", data.expires_at);
         window.location.href = "/";
       }
     }

@@ -8,6 +8,7 @@ import {
   toggleUserEditor,
   updateAction,
 } from "../store/slices/userSlice";
+import { getInitials, truncateText } from "../utils/helpers";
 
 interface Params {
   user: User;
@@ -17,6 +18,26 @@ function UserCard({ user }: Params) {
   const dispatch = useDispatch();
   return (
     <div className="border border-wBrand-foreground/10 flex items-center rounded-xl p-4 gap-x-3 bg-wBrand-background/5 relative">
+      <div className="min-h-12 h-12 min-w-12 w-12 rounded-full flex items-center justify-center bg-wBrand-accent">
+        {getInitials(user.username)}
+      </div>
+      <div className="space-y-1">
+        <h2 className="font-semibold uppercase">
+          {truncateText(user.username, 10)}
+        </h2>
+        <div className="flex justify-between text-xs gap-x-4">
+          <p
+            className={clsx(
+              "text-wBrand-foreground/50 font-semibold uppercase",
+              user.roles[0] == Roles.ADMIN
+                ? "text-wBrand-accent/60"
+                : user.roles[0] == Roles.SUPER_USER && "text-yellow-500/60"
+            )}
+          >
+            {...user.roles}
+          </p>
+        </div>
+      </div>
       <button
         onClick={() => {
           dispatch(toggleUserEditor());
@@ -37,22 +58,6 @@ function UserCard({ user }: Params) {
       >
         <Trash className="absolute right-5 top-5 h-4 text-red-600/50 hover:text-red-600 w-4 cursor-pointer" />
       </button>
-      <div className="min-h-12 h-12 min-w-12 w-12 rounded-full bg-gray-200"></div>
-      <div className="space-y-1">
-        <h2 className="font-semibold uppercase">{user.username}</h2>
-        <div className="flex justify-between text-xs gap-x-4">
-          <p
-            className={clsx(
-              "text-wBrand-foreground/50 font-semibold uppercase",
-              user.roles[0] == Roles.ADMIN
-                ? "text-wBrand-accent/60"
-                : user.roles[0] == Roles.SUPERUSER && "text-yellow-500/60"
-            )}
-          >
-            {...user.roles}
-          </p>
-        </div>
-      </div>
     </div>
   );
 }

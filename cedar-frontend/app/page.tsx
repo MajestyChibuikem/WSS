@@ -1,5 +1,6 @@
 "use client";
 import {
+  ArrowDownNarrowWide,
   ArrowUpNarrowWide,
   ChevronDown,
   LoaderCircle,
@@ -24,14 +25,16 @@ import { RootState } from "./store";
 import { useDispatch, useSelector } from "react-redux";
 import {
   calculateRevenueChange,
+  convertGrowthFactorToPercentage,
   formatDecimal,
   formatNumber,
   getInitials,
+  getRoleEnum,
 } from "./utils/helpers";
 import { toast } from "react-toastify";
 import { updateAction } from "./store/slices/wineSlice";
 import { toggleUserEditor } from "./store/slices/userSlice";
-import { Actions } from "./utils/types";
+import { Actions, Roles } from "./utils/types";
 import NewUserSideBar from "./components/new_user_sidebar";
 import UserCard from "./components/user_card";
 import { setActivities } from "./store/slices/activitySlice";
@@ -64,12 +67,7 @@ export default function Home() {
     data: compareSales,
     error: compareSalesErr,
     isLoading: loadingcompareSales,
-  } = useCompareSalesQuery({
-    period1_start: calendarRange.period1_start_date,
-    period1_end: calendarRange.period1_end_date,
-    period2_start: calendarRange.period2_start_date ?? "",
-    period2_end: calendarRange.period2_end_date ?? "",
-  });
+  } = useCompareSalesQuery();
 
   const {
     data: totalStock,
@@ -85,45 +83,22 @@ export default function Home() {
 
   const {
     data: topWinesData,
-    error: topWinesErr,
     isLoading: loadingTopWines,
+    error: topWinesErr,
   } = useGetTopWinesQuery();
 
-  // useEffect(() => {
-  //   console.log("Fetching Data...");
-  //   console.table({
-  //     revenueData,
-  //     revenueErr,
-  //     loadingRevenue,
+  const defaultWine = {
+    name: "N/A",
+    total_revenue: "N/A",
+    percentage_change: "N/A",
+  };
 
-  //     stockCategoryData,
-  //     stockCategoryErr,
-  //     loadingStockCategory,
-
-  //     totalWineStock,
-  //     totalWineStockErr,
-  //     loadingTotalWineStock,
-
-  //     compareSales,
-  //     compareSalesErr,
-  //     loadingcompareSales,
-  //   });
-  // }, [
-  //   revenueData,
-  //   revenueErr,
-  //   loadingRevenue,
-  //   stockCategoryData,
-  //   stockCategoryErr,
-  //   loadingStockCategory,
-  //   totalWineStock,
-  //   totalWineStockErr,
-  //   loadingTotalWineStock,
-  //   compareSales,
-  //   compareSalesErr,
-  //   loadingcompareSales,
-  // ]);
-  // const revenue = revenueQuery.data?.revenue;
-  // const percentageChange = compareSalesQuery.data?.percentage_change;
+  const topWines = [
+    ...(topWinesData || []),
+    defaultWine,
+    defaultWine,
+    defaultWine,
+  ].slice(0, 3);
 
   const { data: wineData, error, isLoading } = useGetWinesQuery();
   const {
@@ -148,10 +123,16 @@ export default function Home() {
     }
   }, [JSON.stringify(allLogs)]);
 
-  console.log("wineData: ", wineData);
+  const userRole = getRoleEnum(
+    localStorage.getItem("wineryUserRole")?.toLowerCase() ?? ""
+  );
 
   if (error) {
     toast.error("Couldn't fetch wine at this time");
+  }
+
+  if (topWinesErr) {
+    toast.error("Couldn't fetch top wines at this time");
   }
 
   if (inventoryValueErr) {
@@ -162,7 +143,7 @@ export default function Home() {
     toast.error("Couldn't fetch inventory value at this time");
   }
 
-  if (userDataErr) {
+  if (userRole != Roles.STAFF && userDataErr) {
     toast.error("Couldn't fetch users at this time");
   }
 
@@ -174,28 +155,13 @@ export default function Home() {
     (state: RootState) => state.users.show_user_editor
   );
 
-  revenueData && console.log("formatted: ", formatDecimal(revenueData.revenue));
-  console.log("calendarRange: ", calendarRange);
-  console.log(
-    `data: \nstockCategoryData: ${JSON.stringify(
-      stockCategoryData
-    )}, \ntotalWineStock: ${JSON.stringify(
-      totalWineStock
-    )}, \ncompareSales: ${JSON.stringify(
-      compareSales
-    )}, \nrevenueData: ${JSON.stringify(
-      revenueData
-    )}, \ntotalStock ${JSON.stringify(totalStock)}
-      revenueData
-    )}, \ninventoryValue ${JSON.stringify(inventoryValueData)}`
-  );
-
   if (
     isLoading ||
     logsIsLoading ||
     userDataLoading ||
     loadingTotalStock ||
-    loadingInventoryValue
+    loadingInventoryValue ||
+    loadingTopWines
   )
     return (
       <div className="h-[85vh] gap-4 w-full flex justify-center items-center">
@@ -206,42 +172,44 @@ export default function Home() {
   return (
     <main className="w-[100vw] px-10 space-y-8 py-6">
       {showUserEditor && <NewUserSideBar />}
-      <section className="flex gap-x-2 text-xs items-center">
-        <button
-          onClick={() => {
-            dispatch(updateAction(Actions.CREATE));
-            dispatch(toggleUserEditor());
-          }}
-          className="h-7 w-7 rounded-full flex items-center justify-center border border-wBrand-accent/50"
-        >
-          <Plus className="h-4 w-4 stroke-wBrand-accent" />
-        </button>
-        {userData?.users.map((user) => (
-          <button className="flex gap-x-2 py-1 px-1 pr-3 items-center rounded-full border border-wBrand-foreground/10">
-            <div className="p-1 flex items-center justify-center rounded-full bg-wBrand-accent text-xs">
-              {getInitials(user.username)}
-            </div>
-            <p>{user.username}</p>
+      {userRole != Roles.STAFF && (
+        <section className="flex gap-x-2 text-xs pt-10 items-center">
+          <button
+            onClick={() => {
+              dispatch(updateAction(Actions.CREATE));
+              dispatch(toggleUserEditor());
+            }}
+            className="h-7 w-7 rounded-full flex items-center justify-center border border-wBrand-accent/50"
+          >
+            <Plus className="h-4 w-4 stroke-wBrand-accent" />
           </button>
-        ))}
+          {userData?.users.map((user) => (
+            <button className="flex gap-x-2 py-1 px-1 pr-3 items-center rounded-full border border-wBrand-foreground/10">
+              <div className="p-1 flex items-center justify-center rounded-full bg-wBrand-accent text-xs">
+                {getInitials(user.username)}
+              </div>
+              <p>{user.username}</p>
+            </button>
+          ))}
 
-        {/* <button className="flex gap-x-2 h-8 px-2 pr-3 items-center rounded-full border border-wBrand-foreground/10">
+          {/* <button className="flex gap-x-2 h-8 px-2 pr-3 items-center rounded-full border border-wBrand-foreground/10">
           <div className="h-5 w-5 rounded-full bg-white"></div>
           <p>Alice Rice</p>
         </button> */}
-      </section>
+        </section>
+      )}
 
       <section className="w-full">
         <div className="flex justify-between">
           {/* <h1 className="text-2xl font-medium text-wBrand-foreground/20">Dashboard</h1> */}
           <div></div>
-          <div className="relative w-max">
+          {/* <div className="relative w-max">
             <DatePickerWithRange
               period1={false}
               triggerClassname="h-7 text-xs rounded-full px-3 bg-gray-400/30 items-center justify-center flex"
               uniqueKey="dashboard_date_range"
             />
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -267,8 +235,14 @@ export default function Home() {
 
             <div className="flex gap-x-1">
               <div className="h-5 text-xs flex items-center px-1 rounded-full bg-wBrand-accent text-black w-max">
-                <ArrowUpNarrowWide className="h-3 w-3" />
-                {compareSales && compareSales.percentage_change && (
+                {compareSales &&
+                compareSales.percentage_change &&
+                compareSales.percentage_change > 0 ? (
+                  <ArrowUpNarrowWide className="h-3 w-3" />
+                ) : (
+                  <ArrowDownNarrowWide className="h-3 w-3" />
+                )}
+                {compareSales && compareSales.growth_factor && (
                   <p>
                     {(compareSales.percentage_change as number).toString()}%
                   </p>
@@ -277,30 +251,30 @@ export default function Home() {
               {revenueData &&
                 revenueData.revenue &&
                 compareSales &&
-                compareSales.percentage_change && (
+                compareSales.growth_factor && (
                   <div className="h-5 text-xs flex items-center px-1 rounded-full bg-wBrand-accent text-black w-max">
-                    {calculateRevenueChange(
-                      revenueData.revenue as number,
-                      compareSales.percentage_change as number
-                    ).amountChange.toString()}
+                    {formatDecimal(
+                      ((compareSales.current_month_sales as number) -
+                        compareSales.previous_month_sales) as number
+                    ).formatted.toString()}
                   </div>
                 )}
             </div>
           </div>
-          <div className="text-xs font-medium flex gap-2 text-gray-400 items-center">
+          <div className="text-xs font-medium flex gap-1 text-gray-400 items-center">
             {revenueData &&
               revenueData.revenue &&
               compareSales &&
-              compareSales.percentage_change && (
+              compareSales.growth_factor && (
                 <p>
                   vs. prev.{" "}
-                  {calculateRevenueChange(
-                    revenueData.revenue as number,
-                    compareSales.percentage_change as number
-                  ).previousRevenue.toString()}{" "}
+                  {formatDecimal(
+                    compareSales.previous_month_sales as number
+                  ).formatted.toString()}{" "}
                 </p>
               )}
-            <div className="flex w-max items-center">
+            <p>of last month</p>
+            {/* <div className="flex w-max items-center">
               <DatePickerWithRange
                 period1={true}
                 triggerClassname="flex w-max h-6 text-xs"
@@ -308,7 +282,7 @@ export default function Home() {
                 uniqueKey="dashboard_date_range"
               />
               <ChevronDown className="h-4" />
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -383,35 +357,42 @@ export default function Home() {
               Top Bestsellers
             </h3>
             <div className="flex gap-x-2">
-              <div className="h-[6rem] w-[6rem] text-xs bg-wBrand-accent/10 rounded-xl flex flex-col justify-center items-center p-1 gap-y-2">
-                <h4 className="text-sm">Château...</h4>
-                <p className="rounded-full bg-wBrand-accent/30 w-max py-1 px-2">
-                  300K
-                </p>
-                <p>+10%</p>
-              </div>
-
-              <div className="h-[6rem] w-[6rem] text-xs bg-gray-300/10 rounded-xl flex flex-col justify-center items-center p-1 gap-y-2">
-                <h4 className="text-sm">Château...</h4>
-                <p className="rounded-full bg-wBrand-foreground/30 w-max py-1 px-2">
-                  230K
-                </p>
-                <p>+10%</p>
-              </div>
-
-              <div className="h-[6rem] w-[6rem] text-xs bg-wBrand-background border border-wBrand-foreground/20 rounded-xl flex flex-col justify-center items-center p-1 gap-y-2">
-                <h4 className="text-sm">Château...</h4>
-                <p className="rounded-full border border-wBrand-foreground/30 w-max py-1 px-2">
-                  100K
-                </p>
-                <p>+10%</p>
-              </div>
+              {topWines.map((wine, index) => (
+                <div
+                  key={index}
+                  className={`h-[6rem] w-[6rem] text-xs rounded-xl flex flex-col justify-center items-center p-1 gap-y-2 ${
+                    index === 0
+                      ? "bg-wBrand-accent/10"
+                      : index === 1
+                      ? "bg-gray-300/10"
+                      : "bg-wBrand-background border border-wBrand-foreground/20"
+                  }`}
+                >
+                  <h4 className="text-sm">
+                    {wine.name.length > 10
+                      ? `${wine.name.slice(0, 10)}...`
+                      : wine.name}
+                  </h4>
+                  <p className="rounded-full px-2 py-1 w-max border border-wBrand-foreground/30">
+                    {wine.total_revenue !== "N/A"
+                      ? `${formatNumber(
+                          wine.total_revenue as number
+                        ).toLocaleString()}`
+                      : "N/A"}
+                  </p>
+                  <p>
+                    {wine.percentage_change !== "N/A"
+                      ? `+${wine.percentage_change}%`
+                      : "N/A"}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-3">
+      {/* <section className="py-3">
         <div className="p-1 bg-gray-300/5 mx-auto w-max relative rounded-full flex gap-4">
           <div className="flex justify-between w-max bg-wBrand-background rounded-full items-center p-1 px-2 gap-x-20">
             <div className="flex gap-3 items-center">
@@ -442,15 +423,15 @@ export default function Home() {
             <p className="text-gray-300/40 text-xs">32.82%</p>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <section className="flex gap-10">
+      <section className="flex gap-10 pt-10">
         <div className="w-[50%] space-y-4">
           <h3 className="text-xl font-medium">Inventory</h3>
           <div className="space-y-4">
             {wineData &&
               wineData?.wines
-                .slice(0, 3)
+                .slice(0, 5)
                 .map((wine, idx) => (
                   <TableRowDashboard key={idx} wine={wine} />
                 ))}
@@ -458,8 +439,8 @@ export default function Home() {
         </div>
         <div className="w-[50%] space-y-4">
           <h3 className="text-xl font-medium">Latest Activity</h3>
-          <div className="grid grid-cols-2 gap-6">
-            {activities.slice(0, 6).map((activity, idx) => (
+          <div className="grid grid-cols-2 gap-6 gap-y-4">
+            {activities.slice(0, 10).map((activity, idx) => (
               <ActionTableRow key={idx} activity={activity} />
             ))}
           </div>

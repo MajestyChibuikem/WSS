@@ -227,18 +227,21 @@ class Invoice(db.Model):
         revenue_period1 = Invoice.calculate_revenue(period1_start, period1_end)
         revenue_period2 = Invoice.calculate_revenue(period2_start, period2_end)
 
-        if revenue_period1 == 0:
-            return 0  # Avoid division by zero
+        # Handle zero revenue case for the previous period
+        if revenue_period2 == 0:
+            if revenue_period1 > 0:
+                return 100  # Considered 100% increase if revenue is up from zero
+            else:
+                return 0  # No change if both are zero
 
-        percentage_change = ((revenue_period2 - revenue_period1) / revenue_period1) * 100
-        return percentage_change
-    
+        percentage_change = ((revenue_period1 - revenue_period2) / revenue_period2) * 100
+        return round(percentage_change, 2)
+
     @staticmethod
     def compare_sales_growth_factor(period1_start, period1_end, period2_start, period2_end):
         """
         Compare revenue between two periods and calculate the growth factor.
         """
-        # Calculate revenue for Period 1
         revenue_period1 = db.session.query(func.sum(Invoice.total_amount)).filter(
             and_(
                 Invoice.created_at >= period1_start,
@@ -246,7 +249,6 @@ class Invoice(db.Model):
             )
         ).scalar() or 0
 
-        # Calculate revenue for Period 2
         revenue_period2 = db.session.query(func.sum(Invoice.total_amount)).filter(
             and_(
                 Invoice.created_at >= period2_start,
@@ -258,14 +260,13 @@ class Invoice(db.Model):
         print(f"Revenue for Period 1 ({period1_start} to {period1_end}): {revenue_period1}")
         print(f"Revenue for Period 2 ({period2_start} to {period2_end}): {revenue_period2}")
 
-        # Handle edge cases
+        # Handle zero revenue cases
         if revenue_period2 == 0:
             if revenue_period1 == 0:
                 return 1.0  # No growth if both periods have 0 revenue
             else:
-                return float('inf')  # Infinite growth if Period 2 has 0 revenue
+                return 2.0  # Growth factor is set to 2 if revenue jumped from zero
 
-        # Calculate growth factor
         growth_factor = revenue_period1 / revenue_period2
         return round(growth_factor, 2)  # Round to 2 decimal places
     def to_dict(self):

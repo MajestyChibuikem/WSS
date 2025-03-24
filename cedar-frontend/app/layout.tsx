@@ -11,7 +11,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  typeof window !== "undefined" && console.log(window.location.pathname);
   return (
     <html lang="en">
       <body>

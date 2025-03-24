@@ -13,6 +13,7 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
+  tagTypes: ["Users", "Wines"],
   endpoints: (builder) => ({
     // Login
     login: builder.mutation<
@@ -36,6 +37,7 @@ export const apiSlice = createApi({
         method: "POST",
         body,
       }),
+      invalidatesTags: ["Users"],
     }),
 
     // Logout
@@ -54,6 +56,7 @@ export const apiSlice = createApi({
       void
     >({
       query: () => "/auth/users",
+      providesTags: ["Users"],
     }),
 
     // Get User by ID (Admin Only)
@@ -83,18 +86,19 @@ export const apiSlice = createApi({
         };
       },
       {
-        userId: number;
+        id: number;
         username?: string;
         password?: string;
         is_admin?: boolean;
         roles?: string | string[];
       }
     >({
-      query: ({ userId, ...updateData }) => ({
-        url: `/users/${userId}`,
+      query: ({ id, ...updateData }) => ({
+        url: `/auth/users/${id}`,
         method: "PUT",
         body: updateData,
       }),
+      invalidatesTags: ["Users"],
       transformResponse: (response: any) => response, // Optional: Modify response if needed
       transformErrorResponse: (error: any) => error.data, // Optional: Extract meaningful error data
     }),
@@ -109,6 +113,7 @@ export const apiSlice = createApi({
         method: "PUT",
         body: { roles },
       }),
+      invalidatesTags: ["Users"],
     }),
 
     // Delete User (Admin Only)
@@ -122,6 +127,7 @@ export const apiSlice = createApi({
     // Fetch all wines
     getWines: builder.query<{ wines: [] }, void>({
       query: () => "/wine/all",
+      providesTags: ["Wines"], // Add this line
     }),
 
     // Add Wine
@@ -141,6 +147,7 @@ export const apiSlice = createApi({
         method: "POST",
         body,
       }),
+      invalidatesTags: ["Wines"],
     }),
 
     // Update Wine
@@ -161,6 +168,7 @@ export const apiSlice = createApi({
         method: "PUT",
         body,
       }),
+      invalidatesTags: ["Wines"],
     }),
 
     checkToken: builder.query<
@@ -193,6 +201,7 @@ export const apiSlice = createApi({
         url: `/wine/${wine_id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Wines"],
     }),
 
     // Get Inventory Value
@@ -219,16 +228,20 @@ export const apiSlice = createApi({
 
     // Compare Sales Between Two Periods
     compareSales: builder.query<
-      { percentage_change: number },
       {
-        period1_start: string;
-        period1_end: string;
-        period2_start: string;
-        period2_end: string;
-      }
+        growth_factor: number;
+        percentage_change: number;
+        previous_month_sales: number;
+        current_month_sales: number;
+        previous_month_date_range: {
+          start: string; // Date in "YYYY-MM-DD" format
+          end: string; // Date in "YYYY-MM-DD" format
+        };
+      },
+      void
     >({
-      query: ({ period1_start, period1_end, period2_start, period2_end }) => ({
-        url: `/wine/compare-sales?period1_start=${period1_start}&period1_end=${period1_end}&period2_start=${period2_start}&period2_end=${period2_end}`,
+      query: () => ({
+        url: `/wine/compare-sales`,
         method: "GET",
       }),
       transformErrorResponse: () => ({
@@ -270,7 +283,15 @@ export const apiSlice = createApi({
       query: () => "/logs/logs",
     }),
 
-    getTopWines: builder.query({
+    getTopWines: builder.query<
+      {
+        name: string;
+        percentage_change: number;
+        total_revenue: number;
+        total_sold: number;
+      }[],
+      void
+    >({
       query: () => "/wine/top_wines",
     }),
 

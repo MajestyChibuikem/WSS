@@ -44,18 +44,12 @@ function NewUserSideBar() {
     if (user.currentlyEditing && user.action_type == Actions.CREATE) {
       try {
         toast("Creating user");
-        console.log(
-          "in here: ",
-          user.currentlyEditing,
-          user.currentlyEditing.roles
-        );
         const response = await createUser({
           username: user.currentlyEditing.username,
           password: user.currentlyEditing.password,
           is_admin: user.currentlyEditing.roles[0] == Roles.ADMIN,
-          roles: user.currentlyEditing.roles,
+          roles: [user.currentlyEditing.roles[0].toLowerCase()],
         });
-        console.log("response: ", response); //impement response for 409(confilict user already exists) and 200 created successfully
         if (response.error) {
           setIsLoading(false);
           toast.error("Couldn't create user.");
@@ -67,7 +61,6 @@ function NewUserSideBar() {
       } catch {
         setIsLoading(false);
         toast.error("Couldn't create user.");
-        console.log("couldnt create user");
       }
     } else if (user.currentlyEditing && user.action_type == Actions.UPDATE) {
       try {
@@ -76,10 +69,9 @@ function NewUserSideBar() {
           username: user.currentlyEditing.username,
           password: user.currentlyEditing.password,
           is_admin: user.currentlyEditing.roles[0] == Roles.ADMIN,
-          roles: user.currentlyEditing.roles,
-          userId: user.currentlyEditing.id,
+          roles: user.currentlyEditing.roles[0].toLowerCase(),
+          id: user.currentlyEditing.id,
         });
-        console.log("response: ", response); //impement response for 409(confilict user already exists) and 200 created successfully
         if (response.error) {
           setIsLoading(false);
           toast.error("Couldn't update user.");
@@ -90,7 +82,6 @@ function NewUserSideBar() {
       } catch {
         setIsLoading(false);
         toast.error("Couldn't update user.");
-        console.log("couldnt update user");
       }
     } else if (user.currentlyEditing && user.action_type == Actions.DELETE) {
       try {
@@ -166,7 +157,6 @@ function NewUserSideBar() {
                     className="p-3"
                     key={idx}
                     onClick={() => {
-                      console.log("item: ", item.value.toLocaleUpperCase());
                       item.content &&
                         dispatch(
                           setCurrentlyEditing({

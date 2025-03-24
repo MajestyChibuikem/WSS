@@ -1,0 +1,62 @@
+[2025-03-22 19:17:15,741] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-22 19:17:30,845] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-22 19:17:48,478] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0 | Affected: Revenue
+[2025-03-22 19:19:53,545] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0 | Affected: Revenue
+[2025-03-22 19:19:56,612] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 0 | Affected: Revenue
+[2025-03-22 19:35:59,149] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 150.00 | Affected: Revenue
+[2025-03-22 19:54:55,086] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 150.00 | Affected: Revenue
+[2025-03-22 19:55:12,160] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 150.00 | Affected: Revenue
+[2025-03-22 20:01:22,100] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-22 20:01:35,066] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2025-03-22 20:01:35,127] ERROR in app: Exception on /wine/revenue [GET]
+Traceback (most recent call last):
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2025-03-22 20:01:35,137] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2025-03-22 20:02:15,836] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-22 20:02:20,636] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-22 20:05:24,179] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-22 20:05:29,790] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-22 20:05:33,141] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-22 20:53:15,963] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-22 21:01:27,276] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-22 21:01:41,366] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% change | Affected: Sales Comparison
+[2025-03-22 21:02:03,226] INFO in logger: [COMPARE_SALES] User 1: Sales compared: -100% change | Affected: Sales Comparison
+[2025-03-22 21:07:08,294] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-22 21:07:28,063] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-22 21:07:32,904] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-22 21:13:23,995] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-22 21:13:31,196] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-22 21:13:36,451] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = inf | Affected: Sales Comparison

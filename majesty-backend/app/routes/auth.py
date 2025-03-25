@@ -40,6 +40,7 @@ def login():
             affected_name=user.username  # Affected user
         )
         return jsonify({
+            'user_id': user.id,  
             'token': access_token,
             'roles': user_roles,
             'is_admin': user.is_admin

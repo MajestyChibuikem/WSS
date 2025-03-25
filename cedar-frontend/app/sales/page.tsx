@@ -14,6 +14,8 @@ import {
   setFilters,
 } from "../store/slices/activitySlice";
 import CheckboxSelector from "../components/checkbox_selector";
+import { SalesTable } from "../components/sales_table";
+import SalesTableRow from "../components/sales_table_row";
 
 function Page() {
   const { data: allLogs, error: allLogsError, isLoading } = useGetAllLogsQuery(
@@ -28,7 +30,6 @@ function Page() {
   useEffect(() => {
     allLogs && dispatch(setActivities(allLogs));
   }, [allLogs]);
-  ``;
 
   const activityFilter = useSelector(
     (state: RootState) => state.activity.filters
@@ -77,27 +78,12 @@ function Page() {
   return (
     <div className="w-[100vw] px-10">
       <h1 className="text-2xl font-medium sticky top-[5rem] h-[4rem] items-center flex bg-wBrand-background">
-        Activity Log
+        Sales
       </h1>
       <section className="w-full flex">
         <div className="w-[25rem] h-[100vh]">
           <div className="fixed w-[24rem] h-[calc(100vh-9rem)] top-[9rem] p-10 pr-0 pt-0 left-0">
             <div className="rounded-lg space-y-8 py-10 overflow-y-auto relative bg-wBrand-background_light/60 h-full">
-              <div className="space-y-4 px-6">
-                <p className="text-xs text-wBrand-foreground/60 font-medium">
-                  ACTIONS
-                </p>
-                <div className="grid grid-cols-2 gap-2">
-                  {actions.map((category, idx) => (
-                    <CheckboxSelector
-                      key={idx}
-                      id="action_category"
-                      item={{ content: category }}
-                      idx={idx}
-                    />
-                  ))}
-                </div>
-              </div>
               <div className="space-y-4 px-6">
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
                   FILTER BY USER
@@ -152,18 +138,19 @@ function Page() {
             </div>
           </div>
         </div>
-        <div className="w-[calc(100vw-25rem)] h-[calc(100vh-11rem)] overflow-y-auto right-0">
+        <div className="w-[calc(100vw-25rem)] pb-20">
           <div className="space-y-3">
-            <div className="flex w-full max-w-full bg-wBrand-background_light/60 text-wBrand-accent text-xs p-3 font-semibold sticky top-0 px-8 rounded-xl">
+            <div className="flex w-full max-w-full bg-wBrand-background_light/60 text-wBrand-accent text-xs p-3 font-semibold sticky top-[9rem] px-8 rounded-xl">
               <div className="w-[10%] text-left">ID</div>
-              <div className="w-[40%] ">ITEM</div>
-              <div className="w-[20%] ">BY</div>
-              <div className="w-[20%] ">DATE</div>
+              <div className="w-[40%] text-center">ITEM</div>
+              <div className="w-[20%] text-center">BY</div>
+              <div className="w-[20%] text-center">DATE</div>
               <div className="w-[10%] text-right">COST</div>
             </div>
             {filteredActivities.map((activity, idx) => (
-              <ActionTableRow key={idx} activity={activity} />
+              <SalesTableRow />
             ))}
+            {/* <SalesTable /> */}
           </div>
         </div>
       </section>

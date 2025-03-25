@@ -70,7 +70,7 @@ function NewWineSideBar() {
         toast("Updating wine...");
         const response = await updateWine({
           ...wineSelector.currentlyEditing,
-          in_stock: wineSelector.currentlyEditing.inStock,
+          in_stock: wineSelector.currentlyEditing.in_stock,
           wine_id: wineSelector.currentlyEditing.id,
         });
 
@@ -213,11 +213,11 @@ function NewWineSideBar() {
               </p>
               <div className="text-sm">
                 <input
-                  value={wineSelector?.currentlyEditing?.inStock}
+                  value={wineSelector?.currentlyEditing?.in_stock}
                   onChange={(e) =>
                     dispatch(
                       setCurrentlyEditing({
-                        inStock: (e.target.value as unknown) as number,
+                        in_stock: (e.target.value as unknown) as number,
                       })
                     )
                   }

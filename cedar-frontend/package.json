@@ -1,22 +1,28 @@
 {
-  "name": "inventory_management_system",
+  "name": "winery",
   "version": "0.1.0",
   "private": true,
+  "main": "main.mjs",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "electron-dev": "concurrently \"next dev\" \"electron .\"",
     "start": "next start",
-    "lint": "next lint"
+    "build": "next build && next export",
+    "electron-pack": "cross-env NODE_ENV=production electron-builder"
   },
   "dependencies": {
+    "@radix-ui/react-checkbox": "^1.1.4",
     "@radix-ui/react-dropdown-menu": "^2.1.6",
     "@radix-ui/react-popover": "^1.1.6",
     "@radix-ui/react-select": "^2.1.6",
     "@radix-ui/react-slot": "^1.1.2",
     "@reduxjs/toolkit": "^2.6.0",
+    "@tanstack/react-table": "^8.21.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "electron-is-dev": "3.0.1",
+    "express": "^4.21.2",
     "lucide-react": "^0.475.0",
     "next": "14.2.3",
     "react": "^18",
@@ -31,10 +37,41 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "concurrently": "9.1.2",
+    "cross-env": "7.0.3",
+    "electron": "36.0.0-alpha.4",
+    "electron-builder": "26.0.12",
     "eslint": "^8",
-    "eslint-config-next": "14.2.3",
+    "eslint-config-next": "^15.2.3",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wait-on": "8.0.3"
+  },
+  "type": "module",
+  "build": {
+    "appId": "com.majesty.winery",
+    "productName": "Winery",
+    "asar": false,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.mjs",
+      "out/**/*",
+      {
+        "from": "../majesty-backend",
+        "to": "majesty-backend"
+      },
+      {
+        "from": "out",
+        "to": "frontend"
+      }
+    ],
+    "mac": {
+      "target": "dmg",
+      "icon": "public/icon.icns",
+      "executableName": "Winery"
+    }
   }
 }

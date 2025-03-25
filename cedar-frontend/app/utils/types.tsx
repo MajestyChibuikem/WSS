@@ -37,7 +37,7 @@ export interface Wine {
   price: number; // Price in Naira
   category: WineCategory;
   bottle_size: number; // in ml
-  inStock: number; // Number of bottles available
+  in_stock: number; // Number of bottles available
 }
 
 export const enum WineCategoryEnum {

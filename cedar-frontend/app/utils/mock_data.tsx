@@ -127,7 +127,7 @@ export const wineInventory: Wine[] = [
     price: 75000,
     category: "Red",
     bottle_size: 750,
-    inStock: 20,
+    in_stock: 20,
   },
   {
     id: 100002,
@@ -136,7 +136,7 @@ export const wineInventory: Wine[] = [
     price: 30000,
     category: "White",
     bottle_size: 750,
-    inStock: 35,
+    in_stock: 35,
   },
   {
     id: 100003,
@@ -145,7 +145,7 @@ export const wineInventory: Wine[] = [
     price: 95000,
     category: "Sparkling",
     bottle_size: 750,
-    inStock: 15,
+    in_stock: 15,
   },
   {
     id: 100004,
@@ -154,7 +154,7 @@ export const wineInventory: Wine[] = [
     price: 65000,
     category: "Fortified",
     bottle_size: 750,
-    inStock: 10,
+    in_stock: 10,
   },
   {
     id: 100005,
@@ -163,7 +163,7 @@ export const wineInventory: Wine[] = [
     price: 40000,
     category: "Rosé",
     bottle_size: 750,
-    inStock: 25,
+    in_stock: 25,
   },
   {
     id: 100006,
@@ -172,7 +172,7 @@ export const wineInventory: Wine[] = [
     price: 55000,
     category: "Dessert",
     bottle_size: 500,
-    inStock: 12,
+    in_stock: 12,
   },
 ];
 

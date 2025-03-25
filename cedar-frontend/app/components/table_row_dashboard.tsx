@@ -16,7 +16,7 @@ function TableRowDashboard({ wine }: Params) {
           </p>
           <div className="h-1 w-1 rounded-full bg-gray-400" />
           <p>
-            NO IN STOCK: <span className="text-gray-200">{wine.inStock}</span>
+            NO IN STOCK: <span className="text-gray-200">{wine.in_stock}</span>
           </p>
           <div className="h-1 w-1 rounded-full bg-gray-400" />
           <p>

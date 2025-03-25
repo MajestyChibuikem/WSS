@@ -2,15 +2,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  loginFailure,
-  loginSuccess,
   selectAuthUser,
   selectValidationErrors,
   updateUserField,
-  validateUserInput,
 } from "../store/slices/authSlice";
 import { useLoginMutation } from "../store/slices/apiSlice";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "react-toastify";
 import clsx from "clsx";
@@ -21,9 +18,7 @@ function Page() {
   const user = useSelector(selectAuthUser);
   const validationErrors = useSelector(selectValidationErrors);
   const [login] = useLoginMutation();
-  const pathname = usePathname();
   const [isLoading, setIsLoading] = useState(false);
-
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (field: "username" | "password", value: string) => {
@@ -31,14 +26,19 @@ function Page() {
   };
 
   const handleLogin = async () => {
+    if (!user.username || !user.password) {
+      toast.error("Please enter both username and password");
+      return;
+    }
+
     try {
       setIsLoading(true);
-      toast("Loggin you in");
+      toast("Logging you in...");
       const response = await login({
         username: user.username,
         password: user.password,
-      }).unwrap(); // RTK Query call
-      localStorage.setItem("wineryAuthToken", response.token); // Use localStorage
+      }).unwrap();
+      localStorage.setItem("wineryAuthToken", response.token);
       localStorage.setItem("wineryUserRole", response.roles[0]);
       setIsLoading(false);
       router.push("/");
@@ -49,11 +49,18 @@ function Page() {
     }
   };
 
+  // Trigger login on pressing Enter key
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleLogin();
+    }
+  };
+
   return (
     <div className="fixed top-0 right-0 h-[100vh] w-[100vw] flex overflow-y-auto justify-center bg-wBrand-background ">
       <div className="h-max w-[25rem] border border-wBrand-accent p-8 rounded-xl space-y-8 relative top-[15vh] shadow-2xl">
         <div className="space-y-2">
-          <h1 className="text-xl">Welcome </h1>
+          <h1 className="text-xl">Welcome</h1>
           <p className="text-sm text-gray-300">Login to get started.</p>
         </div>
         <div className="space-y-10">
@@ -82,6 +89,7 @@ function Page() {
               <input
                 value={user.password}
                 onChange={(e) => handleChange("password", e.target.value)}
+                onKeyDown={handleKeyDown} // Listen for Enter key
                 type={showPassword ? "text" : "password"}
                 className="bg-transparent outline-none text-sm flex-1 pr-10"
                 placeholder="Enter password"

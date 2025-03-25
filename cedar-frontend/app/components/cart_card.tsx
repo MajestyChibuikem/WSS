@@ -24,7 +24,7 @@ function CartCard({ wine }: Params) {
         <h2 className="font-medium">{wine.name}</h2>
         <div className="text-gray-400 flex items-center gap-2 text-xs">
           <p>
-            NO IN STOCK: <span className="text-gray-200">{wine.inStock}</span>
+            NO IN STOCK: <span className="text-gray-200">{wine.in_stock}</span>
           </p>
           <div className="h-1 w-1 rounded-full bg-gray-400" />
           <p>

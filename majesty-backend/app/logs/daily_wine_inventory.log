@@ -466,3 +466,129 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-24 05:56:51,675] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-24 05:57:01,639] INFO in logger: [UPDATE_WINE_SUCCESS] User 1: Updated Graham’s 20 Year Old Tawny | Affected: Graham’s 20 Year Old Tawny
 [2025-03-24 05:57:01,663] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-24 06:01:20,028] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-24 06:01:20,359] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-24 06:01:20,362] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 78 | Affected: Total Stock
+[2025-03-24 06:14:16,546] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 06:15:06,333] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-24 06:15:06,623] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-24 06:15:06,635] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 78 | Affected: Total Stock
+[2025-03-24 06:15:06,641] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-24 06:15:06,649] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-24 06:15:06,660] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-24 06:15:06,676] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-24 06:15:06,688] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-24 06:16:10,113] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 06:16:31,389] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-24 06:16:31,480] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-24 06:16:31,499] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 78 | Affected: Total Stock
+[2025-03-24 06:16:31,500] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-24 06:16:31,511] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-24 06:16:31,524] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-24 06:16:31,535] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-24 06:16:31,539] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-24 06:21:53,523] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 06:22:47,497] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 06:23:27,218] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-24 06:23:27,312] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-24 06:23:27,321] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-24 06:23:27,339] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 78 | Affected: Total Stock
+[2025-03-24 06:23:27,347] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-24 06:23:27,358] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-24 06:23:27,360] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-24 06:23:27,363] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-24 06:24:02,467] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 06:24:16,263] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-24 06:24:17,844] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-24 06:24:17,872] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-24 06:24:17,889] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 78 | Affected: Total Stock
+[2025-03-24 06:24:17,986] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-24 06:24:17,995] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-24 06:24:18,001] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-24 06:24:18,004] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-24 06:25:21,152] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 06:26:20,546] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-24 06:26:20,809] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-24 06:26:20,826] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-24 06:26:20,837] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-24 06:26:20,839] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 78 | Affected: Total Stock
+[2025-03-24 06:26:20,847] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-24 06:26:20,865] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-24 06:26:20,866] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-24 06:27:14,531] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-24 06:28:27,884] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-24 06:28:28,974] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-24 06:28:29,823] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-24 06:28:29,899] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-24 06:28:29,907] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-24 06:28:29,907] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 78 | Affected: Total Stock
+[2025-03-24 06:28:29,934] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-24 06:28:29,942] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-24 06:28:29,947] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-24 06:28:29,947] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-24 06:28:44,397] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-24 06:28:58,840] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 06:29:20,517] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-24 06:29:20,610] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-24 06:29:20,612] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 78 | Affected: Total Stock
+[2025-03-24 06:29:20,630] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-24 06:29:20,652] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-24 06:29:20,666] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-24 06:29:20,667] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-24 06:29:20,688] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-24 06:31:10,951] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 06:31:18,477] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-24 06:31:18,627] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-24 06:31:18,631] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-24 06:31:18,656] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 78 | Affected: Total Stock
+[2025-03-24 06:31:18,680] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-24 06:31:18,718] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-24 06:31:18,754] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-24 06:31:18,767] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-24 06:33:43,079] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 06:33:51,209] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-24 06:33:52,267] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-24 06:33:53,523] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-24 06:33:53,591] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 78 | Affected: Total Stock
+[2025-03-24 06:33:53,593] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-24 06:33:53,606] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-24 06:33:53,651] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-24 06:33:53,698] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-24 06:33:53,793] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-24 06:34:02,905] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-24 07:47:05,495] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 07:47:24,451] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-24 07:47:31,948] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-24 07:47:31,954] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-24 07:47:31,956] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 78 | Affected: Total Stock
+[2025-03-24 07:47:31,991] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-24 07:47:32,010] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-24 07:47:32,045] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-24 07:47:32,184] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-24 08:52:11,138] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 08:53:09,855] INFO in logger: [LOGIN_FAILURE] User None: Invalid login attempt | Affected: admin
+[2025-03-24 08:53:14,733] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-24 08:53:15,015] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-24 08:53:15,020] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-24 08:53:15,026] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 78 | Affected: Total Stock
+[2025-03-24 08:53:15,043] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-24 08:53:15,049] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-24 08:53:15,057] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-24 08:53:15,063] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-24 08:55:41,679] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 08:55:50,983] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-24 08:55:51,087] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-24 08:55:51,102] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-24 08:55:51,102] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 78 | Affected: Total Stock
+[2025-03-24 08:55:51,120] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-24 08:55:51,131] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-24 08:55:51,133] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-24 08:55:51,141] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-24 10:52:22,017] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 11:02:06,218] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 12:46:16,981] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 13:32:02,268] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 13:55:55,969] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 14:00:51,548] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 14:01:40,227] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-24 14:18:43,313] INFO in logger: Wine Inventory API Started - Environment: development

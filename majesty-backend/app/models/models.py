@@ -154,7 +154,7 @@ class Wine(db.Model):
             price=wine_data.get('price'),
             category=wine_data.get('category'),
             bottle_size=wine_data.get('bottle_size'),
-            in_stock=wine_data.get('inStock', 0),
+            in_stock=wine_data.get('in_stock', 0),
             added_by=user.id
         )
         

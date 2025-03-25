@@ -1,13 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import TableRow from "../components/table_row";
-import {
-  dropdownItems,
-  wineCategories,
-  wineInventory,
-} from "../utils/mock_data";
+import { dropdownItems, wineCategories } from "../utils/mock_data";
 import { DollarSign, LoaderCircle, Search, Wine } from "lucide-react";
-import Dropdown from "../components/dropdown";
 import NewWineSideBar from "../components/new_wine_sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
@@ -16,7 +11,9 @@ import CheckboxSelector from "../components/checkbox_selector";
 import {
   clearFilter,
   filterInventory,
+  resetInventoryFilter,
   setFilteredData,
+  setWineData,
   updateInventoryFilter,
 } from "../store/slices/inventorySlice";
 import {
@@ -51,35 +48,33 @@ function Page() {
   );
   const inventory = useSelector((state: RootState) => state.inventory);
   const dispatch = useDispatch();
+  const categoryArr = Object.values(selectedItems).map((item) => item.content);
 
   const { data: wineData, error, isLoading } = useGetWinesQuery();
-  const categoryArr: string[] = Object.values(selectedItems).map(
-    (item) => item.content
-  );
 
   useEffect(() => {
     if (wineData && wineData.wines) {
       dispatch(setFilteredData(wineData.wines));
+      dispatch(setWineData(wineData.wines));
     }
   }, [wineData]);
 
   useEffect(() => {
+    console.log("in here");
     setData(inventory.filteredData);
   }, [inventory.filteredData]);
 
+  // useEffect(() => {
+  //
+  // }, [selectedItems]);
+
+  console.log("catArr: ", categoryArr);
+
   useEffect(() => {
-    if (wineData && categoryArr.length == 0) {
-      dispatch(setFilteredData(wineData.wines));
+    if (wineData && wineData.wines) {
+      dispatch(filterInventory({ wines: wineData.wines }));
     }
-    if (wineData && categoryArr.length > 0) {
-      dispatch(
-        filterInventory({
-          wines: wineData.wines,
-          categories: categoryArr,
-        })
-      );
-    }
-  }, [selectedItems]);
+  }, [inventoryFilter.name, wineData]);
 
   const {
     data: totalWineStock,
@@ -120,18 +115,20 @@ function Page() {
 
         <div className="flex justify-between items-center pl-9 w-[calc(100vw-22rem)]">
           <div className="flex w-[70%] gap-5">
-            <div className="icon-input w-full">
-              <Search className="h-4" />
-              <input
-                type="text"
-                value={inventoryFilter.name}
-                onChange={(e) =>
-                  dispatch(updateInventoryFilter({ name: e.target.value }))
-                }
-                className="outline-none h-full bg-transparent w-full"
-              />
-            </div>
             {wineData && (
+              <div className="icon-input w-full">
+                <Search className="h-4" />
+                <input
+                  type="text"
+                  value={inventoryFilter.name}
+                  onChange={(e) =>
+                    dispatch(updateInventoryFilter({ name: e.target.value }))
+                  }
+                  className="outline-none h-full bg-transparent w-full"
+                />
+              </div>
+            )}
+            {/* {wineData && (
               <button
                 onClick={() => {
                   dispatch(filterInventory({ wines: wineData.wines }));
@@ -140,7 +137,7 @@ function Page() {
               >
                 Search
               </button>
-            )}
+            )} */}
           </div>
 
           <div className="">
@@ -162,29 +159,6 @@ function Page() {
         <div className="w-[25rem] h-[100vh]">
           <div className="fixed w-[24rem] h-[calc(100vh-9rem)] top-[9rem] p-10 pr-0 pt-0 left-0">
             <div className="rounded-lg space-y-8 py-10 overflow-y-auto relative bg-wBrand-background_light/60 h-full">
-              {/* {wineData && wineData.wines.length != 0 && (
-                <div className="bg-wBrand-background_light gap-4 px-10 h-[5.5rem] flex items-center w-full justify-center sticky top-0">
-                  <button
-                    onClick={() =>
-                      dispatch(
-                        filterInventory({
-                          wines: wineData.wines,
-                          categories: categoryArr,
-                        })
-                      )
-                    }
-                    className="px-5 py-2 bg-wBrand-accent w-full text-wBrand-background rounded-xl"
-                  >
-                    Filter
-                  </button>
-                  <button
-                    onClick={() => dispatch(clearFilter())}
-                    className="px-5 py-2 border border-white/40 w-full text-white rounded-xl"
-                  >
-                    Reset
-                  </button>
-                </div>
-              )} */}
               <div className="space-y-4 px-6">
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
                   PRODUCT CATEGORY
@@ -196,6 +170,19 @@ function Page() {
                       id="inventory_product_category"
                       item={category}
                       idx={idx}
+                      handleClick={() => {
+                        if (wineData) {
+                          console.log("clallllled");
+                          dispatch(
+                            filterInventory({
+                              wines: wineData.wines,
+                              categories: Object.values(selectedItems).map(
+                                (item) => item.content
+                              ),
+                            })
+                          );
+                        }
+                      }}
                     />
                   ))}
                 </div>

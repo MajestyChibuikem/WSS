@@ -6,6 +6,7 @@ import { RootState } from "@/app/store";
 
 interface InventoryState {
   filteredData: Wine[];
+  wineData: Wine[];
   inventoryFilter: {
     name: string;
     productCategory: string;
@@ -23,13 +24,14 @@ const initialState: InventoryState = {
     name: "",
     productCategory: "",
     sort_by: SortOrder.ASC,
-    price_range: { min: 0, max: Infinity },
-    abv_range: { min: 0, max: Infinity },
-    bottle_size: { min: 0, max: Infinity },
+    price_range: { min: 0, max: Number.POSITIVE_INFINITY },
+    abv_range: { min: 0, max: Number.POSITIVE_INFINITY },
+    bottle_size: { min: 0, max: Number.POSITIVE_INFINITY },
   },
   filteredData: [],
   discount: 0,
   cart: [],
+  wineData: [],
 };
 
 const inventorySlice = createSlice({
@@ -54,6 +56,10 @@ const inventorySlice = createSlice({
     },
 
     setFilteredData: (state, action: PayloadAction<Wine[]>) => {
+      state.filteredData = action.payload;
+    },
+
+    setWineData: (state, action: PayloadAction<Wine[]>) => {
       state.filteredData = action.payload;
     },
 
@@ -88,9 +94,11 @@ const inventorySlice = createSlice({
     ) => {
       const { inventoryFilter } = state;
       let { wines: filtered, categories } = action.payload;
+      let store = filtered;
 
       // Apply category filter (if categories array is not empty)
       if (categories && categories.length > 0) {
+        console.log("here duhh");
         filtered = filtered.filter(
           (wine) => categories && categories.includes(wine.category)
         );
@@ -99,13 +107,14 @@ const inventorySlice = createSlice({
       // Apply name filter (if set)
       if (inventoryFilter.name?.trim()) {
         const nameFilter = inventoryFilter.name.toLowerCase();
-        filtered = filtered.filter((wine) => {
-          const wineName = wine.name.toLowerCase();
 
-          // Check if every character in the input exists somewhere in the wine name
-          return nameFilter.split("").every((char) => wineName.includes(char));
-        });
+        // Create a regex pattern that matches characters in order, allowing gaps
+        const fuzzyPattern = nameFilter.split("").join(".*"); // e.g., "cat" -> "c.*a.*t"
+        const regex = new RegExp(fuzzyPattern, "i"); // "i" makes it case-insensitive
+
+        filtered = filtered.filter((wine) => regex.test(wine.name));
       }
+
       // Apply price range filter
       filtered = filtered.filter(
         (wine) =>
@@ -136,7 +145,11 @@ const inventorySlice = createSlice({
       });
 
       state.filteredData = filtered;
-      state.inventoryFilter.name = "";
+      // state.inventoryFilter.name = "";
+    },
+
+    resetInventoryFilter: (state) => {
+      state.filteredData = state.wineData;
     },
 
     clearFilter: (state) => {
@@ -163,6 +176,8 @@ export const {
   filterInventory,
   clearFilter,
   clearCart,
+  resetInventoryFilter,
+  setWineData,
 } = inventorySlice.actions;
 export default inventorySlice.reducer;
 

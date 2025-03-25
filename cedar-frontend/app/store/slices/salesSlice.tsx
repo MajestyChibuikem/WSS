@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { parseISO, isAfter, isBefore } from "date-fns";
+import { isAfter, isBefore, parseISO } from "date-fns";
 
 export interface Sale {
   id: number;
@@ -14,11 +14,12 @@ export interface Sale {
 }
 
 interface FilterState {
-  dateRange?: { start: string; end: string };
-  username?: string;
-  item?: string;
-  actions?: string[];
-  categories?: string[]; // New filter field
+  dateRange: { start: string; end: string };
+  username: string;
+  item: string;
+  actions: string[];
+  categories: string[];
+  priceRange: { min: number; max: number };
 }
 
 interface SalesState {
@@ -30,7 +31,9 @@ interface SalesState {
 const initialState: SalesState = {
   sales: [],
   filteredSales: [],
-  filters: {},
+  filters: {
+    priceRange: { min: 0, max: Number.POSITIVE_INFINITY },
+  },
 };
 
 // Slice definition
@@ -44,7 +47,12 @@ const salesSlice = createSlice({
           id: string;
           acting_username: string;
           action: string;
-          invoice: { id: string; date: string; total: any; items: any[] };
+          invoice: {
+            id: string;
+            date: string;
+            total_amount: any;
+            items: any[];
+          };
           timestamp: string;
           message: string;
           ip_address: string;
@@ -54,7 +62,7 @@ const salesSlice = createSlice({
           action: sale.action,
           invoiceId: sale.invoice?.id || null,
           date: sale.invoice?.date || sale.timestamp,
-          total: sale.invoice?.total || "0.00",
+          total: sale.invoice?.total_amount || "0.00",
           items: sale.invoice?.items
             ? sale.invoice.items.map(
                 (item) => `${item.wine_name} (${item.quantity})`
@@ -64,15 +72,59 @@ const salesSlice = createSlice({
           ipAddress: sale.ip_address,
         })
       );
+
+      state.filteredSales = state.sales;
     },
 
-    setFilters: (state, action: PayloadAction<Partial<FilterState>>) => {
+    setSalesFilters: (state, action: PayloadAction<Partial<FilterState>>) => {
       state.filters = { ...state.filters, ...action.payload };
       // Automatically apply filters when updating filters
       salesSlice.caseReducers.applyFilters(state);
     },
 
-    applyFilters: (state) => {},
+    applyFilters: (state) => {
+      state.filteredSales = state.sales.filter((sale) => {
+        const {
+          dateRange,
+          username,
+          item,
+          actions,
+          categories,
+        } = state.filters;
+
+        // Username filter (case-insensitive)
+        if (
+          username &&
+          !sale.username.toLowerCase().includes(username.toLowerCase())
+        ) {
+          return false;
+        }
+
+        // Date range filter
+        if (dateRange) {
+          const saleDate = parseISO(sale.date);
+          const startDate = parseISO(dateRange.start);
+          const endDate = parseISO(dateRange.end);
+
+          if (isBefore(saleDate, startDate) || isAfter(saleDate, endDate)) {
+            return false;
+          }
+        }
+
+        // Price range filter
+        if (state.filters.priceRange) {
+          const totalAmount = parseFloat(sale.total);
+          if (
+            totalAmount < state.filters.priceRange.min ||
+            totalAmount > state.filters.priceRange.max
+          ) {
+            return false;
+          }
+        }
+
+        return true;
+      });
+    },
 
     clearFilters: (state) => {
       state.filters = {};
@@ -83,7 +135,7 @@ const salesSlice = createSlice({
 
 export const {
   setSales,
-  setFilters,
+  setSalesFilters,
   applyFilters,
   clearFilters,
 } = salesSlice.actions;

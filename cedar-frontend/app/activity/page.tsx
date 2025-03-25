@@ -28,7 +28,6 @@ function Page() {
   useEffect(() => {
     allLogs && dispatch(setActivities(allLogs));
   }, [allLogs]);
-  ``;
 
   const activityFilter = useSelector(
     (state: RootState) => state.activity.filters

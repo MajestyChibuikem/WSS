@@ -1,54 +1,69 @@
 "use client";
-import React, { useEffect } from "react";
-import ActionTableRow from "../components/action_table_row";
-import { DollarSign, LoaderCircle, User } from "lucide-react";
-import { actions } from "../utils/mock_data";
+import React, { useEffect, useState } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  DollarSign,
+  LoaderCircle,
+  User,
+} from "lucide-react";
 import { DatePickerWithRange } from "../components/range_calendar";
-import { useGetAllLogsQuery } from "../store/slices/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
-import {
-  applyFilters,
-  clearFilters,
-  setActivities,
-  setFilters,
-} from "../store/slices/activitySlice";
-import CheckboxSelector from "../components/checkbox_selector";
-import { SalesTable } from "../components/sales_table";
 import SalesTableRow from "../components/sales_table_row";
+import { useSales } from "../hooks/useSales";
+import { setSales, setSalesFilters } from "../store/slices/salesSlice";
+import { useUserSales } from "../hooks/useUserSales";
+import { getRoleEnum } from "../utils/helpers";
+import { Roles } from "../utils/types";
 
 function Page() {
-  const { data: allLogs, error: allLogsError, isLoading } = useGetAllLogsQuery(
-    {}
-  );
-
+  const { sales: data, loading, pagination, fetchSales } = useSales();
+  const {
+    sales: userSalesData,
+    loading: loadingUserSales,
+    pagination: userSalesPagination,
+    fetchSales: fetchUserSales,
+  } = useUserSales();
   const dispatch = useDispatch();
-  const { activities, filteredActivities } = useSelector(
-    (state: RootState) => state.activity
+  const { filteredSales, filters: salesFilter } = useSelector(
+    (state: RootState) => state.sales
   );
+
+  const userRole = getRoleEnum(
+    localStorage.getItem("wineryUserRole")?.toLowerCase() ?? ""
+  );
+
+  const isAdmin = userRole && userRole == Roles.ADMIN ? true : false;
 
   useEffect(() => {
-    allLogs && dispatch(setActivities(allLogs));
-  }, [allLogs]);
+    console.log("data: ", data);
+    isAdmin && dispatch(setSales(data));
+    !isAdmin && dispatch(setSales(userSalesData));
+  }, [data]);
 
-  const activityFilter = useSelector(
-    (state: RootState) => state.activity.filters
-  );
-  const selectedItems = useSelector(
-    (state: RootState) =>
-      state.checkboxSelector.selectors["action_category"]?.items || {}
-  );
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handleNextPage = () => {
+    if (isAdmin && currentPage < pagination.totalPages) {
+      setCurrentPage((prev) => prev + 1);
+      fetchSales(currentPage + 1);
+      return;
+    }
+    if (!isAdmin && currentPage < userSalesPagination.totalPages) {
+      setCurrentPage((prev) => prev + 1);
+      fetchUserSales(currentPage + 1);
+    }
+  };
+
   const calendarRange = useSelector(
-    (state: RootState) => state.stats.calendarRanges["activity_date_range"]
-  );
-
-  const categoryArr: string[] = Object.values(selectedItems).map(
-    (item) => item.content
+    (state: RootState) => state.stats.calendarRanges["sales_date_range"]
   );
 
   useEffect(() => {
+    if (!calendarRange) return;
     dispatch(
-      setFilters({
+      setSalesFilters({
         dateRange: {
           start: calendarRange.period1_start_date,
           end: calendarRange.period1_end_date,
@@ -57,18 +72,18 @@ function Page() {
     );
   }, [calendarRange]);
 
-  useEffect(() => {
-    if (categoryArr.length === 0 && activityFilter.categories?.length) {
-      dispatch(clearFilters());
-    } else if (categoryArr.length > 0) {
-      const prevCategories = activityFilter.categories || [];
-      if (JSON.stringify(prevCategories) !== JSON.stringify(categoryArr)) {
-        dispatch(setFilters({ categories: categoryArr }));
-      }
+  const handlePrevPage = () => {
+    if (isAdmin && currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+      fetchSales(currentPage - 1);
     }
-  }, [categoryArr, activityFilter.categories, dispatch]);
+    if (!isAdmin && currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+      fetchUserSales(currentPage - 1);
+    }
+  };
 
-  if (isLoading)
+  if (loading || loadingUserSales)
     return (
       <div className="h-[85vh] w-full flex justify-center items-center">
         <LoaderCircle className="text-wBrand-accent animate-spin stroke-wBrand-accent h-10 w-10" />
@@ -96,7 +111,7 @@ function Page() {
                     <input
                       type="text"
                       onChange={(e) =>
-                        dispatch(setFilters({ username: e.target.value }))
+                        dispatch(setSalesFilters({ username: e.target.value }))
                       }
                       placeholder="ENTER USER NAME"
                       className="outline-none min-h-full pl-4 bg-transparent w-full"
@@ -106,19 +121,57 @@ function Page() {
               </div>
               <div className="space-y-4 px-6">
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
-                  FILTER BY ITEM
+                  PRICE RANGE
                 </p>
                 <div className="text-sm">
                   <div className="flex w-full rounded-xl border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40">
                     <div className="border-r bg-wBrand-background border-wBrand-foreground/20 p-3">
-                      <User className="h-4" />
+                      <DollarSign className="h-4" />
                     </div>
                     <input
-                      type="text"
-                      onChange={(e) =>
-                        dispatch(setFilters({ item: e.target.value }))
+                      type="number"
+                      placeholder="MIN PRICE"
+                      value={
+                        salesFilter.priceRange && salesFilter.priceRange.min
                       }
-                      placeholder="ENTER ITEM NAME"
+                      onChange={(e) => {
+                        dispatch(
+                          setSalesFilters({
+                            priceRange: {
+                              min: (e.target.value as unknown) as number,
+                              max: salesFilter.priceRange
+                                ? salesFilter.priceRange.max
+                                : Number.POSITIVE_INFINITY,
+                            },
+                          })
+                        );
+                      }}
+                      className="outline-none min-h-full pl-4 bg-transparent w-full"
+                    />
+                  </div>
+                  <div className="h-5 border w-0 ml-6 bg-wBrand-foreground/30 border-wBrand-foreground/5" />
+                  <div className="flex w-full rounded-xl bg-wBrand-background/40 border border-wBrand-foreground/20 overflow-clip">
+                    <div className="border-r bg-wBrand-background border-wBrand-foreground/20 p-3">
+                      <DollarSign className="h-4" />
+                    </div>
+                    <input
+                      type="number"
+                      placeholder="MAX PRICE"
+                      value={
+                        salesFilter.priceRange && salesFilter.priceRange.max
+                      }
+                      onChange={(e) => {
+                        dispatch(
+                          setSalesFilters({
+                            priceRange: {
+                              min: salesFilter.priceRange
+                                ? salesFilter.priceRange.min
+                                : 0,
+                              max: (e.target.value as unknown) as number,
+                            },
+                          })
+                        );
+                      }}
                       className="outline-none min-h-full pl-4 bg-transparent w-full"
                     />
                   </div>
@@ -132,7 +185,7 @@ function Page() {
                   period1={true}
                   className="!w-full bg-transparent"
                   triggerClassname="h-max text-xs bg-wBrand-background/40 rounded-xl px-4 py-3 !w-full border border-wBrand-foreground/20 items-center justify-center flex"
-                  uniqueKey="activity_date_range"
+                  uniqueKey="sales_date_range"
                 />
               </div>
             </div>
@@ -140,17 +193,35 @@ function Page() {
         </div>
         <div className="w-[calc(100vw-25rem)] h-[calc(100vh-11rem)] overflow-y-auto pb-20">
           <div className="space-y-3">
-            <div className="flex w-full max-w-full bg-wBrand-background_light/60 text-wBrand-accent text-xs p-3 font-semibold sticky top-0 px-8 rounded-xl">
+            <div className="flex w-full gap-x-6 max-w-full bg-wBrand-background_light/60 text-wBrand-accent text-xs p-3 font-semibold sticky top-0 px-8 rounded-xl">
               <div className="w-[10%] text-left">ID</div>
-              <div className="w-[40%] text-center">ITEM</div>
-              <div className="w-[20%] text-center">BY</div>
-              <div className="w-[20%] text-center">DATE</div>
+              <div className="w-[40%] ">ITEM</div>
+              <div className="w-[20%] ">BY</div>
+              <div className="w-[20%] ">DATE</div>
               <div className="w-[10%] text-right">COST</div>
             </div>
-            {filteredActivities.map((activity, idx) => (
-              <SalesTableRow />
+            {filteredSales.map((sales, idx) => (
+              <SalesTableRow sales={sales} key={idx} />
             ))}
-            {/* <SalesTable /> */}
+          </div>
+          <div className="flex justify-center items-center space-x-4 mt-4">
+            <button
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+              className="px-4 py-2 bg-wBrand-accent rounded-xl disabled:opacity-50"
+            >
+              <ArrowLeft className="h-3" />
+            </button>
+            <span className="text-white">
+              Page {currentPage} of {pagination.totalPages}
+            </span>
+            <button
+              onClick={handleNextPage}
+              disabled={currentPage === pagination.totalPages}
+              className="px-2 py-2 rounded-xl bg-wBrand-accent disabled:opacity-50"
+            >
+              <ArrowRight className="h-3" />
+            </button>
           </div>
         </div>
       </section>

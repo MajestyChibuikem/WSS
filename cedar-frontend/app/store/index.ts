@@ -10,6 +10,7 @@ import authReducer from "./slices/authSlice";
 import statsReducer from "./slices/statsSlice";
 import activityReducer from "./slices/activitySlice";
 import { apiSlice } from "./slices/apiSlice"; // Import the RTK Query API
+import salesReducer from "./slices/salesSlice";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     users: userReducer,
     auth: authReducer,
     activity: activityReducer,
+    sales: salesReducer,
 
     [apiSlice.reducerPath]: apiSlice.reducer, // ✅ Add the RTK Query reducer
   },

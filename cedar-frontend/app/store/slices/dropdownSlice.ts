@@ -48,7 +48,6 @@ const dropdownSlice = createSlice({
     ) => {
       const { id, item } = action.payload;
       if (!state.dropdowns[id]) {
-        console.log("in here");
         state.dropdowns[id] = { show: false, items: null, active: null };
       }
 
@@ -57,8 +56,6 @@ const dropdownSlice = createSlice({
           ? (currentItem.active = true)
           : (currentItem.active = false);
       });
-
-      console.log("here", state.dropdowns[id] && state.dropdowns[id].items);
     },
   },
 });

@@ -2,19 +2,20 @@ import { Roles } from "./types";
 
 export function calculateRevenueChange(
   currentRevenue: number,
-  percentageChange?: number
+  growth_factor?: number
 ): {
   amountChange: string;
   status: "gain" | "loss" | "no change";
   previousRevenue: string;
 } {
-  console.log("currentRevenue: ", currentRevenue, percentageChange);
   let computedPreviousRevenue;
 
   if (computedPreviousRevenue === undefined) {
-    if (percentageChange !== undefined) {
+    if (growth_factor !== undefined) {
       // Calculate previous revenue using the percentage change formula
-      computedPreviousRevenue = currentRevenue / (1 + percentageChange / 100);
+      computedPreviousRevenue =
+        currentRevenue /
+        (1 + convertGrowthFactorToPercentage(growth_factor) / 100);
     } else {
       // If both previousRevenue and percentageChange are missing, return "N/A"
       return {
@@ -34,6 +35,10 @@ export function calculateRevenueChange(
   };
 }
 
+export function convertGrowthFactorToPercentage(growthFactor: number) {
+  return (growthFactor - 1) * 100;
+}
+
 export function getInitials(name: string): string {
   const words = name.trim().split(" ");
 
@@ -43,6 +48,13 @@ export function getInitials(name: string): string {
 
   return words[0].slice(0, 2).toUpperCase();
 }
+
+export const formatNumber = (num: number): string => {
+  if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + "M";
+  if (num >= 1_000) return (num / 1_000).toFixed(1) + "K";
+  if (num >= 100) return (num / 100).toFixed(1) + "H";
+  return num.toString();
+};
 
 export function truncateText(text: string, maxLength: number): string {
   if (text.length <= maxLength) {
@@ -58,7 +70,6 @@ export const getRoleEnum = (role: string): Roles | undefined => {
 export function formatDecimal(
   value: number
 ): { formatted: string; decimal: string } {
-  console.log("value: ", value);
   // Round to 2 decimal places
   const roundedValue = Number(value).toFixed(2);
 

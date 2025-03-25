@@ -48,7 +48,6 @@ function NewWineSideBar() {
           bottle_size: wineSelector.currentlyEditing.bottle_size,
         });
 
-        console.log("response: ", response);
         if (response.error) {
           setIsLoading(false);
           toast.error("Couldn't add wine at the moment.");
@@ -62,7 +61,6 @@ function NewWineSideBar() {
       } catch {
         setIsLoading(false);
         toast.error("Couldn't add wine at the moment.");
-        console.log("Could not create wine");
       }
     } else if (
       wineSelector.action_type == Actions.UPDATE &&
@@ -76,7 +74,6 @@ function NewWineSideBar() {
           wine_id: wineSelector.currentlyEditing.id,
         });
 
-        console.log("response: ", response);
         if (response.error) {
           setIsLoading(false);
           toast.error("Couldn't updatew wine at the moment.");
@@ -90,7 +87,6 @@ function NewWineSideBar() {
       } catch {
         setIsLoading(false);
         toast.error("Couldn't updatew wine at the moment.");
-        console.log("Could not create wine");
       }
     }
   };

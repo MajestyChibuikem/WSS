@@ -39,7 +39,7 @@ function CheckboxSelector({ id, idx, item }: Params) {
       )}
     >
       <p>{item.content}</p>
-      <p
+      {/* <p
         className={clsx(
           "p-1 px-2 text-xs bg-wBrand-foreground/10 rounded-lg",
           selectedItems[idx.toString()] &&
@@ -47,7 +47,7 @@ function CheckboxSelector({ id, idx, item }: Params) {
         )}
       >
         {item.stock_count}
-      </p>
+      </p> */}
     </button>
   );
 }

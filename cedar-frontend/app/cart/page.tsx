@@ -25,7 +25,6 @@ function Page() {
         number_sold: item.quantity,
       });
     });
-    console.log("inventroy cart: ", inventoryCart, items);
     if (items.length == 0) return;
     try {
       const response = await checkout({
@@ -34,7 +33,6 @@ function Page() {
       }).unwrap();
 
       dispatch(clearCart());
-      console.log("Checkout successful:", response);
       toast.success("Checkout successful");
     } catch (err) {
       toast.error("Couldn't checkout at the moment try again later");

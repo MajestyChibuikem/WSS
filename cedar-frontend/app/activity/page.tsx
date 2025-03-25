@@ -20,8 +20,6 @@ function Page() {
     {}
   );
 
-  // console.log("logs: ", allLogs);
-
   const dispatch = useDispatch();
   const { activities, filteredActivities } = useSelector(
     (state: RootState) => state.activity
@@ -30,10 +28,6 @@ function Page() {
   useEffect(() => {
     allLogs && dispatch(setActivities(allLogs));
   }, [allLogs]);
-
-  useEffect(() => {
-    console.log("activities: ", activities);
-  }, [activities]);
 
   const activityFilter = useSelector(
     (state: RootState) => state.activity.filters
@@ -50,6 +44,28 @@ function Page() {
     (item) => item.content
   );
 
+  useEffect(() => {
+    dispatch(
+      setFilters({
+        dateRange: {
+          start: calendarRange.period1_start_date,
+          end: calendarRange.period1_end_date,
+        },
+      })
+    );
+  }, [calendarRange]);
+
+  useEffect(() => {
+    if (categoryArr.length === 0 && activityFilter.categories?.length) {
+      dispatch(clearFilters());
+    } else if (categoryArr.length > 0) {
+      const prevCategories = activityFilter.categories || [];
+      if (JSON.stringify(prevCategories) !== JSON.stringify(categoryArr)) {
+        dispatch(setFilters({ categories: categoryArr }));
+      }
+    }
+  }, [categoryArr, activityFilter.categories, dispatch]);
+
   if (isLoading)
     return (
       <div className="h-[85vh] w-full flex justify-center items-center">
@@ -58,13 +74,15 @@ function Page() {
     );
 
   return (
-    <div className="w-[100vw] px-10 space-y-10">
-      <h1 className="text-2xl font-medium">Activity Log</h1>
+    <div className="w-[100vw] px-10">
+      <h1 className="text-2xl font-medium sticky top-[5rem] h-[4rem] items-center flex bg-wBrand-background">
+        Activity Log
+      </h1>
       <section className="w-full flex">
         <div className="w-[25rem] h-[100vh]">
           <div className="fixed w-[24rem] h-[calc(100vh-9rem)] top-[9rem] p-10 pr-0 pt-0 left-0">
-            <div className="rounded-lg space-y-8 pb-10 overflow-y-auto relative bg-wBrand-background_light/60 h-full">
-              <div className="bg-wBrand-background_light gap-4 px-10 h-[5.5rem] flex items-center w-full justify-center sticky top-0">
+            <div className="rounded-lg space-y-8 py-10 overflow-y-auto relative bg-wBrand-background_light/60 h-full">
+              {/* <div className="bg-wBrand-background_light gap-4 px-10 h-[5.5rem] flex items-center w-full justify-center sticky top-0">
                 <button
                   onClick={() => {
                     dispatch(
@@ -75,13 +93,6 @@ function Page() {
                           end: calendarRange.period1_end_date,
                         },
                       })
-                    );
-                    console.log(
-                      "activities: ",
-                      activityFilter,
-                      // selectedItems,
-                      calendarRange,
-                      categoryArr
                     );
                     dispatch(applyFilters());
                   }}
@@ -96,7 +107,7 @@ function Page() {
                 >
                   Reset
                 </button>
-              </div>
+              </div> */}
               <div className="space-y-4 px-6">
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
                   ACTIONS

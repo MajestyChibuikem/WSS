@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { format, parseISO, isAfter, isBefore } from "date-fns";
+import { parseISO, isAfter, isBefore } from "date-fns";
 
 export interface Activity {
   id: number;
@@ -17,6 +17,7 @@ interface FilterState {
   username?: string;
   item?: string;
   actions?: string[];
+  categories?: string[]; // New filter field
 }
 
 interface ActivityState {
@@ -64,12 +65,19 @@ const activitySlice = createSlice({
 
     setFilters: (state, action: PayloadAction<Partial<FilterState>>) => {
       state.filters = { ...state.filters, ...action.payload };
+      // Automatically apply filters when updating filters
+      activitySlice.caseReducers.applyFilters(state);
     },
 
     applyFilters: (state) => {
       state.filteredActivities = state.activities.filter((activity) => {
-        const { dateRange, username, actions } = state.filters;
-        console.log("dateRange: ", dateRange);
+        const {
+          dateRange,
+          username,
+          actions,
+          categories,
+          item,
+        } = state.filters;
 
         // Convert timestamp to Date object for filtering
         const activityDate = parseISO(activity.timestamp);
@@ -89,10 +97,19 @@ const activitySlice = createSlice({
 
         // Username Filter
         if (username) {
+          const regex = new RegExp(username.split("").join(".*"), "i"); // Allows fuzzy matches
           if (
-            !activity.user_id ||
-            activity.user_id.toString() !== username.toString()
+            !activity.acting_username ||
+            !regex.test(activity.acting_username)
           ) {
+            return false;
+          }
+        }
+
+        // Item name Filter
+        if (item) {
+          const regex = new RegExp(item.split("").join(".*"), "i"); // Allows fuzzy matches
+          if (!activity.affected_name || !regex.test(activity.affected_name)) {
             return false;
           }
         }
@@ -102,6 +119,18 @@ const activitySlice = createSlice({
           if (
             !actions.some(
               (action) => action.toLowerCase() === activity.action.toLowerCase()
+            )
+          ) {
+            return false;
+          }
+        }
+
+        // Categories Filter (Case Insensitive)
+        if (categories && categories.length > 0) {
+          if (
+            !categories.some(
+              (category) =>
+                category.toLowerCase() === activity.action.toLowerCase()
             )
           ) {
             return false;

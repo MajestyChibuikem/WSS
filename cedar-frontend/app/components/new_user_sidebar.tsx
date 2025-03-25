@@ -6,12 +6,14 @@ import { usersDropdownItems } from "../utils/mock_data";
 import {
   closeUserEditor,
   setCurrentlyEditing,
+  toggleUserEditor,
 } from "../store/slices/userSlice";
 import { RootState } from "../store";
 import { updateToggleItem } from "../store/slices/dropdownSlice";
 import { Actions, DropdownItem, Roles } from "../utils/types";
 import {
   useCreateUserMutation,
+  useDeleteUserMutation,
   useUpdateUserMutation,
 } from "../store/slices/apiSlice";
 import {
@@ -35,24 +37,19 @@ function NewUserSideBar() {
 
   const [createUser] = useCreateUserMutation();
   const [updateUser] = useUpdateUserMutation();
+  const [deleteUser] = useDeleteUserMutation();
 
   const handleSubmit = async () => {
     setIsLoading(true);
     if (user.currentlyEditing && user.action_type == Actions.CREATE) {
       try {
         toast("Creating user");
-        console.log(
-          "in here: ",
-          user.currentlyEditing,
-          user.currentlyEditing.roles
-        );
         const response = await createUser({
           username: user.currentlyEditing.username,
           password: user.currentlyEditing.password,
           is_admin: user.currentlyEditing.roles[0] == Roles.ADMIN,
-          roles: user.currentlyEditing.roles,
+          roles: [user.currentlyEditing.roles[0].toLowerCase()],
         });
-        console.log("response: ", response); //impement response for 409(confilict user already exists) and 200 created successfully
         if (response.error) {
           setIsLoading(false);
           toast.error("Couldn't create user.");
@@ -64,7 +61,6 @@ function NewUserSideBar() {
       } catch {
         setIsLoading(false);
         toast.error("Couldn't create user.");
-        console.log("couldnt create user");
       }
     } else if (user.currentlyEditing && user.action_type == Actions.UPDATE) {
       try {
@@ -73,10 +69,9 @@ function NewUserSideBar() {
           username: user.currentlyEditing.username,
           password: user.currentlyEditing.password,
           is_admin: user.currentlyEditing.roles[0] == Roles.ADMIN,
-          roles: user.currentlyEditing.roles,
-          userId: user.currentlyEditing.id,
+          roles: user.currentlyEditing.roles[0].toLowerCase(),
+          id: user.currentlyEditing.id,
         });
-        console.log("response: ", response); //impement response for 409(confilict user already exists) and 200 created successfully
         if (response.error) {
           setIsLoading(false);
           toast.error("Couldn't update user.");
@@ -87,7 +82,22 @@ function NewUserSideBar() {
       } catch {
         setIsLoading(false);
         toast.error("Couldn't update user.");
-        console.log("couldnt update user");
+      }
+    } else if (user.currentlyEditing && user.action_type == Actions.DELETE) {
+      try {
+        toast("Deleting User");
+        const response = await deleteUser(user.currentlyEditing.id);
+        if (response.error) {
+          setIsLoading(false);
+          toast.error("Couldn't delete user.");
+          return;
+        }
+        setIsLoading(false);
+        toast.success("User deleted successfully.");
+        dispatch(toggleUserEditor());
+      } catch (error) {
+        setIsLoading(false);
+        toast.error("Couldn't delete user.");
       }
     }
   };
@@ -147,7 +157,6 @@ function NewUserSideBar() {
                     className="p-3"
                     key={idx}
                     onClick={() => {
-                      console.log("item: ", item.value.toLocaleUpperCase());
                       item.content &&
                         dispatch(
                           setCurrentlyEditing({
@@ -174,14 +183,16 @@ function NewUserSideBar() {
           <button
             disabled={
               (user.action_type !== Actions.CREATE &&
-                user.action_type !== Actions.UPDATE) ||
+                user.action_type !== Actions.UPDATE &&
+                user.action_type !== Actions.DELETE) ||
               isLoading
             }
             onClick={handleSubmit}
             className={clsx(
               "py-2 px-5 text-sm bg-wBrand-accent font-semibold rounded-lg ",
               (user.action_type !== Actions.CREATE &&
-                user.action_type !== Actions.UPDATE) ||
+                user.action_type !== Actions.UPDATE &&
+                user.action_type !== Actions.DELETE) ||
                 isLoading
                 ? "bg-gray-700"
                 : "text-wBrand-background"

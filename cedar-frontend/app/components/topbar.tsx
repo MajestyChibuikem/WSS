@@ -3,6 +3,7 @@ import {
   Activity,
   ChartNoAxesGantt,
   LayoutDashboard,
+  LogOut,
   ShoppingBasket,
   UsersRound,
 } from "lucide-react";
@@ -11,29 +12,33 @@ import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { Roles } from "../utils/types";
 import { getRoleEnum } from "../utils/helpers";
+import { useLogoutMutation } from "../store/slices/apiSlice";
+import { toast } from "react-toastify";
 
 //Inventory
 //
 function Topbar() {
   const pathname = usePathname();
+  const [logout] = useLogoutMutation();
+  const router = useRouter();
   const links = [
     {
       name: "Dashboard",
       href: "/",
       icon: <LayoutDashboard className="h-4" />,
-      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPERUSER],
+      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPER_USER],
     },
     {
       name: "Inventory",
       href: "/inventory",
       icon: <ChartNoAxesGantt className="h-4" />,
-      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPERUSER],
+      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPER_USER],
     },
     {
       name: "Cart",
       href: "/cart",
       icon: <ShoppingBasket className="h-4" />,
-      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPERUSER],
+      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPER_USER],
     },
     {
       name: "Activity",
@@ -52,7 +57,6 @@ function Topbar() {
   const userRole = getRoleEnum(
     localStorage.getItem("wineryUserRole")?.toLowerCase() ?? ""
   );
-  console.log("user role: ", userRole);
 
   return (
     <div className="w-full h-[5rem] bg-wBrand-background">
@@ -103,7 +107,24 @@ function Topbar() {
             );
           })}
         </ul>
-        <div></div>
+        <div
+          onClick={() => {
+            try {
+              toast("Logging out...");
+              localStorage.removeItem("wineryAuthToken");
+              localStorage.removeItem("wineryUserRole");
+              logout();
+              toast.success("Logout successful");
+              router.push("/login");
+            } catch (error) {
+              toast.success("Can't log out at the moment, try again later");
+            }
+          }}
+          className="flex gap-1 cursor-pointer text-sm border p-1 px-4 pl-3 rounded-full items-center hover:text-wBrand-accent hover:border-wBrand-accent"
+        >
+          <LogOut className="h-3" />
+          <p>Logout</p>
+        </div>
       </div>
     </div>
   );

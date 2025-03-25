@@ -59,7 +59,6 @@ function Page() {
 
   useEffect(() => {
     if (wineData && wineData.wines) {
-      console.log("setting wine data: ", wineData.wines);
       dispatch(setWineData(wineData.wines));
     }
   }, [wineData]);

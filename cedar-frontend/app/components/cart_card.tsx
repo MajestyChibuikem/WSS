@@ -9,6 +9,7 @@ import {
   incrementCartItemQuantity,
   removeFromCart,
 } from "../store/slices/inventorySlice";
+import { formatDecimal } from "../utils/helpers";
 
 interface Params {
   wine: Wine;
@@ -67,7 +68,7 @@ function CartCard({ wine }: Params) {
       </div>
 
       <div className="space-y-2 w-[25%] flex justify-end">
-        <p>N{wine.price}</p>
+        <p>{formatDecimal(wine.price).formatted}</p>
       </div>
     </div>
   );

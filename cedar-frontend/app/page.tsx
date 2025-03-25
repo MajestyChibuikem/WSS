@@ -142,7 +142,7 @@ export default function Home() {
     toast.error("Couldn't fetch inventory value at this time");
   }
 
-  if (userRole != Roles.STAFF && userDataErr) {
+  if (userRole == Roles.ADMIN && userDataErr) {
     toast.error("Couldn't fetch users at this time");
   }
 
@@ -171,7 +171,7 @@ export default function Home() {
   return (
     <main className="w-[100vw] px-10 space-y-8 py-6 overflow-y-auto h-[calc(100vh-5rem)]">
       {showUserEditor && <NewUserSideBar />}
-      {userRole != Roles.STAFF && (
+      {userRole == Roles.ADMIN && (
         <section className="flex gap-x-2 text-xs pt-10 items-center">
           <button
             onClick={() => {

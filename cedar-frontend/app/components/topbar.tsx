@@ -51,13 +51,13 @@ function Topbar() {
       name: "Sales",
       href: "/sales",
       icon: <Banknote className="h-4" />,
-      showFor: [Roles.ADMIN],
+      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPER_USER],
     },
     {
       name: "Users",
       href: "/users",
       icon: <UsersRound className="h-4" />,
-      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPER_USER],
+      showFor: [Roles.ADMIN],
     },
   ];
 

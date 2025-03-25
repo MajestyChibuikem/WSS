@@ -37,10 +37,12 @@ function Page() {
   const isAdmin = userRole && userRole == Roles.ADMIN ? true : false;
 
   useEffect(() => {
-    console.log("data: ", data);
-    isAdmin && dispatch(setSales(data));
-    !isAdmin && dispatch(setSales(userSalesData));
-  }, [data]);
+    if (isAdmin) {
+      dispatch(setSales(data));
+    } else {
+      dispatch(setSales(userSalesData));
+    }
+  }, [data, isAdmin]);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -200,11 +202,16 @@ function Page() {
               <div className="w-[20%] ">DATE</div>
               <div className="w-[10%] text-right">COST</div>
             </div>
+            {filteredSales.length == 0 && (
+              <div className="w-full flex items-center justify-center text-2xl font-semibold text-wBrand-accent/20 h-[30vh]">
+                <p>You haven't made any sales yet</p>
+              </div>
+            )}
             {filteredSales.map((sales, idx) => (
               <SalesTableRow sales={sales} key={idx} />
             ))}
           </div>
-          <div className="flex justify-center items-center space-x-4 mt-4">
+          <div className="flex justify-end items-center space-x-4 mt-4">
             <button
               onClick={handlePrevPage}
               disabled={currentPage === 1}

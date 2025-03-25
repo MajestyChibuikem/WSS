@@ -40,6 +40,7 @@ function Page() {
       }).unwrap();
       localStorage.setItem("wineryAuthToken", response.token);
       localStorage.setItem("wineryUserRole", response.roles[0]);
+      localStorage.setItem("wineryUserId", response.user_id.toString());
       setIsLoading(false);
       router.push("/");
     } catch (error) {

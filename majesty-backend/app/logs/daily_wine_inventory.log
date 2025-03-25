@@ -220,3 +220,59 @@ werkzeug.exceptions.MethodNotAllowed: 405 Method Not Allowed: The method is not 
 [2025-03-25 10:59:28,666] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
 [2025-03-25 11:01:13,076] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
 [2025-03-25 11:01:21,947] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-25 11:29:13,101] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-25 11:29:39,147] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-25 11:37:16,993] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-25 11:37:29,712] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-25 11:38:32,104] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-25 11:40:40,853] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-25 11:41:11,221] INFO in logger: [LOGIN_SUCCESS] User 4: User logged in successfully | Affected: Alice
+[2025-03-25 11:41:12,934] INFO in logger: [GET_REVENUE] User 4: Revenue calculated for the past 30 days: 195399.95 | Affected: Revenue
+[2025-03-25 11:41:12,942] INFO in logger: [GET_STOCK_BY_CATEGORY] User 4: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-25 11:41:12,946] INFO in logger: [GET_TOTAL_STOCK] User 4: Total stock checked: 113 | Affected: Total Stock
+[2025-03-25 11:41:12,979] INFO in logger: [GET_USERS_UNAUTHORIZED] User 4: Unauthorized attempt to view users | Affected: User Management
+[2025-03-25 11:41:12,981] INFO in logger: [GET_INVENTORY_VALUE] User 4: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-25 11:41:12,986] INFO in logger: [COMPARE_SALES] User 4: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-25 11:41:12,993] INFO in logger: [GET_ALL_WINES] User 4: Fetched all wines | Affected: All Wines
+[2025-03-25 11:41:37,720] INFO in logger: [GET_USERS_UNAUTHORIZED] User 4: Unauthorized attempt to view users | Affected: User Management
+[2025-03-25 11:41:49,600] INFO in logger: [GET_USERS_UNAUTHORIZED] User 4: Unauthorized attempt to view users | Affected: User Management
+[2025-03-25 11:42:51,692] INFO in logger: [CHECK_TOKEN_VALID] User 4: Token is valid | Affected: Token System
+[2025-03-25 11:43:02,090] INFO in logger: [CHECK_TOKEN_VALID] User 4: Token is valid | Affected: Token System
+[2025-03-25 11:43:02,224] INFO in logger: [GET_ALL_WINES] User 4: Fetched all wines | Affected: All Wines
+[2025-03-25 11:43:02,243] INFO in logger: [GET_TOTAL_STOCK] User 4: Total stock checked: 113 | Affected: Total Stock
+[2025-03-25 11:46:09,259] INFO in logger: [GET_ALL_WINES] User 4: Fetched all wines | Affected: All Wines
+[2025-03-25 11:46:09,260] INFO in logger: [GET_TOTAL_STOCK] User 4: Total stock checked: 113 | Affected: Total Stock
+[2025-03-25 11:47:01,468] INFO in logger: [CHECKOUT_SUCCESS] User 4: Checkout completed for invoice 4 | Affected: Invoice ID 4
+[2025-03-25 11:47:10,734] INFO in logger: [GET_REVENUE] User 4: Revenue calculated for the past 30 days: 841400.94 | Affected: Revenue
+[2025-03-25 11:47:10,748] INFO in logger: [COMPARE_SALES] User 4: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-25 11:47:10,752] INFO in logger: [GET_STOCK_BY_CATEGORY] User 4: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-25 11:47:10,772] INFO in logger: [GET_USERS_UNAUTHORIZED] User 4: Unauthorized attempt to view users | Affected: User Management
+[2025-03-25 11:47:10,774] INFO in logger: [GET_INVENTORY_VALUE] User 4: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-25 11:49:25,293] INFO in logger: [GET_REVENUE] User 4: Revenue calculated for the past 30 days: 841400.94 | Affected: Revenue
+[2025-03-25 11:49:25,301] INFO in logger: [GET_TOTAL_STOCK] User 4: Total stock checked: 110 | Affected: Total Stock
+[2025-03-25 11:49:25,306] INFO in logger: [GET_STOCK_BY_CATEGORY] User 4: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-25 11:49:25,308] INFO in logger: [GET_USERS_UNAUTHORIZED] User 4: Unauthorized attempt to view users | Affected: User Management
+[2025-03-25 11:49:25,329] INFO in logger: [COMPARE_SALES] User 4: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-25 11:49:25,348] INFO in logger: [GET_INVENTORY_VALUE] User 4: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-25 11:49:25,349] INFO in logger: [GET_ALL_WINES] User 4: Fetched all wines | Affected: All Wines
+[2025-03-25 11:50:06,030] INFO in logger: [CHECK_TOKEN_VALID] User 4: Token is valid | Affected: Token System
+[2025-03-25 11:50:06,193] INFO in logger: [GET_REVENUE] User 4: Revenue calculated for the past 30 days: 841400.94 | Affected: Revenue
+[2025-03-25 11:50:06,233] INFO in logger: [GET_STOCK_BY_CATEGORY] User 4: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-25 11:50:06,253] INFO in logger: [COMPARE_SALES] User 4: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-25 11:50:06,260] INFO in logger: [GET_USERS_UNAUTHORIZED] User 4: Unauthorized attempt to view users | Affected: User Management
+[2025-03-25 11:50:06,266] INFO in logger: [GET_TOTAL_STOCK] User 4: Total stock checked: 110 | Affected: Total Stock
+[2025-03-25 11:50:06,293] INFO in logger: [GET_ALL_WINES] User 4: Fetched all wines | Affected: All Wines
+[2025-03-25 11:50:06,320] INFO in logger: [GET_INVENTORY_VALUE] User 4: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-25 14:10:44,614] INFO in logger: [CHECK_TOKEN_VALID] User 4: Token is valid | Affected: Token System
+[2025-03-25 14:29:45,494] INFO in logger: [CHECK_TOKEN_VALID] User 4: Token is valid | Affected: Token System
+[2025-03-25 14:30:43,157] INFO in logger: [CHECK_TOKEN_VALID] User 4: Token is valid | Affected: Token System
+[2025-03-25 14:34:38,850] INFO in logger: [GET_TOTAL_STOCK] User 4: Total stock checked: 110 | Affected: Total Stock
+[2025-03-25 14:34:38,850] INFO in logger: [GET_REVENUE] User 4: Revenue calculated for the past 30 days: 841400.94 | Affected: Revenue
+[2025-03-25 14:34:38,869] INFO in logger: [GET_USERS_UNAUTHORIZED] User 4: Unauthorized attempt to view users | Affected: User Management
+[2025-03-25 14:34:38,872] INFO in logger: [GET_STOCK_BY_CATEGORY] User 4: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-25 14:34:38,894] INFO in logger: [COMPARE_SALES] User 4: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-25 14:34:38,905] INFO in logger: [GET_INVENTORY_VALUE] User 4: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-25 14:34:38,906] INFO in logger: [GET_ALL_WINES] User 4: Fetched all wines | Affected: All Wines
+[2025-03-25 14:36:43,704] INFO in logger: [CHECK_TOKEN_VALID] User 4: Token is valid | Affected: Token System
+[2025-03-25 14:36:43,822] INFO in logger: [GET_ALL_WINES] User 4: Fetched all wines | Affected: All Wines
+[2025-03-25 14:36:43,832] INFO in logger: [GET_TOTAL_STOCK] User 4: Total stock checked: 110 | Affected: Total Stock

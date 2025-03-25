@@ -12,10 +12,9 @@ interface Params {
     content: string;
     stock_count?: number;
   };
-  handleClick?: () => void;
 }
 
-function CheckboxSelector({ id, idx, item, handleClick }: Params) {
+function CheckboxSelector({ id, idx, item }: Params) {
   const dispatch = useDispatch();
   const selectedItems = useSelector(
     (state: RootState) => state.checkboxSelector.selectors[id]?.items || {}
@@ -31,8 +30,6 @@ function CheckboxSelector({ id, idx, item, handleClick }: Params) {
             item,
           })
         );
-        console.log("clicked: ");
-        handleClick && handleClick();
       }}
       className={clsx(
         "border text-sm border-wBrand-foreground/20 rounded-xl px-3 py-2 flex justify-between items-center",

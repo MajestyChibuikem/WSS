@@ -46,7 +46,7 @@ interface UseSales {
   refresh: () => void;
 }
 
-const API_BASE = "http://your-api-domain.com/api";
+const API_BASE = "http://127.0.0.1:5000";
 
 export function useUserSales(userId?: number): UseSales {
   const [sales, setSales] = useState<Sale[]>([]);
@@ -76,7 +76,9 @@ export function useUserSales(userId?: number): UseSales {
             },
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${localStorage.getItem(
+                "wineryAuthToken"
+              )}`,
             },
           }
         );

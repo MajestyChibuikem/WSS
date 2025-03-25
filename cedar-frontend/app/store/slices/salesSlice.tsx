@@ -51,6 +51,7 @@ const salesSlice = createSlice({
             id: string;
             date: string;
             total_amount: any;
+            total: any;
             items: any[];
           };
           timestamp: string;
@@ -62,7 +63,11 @@ const salesSlice = createSlice({
           action: sale.action,
           invoiceId: sale.invoice?.id || null,
           date: sale.invoice?.date || sale.timestamp,
-          total: sale.invoice?.total_amount || "0.00",
+          total: sale.invoice?.total_amount
+            ? sale.invoice?.total_amount
+            : sale.invoice?.total
+            ? sale.invoice?.total
+            : "0.00",
           items: sale.invoice?.items
             ? sale.invoice.items.map(
                 (item) => `${item.wine_name} (${item.quantity})`

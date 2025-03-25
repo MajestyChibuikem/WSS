@@ -17,7 +17,7 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     // Login
     login: builder.mutation<
-      { token: string; roles: string[]; is_admin: boolean },
+      { token: string; roles: string[]; is_admin: boolean; user_id: number },
       { username: string; password: string }
     >({
       query: (credentials) => ({

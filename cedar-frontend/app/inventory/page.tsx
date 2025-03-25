@@ -2,7 +2,13 @@
 import React, { useEffect, useState } from "react";
 import TableRow from "../components/table_row";
 import { dropdownItems, wineCategories } from "../utils/mock_data";
-import { DollarSign, LoaderCircle, Search, Wine } from "lucide-react";
+import {
+  DollarSign,
+  LoaderCircle,
+  Search,
+  ShoppingBasketIcon,
+  Wine,
+} from "lucide-react";
 import NewWineSideBar from "../components/new_wine_sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
@@ -10,9 +16,6 @@ import { toggleWineEditor, updateAction } from "../store/slices/wineSlice";
 import CheckboxSelector from "../components/checkbox_selector";
 import {
   clearFilter,
-  filterInventory,
-  resetInventoryFilter,
-  setFilteredData,
   setWineData,
   updateInventoryFilter,
 } from "../store/slices/inventorySlice";
@@ -32,9 +35,11 @@ import Empty from "../components/empty";
 import { Actions, Wine as IWine, Roles } from "../utils/types";
 import { getRoleEnum } from "../utils/helpers";
 import { toast } from "react-toastify";
+import clsx from "clsx";
+import { useRouter } from "next/navigation";
 
 function Page() {
-  const [data, setData] = useState<IWine[]>();
+  const router = useRouter();
   const showWineEditor = useSelector(
     (state: RootState) => state.winer.show_wine_editor
   );
@@ -54,27 +59,21 @@ function Page() {
 
   useEffect(() => {
     if (wineData && wineData.wines) {
-      dispatch(setFilteredData(wineData.wines));
+      console.log("setting wine data: ", wineData.wines);
       dispatch(setWineData(wineData.wines));
     }
   }, [wineData]);
 
   useEffect(() => {
-    console.log("in here");
-    setData(inventory.filteredData);
-  }, [inventory.filteredData]);
-
-  // useEffect(() => {
-  //
-  // }, [selectedItems]);
-
-  console.log("catArr: ", categoryArr);
-
-  useEffect(() => {
-    if (wineData && wineData.wines) {
-      dispatch(filterInventory({ wines: wineData.wines }));
+    if (categoryArr.length === 0 && inventoryFilter.categories?.length) {
+      dispatch(clearFilter());
+    } else if (categoryArr.length > 0) {
+      const prevCategories = inventoryFilter.categories || [];
+      if (JSON.stringify(prevCategories) !== JSON.stringify(categoryArr)) {
+        dispatch(updateInventoryFilter({ categories: categoryArr }));
+      }
     }
-  }, [inventoryFilter.name, wineData]);
+  }, [categoryArr, inventoryFilter.categories, dispatch]);
 
   const {
     data: totalWineStock,
@@ -140,7 +139,7 @@ function Page() {
             )} */}
           </div>
 
-          <div className="">
+          <div className="flex items-center gap-3">
             {userRole !== Roles.STAFF && (
               <button
                 onClick={() => {
@@ -152,6 +151,19 @@ function Page() {
                 Add Product
               </button>
             )}
+
+            <button
+              disabled={inventory.cart.length == 0}
+              onClick={() => router.push("/cart")}
+              className={clsx(
+                "px-4 py-2 border rounded-xl h-full",
+                inventory.cart.length > 0
+                  ? "border-wBrand-accent text-wBrand-accent"
+                  : "border-gray-50/30 text-gray-50/30"
+              )}
+            >
+              <ShoppingBasketIcon className="h-5" />
+            </button>
           </div>
         </div>
       </div>
@@ -170,19 +182,6 @@ function Page() {
                       id="inventory_product_category"
                       item={category}
                       idx={idx}
-                      handleClick={() => {
-                        if (wineData) {
-                          console.log("clallllled");
-                          dispatch(
-                            filterInventory({
-                              wines: wineData.wines,
-                              categories: Object.values(selectedItems).map(
-                                (item) => item.content
-                              ),
-                            })
-                          );
-                        }
-                      }}
                     />
                   ))}
                 </div>
@@ -209,13 +208,6 @@ function Page() {
                             },
                           })
                         );
-
-                        dispatch(
-                          filterInventory({
-                            wines: wineData ? wineData.wines : [],
-                            categories: categoryArr,
-                          })
-                        );
                       }}
                       className="outline-none min-h-full pl-4 bg-transparent w-full"
                     />
@@ -236,13 +228,6 @@ function Page() {
                               min: inventoryFilter.price_range.min,
                               max: (e.target.value as unknown) as number,
                             },
-                          })
-                        );
-
-                        dispatch(
-                          filterInventory({
-                            wines: wineData ? wineData.wines : [],
-                            categories: categoryArr,
                           })
                         );
                       }}
@@ -266,12 +251,6 @@ function Page() {
                         onClick={() => {
                           dispatch(
                             updateInventoryFilter({ sort_by: item.value })
-                          );
-                          dispatch(
-                            filterInventory({
-                              wines: wineData ? wineData.wines : [],
-                              categories: categoryArr,
-                            })
                           );
                         }}
                         key={idx}
@@ -307,12 +286,6 @@ function Page() {
                             },
                           })
                         );
-                        dispatch(
-                          filterInventory({
-                            wines: wineData ? wineData.wines : [],
-                            categories: categoryArr,
-                          })
-                        );
                       }}
                       className="outline-none min-h-full pl-4 bg-transparent w-full"
                     />
@@ -335,12 +308,6 @@ function Page() {
                             },
                           })
                         );
-                        dispatch(
-                          filterInventory({
-                            wines: wineData ? wineData.wines : [],
-                            categories: categoryArr,
-                          })
-                        );
                       }}
                       className="outline-none min-h-full pl-4 bg-transparent w-full"
                     />
@@ -350,17 +317,17 @@ function Page() {
             </div>
           </div>
         </div>
-        <div className="px-8 w-[calc(100vw-25rem)]">
+        <div className="px-8 w-[calc(100vw-25rem)] h-[calc(100vh-11rem)]">
           <div className="space-y-2">
-            {!data ? (
+            {!inventory.filteredData ? (
               <Empty
                 info={
                   "there seems to currently be an issue with the server... Try again later"
                 }
               />
             ) : (
-              data &&
-              data.map((wine, idx) => (
+              inventory.filteredData &&
+              inventory.filteredData.map((wine, idx) => (
                 <TableRow
                   id={"inventory_wine_card_" + idx}
                   key={idx}

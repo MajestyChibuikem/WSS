@@ -138,9 +138,9 @@ function Page() {
             </div>
           </div>
         </div>
-        <div className="w-[calc(100vw-25rem)] pb-20">
+        <div className="w-[calc(100vw-25rem)] h-[calc(100vh-11rem)] overflow-y-auto pb-20">
           <div className="space-y-3">
-            <div className="flex w-full max-w-full bg-wBrand-background_light/60 text-wBrand-accent text-xs p-3 font-semibold sticky top-[9rem] px-8 rounded-xl">
+            <div className="flex w-full max-w-full bg-wBrand-background_light/60 text-wBrand-accent text-xs p-3 font-semibold sticky top-0 px-8 rounded-xl">
               <div className="w-[10%] text-left">ID</div>
               <div className="w-[40%] text-center">ITEM</div>
               <div className="w-[20%] text-center">BY</div>

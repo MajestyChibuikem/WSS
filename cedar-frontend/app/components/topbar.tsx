@@ -1,6 +1,7 @@
 "use client";
 import {
   Activity,
+  Banknote,
   ChartNoAxesGantt,
   LayoutDashboard,
   LogOut,
@@ -49,7 +50,7 @@ function Topbar() {
     {
       name: "Sales",
       href: "/sales",
-      icon: <Activity className="h-4" />,
+      icon: <Banknote className="h-4" />,
       showFor: [Roles.ADMIN],
     },
     {
@@ -65,7 +66,7 @@ function Topbar() {
   );
 
   return (
-    <div className="w-full h-[5rem] relative z-50 bg-wBrand-background">
+    <div className="w-full h-[5rem] relative z-20 bg-wBrand-background">
       <div className="w-full h-[5rem] flex items-center px-10 bg-wBrand-background justify-between fixed top-0 left-0">
         <div className="text-sm flex gap-x-4 items-center">
           <div className="p-2 text-2xl text-wBrand-background stroke-4 bg-wBrand-accent rounded-lg">

@@ -16,7 +16,7 @@ export default function RootLayout({
       <body>
         <ProviderWrapper>
           <ProtectedRoute>
-            <div className="">
+            <div className="overflow-hidden">
               <Topbar />
               {children}
             </div>

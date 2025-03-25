@@ -41,7 +41,7 @@ function Page() {
   };
 
   return (
-    <div className="px-10 w-full">
+    <div className="px-10 w-full overflow-y-auto h-[calc(100vh-5rem)]">
       <h1 className="text-3xl py-8 pl-2 font-semibold">Cart</h1>
       <div className="flex space-x-16">
         <section className="w-[60vw] space-y-2  divide-y divide-wBrand-foreground/5">

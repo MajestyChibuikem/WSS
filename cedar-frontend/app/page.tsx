@@ -36,9 +36,8 @@ import { updateAction } from "./store/slices/wineSlice";
 import { toggleUserEditor } from "./store/slices/userSlice";
 import { Actions, Roles } from "./utils/types";
 import NewUserSideBar from "./components/new_user_sidebar";
-import UserCard from "./components/user_card";
 import { setActivities } from "./store/slices/activitySlice";
-import ActionTableRow from "./components/action_table_row";
+import ActionRowCard from "./components/action_row_card";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -170,7 +169,7 @@ export default function Home() {
     );
 
   return (
-    <main className="w-[100vw] px-10 space-y-8 py-6">
+    <main className="w-[100vw] px-10 space-y-8 py-6 overflow-y-auto h-[calc(100vh-5rem)]">
       {showUserEditor && <NewUserSideBar />}
       {userRole != Roles.STAFF && (
         <section className="flex gap-x-2 text-xs pt-10 items-center">
@@ -441,7 +440,7 @@ export default function Home() {
           <h3 className="text-xl font-medium">Latest Activity</h3>
           <div className="grid grid-cols-2 gap-6 gap-y-4">
             {activities.slice(0, 10).map((activity, idx) => (
-              <ActionTableRow key={idx} activity={activity} />
+              <ActionRowCard key={idx} activity={activity} />
             ))}
           </div>
         </div>

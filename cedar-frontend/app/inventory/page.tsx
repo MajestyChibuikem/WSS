@@ -135,7 +135,7 @@ function Page() {
                   dispatch(toggleWineEditor());
                   dispatch(dispatch(updateAction(Actions.CREATE)));
                 }}
-                className="px-5 py-2 bg-wBrand-accent text-wBrand-background rounded-xl"
+                className="px-5 py-2 bg-wBrand-accent text-nowrap text-wBrand-background rounded-xl"
               >
                 Add Wine
               </button>

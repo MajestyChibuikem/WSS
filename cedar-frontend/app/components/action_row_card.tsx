@@ -2,6 +2,7 @@ import React from "react";
 import { Activity } from "../store/slices/activitySlice";
 import { ArrowRight } from "lucide-react";
 import { truncateText } from "../utils/helpers";
+import { format, parseISO } from "date-fns";
 
 function ActionRowCard({ activity }: { activity: Activity }) {
   return (
@@ -18,14 +19,16 @@ function ActionRowCard({ activity }: { activity: Activity }) {
               "N/A"}
           </h2>
         </div>
-        <div className="text-xs flex gap-3 text-gray-400">
+        <div className="text-xs flex gap-3 text-gray-400 text-nowrap">
           <p>#{activity.id}</p>
           <p>
             {(activity.acting_username &&
               truncateText(activity.acting_username, 6)) ??
               "N/A"}
           </p>
-          <p>{activity.timestamp}</p>
+          <p className="text-wrap">
+            {format(parseISO(activity.timestamp), "do MMM yy, h:mma")}
+          </p>
         </div>
       </div>
     </div>

@@ -172,7 +172,7 @@ export default function Home() {
     <main className="w-[100vw] px-10 space-y-8 py-6 overflow-y-auto h-[calc(100vh-5rem)]">
       {showUserEditor && <NewUserSideBar />}
       {userRole == Roles.ADMIN && (
-        <section className="flex gap-x-2 text-xs pt-10 items-center">
+        <section className="flex gap-x-2 text-xs xl:pt-10 items-center">
           <button
             onClick={() => {
               dispatch(updateAction(Actions.CREATE));
@@ -212,8 +212,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="flex justify-between items-center">
-        <div className="space-y-2">
+      <section className="flex flex-col xl:flex-row gap-20 justify-between items-center">
+        <div className="space-y-2 text-center xl:text-left">
           <h3 className="font-medium">Revenue</h3>
           <div className="flex items-center gap-4">
             {revenueData && revenueData.revenue !== undefined && (
@@ -367,7 +367,7 @@ export default function Home() {
                       : "bg-wBrand-background border border-wBrand-foreground/20"
                   }`}
                 >
-                  <h4 className="text-sm">
+                  <h4 className="text-sm text-nowrap">
                     {wine.name.length > 10
                       ? `${wine.name.slice(0, 10)}...`
                       : wine.name}

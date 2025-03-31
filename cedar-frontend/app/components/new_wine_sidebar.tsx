@@ -11,7 +11,7 @@ import {
   useAddWineMutation,
   useUpdateWineMutation,
 } from "../store/slices/apiSlice";
-import { Actions } from "../utils/types";
+import { Actions, WineCategory } from "../utils/types";
 import {
   Select,
   SelectContent,
@@ -120,7 +120,16 @@ function NewWineSideBar() {
             <p className="text-xs text-wBrand-foreground/60 font-medium">
               WINE CATEGORY
             </p>
-            <Select>
+            <Select
+              value={wineSelector.currentlyEditing?.category}
+              onValueChange={(value) => {
+                dispatch(
+                  setCurrentlyEditing({
+                    category: value as WineCategory,
+                  })
+                );
+              }}
+            >
               <SelectTrigger className="w-full rounded-xl h-max p-3">
                 <SelectValue
                   placeholder={
@@ -134,11 +143,6 @@ function NewWineSideBar() {
                   <SelectItem
                     className="p-3"
                     key={idx}
-                    onClick={() => {
-                      console.log("item: ", item);
-                      item.content &&
-                        dispatch(setCurrentlyEditing({ category: item.value }));
-                    }}
                     value={item.value.toString()}
                   >
                     {item.content}

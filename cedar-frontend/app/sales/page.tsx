@@ -170,7 +170,10 @@ function Page() {
                               min: salesFilter.priceRange
                                 ? salesFilter.priceRange.min
                                 : 0,
-                              max: (e.target.value as unknown) as number,
+                              max:
+                                e.target.value.toString() == ""
+                                  ? Number.POSITIVE_INFINITY
+                                  : ((e.target.value as unknown) as number),
                             },
                           })
                         );

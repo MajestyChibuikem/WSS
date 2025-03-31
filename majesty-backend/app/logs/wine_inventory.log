@@ -7292,6 +7292,7 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint fail
 [2025-03-31 08:53:36,137] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-31 08:53:36,137] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 293 | Affected: Total Stock
 [2025-03-31 09:08:26,975] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+<<<<<<< HEAD
 [2025-03-31 09:11:30,574] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-31 09:11:30,580] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 293 | Affected: Total Stock
 [2025-03-31 09:22:41,442] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
@@ -7317,3 +7318,27 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint fail
 [2025-03-31 09:51:24,680] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
 [2025-03-31 09:51:24,686] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
 [2025-03-31 09:51:24,687] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+=======
+[2025-03-31 09:30:45,019] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-31 09:31:18,814] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-31 09:31:19,102] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 18455044.90 | Affected: Revenue
+[2025-03-31 09:31:19,115] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-31 09:31:19,140] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 293 | Affected: Total Stock
+[2025-03-31 09:31:19,166] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-31 09:31:19,191] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 09:31:19,247] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-31 09:31:19,251] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-31 09:31:37,152] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-31 09:31:40,124] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 09:51:37,867] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-31 09:51:50,700] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: majesty | Affected: majesty
+[2025-03-31 09:51:50,736] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 09:53:19,872] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: majesty-chibuikem | Affected: majesty-chibuikem
+[2025-03-31 09:53:19,901] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 09:53:48,532] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: tt | Affected: tt
+[2025-03-31 09:53:48,559] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 09:53:57,410] INFO in logger: [DELETE_USER_SUCCESS] User 1: Deleted user tt (ID: 10) | Affected: tt
+[2025-03-31 09:53:57,445] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 09:54:06,506] INFO in logger: [DELETE_USER_SUCCESS] User 1: Deleted user majesty-chibuikem (ID: 9) | Affected: majesty-chibuikem
+[2025-03-31 09:54:06,535] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+>>>>>>> fd64bbb6aff285e8e90af46aa8bad689da7c2368

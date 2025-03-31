@@ -17,7 +17,7 @@ interface Params {
 function UserCard({ user }: Params) {
   const dispatch = useDispatch();
   return (
-    <div className="border border-wBrand-foreground/10 flex items-center rounded-xl p-4 gap-x-3 bg-wBrand-background/5 relative">
+    <div className="border border-wBrand-foreground/10 w-[18rem] flex items-center rounded-xl p-4 gap-x-3 bg-wBrand-background/5 relative">
       <div className="min-h-12 h-12 min-w-12 w-12 rounded-full flex items-center justify-center bg-wBrand-accent">
         {getInitials(user.username)}
       </div>

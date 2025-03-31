@@ -84,7 +84,7 @@ function Page() {
             <div className="rounded-lg space-y-8 py-10 overflow-y-auto relative bg-wBrand-background_light/60 h-full">
               <div className="space-y-4 px-6">
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
-                  ACTIONS
+                  FILTER BY ACTIONS
                 </p>
                 <div className="grid grid-cols-2 gap-2">
                   {actions.map((category, idx) => (
@@ -158,7 +158,7 @@ function Page() {
               <div className="w-[40%] ">ITEM</div>
               <div className="w-[20%] ">BY</div>
               <div className="w-[20%] ">DATE</div>
-              <div className="w-[10%] text-right">COST</div>
+              <div className="w-[10%] text-right">ACTION</div>
             </div>
             {filteredActivities.map((activity, idx) => (
               <ActionTableRow key={idx} activity={activity} />

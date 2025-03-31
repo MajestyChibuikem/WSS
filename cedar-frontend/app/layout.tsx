@@ -1,5 +1,3 @@
-import NewWineSideBar from "./components/new_wine_sidebar";
-import Sidebar from "./components/sidebar";
 import Topbar from "./components/topbar";
 import "./globals.css";
 import ProviderWrapper from "./components/ProviderWrapper";

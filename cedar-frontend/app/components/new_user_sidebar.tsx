@@ -41,7 +41,9 @@ function NewUserSideBar() {
 
   const handleSubmit = async () => {
     setIsLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 0));
     if (user.currentlyEditing && user.action_type == Actions.CREATE) {
+      console.log("role: ", user.currentlyEditing);
       try {
         toast("Creating user");
         const response = await createUser({
@@ -55,6 +57,8 @@ function NewUserSideBar() {
           toast.error("Couldn't create user.");
           return;
         }
+
+        // console.log("response: ", response);
         setIsLoading(false);
         dispatch(clearCurrentlyEditing());
         toast.success("Created user successfully.");
@@ -69,7 +73,7 @@ function NewUserSideBar() {
           username: user.currentlyEditing.username,
           password: user.currentlyEditing.password,
           is_admin: user.currentlyEditing.roles[0] == Roles.ADMIN,
-          roles: user.currentlyEditing.roles[0].toLowerCase(),
+          roles: [user.currentlyEditing.roles[0].toLowerCase()],
           id: user.currentlyEditing.id,
         });
         if (response.error) {
@@ -157,6 +161,7 @@ function NewUserSideBar() {
                     className="p-3"
                     key={idx}
                     onClick={() => {
+                      console.log("item: ", item);
                       item.content &&
                         dispatch(
                           setCurrentlyEditing({

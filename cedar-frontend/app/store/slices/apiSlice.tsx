@@ -122,6 +122,7 @@ export const apiSlice = createApi({
         url: `/auth/user/${user_id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Users"],
     }),
 
     // Fetch all wines

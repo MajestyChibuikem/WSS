@@ -41,7 +41,7 @@ function Page() {
           Add User
         </button>
       </div>
-      <div className="grid grid-cols-4 gap-5 w-full">
+      <div className="grid md:grid-cols-3 xl:grid-cols-4 gap-5 w-full">
         {!userData ? (
           <Empty
             info={

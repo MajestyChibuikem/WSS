@@ -39,7 +39,7 @@ function Page() {
   useEffect(() => {
     if (isAdmin) {
       dispatch(setSales(data));
-    } else {
+    } else if (!isAdmin) {
       dispatch(setSales(userSalesData));
     }
   }, [data, isAdmin]);
@@ -112,6 +112,7 @@ function Page() {
                     </div>
                     <input
                       type="text"
+                      value={salesFilter.username}
                       onChange={(e) =>
                         dispatch(setSalesFilters({ username: e.target.value }))
                       }
@@ -179,7 +180,7 @@ function Page() {
                   </div>
                 </div>
               </div>
-              <div className="relative w-max px-6 space-y-4">
+              {/* <div className="relative w-max px-6 space-y-4">
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
                   FILTER BY DATE RANGE
                 </p>
@@ -189,7 +190,7 @@ function Page() {
                   triggerClassname="h-max text-xs bg-wBrand-background/40 rounded-xl px-4 py-3 !w-full border border-wBrand-foreground/20 items-center justify-center flex"
                   uniqueKey="sales_date_range"
                 />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -52,31 +52,6 @@ function TableRow({ wine, id }: Params) {
   );
 
   return (
-    // <div className="flex text-sm rounded-xl items-center p-3 px-5 w-full justify-between gap-x-8">
-    //   <div className="flex w-[25%]">
-    //     <h2>Wine title</h2>
-    //   </div>
-    //   <div className="flex justify-center w-[20%]">
-    //     <p>wine category</p>
-    //   </div>
-    //   <div className="flex justify-center w-[15%]">
-    //     <p>10</p>
-    //   </div>
-    //   <div className="flex justify-center w-[10%]">
-    //     <p>N100,000</p>
-    //   </div>
-    //   <div className="flex justify-center w-[25%]">
-    //     <button className="text-sm flex items-center gap-2 p-4 justify-center h-[1.5rem] bg-wBrand-accent/60 text-wBrand-foreground rounded-lg">
-    //       <ShoppingBasket className="h-4" />
-    //       <p>Add to cart</p>
-    //     </button>
-    //   </div>
-    //   <div className="flex justify-center w-[10%]">
-    //     <button className="text-sm flex items-center gap-2 p-4 justify-center h-[1.5rem] rounded-lg">
-    //       <Ellipsis className="h-4" />
-    //     </button>
-    //   </div>
-    // </div>
     <div className="grid grid-cols-1 xl:flex w-full rounded-xl bg-wBrand-background_light/60 gap-6 justify-between p-4">
       <div className="space-y-2">
         <h2 className="text-base font-medium">{wine.name}</h2>
@@ -111,7 +86,7 @@ function TableRow({ wine, id }: Params) {
           <p>{wine.category}</p>
         </div>
         <div className="flex gap-3 items-center xl:flex-col xl:gap-2">
-          {userRole != Roles.STAFF &&
+          {(userRole == Roles.ADMIN || userRole == Roles.SUPER_USER) &&
             !inventoryCart.some((item) => item.id === wine.id) && (
               <DropdownMenu>
                 {" "}
@@ -150,11 +125,12 @@ function TableRow({ wine, id }: Params) {
 
           {!inventoryCart.some((item) => item.id === wine.id) && (
             <button
+              disabled={wine.in_stock == 0}
               onClick={() => dispatch(addToCart(wine))}
-              className="text-sm flex items-center gap-2 w-[8.4rem] justify-center h-8 bg-wBrand-accent/80 text-wBrand-background rounded-lg"
+              className="text-sm flex items-center gap-2 w-[8.4rem] disabled:bg-gray-50/10 justify-center h-8 bg-wBrand-accent/80 text-wBrand-background rounded-lg"
             >
               <ShoppingBasket className="h-4" />
-              <p>Add to cart</p>
+              <p>{wine.in_stock == 0 ? "Out of stock" : "Add to cart"}</p>
             </button>
           )}
           {inventoryCart.some((item) => item.id === wine.id) && (

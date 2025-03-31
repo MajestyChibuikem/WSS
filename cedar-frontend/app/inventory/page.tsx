@@ -126,16 +126,6 @@ function Page() {
                 />
               </div>
             )}
-            {/* {wineData && (
-              <button
-                onClick={() => {
-                  dispatch(filterInventory({ wines: wineData.wines }));
-                }}
-                className="px-5 py-2 h-full bg-wBrand-accent text-wBrand-background rounded-xl"
-              >
-                Search
-              </button>
-            )} */}
           </div>
 
           <div className="flex items-center gap-3">
@@ -147,7 +137,7 @@ function Page() {
                 }}
                 className="px-5 py-2 bg-wBrand-accent text-wBrand-background rounded-xl"
               >
-                Add Product
+                Add Wine
               </button>
             )}
 
@@ -155,13 +145,23 @@ function Page() {
               disabled={inventory.cart.length == 0}
               onClick={() => router.push("/cart")}
               className={clsx(
-                "px-4 py-2 border rounded-xl h-full",
+                "px-4 py-2 border rounded-xl h-full relative",
                 inventory.cart.length > 0
                   ? "border-wBrand-accent text-wBrand-accent"
                   : "border-gray-50/30 text-gray-50/30"
               )}
             >
               <ShoppingBasketIcon className="h-5" />
+              <div
+                className={clsx(
+                  "size-5 flex items-center -top-1 -right-1 justify-center font-bold rounded-full absolute",
+                  inventory.cart.length > 0
+                    ? "bg-wBrand-accent text-wBrand-background"
+                    : "bg-gray-800 text-gray-600"
+                )}
+              >
+                <p className="text-xs">{inventory.cart.length}</p>
+              </div>
             </button>
           </div>
         </div>
@@ -316,7 +316,7 @@ function Page() {
             </div>
           </div>
         </div>
-        <div className="px-8 w-[calc(100vw-25rem)] h-[calc(100vh-11rem)]">
+        <div className="px-8 w-[calc(100vw-25rem)] h-[calc(100vh-11rem)] pb-10 overflow-y-auto">
           <div className="space-y-2">
             {!inventory.filteredData ? (
               <Empty

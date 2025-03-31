@@ -16,6 +16,11 @@ export default function ProtectedRoute({
   const [checked, setChecked] = useState(false); // Prevents unnecessary re-renders
 
   useEffect(() => {
+    const token = localStorage.getItem("wineryAuthToken");
+    // console.log("token: ", token, window.location.pathname);
+    if (!token && window.location.pathname !== "/login") {
+      window.location.href = "/login";
+    }
     if (!isLoading && !checked) {
       setChecked(true); // Ensures this logic runs only once per render cycle
 

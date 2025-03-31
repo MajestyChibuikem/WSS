@@ -1,0 +1,186 @@
+[2025-03-28 08:25:05,151] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-28 08:26:06,532] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 08:26:07,065] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-28 08:26:07,072] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 112 | Affected: Total Stock
+[2025-03-28 08:26:07,076] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 08:26:07,101] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:26:07,107] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:26:07,125] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 08:26:07,201] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 08:26:48,572] ERROR in logger: [ADD_WINE_ERROR] User 1: Missing field: category | Affected: Wine Inventory
+[2025-03-28 08:26:48,593] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:26:53,521] ERROR in logger: [ADD_WINE_ERROR] User 1: Missing field: category | Affected: Wine Inventory
+[2025-03-28 08:26:53,548] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:27:39,878] ERROR in logger: [ADD_WINE_ERROR] User 1: Missing field: category | Affected: Wine Inventory
+[2025-03-28 08:27:39,902] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:28:08,461] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: New wine | Affected: New wine
+[2025-03-28 08:28:08,486] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:31:52,110] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 08:31:52,453] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:31:52,478] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 142 | Affected: Total Stock
+[2025-03-28 08:32:42,348] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: Some wine | Affected: Some wine
+[2025-03-28 08:32:42,455] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:33:09,378] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 08:33:09,951] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 08:33:09,952] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-28 08:33:09,952] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 230 | Affected: Total Stock
+[2025-03-28 08:33:10,007] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:33:10,020] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:33:10,041] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 08:33:10,046] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 08:34:01,820] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: some stuff | Affected: some stuff
+[2025-03-28 08:34:01,923] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:34:38,658] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 08:34:39,200] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-28 08:34:39,204] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 262 | Affected: Total Stock
+[2025-03-28 08:34:39,213] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 08:34:39,233] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:34:39,238] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 08:34:39,240] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 08:34:39,264] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:35:21,515] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: sonenet | Affected: sonenet
+[2025-03-28 08:35:21,567] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:36:42,749] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 08:36:44,117] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-28 08:36:44,128] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 294 | Affected: Total Stock
+[2025-03-28 08:36:44,135] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 08:36:44,173] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:36:44,188] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 08:36:44,197] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 08:36:44,197] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:37:13,240] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: spark | Affected: spark
+[2025-03-28 08:37:13,295] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:39:07,173] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:39:42,667] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: pamela | Affected: pamela
+[2025-03-28 08:39:42,701] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:39:50,072] INFO in logger: [DELETE_USER_SUCCESS] User 1: Deleted user pamela (ID: 5) | Affected: pamela
+[2025-03-28 08:39:50,094] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:39:59,024] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-28 08:39:59,078] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 08:39:59,161] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 08:39:59,233] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 08:53:46,114] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 08:53:46,391] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-28 08:53:46,439] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 315 | Affected: Total Stock
+[2025-03-28 08:53:46,445] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 08:53:46,458] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:53:46,458] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:53:46,558] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 08:53:46,571] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 08:57:48,512] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:57:59,472] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: pamela | Affected: pamela
+[2025-03-28 08:57:59,492] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:58:13,906] INFO in logger: [LOGIN_SUCCESS] User 5: User logged in successfully | Affected: pamela
+[2025-03-28 08:58:14,415] INFO in logger: [GET_REVENUE] User 5: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-28 08:58:14,420] INFO in logger: [GET_STOCK_BY_CATEGORY] User 5: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 08:58:14,424] INFO in logger: [GET_TOTAL_STOCK] User 5: Total stock checked: 315 | Affected: Total Stock
+[2025-03-28 08:58:14,475] INFO in logger: [GET_ALL_WINES] User 5: Fetched all wines | Affected: All Wines
+[2025-03-28 08:58:14,476] INFO in logger: [GET_INVENTORY_VALUE] User 5: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 08:58:14,486] INFO in logger: [COMPARE_SALES] User 5: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 09:00:35,493] INFO in logger: [CHECKOUT_SUCCESS] User 5: Checkout completed for invoice 8 | Affected: Invoice ID 8
+[2025-03-28 09:02:19,314] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 09:02:19,499] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 15507042.92 | Affected: Revenue
+[2025-03-28 09:02:19,500] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 303 | Affected: Total Stock
+[2025-03-28 09:02:19,523] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 09:02:19,582] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 09:02:19,588] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 09:02:19,589] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 09:02:19,595] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 13:41:01,407] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:43:48,188] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:49:09,608] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:49:49,713] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:50:19,378] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:50:50,509] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:51:50,978] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:53:15,546] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:53:59,645] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:55:46,466] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:55:50,295] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 14:03:33,643] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 14:03:33,650] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 303 | Affected: Total Stock
+[2025-03-28 14:05:46,854] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 14:05:47,201] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 14:05:47,223] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 303 | Affected: Total Stock
+[2025-03-28 14:06:36,416] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 14:09:07,767] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 14:09:07,781] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 303 | Affected: Total Stock
+[2025-03-28 14:09:21,390] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 14:27:02,853] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 15507042.92 | Affected: Revenue
+[2025-03-28 14:27:02,866] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 303 | Affected: Total Stock
+[2025-03-28 14:27:02,871] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 14:27:02,896] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 14:27:02,922] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 14:27:02,931] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 14:27:02,940] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 14:35:48,692] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 14:36:16,213] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 14:41:00,548] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 14:41:00,550] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 303 | Affected: Total Stock
+[2025-03-28 14:50:34,010] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 9 | Affected: Invoice ID 9
+[2025-03-28 14:51:28,840] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 14:51:28,842] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 299 | Affected: Total Stock
+[2025-03-28 14:51:35,436] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 10 | Affected: Invoice ID 10
+[2025-03-28 14:51:49,368] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 16981043.91 | Affected: Revenue
+[2025-03-28 14:51:49,379] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 14:51:49,386] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 14:51:49,410] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 14:51:49,467] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 14:54:15,128] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 14:54:36,825] INFO in logger: [LOGIN_SUCCESS] User 5: User logged in successfully | Affected: pamela
+[2025-03-28 14:54:37,072] INFO in logger: [GET_REVENUE] User 5: Revenue calculated for the past 30 days: 16981043.91 | Affected: Revenue
+[2025-03-28 14:54:37,085] INFO in logger: [GET_STOCK_BY_CATEGORY] User 5: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 14:54:37,090] INFO in logger: [GET_INVENTORY_VALUE] User 5: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 14:54:37,107] INFO in logger: [COMPARE_SALES] User 5: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 14:57:14,060] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2025-03-28 14:57:14,131] INFO in logger: [GET_TOTAL_STOCK] User 5: Total stock checked: 298 | Affected: Total Stock
+[2025-03-28 14:57:14,132] INFO in logger: [GET_ALL_WINES] User 5: Fetched all wines | Affected: All Wines
+[2025-03-28 14:59:44,486] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 14:59:44,946] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 16981043.91 | Affected: Revenue
+[2025-03-28 14:59:44,972] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 14:59:44,995] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 14:59:45,010] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 14:59:45,011] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 14:59:57,942] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: pamela
+[2025-03-28 14:59:57,965] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:00:28,260] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 15:00:28,330] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:00:34,502] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: pamela
+[2025-03-28 15:00:34,524] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:14:14,148] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: pamela
+[2025-03-28 15:14:14,176] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:14:21,763] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: pamela
+[2025-03-28 15:14:21,785] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:14:37,588] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: Pamela
+[2025-03-28 15:14:37,613] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:14:45,590] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: PamelaTory
+[2025-03-28 15:14:45,611] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:14:54,901] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: Pamela_Tory
+[2025-03-28 15:14:54,925] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:14:55,164] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: Pamela_Tory
+[2025-03-28 15:14:55,185] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:15:04,523] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: Pamela_Tory
+[2025-03-28 15:15:04,543] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:19:46,986] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: Pamela_Tory
+[2025-03-28 15:19:47,019] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:19:53,451] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: Pamela_Tory
+[2025-03-28 15:19:53,474] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:20:36,670] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 15:20:37,162] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 16981043.91 | Affected: Revenue
+[2025-03-28 15:20:37,211] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 298 | Affected: Total Stock
+[2025-03-28 15:20:37,220] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 15:20:37,241] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 15:20:37,256] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 15:20:37,271] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 15:20:48,923] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: Pamela_Tory
+[2025-03-28 15:20:48,948] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:20:53,010] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: Pamela_Tory
+[2025-03-28 15:20:53,029] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:21:19,363] INFO in logger: [LOGIN_SUCCESS] User 5: User logged in successfully | Affected: Pamela_Tory
+[2025-03-28 15:54:43,418] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 15:54:43,656] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 16981043.91 | Affected: Revenue
+[2025-03-28 15:54:43,745] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 15:54:43,796] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 15:54:43,806] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 15:54:43,808] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:55:17,964] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 11 | Affected: Invoice ID 11

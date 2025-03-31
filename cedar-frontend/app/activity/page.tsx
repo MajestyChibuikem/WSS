@@ -84,7 +84,7 @@ function Page() {
             <div className="rounded-lg space-y-8 py-10 overflow-y-auto relative bg-wBrand-background_light/60 h-full">
               <div className="space-y-4 px-6">
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
-                  ACTIONS
+                  FILTER BY ACTIONS
                 </p>
                 <div className="grid grid-cols-2 gap-2">
                   {actions.map((category, idx) => (

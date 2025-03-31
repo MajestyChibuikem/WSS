@@ -6,7 +6,6 @@ import {
   setCurrentlyEditing,
 } from "../store/slices/wineSlice";
 import { RootState } from "../store";
-import Dropdown from "./dropdown";
 import { categoryDropdownItems } from "../utils/mock_data";
 import {
   useAddWineMutation,
@@ -37,14 +36,17 @@ function NewWineSideBar() {
 
   const handleSubmit = async () => {
     setIsLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 0));
     if (
       wineSelector.action_type == Actions.CREATE &&
       wineSelector.currentlyEditing
     ) {
       try {
         toast("Adding wine...");
+        console.log("wine: ", wineSelector.currentlyEditing);
         const response = await addWine({
           ...wineSelector.currentlyEditing,
+          category: wineSelector.currentlyEditing.category,
           bottle_size: wineSelector.currentlyEditing.bottle_size,
         });
 
@@ -132,10 +134,11 @@ function NewWineSideBar() {
                   <SelectItem
                     className="p-3"
                     key={idx}
-                    onClick={() =>
+                    onClick={() => {
+                      console.log("item: ", item);
                       item.content &&
-                      dispatch(setCurrentlyEditing({ category: item.value }))
-                    }
+                        dispatch(setCurrentlyEditing({ category: item.value }));
+                    }}
                     value={item.value.toString()}
                   >
                     {item.content}
@@ -202,7 +205,7 @@ function NewWineSideBar() {
                     )
                   }
                   type="number"
-                  placeholder="Enter wine name"
+                  placeholder="Enter wine price"
                   className="outline-none rounded-xl h-11 border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40 pl-4 w-full"
                 />
               </div>
@@ -222,7 +225,7 @@ function NewWineSideBar() {
                     )
                   }
                   type="number"
-                  placeholder="Enter number of wine in stock"
+                  placeholder="Enter no. of wine available"
                   className="outline-none rounded-xl h-11 border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40 pl-4 w-full"
                 />
               </div>

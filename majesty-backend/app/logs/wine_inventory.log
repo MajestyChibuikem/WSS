@@ -6352,3 +6352,965 @@ werkzeug.exceptions.MethodNotAllowed: 405 Method Not Allowed: The method is not 
 [2025-03-25 14:36:43,704] INFO in logger: [CHECK_TOKEN_VALID] User 4: Token is valid | Affected: Token System
 [2025-03-25 14:36:43,822] INFO in logger: [GET_ALL_WINES] User 4: Fetched all wines | Affected: All Wines
 [2025-03-25 14:36:43,832] INFO in logger: [GET_TOTAL_STOCK] User 4: Total stock checked: 110 | Affected: Total Stock
+[2025-03-25 15:42:43,514] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-25 15:43:15,662] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-25 15:43:17,077] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 841400.94 | Affected: Revenue
+[2025-03-25 15:43:17,082] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-25 15:43:17,082] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 110 | Affected: Total Stock
+[2025-03-25 15:43:17,148] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-25 15:43:17,149] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-25 15:43:17,160] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-25 15:43:17,272] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-25 15:43:35,962] ERROR in logger: [CHECKOUT_ERROR] User 1: Not enough stock for wine Graham’s 20 Year Old Tawny | Affected: Wine ID 3
+[2025-03-25 15:44:14,010] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 5 | Affected: Invoice ID 5
+[2025-03-25 15:44:29,003] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-25 15:45:10,613] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-25 15:45:10,614] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 107 | Affected: Total Stock
+[2025-03-25 15:45:29,796] INFO in logger: [UPDATE_WINE_SUCCESS] User 1: Updated Graham’s 20 Year Old Tawny | Affected: Graham’s 20 Year Old Tawny
+[2025-03-25 15:45:29,817] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-25 15:45:56,564] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 6 | Affected: Invoice ID 6
+[2025-03-25 15:46:31,803] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-25 22:44:00,709] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-25 22:44:53,338] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-25 22:44:53,793] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 1469401.93 | Affected: Revenue
+[2025-03-25 22:44:53,801] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-25 22:44:53,808] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 135 | Affected: Total Stock
+[2025-03-25 22:44:53,848] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-25 22:44:53,868] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-25 22:44:53,910] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-25 22:44:53,911] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-25 22:45:27,628] INFO in logger: [UPDATE_WINE_SUCCESS] User 1: Updated Cloudy Bay Sauvignon Blanc | Affected: Cloudy Bay Sauvignon Blanc
+[2025-03-25 22:45:27,688] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-25 22:53:15,878] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-25 22:54:40,716] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-25 22:54:40,718] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 132 | Affected: Total Stock
+[2025-03-25 22:55:00,252] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-25 22:55:00,625] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 1469401.93 | Affected: Revenue
+[2025-03-25 22:55:00,644] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-25 22:55:00,696] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-25 22:55:00,699] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-25 22:55:00,714] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-25 22:55:22,946] INFO in logger: [LOGIN_SUCCESS] User 4: User logged in successfully | Affected: Alice
+[2025-03-26 10:03:28,571] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-26 10:03:30,233] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 1469401.93 | Affected: Revenue
+[2025-03-26 10:03:30,239] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 132 | Affected: Total Stock
+[2025-03-26 10:03:30,240] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-26 10:03:30,282] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-26 10:03:30,292] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-26 10:03:30,294] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-26 10:03:30,300] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-26 10:04:29,935] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-26 10:04:30,340] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 1469401.93 | Affected: Revenue
+[2025-03-26 10:04:30,417] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-26 10:04:30,423] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 132 | Affected: Total Stock
+[2025-03-26 10:04:30,455] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-26 10:04:30,465] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-26 10:04:30,465] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-26 10:04:30,475] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-26 10:05:45,743] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-26 10:05:46,335] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 1469401.93 | Affected: Revenue
+[2025-03-26 10:05:46,343] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 132 | Affected: Total Stock
+[2025-03-26 10:05:46,354] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-26 10:05:46,368] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-26 10:05:46,378] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-26 10:05:46,380] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-26 10:05:46,404] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-26 10:07:05,851] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-26 10:07:06,409] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 1469401.93 | Affected: Revenue
+[2025-03-26 10:07:06,422] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-26 10:07:06,427] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 132 | Affected: Total Stock
+[2025-03-26 10:07:06,452] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-26 10:07:06,452] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-26 10:07:06,457] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-26 10:07:06,463] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-26 10:09:05,053] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-26 10:09:05,586] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 1469401.93 | Affected: Revenue
+[2025-03-26 10:09:05,591] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-26 10:09:05,595] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 132 | Affected: Total Stock
+[2025-03-26 10:09:05,654] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-26 10:09:05,663] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-26 10:09:05,664] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-26 10:09:05,674] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-26 10:09:37,568] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-26 10:09:37,788] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 1469401.93 | Affected: Revenue
+[2025-03-26 10:09:37,791] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 132 | Affected: Total Stock
+[2025-03-26 10:09:37,792] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-26 10:09:37,835] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-26 10:09:37,839] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-26 10:09:37,843] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-26 10:09:37,858] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-26 10:10:11,969] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-26 10:10:12,574] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 1469401.93 | Affected: Revenue
+[2025-03-26 10:10:12,582] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-26 10:10:12,582] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 132 | Affected: Total Stock
+[2025-03-26 10:10:12,602] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-26 10:10:12,619] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-26 10:10:12,630] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-26 10:10:12,683] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-26 10:10:21,601] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-26 14:01:08,286] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: Red | Affected: Red
+[2025-03-26 14:01:08,314] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-26 14:03:27,836] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-26 14:03:27,954] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-26 14:03:27,956] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 135 | Affected: Total Stock
+[2025-03-27 04:15:55,029] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-27 04:17:06,926] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-27 04:19:03,161] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-27 04:19:04,023] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 1469401.93 | Affected: Revenue
+[2025-03-27 04:19:04,069] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-27 04:19:04,075] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 135 | Affected: Total Stock
+[2025-03-27 04:19:04,092] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 04:19:04,093] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-27 04:19:04,111] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-27 04:19:04,191] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 04:20:04,071] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-27 04:20:15,040] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-27 04:22:08,832] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 1469401.93 | Affected: Revenue
+[2025-03-27 04:22:08,854] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-27 04:22:08,949] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 04:22:08,970] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-27 04:22:09,061] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-27 04:30:41,588] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-27 04:30:41,588] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 1469401.93 | Affected: Revenue
+[2025-03-27 04:30:41,633] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 04:30:41,636] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-27 04:30:41,680] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-27 04:32:15,271] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 7 | Affected: Invoice ID 7
+[2025-03-27 04:32:30,325] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-27 04:32:30,345] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-27 04:32:30,352] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 115 | Affected: Total Stock
+[2025-03-27 04:32:30,363] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 04:32:30,491] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-27 04:32:30,513] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 04:32:30,552] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-27 04:36:35,833] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 04:43:35,883] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 04:43:40,642] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 115 | Affected: Total Stock
+[2025-03-27 04:43:40,644] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-27 04:43:40,658] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-27 04:43:40,674] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 04:43:40,679] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-27 04:43:40,680] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-27 04:45:12,366] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-27 04:45:12,373] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-27 04:45:12,419] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 04:45:12,426] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-27 04:45:12,629] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-27 05:04:12,010] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 05:04:12,012] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 115 | Affected: Total Stock
+[2025-03-27 05:04:53,126] ERROR in logger: [ADD_WINE_ERROR] User 1: Missing field: category | Affected: Wine Inventory
+[2025-03-27 05:04:53,150] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 05:06:56,525] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 05:07:17,811] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 4 | Affected: cidar Alice
+[2025-03-27 05:07:17,832] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 05:18:43,057] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 05:18:43,060] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 115 | Affected: Total Stock
+[2025-03-27 05:18:52,603] ERROR in logger: [ADD_WINE_ERROR] User 1: Missing field: category | Affected: Wine Inventory
+[2025-03-27 05:18:52,619] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 05:21:58,327] ERROR in logger: [ADD_WINE_ERROR] User 1: Missing field: category | Affected: Wine Inventory
+[2025-03-27 05:21:58,358] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 05:22:36,268] ERROR in logger: [ADD_WINE_ERROR] User 1: Missing field: category | Affected: Wine Inventory
+[2025-03-27 05:22:36,387] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 05:22:42,001] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-27 05:22:42,151] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 05:22:42,164] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 115 | Affected: Total Stock
+[2025-03-27 05:23:24,850] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: new wine | Affected: new wine
+[2025-03-27 05:23:24,871] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 05:23:55,617] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-27 05:23:55,738] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 05:23:55,738] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 125 | Affected: Total Stock
+[2025-03-27 05:24:18,040] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: new wind | Affected: new wind
+[2025-03-27 05:24:18,070] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 05:29:55,300] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 05:30:14,598] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: pamela | Affected: pamela
+[2025-03-27 05:30:14,619] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 05:30:29,166] INFO in logger: [DELETE_USER_SUCCESS] User 1: Deleted user pamela (ID: 5) | Affected: pamela
+[2025-03-27 05:30:36,683] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-27 05:30:36,747] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 05:31:58,593] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-27 05:31:58,769] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 05:33:59,128] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: pamela | Affected: pamela
+[2025-03-27 05:33:59,153] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 05:34:08,371] INFO in logger: [DELETE_USER_SUCCESS] User 1: Deleted user pamela (ID: 5) | Affected: pamela
+[2025-03-27 05:34:24,144] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-27 05:34:24,209] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 05:35:21,327] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-27 05:35:21,599] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 05:35:50,000] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: pamela | Affected: pamela
+[2025-03-27 05:35:50,022] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 05:35:58,077] INFO in logger: [DELETE_USER_SUCCESS] User 1: Deleted user pamela (ID: 5) | Affected: pamela
+[2025-03-27 05:36:32,006] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-27 05:36:32,121] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 05:36:35,985] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 05:36:36,000] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 198 | Affected: Total Stock
+[2025-03-27 05:43:29,991] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 05:50:04,461] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-27 05:50:04,550] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 05:50:46,089] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-27 05:50:46,156] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 05:51:11,718] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: pamela | Affected: pamela
+[2025-03-27 05:51:11,744] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 13:27:17,027] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-27 13:27:17,107] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 13:27:21,158] INFO in logger: [DELETE_USER_SUCCESS] User 1: Deleted user pamela (ID: 5) | Affected: pamela
+[2025-03-27 13:27:28,214] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-27 13:27:28,699] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-27 13:27:28,717] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 198 | Affected: Total Stock
+[2025-03-27 13:27:28,720] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-27 13:27:28,733] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 13:27:28,767] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-27 13:27:28,776] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-27 13:27:38,804] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-27 13:27:38,869] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 13:27:56,198] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: pamela | Affected: pamela
+[2025-03-27 13:27:56,218] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 13:29:03,188] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-27 13:29:03,285] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 13:29:07,971] INFO in logger: [DELETE_USER_SUCCESS] User 1: Deleted user pamela (ID: 5) | Affected: pamela
+[2025-03-27 13:29:07,992] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-27 13:29:13,515] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 13:29:13,520] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 198 | Affected: Total Stock
+[2025-03-27 13:29:42,330] ERROR in logger: [ADD_WINE_ERROR] User 1: (sqlite3.IntegrityError) UNIQUE constraint failed: wines.name
+[SQL: INSERT INTO wines (name, abv, price, category, bottle_size, in_stock, added_by, added_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('new wine', 21.5, 200000.0, 'Rosé', '340', '22', '1', '2025-03-27 12:29:42.328675')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) | Affected: Wine Inventory
+[2025-03-27 13:29:42,360] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 13:29:47,403] ERROR in logger: [ADD_WINE_ERROR] User 1: (sqlite3.IntegrityError) UNIQUE constraint failed: wines.name
+[SQL: INSERT INTO wines (name, abv, price, category, bottle_size, in_stock, added_by, added_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('new wine', 21.5, 200000.0, 'Rosé', '340', '22', '1', '2025-03-27 12:29:47.403162')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) | Affected: Wine Inventory
+[2025-03-27 13:29:47,451] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 13:30:15,112] ERROR in logger: [ADD_WINE_ERROR] User 1: (sqlite3.IntegrityError) UNIQUE constraint failed: wines.name
+[SQL: INSERT INTO wines (name, abv, price, category, bottle_size, in_stock, added_by, added_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('new wine', 21.5, 200000.0, 'Rosé', '340', '22', '1', '2025-03-27 12:30:15.111957')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) | Affected: Wine Inventory
+[2025-03-27 13:30:15,157] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 13:30:36,039] ERROR in logger: [ADD_WINE_ERROR] User 1: (sqlite3.IntegrityError) UNIQUE constraint failed: wines.name
+[SQL: INSERT INTO wines (name, abv, price, category, bottle_size, in_stock, added_by, added_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('new wine', 21.5, 200000.0, 'Rosé', '340', '22', '1', '2025-03-27 12:30:36.038862')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) | Affected: Wine Inventory
+[2025-03-27 13:30:36,071] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 13:30:42,113] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-27 13:30:42,221] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 13:30:42,233] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 198 | Affected: Total Stock
+[2025-03-27 13:31:10,863] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: some wine | Affected: some wine
+[2025-03-27 13:31:10,903] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 13:31:21,503] INFO in logger: [DELETE_WINE_SUCCESS] User 1: Deleted some wine | Affected: some wine
+[2025-03-27 13:31:21,532] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 13:31:26,317] INFO in logger: [DELETE_WINE_SUCCESS] User 1: Deleted new wind | Affected: new wind
+[2025-03-27 13:31:26,337] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 13:31:29,190] INFO in logger: [DELETE_WINE_SUCCESS] User 1: Deleted new wine | Affected: new wine
+[2025-03-27 13:31:29,297] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 13:31:32,443] INFO in logger: [DELETE_WINE_SUCCESS] User 1: Deleted Red | Affected: Red
+[2025-03-27 13:31:32,472] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 14:11:00,305] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-27 14:11:00,310] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 112 | Affected: Total Stock
+[2025-03-27 22:24:49,060] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-28 08:25:05,151] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-28 08:26:06,532] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 08:26:07,065] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-28 08:26:07,072] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 112 | Affected: Total Stock
+[2025-03-28 08:26:07,076] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 08:26:07,101] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:26:07,107] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:26:07,125] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 08:26:07,201] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 08:26:48,572] ERROR in logger: [ADD_WINE_ERROR] User 1: Missing field: category | Affected: Wine Inventory
+[2025-03-28 08:26:48,593] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:26:53,521] ERROR in logger: [ADD_WINE_ERROR] User 1: Missing field: category | Affected: Wine Inventory
+[2025-03-28 08:26:53,548] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:27:39,878] ERROR in logger: [ADD_WINE_ERROR] User 1: Missing field: category | Affected: Wine Inventory
+[2025-03-28 08:27:39,902] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:28:08,461] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: New wine | Affected: New wine
+[2025-03-28 08:28:08,486] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:31:52,110] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 08:31:52,453] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:31:52,478] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 142 | Affected: Total Stock
+[2025-03-28 08:32:42,348] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: Some wine | Affected: Some wine
+[2025-03-28 08:32:42,455] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:33:09,378] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 08:33:09,951] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 08:33:09,952] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-28 08:33:09,952] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 230 | Affected: Total Stock
+[2025-03-28 08:33:10,007] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:33:10,020] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:33:10,041] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 08:33:10,046] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 08:34:01,820] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: some stuff | Affected: some stuff
+[2025-03-28 08:34:01,923] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:34:38,658] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 08:34:39,200] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-28 08:34:39,204] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 262 | Affected: Total Stock
+[2025-03-28 08:34:39,213] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 08:34:39,233] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:34:39,238] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 08:34:39,240] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 08:34:39,264] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:35:21,515] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: sonenet | Affected: sonenet
+[2025-03-28 08:35:21,567] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:36:42,749] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 08:36:44,117] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-28 08:36:44,128] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 294 | Affected: Total Stock
+[2025-03-28 08:36:44,135] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 08:36:44,173] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:36:44,188] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 08:36:44,197] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 08:36:44,197] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:37:13,240] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: spark | Affected: spark
+[2025-03-28 08:37:13,295] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:39:07,173] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:39:42,667] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: pamela | Affected: pamela
+[2025-03-28 08:39:42,701] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:39:50,072] INFO in logger: [DELETE_USER_SUCCESS] User 1: Deleted user pamela (ID: 5) | Affected: pamela
+[2025-03-28 08:39:50,094] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:39:59,024] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-28 08:39:59,078] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 08:39:59,161] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 08:39:59,233] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 08:53:46,114] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 08:53:46,391] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-28 08:53:46,439] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 315 | Affected: Total Stock
+[2025-03-28 08:53:46,445] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 08:53:46,458] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:53:46,458] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 08:53:46,558] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 08:53:46,571] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 08:57:48,512] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:57:59,472] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: pamela | Affected: pamela
+[2025-03-28 08:57:59,492] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 08:58:13,906] INFO in logger: [LOGIN_SUCCESS] User 5: User logged in successfully | Affected: pamela
+[2025-03-28 08:58:14,415] INFO in logger: [GET_REVENUE] User 5: Revenue calculated for the past 30 days: 14882402.92 | Affected: Revenue
+[2025-03-28 08:58:14,420] INFO in logger: [GET_STOCK_BY_CATEGORY] User 5: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 08:58:14,424] INFO in logger: [GET_TOTAL_STOCK] User 5: Total stock checked: 315 | Affected: Total Stock
+[2025-03-28 08:58:14,475] INFO in logger: [GET_ALL_WINES] User 5: Fetched all wines | Affected: All Wines
+[2025-03-28 08:58:14,476] INFO in logger: [GET_INVENTORY_VALUE] User 5: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 08:58:14,486] INFO in logger: [COMPARE_SALES] User 5: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 09:00:35,493] INFO in logger: [CHECKOUT_SUCCESS] User 5: Checkout completed for invoice 8 | Affected: Invoice ID 8
+[2025-03-28 09:02:19,314] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 09:02:19,499] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 15507042.92 | Affected: Revenue
+[2025-03-28 09:02:19,500] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 303 | Affected: Total Stock
+[2025-03-28 09:02:19,523] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 09:02:19,582] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 09:02:19,588] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 09:02:19,589] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 09:02:19,595] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 13:41:01,407] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:43:48,188] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:49:09,608] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:49:49,713] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:50:19,378] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:50:50,509] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:51:50,978] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:53:15,546] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:53:59,645] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:55:46,466] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 13:55:50,295] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 14:03:33,643] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 14:03:33,650] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 303 | Affected: Total Stock
+[2025-03-28 14:05:46,854] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 14:05:47,201] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 14:05:47,223] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 303 | Affected: Total Stock
+[2025-03-28 14:06:36,416] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 14:09:07,767] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 14:09:07,781] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 303 | Affected: Total Stock
+[2025-03-28 14:09:21,390] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 14:27:02,853] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 15507042.92 | Affected: Revenue
+[2025-03-28 14:27:02,866] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 303 | Affected: Total Stock
+[2025-03-28 14:27:02,871] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 14:27:02,896] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 14:27:02,922] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 14:27:02,931] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 14:27:02,940] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 14:35:48,692] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 14:36:16,213] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 14:41:00,548] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 14:41:00,550] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 303 | Affected: Total Stock
+[2025-03-28 14:50:34,010] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 9 | Affected: Invoice ID 9
+[2025-03-28 14:51:28,840] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 14:51:28,842] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 299 | Affected: Total Stock
+[2025-03-28 14:51:35,436] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 10 | Affected: Invoice ID 10
+[2025-03-28 14:51:49,368] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 16981043.91 | Affected: Revenue
+[2025-03-28 14:51:49,379] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 14:51:49,386] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 14:51:49,410] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 14:51:49,467] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 14:54:15,128] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 14:54:36,825] INFO in logger: [LOGIN_SUCCESS] User 5: User logged in successfully | Affected: pamela
+[2025-03-28 14:54:37,072] INFO in logger: [GET_REVENUE] User 5: Revenue calculated for the past 30 days: 16981043.91 | Affected: Revenue
+[2025-03-28 14:54:37,085] INFO in logger: [GET_STOCK_BY_CATEGORY] User 5: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 14:54:37,090] INFO in logger: [GET_INVENTORY_VALUE] User 5: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 14:54:37,107] INFO in logger: [COMPARE_SALES] User 5: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 14:57:14,060] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2025-03-28 14:57:14,131] INFO in logger: [GET_TOTAL_STOCK] User 5: Total stock checked: 298 | Affected: Total Stock
+[2025-03-28 14:57:14,132] INFO in logger: [GET_ALL_WINES] User 5: Fetched all wines | Affected: All Wines
+[2025-03-28 14:59:44,486] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 14:59:44,946] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 16981043.91 | Affected: Revenue
+[2025-03-28 14:59:44,972] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 14:59:44,995] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 14:59:45,010] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 14:59:45,011] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 14:59:57,942] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: pamela
+[2025-03-28 14:59:57,965] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:00:28,260] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-28 15:00:28,330] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:00:34,502] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: pamela
+[2025-03-28 15:00:34,524] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:14:14,148] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: pamela
+[2025-03-28 15:14:14,176] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:14:21,763] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: pamela
+[2025-03-28 15:14:21,785] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:14:37,588] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: Pamela
+[2025-03-28 15:14:37,613] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:14:45,590] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: PamelaTory
+[2025-03-28 15:14:45,611] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:14:54,901] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: Pamela_Tory
+[2025-03-28 15:14:54,925] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:14:55,164] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: Pamela_Tory
+[2025-03-28 15:14:55,185] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:15:04,523] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: Pamela_Tory
+[2025-03-28 15:15:04,543] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:19:46,986] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: Pamela_Tory
+[2025-03-28 15:19:47,019] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:19:53,451] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: Pamela_Tory
+[2025-03-28 15:19:53,474] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:20:36,670] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 15:20:37,162] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 16981043.91 | Affected: Revenue
+[2025-03-28 15:20:37,211] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 298 | Affected: Total Stock
+[2025-03-28 15:20:37,220] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 15:20:37,241] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-28 15:20:37,256] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 15:20:37,271] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 15:20:48,923] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: Pamela_Tory
+[2025-03-28 15:20:48,948] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:20:53,010] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 5 | Affected: Pamela_Tory
+[2025-03-28 15:20:53,029] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:21:19,363] INFO in logger: [LOGIN_SUCCESS] User 5: User logged in successfully | Affected: Pamela_Tory
+[2025-03-28 15:54:43,418] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-28 15:54:43,656] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 16981043.91 | Affected: Revenue
+[2025-03-28 15:54:43,745] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-28 15:54:43,796] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-28 15:54:43,806] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-28 15:54:43,808] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-28 15:55:17,964] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 11 | Affected: Invoice ID 11
+[2025-03-31 07:42:40,159] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-31 07:43:24,735] INFO in logger: [LOGIN_FAILURE] User None: Invalid login attempt | Affected: admin
+[2025-03-31 07:43:29,213] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-03-31 07:43:29,853] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-31 07:43:29,864] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 18455044.90 | Affected: Revenue
+[2025-03-31 07:43:29,871] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 293 | Affected: Total Stock
+[2025-03-31 07:43:29,900] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-31 07:43:29,918] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-31 07:43:29,919] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 07:43:29,920] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-31 07:45:11,230] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: Majesty | Affected: Majesty
+[2025-03-31 07:45:11,263] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 07:45:45,786] INFO in logger: [CREATE_USER_DUPLICATE] User 1: Attempted to create duplicate user: Majesty | Affected: Majesty
+[2025-03-31 07:45:45,820] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 08:48:49,208] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-31 08:48:49,350] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 08:49:05,476] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: somewhere | Affected: somewhere
+[2025-03-31 08:49:05,513] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 08:49:42,823] ERROR in logger: [EXCEPTION] User 1: Unhandled exception: IntegrityError
+[2025-03-31 08:49:42,825] ERROR in logger: Failed to save log entry to database: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.IntegrityError) NOT NULL constraint failed: invoices.user_id
+[SQL: UPDATE invoices SET user_id=? WHERE invoices.id = ?]
+[parameters: (None, 4)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+[2025-03-31 08:49:42,842] ERROR in app: Exception on /auth/user/4 [DELETE]
+Traceback (most recent call last):
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: NOT NULL constraint failed: invoices.user_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 762, in handle_user_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/app/utils/decorators.py", line 51, in decorated
+    return f(*args, **kwargs)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/app/routes/auth.py", line 425, in delete_user
+    db.session.commit()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/persistence.py", line 85, in save_obj
+    _emit_update_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        update,
+        ^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/persistence.py", line 912, in _emit_update_statements
+    c = connection.execute(
+        statement, multiparams, execution_options=execution_options
+    )
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: invoices.user_id
+[SQL: UPDATE invoices SET user_id=? WHERE invoices.id = ?]
+[parameters: (None, 4)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+[2025-03-31 08:49:42,865] ERROR in logger: [EXCEPTION] User 1: Unhandled exception: InternalServerError
+[2025-03-31 08:49:42,917] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 08:50:54,756] ERROR in logger: [EXCEPTION] User 1: Unhandled exception: IntegrityError
+[2025-03-31 08:50:54,758] ERROR in logger: Failed to save log entry to database: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.IntegrityError) NOT NULL constraint failed: invoices.user_id
+[SQL: UPDATE invoices SET user_id=? WHERE invoices.id = ?]
+[parameters: (None, 4)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+[2025-03-31 08:50:54,769] ERROR in app: Exception on /auth/user/4 [DELETE]
+Traceback (most recent call last):
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: NOT NULL constraint failed: invoices.user_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 762, in handle_user_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/app/utils/decorators.py", line 51, in decorated
+    return f(*args, **kwargs)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/app/routes/auth.py", line 425, in delete_user
+    db.session.commit()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/persistence.py", line 85, in save_obj
+    _emit_update_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        update,
+        ^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/persistence.py", line 912, in _emit_update_statements
+    c = connection.execute(
+        statement, multiparams, execution_options=execution_options
+    )
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: invoices.user_id
+[SQL: UPDATE invoices SET user_id=? WHERE invoices.id = ?]
+[parameters: (None, 4)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+[2025-03-31 08:50:54,797] ERROR in logger: [EXCEPTION] User 1: Unhandled exception: InternalServerError
+[2025-03-31 08:50:54,908] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 08:51:08,641] INFO in logger: [DELETE_USER_SUCCESS] User 1: Deleted user Majesty (ID: 6) | Affected: Majesty
+[2025-03-31 08:51:08,667] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 08:51:16,102] ERROR in logger: [EXCEPTION] User 1: Unhandled exception: IntegrityError
+[2025-03-31 08:51:16,103] ERROR in logger: Failed to save log entry to database: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.IntegrityError) NOT NULL constraint failed: invoices.user_id
+[SQL: UPDATE invoices SET user_id=? WHERE invoices.id = ?]
+[parameters: (None, 4)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+[2025-03-31 08:51:16,113] ERROR in app: Exception on /auth/user/4 [DELETE]
+Traceback (most recent call last):
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: NOT NULL constraint failed: invoices.user_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 762, in handle_user_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/app/utils/decorators.py", line 51, in decorated
+    return f(*args, **kwargs)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/app/routes/auth.py", line 425, in delete_user
+    db.session.commit()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/persistence.py", line 85, in save_obj
+    _emit_update_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        update,
+        ^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/orm/persistence.py", line 912, in _emit_update_statements
+    c = connection.execute(
+        statement, multiparams, execution_options=execution_options
+    )
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: invoices.user_id
+[SQL: UPDATE invoices SET user_id=? WHERE invoices.id = ?]
+[parameters: (None, 4)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+[2025-03-31 08:51:16,138] ERROR in logger: [EXCEPTION] User 1: Unhandled exception: InternalServerError
+[2025-03-31 08:51:16,215] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 08:53:00,022] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-31 08:53:00,049] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 293 | Affected: Total Stock
+[2025-03-31 08:53:35,973] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-31 08:53:36,137] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-31 08:53:36,137] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 293 | Affected: Total Stock
+[2025-03-31 09:08:26,975] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 09:30:45,019] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-31 09:31:18,814] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-31 09:31:19,102] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 18455044.90 | Affected: Revenue
+[2025-03-31 09:31:19,115] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-03-31 09:31:19,140] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 293 | Affected: Total Stock
+[2025-03-31 09:31:19,166] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-03-31 09:31:19,191] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 09:31:19,247] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-03-31 09:31:19,251] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-03-31 09:31:37,152] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-03-31 09:31:40,124] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 09:51:37,867] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-03-31 09:51:50,700] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: majesty | Affected: majesty
+[2025-03-31 09:51:50,736] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 09:53:19,872] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: majesty-chibuikem | Affected: majesty-chibuikem
+[2025-03-31 09:53:19,901] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 09:53:48,532] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: tt | Affected: tt
+[2025-03-31 09:53:48,559] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 09:53:57,410] INFO in logger: [DELETE_USER_SUCCESS] User 1: Deleted user tt (ID: 10) | Affected: tt
+[2025-03-31 09:53:57,445] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-03-31 09:54:06,506] INFO in logger: [DELETE_USER_SUCCESS] User 1: Deleted user majesty-chibuikem (ID: 9) | Affected: majesty-chibuikem
+[2025-03-31 09:54:06,535] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management

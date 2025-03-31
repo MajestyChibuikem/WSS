@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import CartCard from "../components/cart_card";
 import { wineInventory } from "../utils/mock_data";
 import { DollarSign, Mail } from "lucide-react";
@@ -9,12 +9,14 @@ import { clearCart, getCartTotal } from "../store/slices/inventorySlice";
 import { useCheckoutMutation } from "../store/slices/apiSlice";
 import clsx from "clsx";
 import { toast } from "react-toastify";
+import { formatDecimal } from "../utils/helpers";
 
 function Page() {
   const dispatch = useDispatch();
   const inventoryCart = useSelector((state: RootState) => state.inventory);
   const { total, discountedTotal } = useSelector(getCartTotal);
   const [checkout, { isLoading, error }] = useCheckoutMutation();
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const handleCheckout = async () => {
     toast("Checking out cart items...");
@@ -34,9 +36,11 @@ function Page() {
 
       dispatch(clearCart());
       toast.success("Checkout successful");
+      setShowConfirmation(false);
     } catch (err) {
       toast.error("Couldn't checkout at the moment try again later");
       console.error("Checkout failed:", err);
+      setShowConfirmation(false);
     }
   };
 
@@ -68,6 +72,30 @@ function Page() {
           ))}
         </section>
 
+        {showConfirmation && (
+          <section className="fixed top-0 right-0 z-50 h-full w-full bg-black/70 flex justify-center items-center">
+            <div className="w-[32rem] border border-wBrand-accent/30 shadow-xl p-5 px-6 bg-wBrand-background space-y-10 rounded-2xl">
+              <h1 className="text-2xl font-medium">
+                Are you sure you want to checkout wines?
+              </h1>
+              <div className="flex justify-end gap-4">
+                <button
+                  onClick={() => setShowConfirmation(false)}
+                  className="border border-wBrand-accent text-sm px-6 py-2 rounded-lg"
+                >
+                  No
+                </button>
+                <button
+                  onClick={handleCheckout}
+                  className="bg-wBrand-accent px-6 py-2 text-sm rounded-lg"
+                >
+                  Yes
+                </button>
+              </div>
+            </div>
+          </section>
+        )}
+
         <section className="w-[30vw] border space-y-6 p-6 rounded-xl border-wBrand-foreground/30">
           <div className="space-y-4">
             <h2 className="font-medium">Your Order</h2>
@@ -82,7 +110,7 @@ function Page() {
                     <span className="text-xs font-medium text-white/50">
                       x{wine.quantity}
                     </span>{" "}
-                    N{wine.price}
+                    {formatDecimal(wine.price).formatted}
                   </p>
                 </div>
               ))}
@@ -106,7 +134,7 @@ function Page() {
               </button>
             </div>
           </div> */}
-          <div className="space-y-4">
+          {/* <div className="space-y-4">
             <h2 className="font-medium">Customer Email</h2>
             <div>
               <div className="text-sm flex">
@@ -122,7 +150,7 @@ function Page() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="border-t border-wBrand-foreground/10 pt-3 space-y-2">
             {/* <div className="flex justify-between text-wBrand-foreground/70">
               <h3>Subtotal</h3>
@@ -133,18 +161,20 @@ function Page() {
               <p>-N{inventoryCart.discount}</p>
             </div> */}
           </div>
-          <div className="flex justify-between text-wBrand-foreground  border-t-wBrand-foreground/10">
+          <div className="flex justify-between items-baseline text-wBrand-foreground  border-t-wBrand-foreground/10">
             <h3>Grand total</h3>
-            <p className="text-xl font-medium">N{discountedTotal}</p>
+            <p className="text-3xl font-medium">
+              {formatDecimal(discountedTotal).formatted}
+            </p>
           </div>
           <button
-            onClick={handleCheckout}
             disabled={inventoryCart.cart.length == 0 || isLoading}
+            onClick={() => setShowConfirmation(true)}
             className={clsx(
-              "px-5 py-2 font-semibold bg-wBrand-accent w-full rounded-xl",
+              "px-5 py-2 font-semibold w-full rounded-xl",
               inventoryCart.cart.length == 0 || isLoading
                 ? "bg-gray-600"
-                : "text-wBrand-background"
+                : "bg-wBrand-accent"
             )}
           >
             Checkout Now

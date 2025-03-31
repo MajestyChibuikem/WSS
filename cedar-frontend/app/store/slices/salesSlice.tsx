@@ -83,11 +83,15 @@ const salesSlice = createSlice({
 
     setSalesFilters: (state, action: PayloadAction<Partial<FilterState>>) => {
       state.filters = { ...state.filters, ...action.payload };
+      console.log("filtered sales-1", state.filteredSales, {
+        ...action.payload,
+      });
       // Automatically apply filters when updating filters
       salesSlice.caseReducers.applyFilters(state);
     },
 
     applyFilters: (state) => {
+      console.log("sales: ", state.sales);
       state.filteredSales = state.sales.filter((sale) => {
         const {
           dateRange,
@@ -95,18 +99,25 @@ const salesSlice = createSlice({
           item,
           actions,
           categories,
+          priceRange,
         } = state.filters;
 
-        // Username filter (case-insensitive)
+        console.log("filtered sales", dateRange, username, item, priceRange);
+        // 🛑 Check if sale data is valid
+        // if (!sale) return false;
+
+        // ✅ Username filter (case-insensitive)
         if (
           username &&
+          sale.username &&
           !sale.username.toLowerCase().includes(username.toLowerCase())
         ) {
+          console.log("here");
           return false;
         }
 
-        // Date range filter
-        if (dateRange) {
+        // ✅ Date range filter (avoid parsing null)
+        if (dateRange?.start && dateRange?.end) {
           const saleDate = parseISO(sale.date);
           const startDate = parseISO(dateRange.start);
           const endDate = parseISO(dateRange.end);
@@ -116,13 +127,12 @@ const salesSlice = createSlice({
           }
         }
 
-        // Price range filter
-        if (state.filters.priceRange) {
+        // ✅ Price range filter (ensure valid numbers)
+        if (priceRange) {
           const totalAmount = parseFloat(sale.total);
-          if (
-            totalAmount < state.filters.priceRange.min ||
-            totalAmount > state.filters.priceRange.max
-          ) {
+          if (isNaN(totalAmount)) return false;
+
+          if (totalAmount < priceRange.min || totalAmount > priceRange.max) {
             return false;
           }
         }

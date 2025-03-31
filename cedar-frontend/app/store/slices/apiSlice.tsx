@@ -13,7 +13,7 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Users", "Wines"],
+  tagTypes: ["Users", "Wines", "Logs"],
   endpoints: (builder) => ({
     // Login
     login: builder.mutation<
@@ -37,7 +37,7 @@ export const apiSlice = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["Users"],
+      invalidatesTags: ["Users", "Logs"],
     }),
 
     // Logout
@@ -46,6 +46,7 @@ export const apiSlice = createApi({
         url: "/auth/logout",
         method: "POST",
       }),
+      invalidatesTags: ["Logs"],
     }),
 
     // Get All Users (Admin Only)
@@ -98,7 +99,7 @@ export const apiSlice = createApi({
         method: "PUT",
         body: updateData,
       }),
-      invalidatesTags: ["Users"],
+      invalidatesTags: ["Users", "Logs"],
       transformResponse: (response: any) => response, // Optional: Modify response if needed
       transformErrorResponse: (error: any) => error.data, // Optional: Extract meaningful error data
     }),
@@ -113,7 +114,7 @@ export const apiSlice = createApi({
         method: "PUT",
         body: { roles },
       }),
-      invalidatesTags: ["Users"],
+      invalidatesTags: ["Users", "Logs"],
     }),
 
     // Delete User (Admin Only)
@@ -122,7 +123,7 @@ export const apiSlice = createApi({
         url: `/auth/user/${user_id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Users"],
+      invalidatesTags: ["Users", "Logs"],
     }),
 
     // Fetch all wines
@@ -148,7 +149,7 @@ export const apiSlice = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["Wines"],
+      invalidatesTags: ["Wines", "Logs"],
     }),
 
     // Update Wine
@@ -169,7 +170,7 @@ export const apiSlice = createApi({
         method: "PUT",
         body,
       }),
-      invalidatesTags: ["Wines"],
+      invalidatesTags: ["Wines", "Logs"],
     }),
 
     checkToken: builder.query<
@@ -202,7 +203,7 @@ export const apiSlice = createApi({
         url: `/wine/${wine_id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Wines"],
+      invalidatesTags: ["Wines", "Logs"],
     }),
 
     // Get Inventory Value
@@ -282,6 +283,7 @@ export const apiSlice = createApi({
 
     getAllLogs: builder.query({
       query: () => "/logs/logs",
+      providesTags: ["Logs"],
     }),
 
     getTopWines: builder.query<
@@ -316,6 +318,7 @@ export const apiSlice = createApi({
         method: "POST",
         body,
       }),
+      invalidatesTags: ["Logs"],
     }),
   }),
 });

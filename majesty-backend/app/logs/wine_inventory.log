@@ -7342,3 +7342,4 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint fail
 [2025-03-31 09:54:06,506] INFO in logger: [DELETE_USER_SUCCESS] User 1: Deleted user majesty-chibuikem (ID: 9) | Affected: majesty-chibuikem
 [2025-03-31 09:54:06,535] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
 >>>>>>> fd64bbb6aff285e8e90af46aa8bad689da7c2368
+[2025-03-31 12:50:43,525] INFO in logger: Wine Inventory API Started - Environment: development

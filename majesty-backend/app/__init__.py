@@ -41,13 +41,13 @@ def create_app(config_class=None):
     from app.routes.cart import carts_bp
     from app.routes.invoice import invoices_bp
     from app.routes.logs import logs_bp
-    from app.routes.wine import wine_bp
+    from app.routes.products import products_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(carts_bp)
     app.register_blueprint(invoices_bp)
     app.register_blueprint(logs_bp)
-    app.register_blueprint(wine_bp)
+    app.register_blueprint(products_bp)
     # Automatically create tables if they don't exist
     with app.app_context():
         db.create_all()

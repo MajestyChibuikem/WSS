@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from app.models import Invoice, InvoiceItem, User, Wine
+from app.models import Invoice, InvoiceItem, User, Product
 from app import db
 from app.utils.logger import log_action
 from app.utils.decorators import token_required
@@ -25,9 +25,9 @@ def manage_invoices():
             for invoice in invoices:
                 items = []
                 for item in invoice.items:
-                    wine = Wine.query.get(item.wine_id)
+                    products = Product.query.get(item.wine_id)
                     items.append({
-                        'item': {'name': wine.name, 'id': wine.id},
+                        'item': {'name': products.name, 'id': products.id, 'category': products.category.name},
                         'number_sold': item.quantity,
                         'price': str(item.price)
                     })
@@ -136,9 +136,9 @@ def manage_single_invoice(invoice_id):
             # Retrieve a single invoice with its items
             items = []
             for item in invoice.items:
-                wine = Wine.query.get(item.wine_id)
+                product = Product.query.get(item.wine_id)
                 items.append({
-                    'item': {'name': wine.name, 'id': wine.id},
+                    'item': {'name': product.name, 'id': product.id, 'category': product.category.name},
                     'number_sold': item.quantity,
                     'price': str(item.price)
                 })
@@ -237,29 +237,29 @@ def checkout():
     try:
         # Update the stock of each item in the cart
         for item_data in data['items']:
-            wine = Wine.query.get(item_data['item']['id'])
-            if not wine:
+            product = Product.query.get(item_data['item']['id'])
+            if not product:
                 log_action(
                     current_user_id, 
                     'CHECKOUT_ERROR', 
-                    f'Wine {item_data["item"]["id"]} not found', 
+                    f'product {item_data["item"]["id"]} not found', 
                     level='error',
-                    affected_name=f'Wine ID {item_data["item"]["id"]}'
+                    affected_name=f'product ID {item_data["item"]["id"]}'
                 )
-                return jsonify({'message': f'Wine {item_data["item"]["id"]} not found'}), 404
+                return jsonify({'message': f'product {item_data["item"]["id"]} not found'}), 404
 
-            if wine.in_stock < item_data['number_sold']:
+            if product.in_stock < item_data['number_sold']:
                 log_action(
                     current_user_id, 
                     'CHECKOUT_ERROR', 
-                    f'Not enough stock for wine {wine.name}', 
+                    f'Not enough stock for wine {product.name}', 
                     level='error',
-                    affected_name=f'Wine ID {wine.id}'
+                    affected_name=f'Wine ID {product.id}'
                 )
-                return jsonify({'message': f'Not enough stock for wine {wine.name}'}), 400
+                return jsonify({'message': f'Not enough stock for wine {product.name}'}), 400
 
-            wine.in_stock -= item_data['number_sold']
-            db.session.add(wine)
+            product.in_stock -= item_data['number_sold']
+            db.session.add(product)
 
         # Create the invoice
         new_invoice = Invoice(
@@ -275,7 +275,7 @@ def checkout():
                 invoice_id=new_invoice.id,
                 wine_id=item_data['item']['id'],
                 quantity=item_data['number_sold'],
-                price=Wine.query.get(item_data['item']['id']).price
+                price=Product.query.get(item_data['item']['id']).price
             )
             db.session.add(new_item)
 

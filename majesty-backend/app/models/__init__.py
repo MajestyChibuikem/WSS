@@ -1,1 +1,1 @@
-from .models import User, Role, Wine, Invoice, InvoiceItem, Cart, logEntry, BlacklistedToken
+from .models import User, Role, Invoice, InvoiceItem, Cart, logEntry, BlacklistedToken, Category, Product

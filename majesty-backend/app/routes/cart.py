@@ -22,7 +22,8 @@ def get_cart():
                 'id': item.id,
                 'wine_id': item.wine_id,
                 'quantity': item.quantity,
-                'added_at': item.added_at.isoformat() if item.added_at else None
+                'added_at': item.added_at.isoformat() if item.added_at else None,
+                'category' : item.wine.category.name,
             })
         log_action(
             current_user_id, 

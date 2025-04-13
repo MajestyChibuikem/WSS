@@ -24,10 +24,13 @@ import {
 } from "@/components/ui/select";
 import clsx from "clsx";
 import { toast } from "react-toastify";
+import { Eye, EyeOff } from "lucide-react"; // Import eye icons
 
 function NewUserSideBar() {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.users);
+
+  const [showPassword, setShowPassword] = useState(false);
   const dropdown = useSelector(
     (state: RootState) => state.dropdown.dropdowns["user_roles_dropdown"]
   );
@@ -43,9 +46,10 @@ function NewUserSideBar() {
   const [deleteUser] = useDeleteUserMutation();
 
   const validateForm = () => {
+    const isCreating = user.action_type === Actions.CREATE;
     const errors = {
       username: !user.currentlyEditing?.username,
-      password: !user.currentlyEditing?.password,
+      password: isCreating && !user.currentlyEditing?.password, // Only required for CREATE
       role: !user.currentlyEditing?.roles?.length,
     };
     setFormErrors(errors);
@@ -64,7 +68,7 @@ function NewUserSideBar() {
       if (user.currentlyEditing && user.action_type === Actions.CREATE) {
         const response = await createUser({
           username: user.currentlyEditing.username,
-          password: user.currentlyEditing.password,
+          password: user.currentlyEditing.password, // Required for CREATE
           is_admin: user.currentlyEditing.roles[0] === Roles.ADMIN,
           roles: [user.currentlyEditing.roles[0].toLowerCase()],
         }).unwrap();
@@ -72,14 +76,19 @@ function NewUserSideBar() {
         toast.success("User created successfully!");
         dispatch(closeUserEditor());
       } else if (user.currentlyEditing && user.action_type === Actions.UPDATE) {
-        const response = await updateUser({
+        const updatePayload: any = {
           username: user.currentlyEditing.username,
-          password: user.currentlyEditing.password,
           is_admin: user.currentlyEditing.roles[0] === Roles.ADMIN,
           roles: [user.currentlyEditing.roles[0].toLowerCase()],
           id: user.currentlyEditing.id,
-        }).unwrap();
+        };
 
+        // Include password only if it's provided
+        if (user.currentlyEditing.password) {
+          updatePayload.password = user.currentlyEditing.password;
+        }
+
+        const response = await updateUser(updatePayload).unwrap();
         toast.success("User updated successfully!");
       } else if (user.currentlyEditing && user.action_type === Actions.DELETE) {
         const response = await deleteUser(user.currentlyEditing.id).unwrap();
@@ -132,9 +141,10 @@ function NewUserSideBar() {
               PASSWORD{" "}
               {formErrors.password && <span className="text-red-500">*</span>}
             </p>
-            <div className="text-sm">
+
+            <div className="text-sm relative">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"} // Toggle type
                 onChange={(e) =>
                   dispatch(setCurrentlyEditing({ password: e.target.value }))
                 }
@@ -144,8 +154,15 @@ function NewUserSideBar() {
                   formErrors.password
                     ? "border-red-500"
                     : "border-wBrand-foreground/20"
-                } overflow-clip bg-wBrand-background/40 pl-4 w-full`}
+                } overflow-clip bg-wBrand-background/40 pl-4 w-full pr-10`} // Ensure space for the icon
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
               {formErrors.password && (
                 <p className="text-red-500 text-xs mt-1">
                   Password is required

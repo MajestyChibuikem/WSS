@@ -137,7 +137,7 @@ function Page() {
                 }}
                 className="px-5 py-2 bg-wBrand-accent text-nowrap text-wBrand-background rounded-xl"
               >
-                Add Wine
+                Add product
               </button>
             )}
 

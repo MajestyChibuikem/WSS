@@ -13,9 +13,10 @@ import { formatDecimal } from "../utils/helpers";
 
 interface Params {
   wine: Wine;
+  quantity: number;
 }
 
-function CartCard({ wine }: Params) {
+function CartCard({ wine, quantity }: Params) {
   const dispatch = useDispatch();
   const inventoryCart = useSelector((state: RootState) => state.inventory.cart);
 
@@ -68,7 +69,7 @@ function CartCard({ wine }: Params) {
       </div>
 
       <div className="space-y-2 w-[25%] flex justify-end">
-        <p>{formatDecimal(wine.price).formatted}</p>
+        <p>{formatDecimal(wine.price * quantity).formatted}</p>
       </div>
     </div>
   );

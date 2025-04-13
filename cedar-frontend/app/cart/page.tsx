@@ -68,7 +68,7 @@ function Page() {
             </div>
           )}
           {inventoryCart.cart.map((wine, idx) => (
-            <CartCard key={idx} wine={wine} />
+            <CartCard key={idx} wine={wine} quantity={wine.quantity} />
           ))}
         </section>
 
@@ -115,51 +115,6 @@ function Page() {
                 </div>
               ))}
             </div>
-          </div>
-          {/* <div className="space-y-4">
-            <h2 className="font-medium">Discount Code</h2>
-            <div className="text-sm flex gap-4">
-              <div className="flex w-full rounded-xl border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40">
-                <div className="border-r bg-wBrand-background border-wBrand-foreground/20 p-3">
-                  <DollarSign className="h-4" />
-                </div>
-                <input
-                  type="number"
-                  placeholder="ENTER DISCOUNT"
-                  className="outline-none min-h-full pl-4 bg-transparent w-full"
-                />
-              </div>
-              <button className="px-5 py-2 font-semibold bg-wBrand-accent text-wBrand-background rounded-xl">
-                Apply
-              </button>
-            </div>
-          </div> */}
-          {/* <div className="space-y-4">
-            <h2 className="font-medium">Customer Email</h2>
-            <div>
-              <div className="text-sm flex">
-                <div className="flex w-full rounded-xl border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40">
-                  <div className="border-r bg-wBrand-background border-wBrand-foreground/20 p-3">
-                    <Mail className="h-4" />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="ENTER EMAIL"
-                    className="outline-none min-h-full pl-4 bg-transparent w-full"
-                  />
-                </div>
-              </div>
-            </div>
-          </div> */}
-          <div className="border-t border-wBrand-foreground/10 pt-3 space-y-2">
-            {/* <div className="flex justify-between text-wBrand-foreground/70">
-              <h3>Subtotal</h3>
-              <p className="text-lg text-wBrand-foreground">N{total}</p>
-            </div> */}
-            {/* <div className="flex justify-between text-wBrand-foreground/70">
-              <h3>Discount</h3>
-              <p>-N{inventoryCart.discount}</p>
-            </div> */}
           </div>
           <div className="flex justify-between items-baseline text-wBrand-foreground  border-t-wBrand-foreground/10">
             <h3>Grand total</h3>

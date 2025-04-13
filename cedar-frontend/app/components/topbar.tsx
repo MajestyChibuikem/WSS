@@ -29,7 +29,7 @@ function Topbar() {
       name: "Dashboard",
       href: "/",
       icon: <LayoutDashboard className="h-4" />,
-      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPER_USER],
+      showFor: [Roles.ADMIN],
     },
     {
       name: "Inventory",

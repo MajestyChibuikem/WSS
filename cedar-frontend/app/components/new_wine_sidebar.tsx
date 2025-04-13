@@ -20,10 +20,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "react-toastify";
+import { CheckIcon, Plus } from "lucide-react";
+import clsx from "clsx";
 
 function NewWineSideBar() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
+  const [newCategoryValue, setNewCategoryValue] = useState("");
 
   const wineSelector = useSelector((state: RootState) => state.winer);
 
@@ -97,7 +101,7 @@ function NewWineSideBar() {
     <div className="fixed w-[100vw] h-[100vh] bg-black/45 top-0 right-0 z-20 overflow-y-auto">
       <div className="h-full w-[25rem] bg-wBrand-background fixed top-0 right-0 p-6 space-y-8">
         <h1 className="text-2xl font-semibold mt-8">
-          {wineSelector.action_type?.toString()} wine
+          {wineSelector.action_type?.toString()} product
         </h1>
         <div className="space-y-8">
           <div className="space-y-4">
@@ -120,36 +124,70 @@ function NewWineSideBar() {
             <p className="text-xs text-wBrand-foreground/60 font-medium">
               WINE CATEGORY
             </p>
-            <Select
-              value={wineSelector.currentlyEditing?.category}
-              onValueChange={(value) => {
-                dispatch(
-                  setCurrentlyEditing({
-                    category: value as WineCategory,
-                  })
-                );
-              }}
-            >
-              <SelectTrigger className="w-full rounded-xl h-max p-3">
-                <SelectValue
-                  placeholder={
-                    wineSelector.currentlyEditing?.category ??
-                    "Select wine category"
-                  }
-                />
-              </SelectTrigger>
-              <SelectContent className="bg-wBrand-background mt-2 rounded-xl">
-                {categoryDropdownItems.map((item, idx) => (
-                  <SelectItem
-                    className="p-3"
-                    key={idx}
-                    value={item.value.toString()}
-                  >
-                    {item.content}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <div className="flex gap-4">
+              <Select
+                value={wineSelector.currentlyEditing?.category}
+                onValueChange={(value) => {
+                  dispatch(
+                    setCurrentlyEditing({
+                      category: value as WineCategory,
+                    })
+                  );
+                }}
+              >
+                <SelectTrigger className="w-full rounded-xl h-max p-3">
+                  <SelectValue
+                    placeholder={
+                      wineSelector.currentlyEditing?.category ??
+                      "Select wine category"
+                    }
+                  />
+                </SelectTrigger>
+                <SelectContent className="bg-wBrand-background mt-2 rounded-xl">
+                  {categoryDropdownItems.map((item, idx) => (
+                    <SelectItem
+                      className="p-3"
+                      key={idx}
+                      value={item.value.toString()}
+                    >
+                      {item.content}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {showNewCategoryInput ? (
+                <button
+                  onClick={() => setShowNewCategoryInput(false)}
+                  disabled={newCategoryValue.trim() == ""}
+                  className={clsx(
+                    "h-11 px-4 rounded-xl border flex items-center justify-center",
+                    newCategoryValue.trim() == ""
+                      ? "text-wBrand-accent/20 border-wBrand-accent/20"
+                      : "text-wBrand-accent border-wBrand-accent"
+                  )}
+                >
+                  <CheckIcon className="h-4" />
+                </button>
+              ) : (
+                <button
+                  onClick={() => setShowNewCategoryInput(true)}
+                  className={clsx(
+                    "h-11 text-wBrand-accent px-4 rounded-xl border flex items-center justify-center border-wBrand-accent"
+                  )}
+                >
+                  <Plus className="h-4" />
+                </button>
+              )}
+            </div>
+            {showNewCategoryInput && (
+              <input
+                type="text"
+                value={newCategoryValue}
+                onChange={(e) => setNewCategoryValue(e.target.value)}
+                className="outline-none text-sm rounded-xl h-11 border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40 pl-4 w-full"
+                placeholder="Enter new category name"
+              />
+            )}
           </div>
           <div className="flex space-x-4">
             <div className="space-y-4">

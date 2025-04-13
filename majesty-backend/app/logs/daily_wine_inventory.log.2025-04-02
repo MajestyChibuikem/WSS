@@ -131,6 +131,7 @@
 [2025-04-02 14:46:13,020] INFO in logger: [GET_ALL_WINES] User 4: Fetched all wines | Affected: All Wines
 [2025-04-02 14:46:13,021] INFO in logger: [COMPARE_SALES] User 4: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
 [2025-04-02 14:46:13,047] INFO in logger: [GET_INVENTORY_VALUE] User 4: Inventory value fetched | Affected: Inventory Value by Category
+<<<<<<< HEAD
 [2025-04-11 11:20:28,804] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
 [2025-04-11 11:20:29,224] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 20159047.87 | Affected: Revenue
 [2025-04-11 11:20:29,232] ERROR in logger: [COMPARE_SALES_ERROR] User 1: [Errno 5] Input/output error | Affected: Sales Comparison
@@ -164,3 +165,5 @@
 [2025-04-11 11:57:24,228] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 337 | Affected: Total Stock
 [2025-04-11 11:59:11,245] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-04-11 11:59:11,250] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 337 | Affected: Total Stock
+=======
+>>>>>>> 30284e8a9d8b3f353c6720ef2b4bcc554912daa1

@@ -60,6 +60,11 @@ class User(db.Model):
         return role_name in [role.name for role in self.roles]
 
     def can_manage_inventory(self):
+        # return self.has_role('admin') or self.has_role('super_user')
+        #only the admin can manage the inventory
+        return self.has_role('admin')
+    
+    def can_manage_categories(self):
         return self.has_role('admin') or self.has_role('super_user')
 
     def can_manage_users(self):
@@ -128,14 +133,35 @@ class User(db.Model):
 
         return user_sales or 0
 
-class Wine(db.Model):
-    __tablename__ = 'wines'
+class Category(db.Model):
+    __tablename__ = 'categories'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
-    abv = db.Column(db.Float, nullable=False)  # Alcohol by Volume %
+    description = db.Column(db.String(255))
+    created_by = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    creator = db.relationship('User', foreign_keys=[created_by])
+    products = db.relationship('Product', backref='category')
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "created_by": self.created_by,
+            "created_at": self.created_at.isoformat()
+        }
+class Product(db.Model):
+    __tablename__ = 'products'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True, nullable=False)
+    abv = db.Column(db.Float, nullable=True)  #to allow for non-drink products
     price = db.Column(db.Numeric(10, 2), nullable=False)  # Price in Naira
-    category = db.Column(db.Enum("Red", "White", "Rosé", "Sparkling", "Dessert", "Fortified", name="wine_category"), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
+    # category = db.Column(db.Enum("Red", "White", "Rosé", "Sparkling", "Dessert", "Fortified", name="wine_category"), nullable=False)
     bottle_size = db.Column(db.Integer, nullable=False)  # Bottle size in ml
     in_stock = db.Column(db.Integer, default=0, nullable=False)  # Number of bottles available
     added_by = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -144,47 +170,42 @@ class Wine(db.Model):
     creator = db.relationship('User', foreign_keys=[added_by])
 
     @staticmethod
-    def add_to_inventory(user, wine_data):
+    def add_to_inventory(user, product_data):
         if not user.can_manage_inventory():
             raise PermissionError("Only administrators and super users can add wines")
-        
-        wine = Wine(
-            name=wine_data.get('name'),
-            abv=wine_data.get('abv'),
-            price=wine_data.get('price'),
-            category=wine_data.get('category'),
-            bottle_size=wine_data.get('bottle_size'),
-            in_stock=wine_data.get('in_stock', 0),
+        if not Category.query.get(product_data.get('category_id')):
+            raise ValueError("Invalid category_id")
+        product = Product(
+            name=product_data.get('name'),
+            abv=product_data.get('abv'),
+            price=product_data.get('price'),
+            category_id=product_data.get('category_id'),
+            bottle_size=product_data.get('bottle_size'),
+            in_stock=product_data.get('in_stock', 0),
             added_by=user.id
         )
         
-        db.session.add(wine)
+        db.session.add(product)
         db.session.commit()
-        return wine
+        return product
 
     @staticmethod
     def get_inventory_value_by_category():
-        """
-        Get the total value of the current inventory, grouped by category.
-        """
-        inventory_value = db.session.query(
-            Wine.category,
-            func.sum(Wine.price * Wine.in_stock).label('total_value')
-        ).group_by(Wine.category).all()
-
-        return {category: total_value for category, total_value in inventory_value}
-
+        return db.session.query(
+            Category.name,
+            func.sum(Product.in_stock * func.cast(Product.price, db.Numeric))
+        ).join(Product).group_by(Category.name).all()
 class Cart(db.Model):
     __tablename__ = 'cart_items'
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    wine_id = db.Column(db.Integer, db.ForeignKey('wines.id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
     quantity = db.Column(db.Integer, nullable=False, default=1)
     added_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     __table_args__ = (
-        db.UniqueConstraint('user_id', 'wine_id', name='uq_user_wine'),
+        db.UniqueConstraint('user_id', 'product_id', name='uq_user_product'),
         db.Index('idx_cart_user', 'user_id')
     )
 
@@ -289,26 +310,26 @@ class InvoiceItem(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     invoice_id = db.Column(db.Integer, db.ForeignKey('invoices.id', ondelete='CASCADE'), nullable=False)
-    wine_id = db.Column(db.Integer, db.ForeignKey('wines.id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Numeric(10, 2), nullable=False)
 
     __table_args__ = (
         db.Index('idx_invoice_item_invoice', 'invoice_id'),
-        db.Index('idx_invoice_item_wine', 'wine_id')
+        db.Index('idx_invoice_item_product', 'product_id')
     )
 
     def to_dict(self):
         """
-        Convert the InvoiceItem object to a dictionary, including wine details.
+        Convert the InvoiceItem object to a dictionary, including product details.
         """
-        wine = Wine.query.get(self.wine_id)
+        product = Product.query.get(self.product_id)
         return {
             'id': self.id,
             'invoice_id': self.invoice_id,
-            'wine': {
-                'id': wine.id,
-                'name': wine.name
+            'product': {
+                'id': product.id,
+                'name': product.name
             },
             'quantity': self.quantity,
             'price': str(self.price)

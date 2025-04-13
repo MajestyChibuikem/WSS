@@ -1,1 +1,17 @@
+<<<<<<< HEAD
 [2025-04-11 11:19:49,097] INFO in logger: Wine Inventory API Started - Environment: development
+=======
+[2025-04-11 09:51:09,122] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-11 09:51:44,773] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-11 09:58:34,082] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-11 09:59:42,570] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-11 10:01:20,605] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-11 10:27:31,812] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-11 10:30:22,442] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-11 10:41:53,940] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-11 10:48:53,044] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-11 10:57:33,064] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-11 10:58:50,490] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-11 10:59:00,261] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-11 10:59:05,122] INFO in logger: Wine Inventory API Started - Environment: development
+>>>>>>> 30284e8a9d8b3f353c6720ef2b4bcc554912daa1

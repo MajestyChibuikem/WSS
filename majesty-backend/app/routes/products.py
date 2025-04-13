@@ -2,24 +2,24 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy.sql import func
 from datetime import datetime, timedelta
-from app.models import User, Wine, Invoice, InvoiceItem
+from app.models import User, Product, Invoice, InvoiceItem, Category
 from app import db
 from app.utils.logger import log_action
 from app.utils.decorators import token_required
 
-wine_bp = Blueprint('wine', __name__, url_prefix='/wine')
+products_bp = Blueprint('products', __name__, url_prefix='/products')
 
-@wine_bp.route('/total_stock', methods=['GET'])
+@products_bp.route('/total_stock', methods=['GET'])
 @jwt_required()
 @token_required
 def get_total_stock():
-    """Get total wine stock count"""
+    """Get total product stock count"""
     current_user_id = get_jwt_identity()
     if isinstance(current_user_id, dict):
         current_user_id = current_user_id.get('id')
 
     try:
-        total_stock = db.session.query(func.sum(Wine.in_stock)).scalar() or 0
+        total_stock = db.session.query(func.sum(Product.in_stock)).scalar() or 0
         log_action(
             current_user_id, 
             'GET_TOTAL_STOCK', 
@@ -37,7 +37,7 @@ def get_total_stock():
         )
         return jsonify({'message': f'Error fetching total stock: {str(e)}'}), 500
 
-@wine_bp.route('/stock-by-category', methods=['GET'])
+@products_bp.route('/stock-by-category', methods=['GET'])
 @jwt_required()
 @token_required
 def get_stock_by_category():
@@ -46,7 +46,7 @@ def get_stock_by_category():
         current_user_id = current_user_id.get('id')
 
     try:
-        stock_data = db.session.query(Wine.category, func.sum(Wine.in_stock)).group_by(Wine.category).all()
+        stock_data = db.session.query(Category.name, func.sum(Product.in_stock)).group_by(Product.category).all()
         
         if not stock_data:
             log_action(
@@ -76,7 +76,7 @@ def get_stock_by_category():
         return jsonify({'message': f'Error fetching stock by category: {str(e)}'}), 500
 
 
-@wine_bp.route('/revenue', methods=['GET'])
+@products_bp.route('/revenue', methods=['GET'])
 @jwt_required()
 @token_required
 def get_revenue():
@@ -114,7 +114,7 @@ def get_revenue():
             affected_name='Revenue'
         )
         return jsonify({"error": f"Error calculating revenue: {str(e)}"}), 500
-@wine_bp.route('/compare-sales', methods=['GET'])
+@products_bp.route('/compare-sales', methods=['GET'])
 @jwt_required()
 @token_required
 def compare_sales():
@@ -188,7 +188,7 @@ def compare_sales():
         )
         return jsonify({"error": f"Error comparing sales: {str(e)}"}), 500
 
-@wine_bp.route('/inventory-value', methods=['GET'])
+@products_bp.route('/inventory-value', methods=['GET'])
 @jwt_required()
 @token_required
 def get_inventory_value():
@@ -198,7 +198,7 @@ def get_inventory_value():
         current_user_id = current_user_id.get('id')
 
     try:
-        inventory_value = Wine.get_inventory_value_by_category()
+        inventory_value = Product.get_inventory_value_by_category()
         log_action(
             current_user_id, 
             'GET_INVENTORY_VALUE', 
@@ -216,7 +216,7 @@ def get_inventory_value():
         )
         return jsonify({"error": f"Error fetching inventory value: {str(e)}"}), 500
 
-@wine_bp.route('/user-sales/<int:user_id>', methods=['GET'])
+@products_bp.route('/user-sales/<int:user_id>', methods=['GET'])
 @jwt_required()
 @token_required
 def get_user_sales(user_id):
@@ -255,138 +255,76 @@ def get_user_sales(user_id):
         )
         return jsonify({"error": f"Error fetching user sales: {str(e)}"}), 500
 
-@wine_bp.route('/all', methods=['GET'])
+@products_bp.route('/all', methods=['GET'])
 @jwt_required()
 @token_required
-def get_all_wines():
-    """Get all wines in inventory"""
+def get_all_products():
+    """Get all products in inventory"""
     current_user_id = get_jwt_identity()
     if isinstance(current_user_id, dict):
         current_user_id = current_user_id.get('id')
 
     try:
-        wines = Wine.query.all()
-        wines_list = [{
-            "id": wine.id,
-            "name": wine.name,
-            "abv": wine.abv,
-            "price": float(wine.price),
-            "category": wine.category,
-            "bottle_size": wine.bottle_size,
-            "in_stock": wine.in_stock,
-            "added_by": wine.added_by,
-            "added_at": wine.added_at.isoformat() if wine.added_at else None
-        } for wine in wines]
+        products = Product.query.join(Category).all()
+        products_list = [{
+            "id": products.id,
+            "name": products.name,
+            "abv": products.abv,
+            "price": float(products.price),
+            "category": products.category.name,
+            "category_id": products.category.id,
+            "bottle_size": products.bottle_size,
+            "in_stock": products.in_stock,
+            "added_by": products.added_by,
+            "added_at": products.added_at.isoformat() if products.added_at else None
+        } for product in products]
 
         log_action(
             current_user_id, 
-            'GET_ALL_WINES', 
-            'Fetched all wines',
-            affected_name='All Wines'
+            'GET_ALL_PRODUCTS', 
+            'Fetched all products',
+            affected_name='All products'
         )
-        return jsonify({"wines": wines_list}), 200
+        return jsonify({"products": products_list}), 200
     except Exception as e:
         log_action(
             current_user_id, 
-            'GET_ALL_WINES_ERROR', 
+            'GET_ALL_PRODUCTS_ERROR', 
             str(e), 
             level='error',
-            affected_name='All Wines'
+            affected_name='All products'
         )
-        return jsonify({"error": f"Error fetching wines: {str(e)}"}), 500
+        return jsonify({"error": f"Error fetching products: {str(e)}"}), 500
 
-@wine_bp.route('/add', methods=['POST'])
+@products_bp.route('/add', methods=['POST'])
 @jwt_required()
 @token_required
-def add_wine():
-    """Add new wine to inventory"""
-    current_user_id = get_jwt_identity()
-    if isinstance(current_user_id, dict):
-        current_user_id = current_user_id.get('id')
-
-    user = User.query.get(current_user_id)
-    if not user.can_manage_inventory():
-        log_action(
-            current_user_id, 
-            'ADD_WINE_ERROR', 
-            'Unauthorized attempt to add wine',
-            level='error',
-            affected_name='Wine Inventory'
-        )
-        return jsonify({'message': 'Unauthorized'}), 403
+def add_product():
+    current_user = User.query.get(get_jwt_identity())
+    if not current_user.can_manage_inventory():
+        return jsonify({"msg": "Insufficient permissions"}), 403
 
     data = request.get_json()
-    if not data:
-        log_action(
-            current_user_id, 
-            'ADD_WINE_ERROR', 
-            'No data provided',
-            level='error',
-            affected_name='Wine Inventory'
-        )
-        return jsonify({'message': 'No data provided'}), 400
+    if not Category.query.get(data.get('category_id')):
+        return jsonify({"msg": "Invalid category"}), 400
 
-    required_fields = ['name', 'abv', 'price', 'category', 'bottle_size']
-    for field in required_fields:
-        if field not in data:
-            log_action(
-                current_user_id, 
-                'ADD_WINE_ERROR', 
-                f'Missing field: {field}',
-                level='error',
-                affected_name='Wine Inventory'
-            )
-            return jsonify({'message': f'Missing {field}'}), 400
+    product_data = {
+        'name': data.get('name'),
+        'abv': data.get('abv'),
+        'price': data.get('price'),
+        'category_id': data.get('category_id'),
+        'bottle_size': data.get('bottle_size'),
+        'in_stock': data.get('in_stock', 0)
+    }
+    
+    product = Product.add_to_inventory(current_user, product_data)
+    return jsonify(product.to_dict()), 201
 
-    try:
-        wine = Wine(
-            name=data['name'],
-            abv=data['abv'],
-            price=data['price'],
-            category=data['category'],
-            bottle_size=data['bottle_size'],
-            in_stock=data.get('in_stock', 0),
-            added_by=current_user_id
-        )
-        db.session.add(wine)
-        db.session.commit()
-
-        log_action(
-            current_user_id, 
-            'ADD_WINE_SUCCESS', 
-            f'Added wine: {wine.name}',
-            affected_name=wine.name
-        )
-        return jsonify({
-            'message': 'Wine added successfully',
-            'wine': {
-                'id': wine.id,
-                'name': wine.name,
-                'abv': wine.abv,
-                'price': float(wine.price),
-                'category': wine.category,
-                'bottle_size': wine.bottle_size,
-                'in_stock': wine.in_stock,
-                'added_by': wine.added_by,
-                'added_at': wine.added_at.isoformat() if wine.added_at else None
-            }
-        }), 201
-    except Exception as e:
-        db.session.rollback()
-        log_action(
-            current_user_id, 
-            'ADD_WINE_ERROR', 
-            str(e), 
-            level='error',
-            affected_name='Wine Inventory'
-        )
-        return jsonify({'message': f'Error adding wine: {str(e)}'}), 500
-
-@wine_bp.route('/<int:wine_id>', methods=['PUT'])
+@products_bp.route('/<int:product_id>', methods=['PUT'])
 @jwt_required()
 @token_required
-def update_wine(wine_id):
-    """Update existing wine"""
+def update_product(product_id):
+    """Update existing product"""
     current_user_id = get_jwt_identity()
     if isinstance(current_user_id, dict):
         current_user_id = current_user_id.get('id')
@@ -395,78 +333,78 @@ def update_wine(wine_id):
     if not user.can_manage_inventory():
         log_action(
             current_user_id, 
-            'UPDATE_WINE_ERROR', 
+            'UPDATE_product_ERROR', 
             'Unauthorized attempt',
             level='error',
-            affected_name='Wine Inventory'
+            affected_name='product Inventory'
         )
         return jsonify({'message': 'Unauthorized'}), 403
 
-    wine = Wine.query.get(wine_id)
-    if not wine:
+    product = Product.query.get(product_id)
+    if not product:
         log_action(
             current_user_id, 
-            'UPDATE_WINE_ERROR', 
-            f'Wine not found: {wine_id}',
+            'UPDATE_PRODUCT_ERROR', 
+            f'Product not found: {product_id}',
             level='error',
-            affected_name=f'Wine ID {wine_id}'
+            affected_name=f'Product ID {product_id}'
         )
-        return jsonify({'message': 'Wine not found'}), 404
+        return jsonify({'message': 'Product not found'}), 404
 
     data = request.get_json()
     if not data:
         log_action(
             current_user_id, 
-            'UPDATE_WINE_ERROR', 
+            'UPDATE_PRODUCT_ERROR', 
             'No update data',
             level='error',
-            affected_name=wine.name
+            affected_name=product.name
         )
         return jsonify({'message': 'No data provided'}), 400
 
     try:
-        if 'name' in data: wine.name = data['name']
-        if 'abv' in data: wine.abv = data['abv']
-        if 'price' in data: wine.price = data['price']
-        if 'category' in data: wine.category = data['category']
-        if 'bottle_size' in data: wine.bottle_size = data['bottle_size']
-        if 'in_stock' in data: wine.in_stock = data['in_stock']
+        if 'name' in data: product.name = data['name']
+        if 'abv' in data: product.abv = data['abv']
+        if 'price' in data: product.price = data['price']
+        if 'category_id' in data: product.category = data['category_id']
+        if 'bottle_size' in data: product.bottle_size = data['bottle_size']
+        if 'in_stock' in data: product.in_stock = data['in_stock']
 
         db.session.commit()
         log_action(
             current_user_id, 
-            'UPDATE_WINE_SUCCESS', 
-            f'Updated {wine.name}',
-            affected_name=wine.name
+            'UPDATE_PRODUCT_SUCCESS', 
+            f'Updated {product.name}',
+            affected_name=product.name
         )
         return jsonify({
-            'message': 'Wine updated',
-            'wine': {
-                'id': wine.id,
-                'name': wine.name,
-                'abv': wine.abv,
-                'price': float(wine.price),
-                'category': wine.category,
-                'bottle_size': wine.bottle_size,
-                'in_stock': wine.in_stock
+            'message': 'Product updated',
+            'product': {
+                'id': product.id,
+                'name': product.name,
+                'abv': product.abv,
+                'price': float(product.price),
+                'category': product.category,
+                'bottle_size': product.bottle_size,
+                'in_stock': product.in_stock
             }
         }), 200
     except Exception as e:
         db.session.rollback()
         log_action(
             current_user_id, 
-            'UPDATE_WINE_ERROR', 
+            'UPDATE_PRODUCT_ERROR', 
             str(e), 
             level='error',
-            affected_name=wine.name
+            affected_name=product.name
         )
         return jsonify({'message': f'Update error: {str(e)}'}), 500
 
-@wine_bp.route('/<int:wine_id>', methods=['DELETE'])
+@products_bp.route('/<int:product_id>', methods=['DELETE'])
 @jwt_required()
 @token_required
-def delete_wine(wine_id):
-    """Delete a wine"""
+def delete_product(product_id):
+    """Delete a product"""
     current_user_id = get_jwt_identity()
     if isinstance(current_user_id, dict):
         current_user_id = current_user_id.get('id')
@@ -475,82 +413,82 @@ def delete_wine(wine_id):
     if not user.can_manage_inventory():
         log_action(
             current_user_id, 
-            'DELETE_WINE_ERROR', 
+            'DELETE_PRODUCT_ERROR', 
             'Unauthorized attempt',
             level='error',
-            affected_name=f'Wine ID {wine_id}'
+            affected_name=f'product ID {product_id}'
         )
         return jsonify({'message': 'Unauthorized'}), 403
 
-    wine = Wine.query.get(wine_id)
-    if not wine:
+    product = Product.query.get(product_id)
+    if not product:
         log_action(
             current_user_id, 
-            'DELETE_WINE_ERROR', 
-            f'Wine not found: {wine_id}',
+            'DELETE_PRODUCT_ERROR', 
+            f'Product not found: {product_id}',
             level='error',
-            affected_name=f'Wine ID {wine_id}'
+            affected_name=f'Product ID {product_id}'
         )
-        return jsonify({'message': 'Wine not found'}), 404
+        return jsonify({'message': 'Product not found'}), 404
 
     try:
-        wine_name = wine.name
-        db.session.delete(wine)
+        product_name = Product.name
+        db.session.delete(Product)
         db.session.commit()
         log_action(
             current_user_id, 
-            'DELETE_WINE_SUCCESS', 
-            f'Deleted {wine_name}',
-            affected_name=wine_name
+            'DELETE_PRODUCT_SUCCESS', 
+            f'Deleted {product_name}',
+            affected_name=product_name
         )
-        return jsonify({'message': 'Wine deleted'}), 200
+        return jsonify({'message': 'Product deleted'}), 200
     except Exception as e:
         db.session.rollback()
         log_action(
             current_user_id, 
-            'DELETE_WINE_ERROR', 
+            'DELETE_PRODUCT_ERROR', 
             str(e), 
             level='error',
-            affected_name=f'Wine ID {wine_id}'
+            affected_name=f'product ID {product_id}'
         )
         return jsonify({'message': f'Delete error: {str(e)}'}), 500
 
-@wine_bp.route('/top_wines', methods=['GET'])
+@products_bp.route('/top_selling', methods=['GET'])
 @token_required
-def get_top_wines():
+def get_top_selling():
     # Get the current date and the date one month ago
     now = datetime.utcnow()
     last_month = now - timedelta(days=30)
 
-    # Query to get the top three most sold wines
-    top_wines = db.session.query(
-        Wine.name,
+    # Query to get the top three most sold products in the last month
+    top_products = db.session.query(
+        Product.name,
         func.sum(InvoiceItem.quantity).label('total_sold'),
         func.sum(InvoiceItem.quantity * InvoiceItem.price).label('total_revenue')
-    ).join(InvoiceItem, InvoiceItem.wine_id == Wine.id) \
+    ).join(InvoiceItem, InvoiceItem.product_id == Product.id) \
      .join(Invoice, Invoice.id == InvoiceItem.invoice_id) \
      .filter(Invoice.created_at >= last_month) \
-     .group_by(Wine.name) \
+     .group_by(Product.name) \
      .order_by(func.sum(InvoiceItem.quantity).desc()) \
      .limit(3).all()
 
     # Query to get the total sales for the previous month
     previous_month_start = last_month - timedelta(days=30)
     previous_month_sales = db.session.query(
-        Wine.name,
+        Product.name,
         func.sum(InvoiceItem.quantity).label('total_sold')
-    ).join(InvoiceItem, InvoiceItem.wine_id == Wine.id) \
+    ).join(InvoiceItem, InvoiceItem.product_id == Product.id) \
      .join(Invoice, Invoice.id == InvoiceItem.invoice_id) \
      .filter(Invoice.created_at >= previous_month_start, Invoice.created_at < last_month) \
-     .group_by(Wine.name).all()
+     .group_by(Product.name).all()
 
     # Convert previous month sales to a dictionary for easy lookup
     previous_sales_dict = {name: total_sold for name, total_sold in previous_month_sales}
 
     # Prepare the response data
     result = []
-    for wine in top_wines:
-        name, total_sold, total_revenue = wine
+    for product in top_products:
+        name, total_sold, total_revenue = product
         previous_sold = previous_sales_dict.get(name, 0)
         if previous_sold == 0:
             percentage_change = 0

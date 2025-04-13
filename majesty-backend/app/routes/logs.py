@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from datetime import datetime, timedelta
 from app import db
 from sqlalchemy import or_
-from app.models import logEntry, Invoice, InvoiceItem, Wine, User
+from app.models import logEntry, Invoice, InvoiceItem, User, Product
 from flask_jwt_extended import jwt_required, get_jwt_identity 
 from app.utils.decorators import token_required
 from app.utils.logger import log_action
@@ -138,10 +138,10 @@ def get_sales_logs():
                         
                         # Add invoice items
                         for item in invoice.items:
-                            wine = Wine.query.get(item.wine_id)
+                            products = Product.query.get(item.wine_id)
                             log_data['invoice']['items'].append({
                                 'wine_id': item.wine_id,
-                                'wine_name': wine.name if wine else 'Unknown',
+                                'wine_name': products.name if products else 'Unknown',
                                 'quantity': item.quantity,
                                 'price': item.price
                             })
@@ -240,7 +240,7 @@ def get_user_sales_logs():
                         'date': invoice.created_at.isoformat(),
                         'items': [{
                             'wine_id': item.wine_id,
-                            'wine_name': Wine.query.get(item.wine_id).name,
+                            'Product_name': Product.query.get(item.wine_id).name,
                             'quantity': item.quantity,
                             'price': item.price
                         } for item in invoice.items]

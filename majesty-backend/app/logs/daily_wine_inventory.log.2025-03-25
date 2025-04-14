@@ -15,9 +15,9 @@
 [2025-03-25 04:51:29,339] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
 [2025-03-25 04:51:29,547] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-25 04:51:29,577] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 78 | Affected: Total Stock
-[2025-03-25 04:52:12,129] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: Château Margaux | Affected: Château Margaux
+[2025-03-25 04:52:12,129] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added product: Château Margaux | Affected: Château Margaux
 [2025-03-25 04:52:12,165] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
-[2025-03-25 04:53:35,650] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: Moët & Chandon Brut | Affected: Moët & Chandon Brut
+[2025-03-25 04:53:35,650] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added product: Moët & Chandon Brut | Affected: Moët & Chandon Brut
 [2025-03-25 04:53:35,695] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-25 04:55:21,961] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-25 04:55:21,966] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 113 | Affected: Total Stock
@@ -285,7 +285,7 @@ werkzeug.exceptions.MethodNotAllowed: 405 Method Not Allowed: The method is not 
 [2025-03-25 15:43:17,149] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-25 15:43:17,160] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
 [2025-03-25 15:43:17,272] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
-[2025-03-25 15:43:35,962] ERROR in logger: [CHECKOUT_ERROR] User 1: Not enough stock for wine Graham’s 20 Year Old Tawny | Affected: Wine ID 3
+[2025-03-25 15:43:35,962] ERROR in logger: [CHECKOUT_ERROR] User 1: Not enough stock for product Graham’s 20 Year Old Tawny | Affected: Wine ID 3
 [2025-03-25 15:44:14,010] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 5 | Affected: Invoice ID 5
 [2025-03-25 15:44:29,003] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
 [2025-03-25 15:45:10,613] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines

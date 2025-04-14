@@ -6,7 +6,7 @@ import { RootState } from "@/app/store";
 
 interface InventoryState {
   filteredData: Wine[];
-  wineData: Wine[];
+  productData: Wine[];
   inventoryFilter: {
     name: string;
     categories: string[];
@@ -31,7 +31,7 @@ const initialState: InventoryState = {
   filteredData: [],
   discount: 0,
   cart: [],
-  wineData: [],
+  productData: [],
 };
 
 const inventorySlice = createSlice({
@@ -57,8 +57,8 @@ const inventorySlice = createSlice({
     },
 
     setWineData: (state, action: PayloadAction<Wine[]>) => {
-      state.wineData = action.payload;
-      state.filteredData = state.wineData;
+      state.productData = action.payload;
+      state.filteredData = state.productData;
     },
 
     // ✅ Initial remove from cart (removes item completely)
@@ -87,7 +87,7 @@ const inventorySlice = createSlice({
     },
 
     filterInventory: (state) => {
-      state.filteredData = state.wineData.filter((wine) => {
+      state.filteredData = state.productData.filter((product) => {
         const {
           name,
           categories,
@@ -100,32 +100,35 @@ const inventorySlice = createSlice({
         // Name filter (fuzzy search)
         if (name.trim()) {
           const regex = new RegExp(name.split("").join(".*"), "i");
-          if (!regex.test(wine.name)) {
+          if (!regex.test(product.name)) {
             return false;
           }
         }
 
         // Categories filter
         if (categories.length > 0) {
-          if (!categories.includes(wine.category)) {
+          if (!categories.includes(product.category)) {
             return false;
           }
         }
 
         // Price range filter
-        if (wine.price < price_range.min || wine.price > price_range.max) {
+        if (
+          product.price < price_range.min ||
+          product.price > price_range.max
+        ) {
           return false;
         }
 
         // ABV range filter
-        if (wine.abv < abv_range.min || wine.abv > abv_range.max) {
+        if (product.abv < abv_range.min || product.abv > abv_range.max) {
           return false;
         }
 
         // Bottle size filter
         if (
-          wine.bottle_size < bottle_size.min ||
-          wine.bottle_size > bottle_size.max
+          product.bottle_size < bottle_size.min ||
+          product.bottle_size > bottle_size.max
         ) {
           return false;
         }
@@ -142,7 +145,7 @@ const inventorySlice = createSlice({
     },
 
     resetInventoryFilter: (state) => {
-      state.filteredData = state.wineData;
+      state.filteredData = state.productData;
     },
 
     clearFilter: (state) => {
@@ -154,7 +157,7 @@ const inventorySlice = createSlice({
         abv_range: { min: 0, max: Infinity },
         bottle_size: { min: 0, max: Infinity },
       };
-      state.filteredData = state.wineData;
+      state.filteredData = state.productData;
     },
   },
 });

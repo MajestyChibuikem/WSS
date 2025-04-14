@@ -5,13 +5,12 @@ import {
   Roles,
   SortOrder,
   User,
-  Wine,
-  WineCategory,
-  WineCategoryEnum,
+  Product,
+  ProductCategory,
+  ProductCategoryEnum,
 } from "./types";
-import { setCurrentlyEditing } from "../store/slices/wineSlice";
 
-export const wineCategories = [
+export const productCategories = [
   { content: "Red" },
   { content: "White" },
   { content: "Rosé" },
@@ -80,46 +79,46 @@ export const actionDropdownItems: DropdownItem<Actions>[] = [
   },
 ];
 
-export const categoryDropdownItems: DropdownItem<WineCategoryEnum>[] = [
+export const categoryDropdownItems: DropdownItem<ProductCategoryEnum>[] = [
   {
     icon: null,
-    content: WineCategoryEnum.WHITE,
-    value: WineCategoryEnum.WHITE,
+    content: ProductCategoryEnum.WHITE,
+    value: ProductCategoryEnum.WHITE,
     active: false,
   },
   {
     icon: null,
-    content: WineCategoryEnum.RED,
-    value: WineCategoryEnum.RED,
+    content: ProductCategoryEnum.RED,
+    value: ProductCategoryEnum.RED,
     active: false,
   },
   {
     icon: null,
-    content: WineCategoryEnum.ROSE,
-    value: WineCategoryEnum.ROSE,
+    content: ProductCategoryEnum.ROSE,
+    value: ProductCategoryEnum.ROSE,
     active: false,
   },
   {
     icon: null,
-    content: WineCategoryEnum.SPARKLING,
-    value: WineCategoryEnum.SPARKLING,
+    content: ProductCategoryEnum.SPARKLING,
+    value: ProductCategoryEnum.SPARKLING,
     active: false,
   },
   {
     icon: null,
-    content: WineCategoryEnum.DESSERT,
-    value: WineCategoryEnum.DESSERT,
+    content: ProductCategoryEnum.DESSERT,
+    value: ProductCategoryEnum.DESSERT,
     active: false,
   },
   {
     icon: null,
-    content: WineCategoryEnum.FORTIFIED,
-    value: WineCategoryEnum.FORTIFIED,
+    content: ProductCategoryEnum.FORTIFIED,
+    value: ProductCategoryEnum.FORTIFIED,
     active: false,
   },
 ];
 
-export const wineInventory: Wine[] = [
+export const wineInventory: Product[] = [
   {
     id: 100001,
     name: "Château Margaux",

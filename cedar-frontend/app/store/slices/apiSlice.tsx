@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { User, Wine } from "@/app/utils/types";
+import { User, Product } from "@/app/utils/types";
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -13,7 +13,7 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Users", "Wines", "Logs"],
+  tagTypes: ["Users", "Products", "Logs", "Categories"],
   endpoints: (builder) => ({
     // Login
     login: builder.mutation<
@@ -126,15 +126,37 @@ export const apiSlice = createApi({
       invalidatesTags: ["Users", "Logs"],
     }),
 
-    // Fetch all wines
-    getWines: builder.query<{ wines: [] }, void>({
-      query: () => "/wine/all",
-      providesTags: ["Wines"], // Add this line
+    // Fetch all products
+    getProducts: builder.query<{ products: [] }, void>({
+      query: () => "/products/all",
+      providesTags: ["Products"], // Add this line
     }),
 
-    // Add Wine
-    addWine: builder.mutation<
-      { message: string; wine: Wine },
+    // Fetch all categories
+    getCategories: builder.query<{ categories: [] }, void>({
+      query: () => "/categories/all",
+      providesTags: ["Categories"], // Add this line
+    }),
+
+    // Add Product Category
+    addCategory: builder.mutation<
+      { message: string; catgory: { name: string; description: string } },
+      {
+        name: string;
+        description: string;
+      }
+    >({
+      query: (body) => ({
+        url: "/categories/create",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Categories", "Logs"],
+    }),
+
+    // Add Product
+    addProduct: builder.mutation<
+      { message: string; product: Product },
       {
         name: string;
         abv: number;
@@ -145,18 +167,18 @@ export const apiSlice = createApi({
       }
     >({
       query: (body) => ({
-        url: "/wine/add",
+        url: "/products/add",
         method: "POST",
         body,
       }),
-      invalidatesTags: ["Wines", "Logs"],
+      invalidatesTags: ["Products", "Logs"],
     }),
 
-    // Update Wine
-    updateWine: builder.mutation<
-      { message: string; wine: Wine },
+    // Update Product
+    updateProduct: builder.mutation<
+      { message: string; product: Product },
       {
-        wine_id: number;
+        product_id: number;
         name?: string;
         abv?: number;
         price?: number;
@@ -165,12 +187,12 @@ export const apiSlice = createApi({
         in_stock?: number;
       }
     >({
-      query: ({ wine_id, ...body }) => ({
-        url: `/wine/${wine_id}`,
+      query: ({ product_id, ...body }) => ({
+        url: `/products/$ product_id}`,
         method: "PUT",
         body,
       }),
-      invalidatesTags: ["Wines", "Logs"],
+      invalidatesTags: ["Products", "Logs"],
     }),
 
     checkToken: builder.query<
@@ -197,18 +219,21 @@ export const apiSlice = createApi({
       }),
     }),
 
-    // Delete Wine
-    deleteWine: builder.mutation<{ message: string }, { wine_id: number }>({
-      query: ({ wine_id }) => ({
-        url: `/wine/${wine_id}`,
+    // Delete Product
+    deleteProduct: builder.mutation<
+      { message: string },
+      { product_id: number }
+    >({
+      query: ({ product_id }) => ({
+        url: `/products/$ product_id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Wines", "Logs"],
+      invalidatesTags: ["Products", "Logs"],
     }),
 
     // Get Inventory Value
     getInventoryValue: builder.query<{ [category: string]: number }, void>({
-      query: () => "/wine/inventory-value",
+      query: () => "/products/inventory-value",
       transformErrorResponse: (response) => ({
         message: "Error while fetching inventory value",
       }),
@@ -219,7 +244,7 @@ export const apiSlice = createApi({
       { user_id: number; total_sales: number },
       number
     >({
-      query: (userId) => `/wine/user-sales/${userId}`,
+      query: (userId) => `/products/user-sales/${userId}`,
       transformErrorResponse: (response) => ({
         message:
           response.status === 404
@@ -243,7 +268,7 @@ export const apiSlice = createApi({
       void
     >({
       query: () => ({
-        url: `/wine/compare-sales`,
+        url: `/products/compare-sales`,
         method: "GET",
       }),
       transformErrorResponse: () => ({
@@ -254,7 +279,7 @@ export const apiSlice = createApi({
     // Get Revenue for a Given Date Range
     getRevenue: builder.query<any, { start_date: string; end_date: string }>({
       query: ({ start_date, end_date }) => ({
-        url: `/wine/revenue?start_date=${start_date}&end_date=${end_date}`,
+        url: `/products/revenue?start_date=${start_date}&end_date=${end_date}`,
         method: "GET",
       }),
       transformErrorResponse: () => ({
@@ -267,15 +292,15 @@ export const apiSlice = createApi({
       { stock_by_category: Record<string, number> },
       void
     >({
-      query: () => "/wine/stock-by-category",
+      query: () => "/products/stock-by-category",
       transformErrorResponse: (response) => ({
         message: "Error fetching stock by category",
       }),
     }),
 
-    // Get Total Wine Stock
-    getTotalWineStock: builder.query<{ total_stock: number }, void>({
-      query: () => "/wine/total_stock",
+    // Get Total Product Stock
+    getTotalProductStock: builder.query<{ total_stock: number }, void>({
+      query: () => "/products/total_stock",
       transformErrorResponse: (response) => ({
         message: "Error fetching total stock",
       }),
@@ -286,7 +311,7 @@ export const apiSlice = createApi({
       providesTags: ["Logs"],
     }),
 
-    getTopWines: builder.query<
+    getTopProducts: builder.query<
       {
         name: string;
         percentage_change: number;
@@ -295,7 +320,7 @@ export const apiSlice = createApi({
       }[],
       void
     >({
-      query: () => "/wine/top_wines",
+      query: () => "/products/top_wines",
     }),
 
     getUserLogs: builder.query({
@@ -331,21 +356,23 @@ export const {
   useGetUserByIdQuery,
   useUpdateUserRolesMutation,
   useDeleteUserMutation,
-  useGetWinesQuery,
-  useGetTotalWineStockQuery,
+  useGetProductsQuery,
+  useGetTotalProductStockQuery,
   useGetStockByCategoryQuery,
   useGetRevenueQuery,
   useCompareSalesQuery,
-  useAddWineMutation,
-  useUpdateWineMutation,
-  useDeleteWineMutation,
+  useAddProductMutation,
+  useUpdateProductMutation,
+  useDeleteProductMutation,
   useCheckTokenQuery,
   useGetUserSalesQuery,
   useGetInventoryValueQuery,
-  useGetTopWinesQuery,
+  useGetTopProductsQuery,
   useUpdateUserMutation,
   useGetAllLogsQuery,
   useCheckoutMutation,
+  useAddCategoryMutation,
+  useGetCategoriesQuery,
 } = apiSlice;
 
 export default apiSlice;

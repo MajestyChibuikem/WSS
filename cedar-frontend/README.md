@@ -2,9 +2,9 @@
 
 - Inventory
 
-  - View all wine (id, name, category, price, number in stock, add to cart, actions[for ADMIN only])
-  - Filter wine by id, name, category
-  - Add wine to cart
+  - View all product (id, name, category, price, number in stock, add to cart, actions[for ADMIN only])
+  - Filter product by id, name, category
+  - Add product to cart
 
 - Cart
 

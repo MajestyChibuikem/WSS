@@ -84,7 +84,7 @@ function Topbar() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="lucide lucide-wine"
+              className="lucide lucide-product"
             >
               <path d="M8 22h8" />
               <path d="M7 10h10" />

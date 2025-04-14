@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearCurrentlyEditing,
-  closeWineEditor,
+  closeProductEditor,
   setCurrentlyEditing,
-} from "../store/slices/wineSlice";
+} from "../store/slices/productSlice";
 import { RootState } from "../store";
 import { categoryDropdownItems } from "../utils/mock_data";
 import {
-  useAddWineMutation,
-  useUpdateWineMutation,
+  useAddCategoryMutation,
+  useAddProductMutation,
+  useGetCategoriesQuery,
+  useUpdateProductMutation,
 } from "../store/slices/apiSlice";
-import { Actions, WineCategory } from "../utils/types";
+import { Actions, ProductCategory } from "../utils/types";
 import {
   Select,
   SelectContent,
@@ -23,76 +25,112 @@ import { toast } from "react-toastify";
 import { CheckIcon, Plus } from "lucide-react";
 import clsx from "clsx";
 
-function NewWineSideBar() {
+function NewProductSideBar() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
   const [newCategoryValue, setNewCategoryValue] = useState("");
 
-  const wineSelector = useSelector((state: RootState) => state.winer);
+  const productSelector = useSelector((state: RootState) => state.products);
+
+  const {
+    isLoading: categoryIsLoading,
+    error: categoryErr,
+    data: categoryData,
+  } = useGetCategoriesQuery();
+
+  console.log("categories: ", categoryIsLoading, categoryData, categoryErr);
 
   const dropdown = useSelector(
-    (state: RootState) => state.dropdown.dropdowns["add_wine_sidbar_category"]
+    (state: RootState) =>
+      state.dropdown.dropdowns["add_product_sidbar_category"]
   );
 
-  const [addWine] = useAddWineMutation();
-  const [updateWine] = useUpdateWineMutation();
+  const [addProduct] = useAddProductMutation();
+  const [updateProduct] = useUpdateProductMutation();
+  const [addCategory] = useAddCategoryMutation();
+
+  const createCategory = async () => {
+    setIsLoading(true);
+    try {
+      toast("Creating category...");
+      const response = await addCategory({
+        name: newCategoryValue,
+        description: "",
+      });
+      setIsLoading(false);
+      if (response.error) {
+        toast.error("Couldn't create category at the moment.");
+        setShowNewCategoryInput(false);
+        setNewCategoryValue("");
+        return;
+      }
+      toast.success("Category created successfuly");
+      setShowNewCategoryInput(false);
+      setNewCategoryValue("");
+    } catch (error) {
+      setIsLoading(false);
+      toast.error("Couldn't create category at the moment.");
+      setShowNewCategoryInput(false);
+      setNewCategoryValue("");
+    }
+  };
 
   const handleSubmit = async () => {
     setIsLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 0));
     if (
-      wineSelector.action_type == Actions.CREATE &&
-      wineSelector.currentlyEditing
+      productSelector.action_type == Actions.CREATE &&
+      productSelector.currentlyEditing
     ) {
       try {
-        toast("Adding wine...");
-        console.log("wine: ", wineSelector.currentlyEditing);
-        const response = await addWine({
-          ...wineSelector.currentlyEditing,
-          category: wineSelector.currentlyEditing.category,
-          bottle_size: wineSelector.currentlyEditing.bottle_size,
+        toast("Adding product...");
+        console.log("product: ", productSelector.currentlyEditing);
+        const response = await addProduct({
+          ...productSelector.currentlyEditing,
+          category: productSelector.currentlyEditing.category,
+          bottle_size: productSelector.currentlyEditing.bottle_size,
         });
 
         if (response.error) {
           setIsLoading(false);
-          toast.error("Couldn't add wine at the moment.");
+          toast.error("Couldn't add product at the moment.");
           return;
         }
 
         dispatch(clearCurrentlyEditing());
-        dispatch(closeWineEditor());
+        dispatch(closeProductEditor());
         setIsLoading(false);
-        toast.success("Wine added successfuly");
+        toast.success("Product added successfuly");
       } catch {
         setIsLoading(false);
-        toast.error("Couldn't add wine at the moment.");
+        toast.error("Couldn't add product at the moment.");
       }
     } else if (
-      wineSelector.action_type == Actions.UPDATE &&
-      wineSelector.currentlyEditing
+      productSelector.action_type == Actions.UPDATE &&
+      productSelector.currentlyEditing
     ) {
       try {
-        toast("Updating wine...");
-        const response = await updateWine({
-          ...wineSelector.currentlyEditing,
-          in_stock: wineSelector.currentlyEditing.in_stock,
-          wine_id: wineSelector.currentlyEditing.id,
+        toast("Updating product...");
+        const response = await updateProduct({
+          ...productSelector.currentlyEditing,
+          in_stock: productSelector.currentlyEditing.in_stock,
+          product_id: productSelector.currentlyEditing.id,
         });
 
         if (response.error) {
           setIsLoading(false);
-          toast.error("Couldn't updatew wine at the moment.");
+          toast.error("Couldn't updatew product at the moment.");
           return;
         }
 
         dispatch(clearCurrentlyEditing());
-        dispatch(closeWineEditor());
+        dispatch(closeProductEditor());
         setIsLoading(false);
-        toast.success("Wine updated successfuly");
+        toast.success("Product updated successfuly");
       } catch {
         setIsLoading(false);
-        toast.error("Couldn't updatew wine at the moment.");
+        toast.error("Couldn't updatew product at the moment.");
       }
     }
   };
@@ -101,36 +139,36 @@ function NewWineSideBar() {
     <div className="fixed w-[100vw] h-[100vh] bg-black/45 top-0 right-0 z-20 overflow-y-auto">
       <div className="h-full w-[25rem] bg-wBrand-background fixed top-0 right-0 p-6 space-y-8">
         <h1 className="text-2xl font-semibold mt-8">
-          {wineSelector.action_type?.toString()} product
+          {productSelector.action_type?.toString()} product
         </h1>
         <div className="space-y-8">
           <div className="space-y-4">
             <p className="text-xs text-wBrand-foreground/60 font-medium">
-              WINE NAME
+              PRODUCT NAME
             </p>
             <div className="text-sm">
               <input
                 type="text"
-                value={wineSelector?.currentlyEditing?.name}
+                value={productSelector?.currentlyEditing?.name}
                 onChange={(e) =>
                   dispatch(setCurrentlyEditing({ name: e.target.value }))
                 }
-                placeholder="Enter wine name"
+                placeholder="Enter product name"
                 className="outline-none rounded-xl h-11 border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40 pl-4 w-full"
               />
             </div>
           </div>
           <div className="space-y-4 flex-1">
             <p className="text-xs text-wBrand-foreground/60 font-medium">
-              WINE CATEGORY
+              PRODUCT CATEGORY
             </p>
             <div className="flex gap-4">
               <Select
-                value={wineSelector.currentlyEditing?.category}
+                value={productSelector.currentlyEditing?.category}
                 onValueChange={(value) => {
                   dispatch(
                     setCurrentlyEditing({
-                      category: value as WineCategory,
+                      category: value as ProductCategory,
                     })
                   );
                 }}
@@ -138,8 +176,8 @@ function NewWineSideBar() {
                 <SelectTrigger className="w-full rounded-xl h-max p-3">
                   <SelectValue
                     placeholder={
-                      wineSelector.currentlyEditing?.category ??
-                      "Select wine category"
+                      productSelector.currentlyEditing?.category ??
+                      "Select product category"
                     }
                   />
                 </SelectTrigger>
@@ -157,7 +195,7 @@ function NewWineSideBar() {
               </Select>
               {showNewCategoryInput ? (
                 <button
-                  onClick={() => setShowNewCategoryInput(false)}
+                  onClick={() => createCategory()}
                   disabled={newCategoryValue.trim() == ""}
                   className={clsx(
                     "h-11 px-4 rounded-xl border flex items-center justify-center",
@@ -192,12 +230,12 @@ function NewWineSideBar() {
           <div className="flex space-x-4">
             <div className="space-y-4">
               <p className="text-xs text-wBrand-foreground/60 font-medium">
-                WINE ABV %
+                PRODUCT ABV %
               </p>
               <div className="text-sm">
                 <input
                   type="number"
-                  value={wineSelector?.currentlyEditing?.abv}
+                  value={productSelector?.currentlyEditing?.abv}
                   onChange={(e) =>
                     dispatch(
                       setCurrentlyEditing({
@@ -205,7 +243,7 @@ function NewWineSideBar() {
                       })
                     )
                   }
-                  placeholder="Enter wine abv %"
+                  placeholder="Enter product abv %"
                   className="outline-none rounded-xl h-11 border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40 pl-4 w-full"
                 />
               </div>
@@ -217,7 +255,7 @@ function NewWineSideBar() {
               <div className="text-sm">
                 <input
                   type="number"
-                  value={wineSelector?.currentlyEditing?.bottle_size}
+                  value={productSelector?.currentlyEditing?.bottle_size}
                   onChange={(e) =>
                     dispatch(
                       setCurrentlyEditing({
@@ -234,11 +272,11 @@ function NewWineSideBar() {
           <div className="flex space-x-4">
             <div className="space-y-4 flex-1">
               <p className="text-xs text-wBrand-foreground/60 font-medium">
-                WINE PRICE
+                PRODUCT PRICE
               </p>
               <div className="text-sm">
                 <input
-                  value={wineSelector?.currentlyEditing?.price}
+                  value={productSelector?.currentlyEditing?.price}
                   onChange={(e) =>
                     dispatch(
                       setCurrentlyEditing({
@@ -247,7 +285,7 @@ function NewWineSideBar() {
                     )
                   }
                   type="number"
-                  placeholder="Enter wine price"
+                  placeholder="Enter product price"
                   className="outline-none rounded-xl h-11 border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40 pl-4 w-full"
                 />
               </div>
@@ -258,7 +296,7 @@ function NewWineSideBar() {
               </p>
               <div className="text-sm">
                 <input
-                  value={wineSelector?.currentlyEditing?.in_stock}
+                  value={productSelector?.currentlyEditing?.in_stock}
                   onChange={(e) =>
                     dispatch(
                       setCurrentlyEditing({
@@ -267,7 +305,7 @@ function NewWineSideBar() {
                     )
                   }
                   type="number"
-                  placeholder="Enter no. of wine available"
+                  placeholder="Enter no. of product available"
                   className="outline-none rounded-xl h-11 border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40 pl-4 w-full"
                 />
               </div>
@@ -276,7 +314,7 @@ function NewWineSideBar() {
         </div>
         <div className="w-full flex gap-4 justify-end">
           <button
-            onClick={() => dispatch(closeWineEditor())}
+            onClick={() => dispatch(closeProductEditor())}
             className="py-2 px-5 text-sm border duration-700 border-wBrand-accent/30 hover:border-wBrand-accent font-semibold rounded-lg text-wBrand-accent/30 hover:text-wBrand-accent"
           >
             Close
@@ -285,7 +323,7 @@ function NewWineSideBar() {
             onClick={handleSubmit}
             className="py-2 px-5 text-sm bg-wBrand-accent font-semibold rounded-lg text-wBrand-background"
           >
-            {wineSelector.action_type?.toString()} wine
+            {productSelector.action_type?.toString()} product
           </button>
         </div>
       </div>
@@ -293,4 +331,4 @@ function NewWineSideBar() {
   );
 }
 
-export default NewWineSideBar;
+export default NewProductSideBar;

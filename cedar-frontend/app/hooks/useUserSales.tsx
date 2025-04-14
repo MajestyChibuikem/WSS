@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Define the interfaces for sales data
 interface SaleItem {
-  wine_id: number;
+  product_id: number;
   wine_name: string;
   quantity: number;
   price: number;

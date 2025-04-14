@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import TableRow from "../components/table_row";
-import { dropdownItems, wineCategories } from "../utils/mock_data";
+import { dropdownItems, productCategories } from "../utils/mock_data";
 import {
   DollarSign,
   LoaderCircle,
@@ -9,10 +9,13 @@ import {
   ShoppingBasketIcon,
   Wine,
 } from "lucide-react";
-import NewWineSideBar from "../components/new_wine_sidebar";
+import NewWineSideBar from "../components/new_product_sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
-import { toggleWineEditor, updateAction } from "../store/slices/wineSlice";
+import {
+  toggleProductEditor,
+  updateAction,
+} from "../store/slices/productSlice";
 import CheckboxSelector from "../components/checkbox_selector";
 import {
   clearFilter,
@@ -20,8 +23,8 @@ import {
   updateInventoryFilter,
 } from "../store/slices/inventorySlice";
 import {
-  useGetTotalWineStockQuery,
-  useGetWinesQuery,
+  useGetProductsQuery,
+  useGetTotalProductStockQuery,
 } from "../store/slices/apiSlice";
 import {
   Select,
@@ -32,7 +35,7 @@ import {
 } from "@/components/ui/select";
 
 import Empty from "../components/empty";
-import { Actions, Wine as IWine, Roles } from "../utils/types";
+import { Actions, Product as IProduct, Roles } from "../utils/types";
 import { getRoleEnum } from "../utils/helpers";
 import { toast } from "react-toastify";
 import clsx from "clsx";
@@ -41,7 +44,7 @@ import { useRouter } from "next/navigation";
 function Page() {
   const router = useRouter();
   const showWineEditor = useSelector(
-    (state: RootState) => state.winer.show_wine_editor
+    (state: RootState) => state.products.show_product_editor
   );
   const inventoryFilter = useSelector(
     (state: RootState) => state.inventory.inventoryFilter
@@ -55,13 +58,13 @@ function Page() {
   const dispatch = useDispatch();
   const categoryArr = Object.values(selectedItems).map((item) => item.content);
 
-  const { data: wineData, error, isLoading } = useGetWinesQuery();
+  const { data: productData, error, isLoading } = useGetProductsQuery();
 
   useEffect(() => {
-    if (wineData && wineData.wines) {
-      dispatch(setWineData(wineData.wines));
+    if (productData && productData.products) {
+      dispatch(setWineData(productData.products));
     }
-  }, [wineData]);
+  }, [productData]);
 
   useEffect(() => {
     if (categoryArr.length === 0 && inventoryFilter.categories?.length) {
@@ -78,7 +81,7 @@ function Page() {
     data: totalWineStock,
     error: totalWineStockErr,
     isLoading: loadingTotalWineStock,
-  } = useGetTotalWineStockQuery();
+  } = useGetTotalProductStockQuery();
 
   if (isLoading || loadingTotalWineStock)
     return (
@@ -88,15 +91,15 @@ function Page() {
     );
   if (error) {
     toast.error("Couldn't fetch total stock price");
-    return <p>Error fetching wines</p>;
+    return <p>Error fetching products</p>;
   }
 
   if (totalWineStockErr) {
-    toast.error("Couldn't fetch wine stock currently");
+    toast.error("Couldn't fetch product stock currently");
   }
 
   const userRole = getRoleEnum(
-    localStorage.getItem("wineryUserRole")?.toLowerCase() ?? ""
+    localStorage.getItem("productryUserRole")?.toLowerCase() ?? ""
   );
 
   return (
@@ -107,13 +110,13 @@ function Page() {
           <h1 className="text-2xl font-medium">Inventory</h1>
           <p className="border border-wBrand-foreground/20 px-3 text-sm rounded-full py-1">
             {totalWineStock && totalWineStock.total_stock}{" "}
-            <span className="text-xs text-gray-300">wines in available</span>
+            <span className="text-xs text-gray-300">products in available</span>
           </p>
         </div>
 
         <div className="flex justify-between items-center pl-9 w-[calc(100vw-22rem)]">
           <div className="flex w-[70%] gap-5">
-            {wineData && (
+            {productData && (
               <div className="icon-input w-full">
                 <Search className="h-4" />
                 <input
@@ -132,7 +135,7 @@ function Page() {
             {userRole !== Roles.STAFF && (
               <button
                 onClick={() => {
-                  dispatch(toggleWineEditor());
+                  dispatch(toggleProductEditor());
                   dispatch(dispatch(updateAction(Actions.CREATE)));
                 }}
                 className="px-5 py-2 bg-wBrand-accent text-nowrap text-wBrand-background rounded-xl"
@@ -174,8 +177,8 @@ function Page() {
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
                   PRODUCT CATEGORY
                 </p>
-                <div className="grid grid-cols-2 gap-2">
-                  {wineCategories.map((category, idx) => (
+                {/* <div className="grid grid-cols-2 gap-2">
+                  {productCategories.map((category, idx) => (
                     <CheckboxSelector
                       key={idx}
                       id="inventory_product_category"
@@ -183,7 +186,7 @@ function Page() {
                       idx={idx}
                     />
                   ))}
-                </div>
+                </div> */}
               </div>
               <div className="space-y-4 px-6">
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
@@ -330,13 +333,19 @@ function Page() {
                   "there seems to currently be an issue with the server... Try again later"
                 }
               />
+            ) : inventory.filteredData.length == 0 ? (
+              <Empty
+                info={
+                  "Inventory is currently empty, please add some products to begin sales"
+                }
+              />
             ) : (
               inventory.filteredData &&
-              inventory.filteredData.map((wine, idx) => (
+              inventory.filteredData.map((product, idx) => (
                 <TableRow
-                  id={"inventory_wine_card_" + idx}
+                  id={"inventory_product_card_" + idx}
                   key={idx}
-                  wine={wine}
+                  product={product}
                 />
               ))
             )}

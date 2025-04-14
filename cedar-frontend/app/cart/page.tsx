@@ -67,8 +67,8 @@ function Page() {
               <p>Cart is currently empty</p>
             </div>
           )}
-          {inventoryCart.cart.map((wine, idx) => (
-            <CartCard key={idx} wine={wine} quantity={wine.quantity} />
+          {inventoryCart.cart.map((product, idx) => (
+            <CartCard key={idx} product={product} quantity={product.quantity} />
           ))}
         </section>
 
@@ -103,14 +103,14 @@ function Page() {
               {inventoryCart.cart.length == 0 && (
                 <p className="text-gray-500 font-semibold">cart is empty</p>
               )}
-              {inventoryCart.cart.map((wine, idx) => (
+              {inventoryCart.cart.map((product, idx) => (
                 <div className="flex justify-between text-wBrand-foreground/70">
-                  <p key={idx}>{wine.name}</p>
+                  <p key={idx}>{product.name}</p>
                   <p key={idx} className="text-base font-medium">
                     <span className="text-xs font-medium text-white/50">
-                      x{wine.quantity}
+                      x{product.quantity}
                     </span>{" "}
-                    {formatDecimal(wine.price).formatted}
+                    {formatDecimal(product.price).formatted}
                   </p>
                 </div>
               ))}

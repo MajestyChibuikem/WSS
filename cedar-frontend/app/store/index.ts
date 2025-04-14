@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import counterReducer from "./slices/counterSlice";
-import wineReducer from "./slices/wineSlice";
+import productReducer from "./slices/productSlice";
 import dropdownReducer from "./slices/dropdownSlice";
 import checkboxSelectorReducer from "./slices/checkboxSelectorSlice";
 import inventoryReducer from "./slices/inventorySlice";
@@ -15,7 +15,7 @@ import salesReducer from "./slices/salesSlice";
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    winer: wineReducer,
+    products: productReducer,
     dropdown: dropdownReducer,
     checkboxSelector: checkboxSelectorReducer,
     inventory: inventoryReducer,

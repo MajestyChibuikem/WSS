@@ -30,17 +30,17 @@ export interface DropdownItem<T> {
   active: boolean;
 }
 
-export interface Wine {
+export interface Product {
   id: number;
   name: string;
   abv: number; // Alcohol by Volume %
   price: number; // Price in Naira
-  category: WineCategory;
+  category: ProductCategory;
   bottle_size: number; // in ml
   in_stock: number; // Number of bottles available
 }
 
-export const enum WineCategoryEnum {
+export const enum ProductCategoryEnum {
   RED = "Red",
   WHITE = "White",
   ROSE = "Rosé",
@@ -49,7 +49,7 @@ export const enum WineCategoryEnum {
   FORTIFIED = "Fortified",
 }
 
-export type WineCategory =
+export type ProductCategory =
   | "Red"
   | "White"
   | "Rosé"

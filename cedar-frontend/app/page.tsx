@@ -32,7 +32,7 @@ import {
   getRoleEnum,
 } from "./utils/helpers";
 import { toast } from "react-toastify";
-import { updateAction } from "./store/slices/wineSlice";
+import { updateAction } from "./store/slices/productSlice";
 import { toggleUserEditor } from "./store/slices/userSlice";
 import { Actions, Roles } from "./utils/types";
 import NewUserSideBar from "./components/new_user_sidebar";
@@ -127,7 +127,7 @@ export default function Home() {
   );
 
   if (error) {
-    console.log("Couldn't fetch wine at this time");
+    console.log("Couldn't fetch product at this time");
   }
 
   if (topWinesErr) {
@@ -135,7 +135,7 @@ export default function Home() {
   }
 
   if (inventoryValueErr) {
-    console.log("Couldn't fetch wine at this time");
+    console.log("Couldn't fetch product at this time");
   }
 
   if (userRole == Roles.ADMIN && allLogsError) {
@@ -356,7 +356,7 @@ export default function Home() {
               Top Bestsellers
             </h3>
             <div className="flex gap-x-2">
-              {topWines.map((wine, index) => (
+              {topWines.map((product, index) => (
                 <div
                   key={index}
                   className={`h-[6rem] w-[6rem] text-xs rounded-xl flex flex-col justify-center items-center p-1 gap-y-2 ${
@@ -368,20 +368,20 @@ export default function Home() {
                   }`}
                 >
                   <h4 className="text-sm text-nowrap">
-                    {wine.name.length > 10
-                      ? `${wine.name.slice(0, 10)}...`
-                      : wine.name}
+                    {product.name.length > 10
+                      ? `${product.name.slice(0, 10)}...`
+                      : product.name}
                   </h4>
                   <p className="rounded-full px-2 py-1 w-max border border-wBrand-foreground/30">
-                    {wine.total_revenue !== "N/A"
+                    {product.total_revenue !== "N/A"
                       ? `${formatNumber(
-                          wine.total_revenue as number
+                          product.total_revenue as number
                         ).toLocaleString()}`
                       : "N/A"}
                   </p>
                   <p>
-                    {wine.percentage_change !== "N/A"
-                      ? `+${wine.percentage_change}%`
+                    {product.percentage_change !== "N/A"
+                      ? `+${product.percentage_change}%`
                       : "N/A"}
                   </p>
                 </div>
@@ -431,8 +431,8 @@ export default function Home() {
             {wineData &&
               wineData?.wines
                 .slice(0, 5)
-                .map((wine, idx) => (
-                  <TableRowDashboard key={idx} wine={wine} />
+                .map((product, idx) => (
+                  <TableRowDashboard key={idx} product={product} />
                 ))}
           </div>
         </div>

@@ -23,7 +23,7 @@ def get_cart():
                 'wine_id': item.wine_id,
                 'quantity': item.quantity,
                 'added_at': item.added_at.isoformat() if item.added_at else None,
-                'category' : item.wine.category.name,
+                'category' : item.product.category.name,
             })
         log_action(
             current_user_id, 
@@ -67,7 +67,7 @@ def add_to_cart():
                 current_user_id, 
                 'UPDATE_CART_ITEM', 
                 f'Updated quantity for wine_id {data["wine_id"]}',
-                affected_name=f'Wine ID {data["wine_id"]}'  # Affected wine
+                affected_name=f'Wine ID {data["wine_id"]}'  # Affected product
             )
         else:
             cart_item = Cart(user_id=current_user_id, wine_id=data['wine_id'], quantity=quantity)
@@ -76,7 +76,7 @@ def add_to_cart():
                 current_user_id, 
                 'ADD_CART_ITEM', 
                 f'Added wine_id {data["wine_id"]} to cart',
-                affected_name=f'Wine ID {data["wine_id"]}'  # Affected wine
+                affected_name=f'Wine ID {data["wine_id"]}'  # Affected product
             )
         db.session.commit()
         return jsonify({'message': 'Item added to cart successfully'}), 200

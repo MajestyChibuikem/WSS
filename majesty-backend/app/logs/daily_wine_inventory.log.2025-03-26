@@ -55,7 +55,7 @@
 [2025-03-26 10:10:12,630] INFO in logger: [COMPARE_SALES] User 1: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
 [2025-03-26 10:10:12,683] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
 [2025-03-26 10:10:21,601] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
-[2025-03-26 14:01:08,286] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: Red | Affected: Red
+[2025-03-26 14:01:08,286] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added product: Red | Affected: Red
 [2025-03-26 14:01:08,314] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-26 14:03:27,836] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
 [2025-03-26 14:03:27,954] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines

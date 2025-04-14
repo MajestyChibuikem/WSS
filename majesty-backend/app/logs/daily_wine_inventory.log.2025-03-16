@@ -73,7 +73,7 @@
 [2025-03-16 18:05:25,164] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 147 | Affected: Total Stock
 [2025-03-16 18:05:25,194] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
 [2025-03-16 18:05:25,200] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-16 18:05:25,229] ERROR in app: Exception on /wine/revenue [OPTIONS]
+[2025-03-16 18:05:25,229] ERROR in app: Exception on /product/revenue [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -103,7 +103,7 @@ Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
     raise NotFound() from None
 werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
-[2025-03-16 18:05:25,241] ERROR in app: Exception on /wine/compare-sales [OPTIONS]
+[2025-03-16 18:05:25,241] ERROR in app: Exception on /product/compare-sales [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -136,7 +136,7 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-16 18:05:25,251] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:05:25,254] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:05:31,163] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-16 18:05:31,171] ERROR in app: Exception on /wine/all [OPTIONS]
+[2025-03-16 18:05:31,171] ERROR in app: Exception on /product/all [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -169,7 +169,7 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-16 18:05:31,190] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:05:51,053] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
 [2025-03-16 18:05:51,254] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-16 18:05:51,260] ERROR in app: Exception on /wine/all [OPTIONS]
+[2025-03-16 18:05:51,260] ERROR in app: Exception on /product/all [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -203,7 +203,7 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-16 18:05:51,958] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
 [2025-03-16 18:05:51,972] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
 [2025-03-16 18:05:51,982] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
-[2025-03-16 18:05:51,983] ERROR in app: Exception on /wine/revenue [OPTIONS]
+[2025-03-16 18:05:51,983] ERROR in app: Exception on /product/revenue [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -234,7 +234,7 @@ Traceback (most recent call last):
     raise NotFound() from None
 werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
 [2025-03-16 18:05:51,996] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 147 | Affected: Total Stock
-[2025-03-16 18:05:51,996] ERROR in app: Exception on /wine/compare-sales [OPTIONS]
+[2025-03-16 18:05:51,996] ERROR in app: Exception on /product/compare-sales [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -267,7 +267,7 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-16 18:05:52,001] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:05:52,018] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:06:01,142] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-16 18:06:01,148] ERROR in app: Exception on /wine/all [OPTIONS]
+[2025-03-16 18:06:01,148] ERROR in app: Exception on /product/all [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -299,7 +299,7 @@ Traceback (most recent call last):
 werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
 [2025-03-16 18:06:01,152] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:06:41,216] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-16 18:06:41,220] ERROR in app: Exception on /wine/all [GET]
+[2025-03-16 18:06:41,220] ERROR in app: Exception on /product/all [GET]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -331,7 +331,7 @@ Traceback (most recent call last):
 werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
 [2025-03-16 18:06:41,227] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:09:48,266] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-16 18:09:48,270] ERROR in app: Exception on /wine [GET]
+[2025-03-16 18:09:48,270] ERROR in app: Exception on /product [GET]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -363,7 +363,7 @@ Traceback (most recent call last):
 werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
 [2025-03-16 18:09:48,275] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:09:49,887] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-16 18:09:49,894] ERROR in app: Exception on /wine [GET]
+[2025-03-16 18:09:49,894] ERROR in app: Exception on /product [GET]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -395,7 +395,7 @@ Traceback (most recent call last):
 werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
 [2025-03-16 18:09:49,898] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:09:53,158] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-16 18:09:53,162] ERROR in app: Exception on /wine/all [GET]
+[2025-03-16 18:09:53,162] ERROR in app: Exception on /product/all [GET]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -493,7 +493,7 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-16 18:12:07,808] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:13:53,318] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
 [2025-03-16 18:19:50,962] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-16 18:19:50,965] ERROR in app: Exception on /wine/all [GET]
+[2025-03-16 18:19:50,965] ERROR in app: Exception on /product/all [GET]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -526,14 +526,14 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-16 18:19:50,970] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:20:33,419] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-03-16 18:20:51,341] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines successfully | Affected: Wine Inventory
-[2025-03-16 18:21:23,452] INFO in logger: [UPDATE_WINE_SUCCESS] User 1: Wine updated: red wine | Affected: red wine
+[2025-03-16 18:21:23,452] INFO in logger: [UPDATE_WINE_SUCCESS] User 1: Wine updated: red product | Affected: red product
 [2025-03-16 18:21:30,615] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
 [2025-03-16 18:21:30,714] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines successfully | Affected: Wine Inventory
 [2025-03-16 18:21:31,640] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
 [2025-03-16 18:21:31,648] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 147 | Affected: Total Stock
 [2025-03-16 18:21:31,650] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
 [2025-03-16 18:21:31,652] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-16 18:21:31,660] ERROR in app: Exception on /wine/compare-sales [OPTIONS]
+[2025-03-16 18:21:31,660] ERROR in app: Exception on /product/compare-sales [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -563,7 +563,7 @@ Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
     raise NotFound() from None
 werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
-[2025-03-16 18:21:31,669] ERROR in app: Exception on /wine/revenue [OPTIONS]
+[2025-03-16 18:21:31,669] ERROR in app: Exception on /product/revenue [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -596,7 +596,7 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-16 18:21:31,677] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:21:31,681] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:22:48,169] ERROR in logger: [EXCEPTION] User 1: Unhandled exception: UnsupportedMediaType
-[2025-03-16 18:22:48,175] ERROR in app: Exception on /wine/3 [PUT]
+[2025-03-16 18:22:48,175] ERROR in app: Exception on /product/3 [PUT]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -621,7 +621,7 @@ Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
     return current_app.ensure_sync(fn)(*args, **kwargs)
            ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/app/routes/wine.py", line 190, in update_wine
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/app/routes/product.py", line 190, in update_wine
     data = request.get_json()
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/werkzeug/wrappers/request.py", line 604, in get_json
     return self.on_json_loading_failed(None)
@@ -638,7 +638,7 @@ werkzeug.exceptions.UnsupportedMediaType: 415 Unsupported Media Type: Did not at
 [2025-03-16 18:23:06,766] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
 [2025-03-16 18:23:06,933] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines successfully | Affected: Wine Inventory
 [2025-03-16 18:23:07,705] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-16 18:23:07,716] ERROR in app: Exception on /wine/revenue [OPTIONS]
+[2025-03-16 18:23:07,716] ERROR in app: Exception on /product/revenue [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -672,7 +672,7 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-16 18:23:07,726] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
 [2025-03-16 18:23:07,731] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 147 | Affected: Total Stock
 [2025-03-16 18:23:07,735] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
-[2025-03-16 18:23:07,739] ERROR in app: Exception on /wine/compare-sales [OPTIONS]
+[2025-03-16 18:23:07,739] ERROR in app: Exception on /product/compare-sales [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -705,7 +705,7 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-16 18:23:07,750] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:54:08,723] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
 [2025-03-16 18:54:09,891] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-16 18:54:09,904] ERROR in app: Exception on /wine/revenue [OPTIONS]
+[2025-03-16 18:54:09,904] ERROR in app: Exception on /product/revenue [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -739,7 +739,7 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-16 18:54:09,915] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 147 | Affected: Total Stock
 [2025-03-16 18:54:09,915] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
 [2025-03-16 18:54:09,928] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
-[2025-03-16 18:54:09,944] ERROR in app: Exception on /wine/compare-sales [OPTIONS]
+[2025-03-16 18:54:09,944] ERROR in app: Exception on /product/compare-sales [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -806,7 +806,7 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-16 18:54:56,150] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines successfully | Affected: Wine Inventory
 [2025-03-16 18:55:25,801] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
 [2025-03-16 18:55:25,815] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-16 18:55:25,816] ERROR in app: Exception on /wine/revenue [OPTIONS]
+[2025-03-16 18:55:25,816] ERROR in app: Exception on /product/revenue [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -838,7 +838,7 @@ Traceback (most recent call last):
 werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
 [2025-03-16 18:55:25,823] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 147 | Affected: Total Stock
 [2025-03-16 18:55:25,823] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
-[2025-03-16 18:55:25,826] ERROR in app: Exception on /wine/compare-sales [OPTIONS]
+[2025-03-16 18:55:25,826] ERROR in app: Exception on /product/compare-sales [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -871,7 +871,7 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-16 18:55:25,833] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:55:25,837] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:56:10,305] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-16 18:56:10,314] ERROR in app: Exception on /wine/compare-sales [OPTIONS]
+[2025-03-16 18:56:10,314] ERROR in app: Exception on /product/compare-sales [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -903,7 +903,7 @@ Traceback (most recent call last):
 werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
 [2025-03-16 18:56:10,321] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-03-16 18:56:14,419] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-16 18:56:14,422] ERROR in app: Exception on /wine/compare-sales [OPTIONS]
+[2025-03-16 18:56:14,422] ERROR in app: Exception on /product/compare-sales [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -938,7 +938,7 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-03-16 19:03:31,298] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
 [2025-03-16 19:03:31,446] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
 [2025-03-16 19:03:31,451] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
-[2025-03-16 19:03:31,456] ERROR in app: Exception on /wine/revenue [OPTIONS]
+[2025-03-16 19:03:31,456] ERROR in app: Exception on /product/revenue [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -970,7 +970,7 @@ Traceback (most recent call last):
 werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
 [2025-03-16 19:03:31,469] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 147 | Affected: Total Stock
 [2025-03-16 19:03:31,473] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
-[2025-03-16 19:03:31,474] ERROR in app: Exception on /wine/compare-sales [OPTIONS]
+[2025-03-16 19:03:31,474] ERROR in app: Exception on /product/compare-sales [OPTIONS]
 Traceback (most recent call last):
   File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -1477,7 +1477,7 @@ sqlalchemy.exc.StatementError: (raised as a result of Query-invoked autoflush; c
 [2025-03-16 22:44:31,677] ERROR in logger: [EXCEPTION] User 1: Unhandled exception: InternalServerError
 [2025-03-16 22:46:19,229] INFO in logger: [UPDATE_USER_SUCCESS] User 1: User updated: 4 | Affected: fourth_user
 [2025-03-16 22:48:55,745] INFO in logger: [DELETE_USER_SUCCESS] User 1: Deleted user fourth_user (ID: 4) | Affected: fourth_user
-[2025-03-16 22:50:37,441] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: sparkling fruit juice | Affected: sparkling fruit juice
+[2025-03-16 22:50:37,441] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added product: sparkling fruit juice | Affected: sparkling fruit juice
 [2025-03-16 22:51:07,896] INFO in logger: [DELETE_WINE_SUCCESS] User 1: Deleted sparkling fruit juice | Affected: sparkling fruit juice
 <<<<<<< HEAD
 >>>>>>> 03801dc28de6d69459cfa67dfe514f3fadeea0fa

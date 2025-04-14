@@ -252,11 +252,11 @@ def checkout():
                 log_action(
                     current_user_id, 
                     'CHECKOUT_ERROR', 
-                    f'Not enough stock for wine {product.name}', 
+                    f'Not enough stock for product {product.name}', 
                     level='error',
                     affected_name=f'Wine ID {product.id}'
                 )
-                return jsonify({'message': f'Not enough stock for wine {product.name}'}), 400
+                return jsonify({'message': f'Not enough stock for product {product.name}'}), 400
 
             product.in_stock -= item_data['number_sold']
             db.session.add(product)

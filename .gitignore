@@ -18,7 +18,8 @@ cedar-frontend/*.tsbuildinfo
 cedar-frontend/next-env.d.ts
 
 # Ignore everything inside majesty-backend/ folder
-majesty-backend/venv/
+majesty-backend/backend/
+majesty-backend/env/
 majesty-backend/env/
 majesty-backend/.vscode/
 majesty-backend/.idea/

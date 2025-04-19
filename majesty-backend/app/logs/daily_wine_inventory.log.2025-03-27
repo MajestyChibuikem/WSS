@@ -59,12 +59,12 @@
 [2025-03-27 05:22:42,001] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
 [2025-03-27 05:22:42,151] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-27 05:22:42,164] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 115 | Affected: Total Stock
-[2025-03-27 05:23:24,850] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: new wine | Affected: new wine
+[2025-03-27 05:23:24,850] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added product: new product | Affected: new product
 [2025-03-27 05:23:24,871] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-27 05:23:55,617] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
 [2025-03-27 05:23:55,738] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-27 05:23:55,738] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 125 | Affected: Total Stock
-[2025-03-27 05:24:18,040] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: new wind | Affected: new wind
+[2025-03-27 05:24:18,040] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added product: new wind | Affected: new wind
 [2025-03-27 05:24:18,070] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-27 05:29:55,300] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
 [2025-03-27 05:30:14,598] INFO in logger: [CREATE_USER_SUCCESS] User 1: Created user: pamela | Affected: pamela
@@ -117,34 +117,34 @@
 [2025-03-27 13:29:13,520] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 198 | Affected: Total Stock
 [2025-03-27 13:29:42,330] ERROR in logger: [ADD_WINE_ERROR] User 1: (sqlite3.IntegrityError) UNIQUE constraint failed: wines.name
 [SQL: INSERT INTO wines (name, abv, price, category, bottle_size, in_stock, added_by, added_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)]
-[parameters: ('new wine', 21.5, 200000.0, 'Rosé', '340', '22', '1', '2025-03-27 12:29:42.328675')]
+[parameters: ('new product', 21.5, 200000.0, 'Rosé', '340', '22', '1', '2025-03-27 12:29:42.328675')]
 (Background on this error at: https://sqlalche.me/e/20/gkpj) | Affected: Wine Inventory
 [2025-03-27 13:29:42,360] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-27 13:29:47,403] ERROR in logger: [ADD_WINE_ERROR] User 1: (sqlite3.IntegrityError) UNIQUE constraint failed: wines.name
 [SQL: INSERT INTO wines (name, abv, price, category, bottle_size, in_stock, added_by, added_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)]
-[parameters: ('new wine', 21.5, 200000.0, 'Rosé', '340', '22', '1', '2025-03-27 12:29:47.403162')]
+[parameters: ('new product', 21.5, 200000.0, 'Rosé', '340', '22', '1', '2025-03-27 12:29:47.403162')]
 (Background on this error at: https://sqlalche.me/e/20/gkpj) | Affected: Wine Inventory
 [2025-03-27 13:29:47,451] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-27 13:30:15,112] ERROR in logger: [ADD_WINE_ERROR] User 1: (sqlite3.IntegrityError) UNIQUE constraint failed: wines.name
 [SQL: INSERT INTO wines (name, abv, price, category, bottle_size, in_stock, added_by, added_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)]
-[parameters: ('new wine', 21.5, 200000.0, 'Rosé', '340', '22', '1', '2025-03-27 12:30:15.111957')]
+[parameters: ('new product', 21.5, 200000.0, 'Rosé', '340', '22', '1', '2025-03-27 12:30:15.111957')]
 (Background on this error at: https://sqlalche.me/e/20/gkpj) | Affected: Wine Inventory
 [2025-03-27 13:30:15,157] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-27 13:30:36,039] ERROR in logger: [ADD_WINE_ERROR] User 1: (sqlite3.IntegrityError) UNIQUE constraint failed: wines.name
 [SQL: INSERT INTO wines (name, abv, price, category, bottle_size, in_stock, added_by, added_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)]
-[parameters: ('new wine', 21.5, 200000.0, 'Rosé', '340', '22', '1', '2025-03-27 12:30:36.038862')]
+[parameters: ('new product', 21.5, 200000.0, 'Rosé', '340', '22', '1', '2025-03-27 12:30:36.038862')]
 (Background on this error at: https://sqlalche.me/e/20/gkpj) | Affected: Wine Inventory
 [2025-03-27 13:30:36,071] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-27 13:30:42,113] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
 [2025-03-27 13:30:42,221] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-27 13:30:42,233] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 198 | Affected: Total Stock
-[2025-03-27 13:31:10,863] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: some wine | Affected: some wine
+[2025-03-27 13:31:10,863] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added product: some product | Affected: some product
 [2025-03-27 13:31:10,903] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
-[2025-03-27 13:31:21,503] INFO in logger: [DELETE_WINE_SUCCESS] User 1: Deleted some wine | Affected: some wine
+[2025-03-27 13:31:21,503] INFO in logger: [DELETE_WINE_SUCCESS] User 1: Deleted some product | Affected: some product
 [2025-03-27 13:31:21,532] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-27 13:31:26,317] INFO in logger: [DELETE_WINE_SUCCESS] User 1: Deleted new wind | Affected: new wind
 [2025-03-27 13:31:26,337] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
-[2025-03-27 13:31:29,190] INFO in logger: [DELETE_WINE_SUCCESS] User 1: Deleted new wine | Affected: new wine
+[2025-03-27 13:31:29,190] INFO in logger: [DELETE_WINE_SUCCESS] User 1: Deleted new product | Affected: new product
 [2025-03-27 13:31:29,297] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-03-27 13:31:32,443] INFO in logger: [DELETE_WINE_SUCCESS] User 1: Deleted Red | Affected: Red
 [2025-03-27 13:31:32,472] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines

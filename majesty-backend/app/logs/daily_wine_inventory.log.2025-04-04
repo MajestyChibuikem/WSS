@@ -129,7 +129,7 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-04-04 12:13:14,573] INFO in logger: [CHECKOUT_SUCCESS] User 1: Checkout completed for invoice 15 | Affected: Invoice ID 15
 [2025-04-04 12:15:19,233] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 332 | Affected: Total Stock
 [2025-04-04 12:15:19,235] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
-[2025-04-04 12:15:52,188] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added wine: star | Affected: star
+[2025-04-04 12:15:52,188] INFO in logger: [ADD_WINE_SUCCESS] User 1: Added product: star | Affected: star
 [2025-04-04 12:15:52,234] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
 [2025-04-04 12:15:57,853] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
 [2025-04-04 12:15:57,965] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines

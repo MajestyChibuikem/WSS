@@ -131,3 +131,39 @@
 [2025-04-02 14:46:13,020] INFO in logger: [GET_ALL_WINES] User 4: Fetched all wines | Affected: All Wines
 [2025-04-02 14:46:13,021] INFO in logger: [COMPARE_SALES] User 4: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
 [2025-04-02 14:46:13,047] INFO in logger: [GET_INVENTORY_VALUE] User 4: Inventory value fetched | Affected: Inventory Value by Category
+<<<<<<< HEAD
+[2025-04-11 11:20:28,804] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
+[2025-04-11 11:20:29,224] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 20159047.87 | Affected: Revenue
+[2025-04-11 11:20:29,232] ERROR in logger: [COMPARE_SALES_ERROR] User 1: [Errno 5] Input/output error | Affected: Sales Comparison
+[2025-04-11 11:20:29,235] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 337 | Affected: Total Stock
+[2025-04-11 11:20:29,239] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-04-11 11:20:29,269] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-04-11 11:20:29,269] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-04-11 11:20:29,270] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-04-11 11:27:49,106] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-04-11 11:27:49,207] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 337 | Affected: Total Stock
+[2025-04-11 11:27:49,209] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-04-11 11:28:29,570] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-04-11 11:28:29,650] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-04-11 11:28:29,660] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 337 | Affected: Total Stock
+[2025-04-11 11:51:30,422] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 337 | Affected: Total Stock
+[2025-04-11 11:51:30,425] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-04-11 11:51:30,426] ERROR in logger: [COMPARE_SALES_ERROR] User 1: [Errno 5] Input/output error | Affected: Sales Comparison
+[2025-04-11 11:51:30,433] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 20159047.87 | Affected: Revenue
+[2025-04-11 11:51:30,467] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-04-11 11:51:30,478] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-04-11 11:51:30,483] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-04-11 11:51:39,626] INFO in logger: [CHECK_TOKEN_VALID] User 1: Token is valid | Affected: Token System
+[2025-04-11 11:51:39,705] INFO in logger: [GET_REVENUE] User 1: Revenue calculated for the past 30 days: 20159047.87 | Affected: Revenue
+[2025-04-11 11:51:39,706] INFO in logger: [GET_STOCK_BY_CATEGORY] User 1: Stock by category fetched successfully | Affected: Stock by Category
+[2025-04-11 11:51:39,727] ERROR in logger: [COMPARE_SALES_ERROR] User 1: [Errno 5] Input/output error | Affected: Sales Comparison
+[2025-04-11 11:51:39,736] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 337 | Affected: Total Stock
+[2025-04-11 11:51:39,743] INFO in logger: [GET_USERS_SUCCESS] User 1: Admin retrieved user list | Affected: User Management
+[2025-04-11 11:51:39,749] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-04-11 11:51:39,761] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
+[2025-04-11 11:57:24,226] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-04-11 11:57:24,228] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 337 | Affected: Total Stock
+[2025-04-11 11:59:11,245] INFO in logger: [GET_ALL_WINES] User 1: Fetched all wines | Affected: All Wines
+[2025-04-11 11:59:11,250] INFO in logger: [GET_TOTAL_STOCK] User 1: Total stock checked: 337 | Affected: Total Stock
+=======
+>>>>>>> 30284e8a9d8b3f353c6720ef2b4bcc554912daa1

@@ -127,27 +127,27 @@ export default function Home() {
   );
 
   if (error) {
-    toast.error("Couldn't fetch wine at this time");
+    console.log("Couldn't fetch wine at this time");
   }
 
   if (topWinesErr) {
-    toast.error("Couldn't fetch top wines at this time");
+    console.log("Couldn't fetch top wines at this time");
   }
 
   if (inventoryValueErr) {
-    toast.error("Couldn't fetch wine at this time");
+    console.log("Couldn't fetch wine at this time");
   }
 
-  if (allLogsError) {
-    toast.error("Couldn't fetch inventory value at this time");
+  if (userRole == Roles.ADMIN && allLogsError) {
+    console.log("Couldn't fetch inventory value at this time");
   }
 
   if (userRole == Roles.ADMIN && userDataErr) {
-    toast.error("Couldn't fetch users at this time");
+    console.log("Couldn't fetch users at this time");
   }
 
   if (totalStockErr) {
-    toast.error("Couldn't fetch total stock price");
+    console.log("Couldn't fetch total stock price");
   }
 
   const showUserEditor = useSelector(

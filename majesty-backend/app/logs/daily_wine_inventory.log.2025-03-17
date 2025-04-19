@@ -2,7 +2,7 @@
 [2025-03-17 08:55:59,522] INFO in logger: [LOGIN_SUCCESS] User 1: User logged in successfully | Affected: admin
 [2025-03-17 08:56:26,454] INFO in logger: [GET_INVENTORY_VALUE] User 1: Inventory value fetched | Affected: Inventory Value by Category
 [2025-03-17 09:37:18,589] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-17 09:37:18,608] ERROR in app: Exception on /wine/top_wines [GET]
+[2025-03-17 09:37:18,608] ERROR in app: Exception on /product/top_wines [GET]
 Traceback (most recent call last):
   File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()

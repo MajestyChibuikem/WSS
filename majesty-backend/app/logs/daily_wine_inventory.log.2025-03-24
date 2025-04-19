@@ -54,7 +54,7 @@
 [2025-03-22 19:55:12,160] INFO in logger: [GET_REVENUE] User 1: Revenue calculated: 150.00 | Affected: Revenue
 [2025-03-22 20:01:22,100] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-03-22 20:01:35,066] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-03-22 20:01:35,127] ERROR in app: Exception on /wine/revenue [GET]
+[2025-03-22 20:01:35,127] ERROR in app: Exception on /product/revenue [GET]
 Traceback (most recent call last):
   File "/Users/macbookpro/Documents/projects/WSS/venv/lib/python3.11/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()

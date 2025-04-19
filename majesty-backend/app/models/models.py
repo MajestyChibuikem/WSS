@@ -167,6 +167,15 @@ class Product(db.Model):
     added_by = db.Column(db.Integer, db.ForeignKey('users.id'))
     added_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+    def to_dict(self):
+        return{
+            "id": self.id,
+            "name": self.name,
+            "price": self.property,
+            "quantity": self.quantity,
+
+        }
+
     creator = db.relationship('User', foreign_keys=[added_by])
 
     @staticmethod

@@ -10,6 +10,24 @@ from functools import wraps
 from app.utils.decorators import token_required
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
+@auth_bp.route('/create_admin', methods=['POST'])
+def create_admin():
+    # Check if admin already exists
+    if User.query.filter_by(username='newadmin').first():
+        return jsonify({'message': 'Admin already exists'}), 400
+    
+    # Create new admin
+    admin = User(username='newadmin', is_admin=True)
+    admin.set_password('adminpassword')  # This will properly hash the password
+    db.session.add(admin)
+    
+    # Assign admin role
+    admin_role = Role.query.filter_by(name='admin').first()
+    if admin_role:
+        admin.roles.append(admin_role)
+    
+    db.session.commit()
+    return jsonify({'message': 'New admin created', 'username': 'newadmin', 'password': 'adminpassword'}), 201
 
 @auth_bp.route('/login', methods=['POST'])
 def login():

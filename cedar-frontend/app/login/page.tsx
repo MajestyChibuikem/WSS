@@ -34,10 +34,12 @@ function Page() {
     try {
       setIsLoading(true);
       toast("Logging you in...");
+      console.log("trying...");
       const response = await login({
         username: user.username,
         password: user.password,
       }).unwrap();
+      console.log("login response: ", response);
       localStorage.setItem("wineryAuthToken", response.token);
       localStorage.setItem("wineryUserRole", response.roles[0]);
       localStorage.setItem("wineryUserId", response.user_id.toString());

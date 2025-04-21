@@ -134,7 +134,7 @@ export const apiSlice = createApi({
 
     // Fetch all categories
     getCategories: builder.query<{ categories: [] }, void>({
-      query: () => "/categories/all",
+      query: () => "/categories/get",
       providesTags: ["Categories"], // Add this line
     }),
 
@@ -161,7 +161,7 @@ export const apiSlice = createApi({
         name: string;
         abv: number;
         price: number;
-        category: string;
+        category_id: number;
         bottle_size: number;
         in_stock?: number;
       }

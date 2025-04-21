@@ -308,17 +308,41 @@ def add_product():
     if not Category.query.get(data.get('category_id')):
         return jsonify({"msg": "Invalid category"}), 400
 
-    product_data = {
-        'name': data.get('name'),
-        'abv': data.get('abv'),
-        'price': data.get('price'),
-        'category_id': data.get('category_id'),
-        'bottle_size': data.get('bottle_size'),
-        'in_stock': data.get('in_stock', 0)
-    }
-    
-    product = Product.add_to_inventory(current_user, product_data)
-    return jsonify(product.to_dict()), 201
+    try:
+        new_product = Product(
+            name=data.get('name'),
+            abv=data.get('abv'),
+            price=data.get('price'),
+            category_id=data.get('category_id'),
+            bottle_size=data.get('bottle_size'),
+            in_stock=data.get('in_stock'),
+            added_by=current_user.id,
+            added_at=datetime.utcnow()
+        )
+
+        db.session.add(new_product)
+        db.session.commit()
+
+        log_action(
+            current_user.id,
+            'ADD_PRODUCT',
+            f'Product added: {new_product.name}',
+            affected_name=new_product.name
+        )
+
+        return jsonify({"msg": "Product added successfully", "product_id": new_product.id}), 201
+
+    except Exception as e:
+        db.session.rollback()
+        log_action(
+            current_user.id,
+            'ADD_PRODUCT_ERROR',
+            str(e),
+            level='error',
+            affected_name=data.get('name')
+        )
+        return jsonify({"error": f"Error adding product: {str(e)}"}), 500
+
 
 @products_bp.route('/<int:product_id>', methods=['PUT'])
 @jwt_required()

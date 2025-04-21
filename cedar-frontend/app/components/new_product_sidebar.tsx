@@ -88,7 +88,7 @@ function NewProductSideBar() {
         console.log("product: ", productSelector.currentlyEditing);
         const response = await addProduct({
           ...productSelector.currentlyEditing,
-          category: productSelector.currentlyEditing.category,
+          category_id: Number(productSelector.currentlyEditing.category),
           bottle_size: productSelector.currentlyEditing.bottle_size,
         });
 
@@ -182,15 +182,19 @@ function NewProductSideBar() {
                   />
                 </SelectTrigger>
                 <SelectContent className="bg-wBrand-background mt-2 rounded-xl">
-                  {categoryDropdownItems.map((item, idx) => (
-                    <SelectItem
-                      className="p-3"
-                      key={idx}
-                      value={item.value.toString()}
-                    >
-                      {item.content}
-                    </SelectItem>
-                  ))}
+                  {categoryData &&
+                    ((categoryData as unknown) as Array<{
+                      name: string;
+                      id: number;
+                    }>).map((item, idx) => (
+                      <SelectItem
+                        className="p-3"
+                        key={idx}
+                        value={String(item.id)}
+                      >
+                        {item.name}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
               {showNewCategoryInput ? (
@@ -227,7 +231,7 @@ function NewProductSideBar() {
               />
             )}
           </div>
-          <div className="flex space-x-4">
+          {/* <div className="flex space-x-4">
             <div className="space-y-4">
               <p className="text-xs text-wBrand-foreground/60 font-medium">
                 PRODUCT ABV %
@@ -268,7 +272,7 @@ function NewProductSideBar() {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="flex space-x-4">
             <div className="space-y-4 flex-1">
               <p className="text-xs text-wBrand-foreground/60 font-medium">

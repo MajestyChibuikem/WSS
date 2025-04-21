@@ -16,7 +16,6 @@ import {
   toggleProductEditor,
   updateAction,
 } from "../store/slices/productSlice";
-import CheckboxSelector from "../components/checkbox_selector";
 import {
   clearFilter,
   setWineData,

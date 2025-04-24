@@ -1,9 +1,22 @@
-[2025-04-19 13:17:50,402] INFO in logger: Wine Inventory API Started - Environment: development
-[2025-04-19 13:18:02,457] INFO in logger: [LOGIN_FAILURE] User None: Invalid login attempt | Affected: admin
-[2025-04-19 13:18:44,005] INFO in logger: [LOGIN_FAILURE] User None: Invalid login attempt | Affected: admin
-[2025-04-19 13:19:02,761] INFO in logger: [LOGIN_FAILURE] User None: Invalid login attempt | Affected: admin
-[2025-04-19 13:22:58,788] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-04-19 13:22:58,793] ERROR in app: Exception on /auth/create_admin [POST]
+[2025-04-24 07:35:48,581] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-24 07:41:19,414] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-24 07:41:36,795] INFO in logger: [LOGIN_SUCCESS] User 2: User logged in successfully | Affected: newadmin
+[2025-04-24 07:45:42,904] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-24 07:45:50,344] ERROR in logger: [EXCEPTION] User 2: Unhandled exception: IntegrityError
+[2025-04-24 07:45:50,345] ERROR in logger: Failed to save log entry to database: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.IntegrityError) NOT NULL constraint failed: products.category_id
+[SQL: UPDATE products SET category_id=? WHERE products.id = ?]
+[parameters: [(None, 2), (None, 3)]]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+[2025-04-24 07:45:50,356] ERROR in app: Exception on /categories/delete/2 [DELETE]
+Traceback (most recent call last):
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1933, in _exec_single_context
+    self.dialect.do_executemany(
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 939, in do_executemany
+    cursor.executemany(statement, parameters)
+sqlite3.IntegrityError: NOT NULL constraint failed: products.category_id
+
+The above exception was the direct cause of the following exception:
+
 Traceback (most recent call last):
   File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 1463, in wsgi_app
     response = self.full_dispatch_request()
@@ -17,10 +30,7 @@ Traceback (most recent call last):
   File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
     return cors_after_request(app.make_response(f(*args, **kwargs)))
                                                 ^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 755, in handle_user_exception
-    return self.handle_http_exception(e)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 730, in handle_http_exception
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 762, in handle_user_exception
     return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
@@ -28,207 +38,73 @@ Traceback (most recent call last):
   File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 870, in full_dispatch_request
     rv = self.dispatch_request()
          ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 844, in dispatch_request
-    self.raise_routing_exception(req)
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 453, in raise_routing_exception
-    raise request.routing_exception  # type: ignore[misc]
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/ctx.py", line 362, in match_request
-    result = self.url_adapter.match(return_rule=True)  # type: ignore
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/werkzeug/routing/map.py", line 629, in match
-    raise NotFound() from None
-werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
-[2025-04-19 13:22:58,798] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
-[2025-04-19 13:23:17,442] INFO in logger: Wine Inventory API Started - Environment: development
-[2025-04-19 13:23:46,986] INFO in logger: [LOGIN_SUCCESS] User 2: User logged in successfully | Affected: newadmin
-[2025-04-19 13:32:43,537] INFO in logger: Wine Inventory API Started - Environment: development
-[2025-04-19 13:33:25,803] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-04-19 13:33:25,831] ERROR in app: Exception on /categories/create [POST]
-Traceback (most recent call last):
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 1463, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 872, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
-    return cors_after_request(app.make_response(f(*args, **kwargs)))
-                                                ^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
-    return cors_after_request(app.make_response(f(*args, **kwargs)))
-                                                ^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 755, in handle_user_exception
-    return self.handle_http_exception(e)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 730, in handle_http_exception
-    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
-    raise exception
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 870, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 844, in dispatch_request
-    self.raise_routing_exception(req)
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 453, in raise_routing_exception
-    raise request.routing_exception  # type: ignore[misc]
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/ctx.py", line 362, in match_request
-    result = self.url_adapter.match(return_rule=True)  # type: ignore
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/werkzeug/routing/map.py", line 629, in match
-    raise NotFound() from None
-werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
-[2025-04-19 13:33:25,836] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
-[2025-04-19 13:34:02,368] INFO in logger: Wine Inventory API Started - Environment: development
-[2025-04-19 13:37:04,323] INFO in logger: [GET_ALL_PRODUCTS] User 2: Fetched all products | Affected: All products
-[2025-04-19 13:45:32,595] ERROR in logger: [EXCEPTION] User None: Unhandled exception: MethodNotAllowed
-[2025-04-19 13:45:32,599] ERROR in app: Exception on /products/add [PUT]
-Traceback (most recent call last):
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 1463, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 872, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
-    return cors_after_request(app.make_response(f(*args, **kwargs)))
-                                                ^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
-    return cors_after_request(app.make_response(f(*args, **kwargs)))
-                                                ^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 755, in handle_user_exception
-    return self.handle_http_exception(e)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 730, in handle_http_exception
-    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
-    raise exception
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 870, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 844, in dispatch_request
-    self.raise_routing_exception(req)
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 453, in raise_routing_exception
-    raise request.routing_exception  # type: ignore[misc]
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/ctx.py", line 362, in match_request
-    result = self.url_adapter.match(return_rule=True)  # type: ignore
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/werkzeug/routing/map.py", line 624, in match
-    raise MethodNotAllowed(valid_methods=list(e.have_match_for)) from None
-werkzeug.exceptions.MethodNotAllowed: 405 Method Not Allowed: The method is not allowed for the requested URL.
-[2025-04-19 13:45:32,604] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
-[2025-04-19 13:46:01,425] INFO in logger: [LOGIN_SUCCESS] User 2: User logged in successfully | Affected: newadmin
-[2025-04-19 13:46:19,553] INFO in logger: [ADD_PRODUCT] User 2: Product added: akpu | Affected: akpu
-[2025-04-19 13:54:38,666] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-04-19 13:54:38,671] ERROR in app: Exception on /product/stock-by-category [GET]
-Traceback (most recent call last):
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 1463, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 872, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
-    return cors_after_request(app.make_response(f(*args, **kwargs)))
-                                                ^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
-    return cors_after_request(app.make_response(f(*args, **kwargs)))
-                                                ^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 755, in handle_user_exception
-    return self.handle_http_exception(e)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 730, in handle_http_exception
-    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
-    raise exception
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 870, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 844, in dispatch_request
-    self.raise_routing_exception(req)
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 453, in raise_routing_exception
-    raise request.routing_exception  # type: ignore[misc]
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/ctx.py", line 362, in match_request
-    result = self.url_adapter.match(return_rule=True)  # type: ignore
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/werkzeug/routing/map.py", line 629, in match
-    raise NotFound() from None
-werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
-[2025-04-19 13:54:38,685] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
-[2025-04-19 13:55:15,745] INFO in logger: [GET_STOCK_BY_CATEGORY] User 2: Stock by category fetched successfully | Affected: Stock by Category
-[2025-04-19 13:55:56,138] ERROR in logger: [ADD_PRODUCT_ERROR] User 2: (sqlite3.IntegrityError) UNIQUE constraint failed: products.name
-[SQL: INSERT INTO products (name, abv, price, category_id, bottle_size, in_stock, added_by, added_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)]
-[parameters: ('akpu', None, 29.99, 2, 750, 50, 2, '2025-04-19 12:55:56.133071')]
-(Background on this error at: https://sqlalche.me/e/20/gkpj) | Affected: akpu
-[2025-04-19 13:56:11,802] INFO in logger: [ADD_PRODUCT] User 2: Product added: eguisi | Affected: eguisi
-[2025-04-19 13:56:16,096] INFO in logger: [GET_STOCK_BY_CATEGORY] User 2: Stock by category fetched successfully | Affected: Stock by Category
-[2025-04-19 14:00:17,409] INFO in logger: Wine Inventory API Started - Environment: development
-[2025-04-19 14:00:26,940] INFO in logger: [GET_STOCK_BY_CATEGORY] User 2: Stock by category fetched successfully | Affected: Stock by Category
-[2025-04-19 14:00:45,497] INFO in logger: [ADD_PRODUCT] User 2: Product added: toast | Affected: toast
-[2025-04-19 14:00:49,554] INFO in logger: [GET_STOCK_BY_CATEGORY] User 2: Stock by category fetched successfully | Affected: Stock by Category
-[2025-04-19 14:01:16,711] INFO in logger: [ADD_PRODUCT] User 2: Product added: bread | Affected: bread
-[2025-04-19 14:01:22,831] INFO in logger: [GET_STOCK_BY_CATEGORY] User 2: Stock by category fetched successfully | Affected: Stock by Category
-[2025-04-19 14:02:15,357] INFO in logger: [GET_TOTAL_STOCK] User 2: Total stock checked: 500 | Affected: Total Stock
-[2025-04-19 14:02:51,998] INFO in logger: [GET_INVENTORY_VALUE] User 2: Inventory value fetched | Affected: Inventory Value by Category
-[2025-04-19 14:02:52,004] ERROR in logger: [GET_INVENTORY_VALUE_ERROR] User 2: Object of type Row is not JSON serializable | Affected: Inventory Value by Category
-[2025-04-19 14:07:51,745] INFO in logger: Wine Inventory API Started - Environment: development
-[2025-04-19 14:07:56,309] INFO in logger: [GET_INVENTORY_VALUE] User 2: Inventory value fetched | Affected: Inventory Value by Category
-[2025-04-19 14:10:54,687] ERROR in logger: [GET_ALL_PRODUCTS_ERROR] User 2: 'list' object has no attribute 'id' | Affected: All products
-[2025-04-19 14:11:30,299] ERROR in logger: [GET_ALL_PRODUCTS_ERROR] User 2: 'list' object has no attribute 'id' | Affected: All products
-[2025-04-19 14:14:06,368] ERROR in logger: [GET_ALL_PRODUCTS_ERROR] User 2: 'list' object has no attribute 'id' | Affected: All products
-[2025-04-19 14:14:55,856] ERROR in logger: [GET_ALL_PRODUCTS_ERROR] User 2: 'list' object has no attribute 'id' | Affected: All products
-[2025-04-19 14:15:02,028] INFO in logger: Wine Inventory API Started - Environment: development
-[2025-04-19 14:15:04,332] ERROR in logger: [GET_ALL_PRODUCTS_ERROR] User 2: 'list' object has no attribute 'bottle_size' | Affected: All products
-[2025-04-19 14:16:20,284] INFO in logger: Wine Inventory API Started - Environment: development
-[2025-04-19 14:16:25,683] INFO in logger: [GET_ALL_PRODUCTS] User 2: Fetched all products | Affected: All products
-[2025-04-19 14:16:45,782] INFO in logger: [GET_STOCK_BY_CATEGORY] User 2: Stock by category fetched successfully | Affected: Stock by Category
-[2025-04-19 14:28:29,195] INFO in logger: [UPDATE_PRODUCT_SUCCESS] User 2: Updated akpu | Affected: akpu
-[2025-04-19 14:28:29,205] ERROR in logger: [UPDATE_PRODUCT_ERROR] User 2: Object of type Category is not JSON serializable | Affected: akpu
-[2025-04-19 14:32:33,192] INFO in logger: Wine Inventory API Started - Environment: development
-[2025-04-19 14:32:38,238] INFO in logger: [UPDATE_PRODUCT_SUCCESS] User 2: Updated akpu | Affected: akpu
-[2025-04-19 15:01:15,124] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
-[2025-04-19 15:01:15,130] ERROR in app: Exception on /products/by-category/1 [GET]
-Traceback (most recent call last):
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 1463, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 872, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
-    return cors_after_request(app.make_response(f(*args, **kwargs)))
-                                                ^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
-    return cors_after_request(app.make_response(f(*args, **kwargs)))
-                                                ^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 755, in handle_user_exception
-    return self.handle_http_exception(e)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 730, in handle_http_exception
-    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
-    raise exception
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 870, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 844, in dispatch_request
-    self.raise_routing_exception(req)
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 453, in raise_routing_exception
-    raise request.routing_exception  # type: ignore[misc]
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/ctx.py", line 362, in match_request
-    result = self.url_adapter.match(return_rule=True)  # type: ignore
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/werkzeug/routing/map.py", line 629, in match
-    raise NotFound() from None
-werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
-[2025-04-19 15:01:15,143] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
-[2025-04-19 15:01:22,843] INFO in logger: Wine Inventory API Started - Environment: development
-[2025-04-19 15:01:25,420] INFO in logger: [GET_PRODUCTS_BY_CATEGORY] User 2: Fetched 2 products from Red Wines | Affected: Red Wines
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/app/routes/category.py", line 58, in delete_category
+    db.session.commit()
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 85, in save_obj
+    _emit_update_statements(
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 912, in _emit_update_statements
+    c = connection.execute(
+        ^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1933, in _exec_single_context
+    self.dialect.do_executemany(
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 939, in do_executemany
+    cursor.executemany(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: products.category_id
+[SQL: UPDATE products SET category_id=? WHERE products.id = ?]
+[parameters: [(None, 2), (None, 3)]]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+[2025-04-24 07:45:50,368] ERROR in logger: [EXCEPTION] User 2: Unhandled exception: InternalServerError
+[2025-04-24 07:53:29,626] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-24 07:53:52,012] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-24 07:54:08,440] INFO in logger: Wine Inventory API Started - Environment: development

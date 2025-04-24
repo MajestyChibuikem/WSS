@@ -36,4 +36,33 @@ def create_category():
 def get_categories():
     categories = Category.query.all()
     return jsonify([c.to_dict() for c in categories]), 200
+#delete category
+from sqlalchemy.exc import IntegrityError
 
+@category_bp.route('/delete/<int:category_id>', methods=['DELETE'])
+@jwt_required()
+def delete_category(category_id):
+    current_user_id = get_jwt_identity()
+
+    # Fetch the category by ID
+    category = Category.query.get(category_id)
+
+    # Check if the category exists
+    if not category:
+        return jsonify({'message': 'Category not found'}), 404
+
+    # Check if the current user has permission to delete the category
+    # if category.created_by != current_user_id:
+    #     return jsonify({'message': 'You do not have permission to delete this category'}), 403
+
+    try:
+        # Delete the category (this will cascade to delete all associated products)
+        db.session.delete(category)
+        db.session.commit()
+
+        return jsonify({'message': 'Category and all associated products deleted successfully'}), 200
+
+    except IntegrityError as e:
+        # Rollback in case of database integrity error
+        db.session.rollback()
+        return jsonify({'message': 'An error occurred while deleting the category', 'error': str(e)}), 500

@@ -1,6 +1,6 @@
 base url : /categories
 
-create a new categoryc
+create a new category
     method: POST
     endpoint : /categories/create
     description: creates a new category 
@@ -16,3 +16,8 @@ create a new categoryc
 get all categories
     endpoint: /categories/get
     method: GET
+
+delete a category
+    endpoint: /categories/delete/<int:category.id>
+    Authorization: Bearer <JWT_TOKEN>
+    method: DELETE

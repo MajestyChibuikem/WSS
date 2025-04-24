@@ -12982,3 +12982,113 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-04-19 15:01:15,143] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
 [2025-04-19 15:01:22,843] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-04-19 15:01:25,420] INFO in logger: [GET_PRODUCTS_BY_CATEGORY] User 2: Fetched 2 products from Red Wines | Affected: Red Wines
+[2025-04-24 07:35:48,581] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-24 07:41:19,414] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-24 07:41:36,795] INFO in logger: [LOGIN_SUCCESS] User 2: User logged in successfully | Affected: newadmin
+[2025-04-24 07:45:42,904] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-24 07:45:50,344] ERROR in logger: [EXCEPTION] User 2: Unhandled exception: IntegrityError
+[2025-04-24 07:45:50,345] ERROR in logger: Failed to save log entry to database: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.IntegrityError) NOT NULL constraint failed: products.category_id
+[SQL: UPDATE products SET category_id=? WHERE products.id = ?]
+[parameters: [(None, 2), (None, 3)]]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+[2025-04-24 07:45:50,356] ERROR in app: Exception on /categories/delete/2 [DELETE]
+Traceback (most recent call last):
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1933, in _exec_single_context
+    self.dialect.do_executemany(
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 939, in do_executemany
+    cursor.executemany(statement, parameters)
+sqlite3.IntegrityError: NOT NULL constraint failed: products.category_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 762, in handle_user_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/app/routes/category.py", line 58, in delete_category
+    db.session.commit()
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 85, in save_obj
+    _emit_update_statements(
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 912, in _emit_update_statements
+    c = connection.execute(
+        ^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1933, in _exec_single_context
+    self.dialect.do_executemany(
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 939, in do_executemany
+    cursor.executemany(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: products.category_id
+[SQL: UPDATE products SET category_id=? WHERE products.id = ?]
+[parameters: [(None, 2), (None, 3)]]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+[2025-04-24 07:45:50,368] ERROR in logger: [EXCEPTION] User 2: Unhandled exception: InternalServerError
+[2025-04-24 07:53:29,626] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-24 07:53:52,012] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-24 07:54:08,440] INFO in logger: Wine Inventory API Started - Environment: development

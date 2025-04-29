@@ -1,0 +1,9 @@
+[2025-04-28 05:42:10,578] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-28 05:43:34,027] INFO in logger: [LOGIN_SUCCESS] User 2: User logged in successfully | Affected: newadmin
+[2025-04-28 05:49:00,883] INFO in logger: [LOGIN_SUCCESS] User 2: User logged in successfully | Affected: newadmin
+[2025-04-28 05:49:30,572] ERROR in logger: [ADD_PRODUCT_ERROR] User 2: (sqlite3.IntegrityError) UNIQUE constraint failed: products.name
+[SQL: INSERT INTO products (name, abv, price, category_id, bottle_size, in_stock, added_by, added_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('bread', None, 29.99, 1, 750, 350, 2, '2025-04-28 04:49:30.568652')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) | Affected: bread
+[2025-04-28 05:49:56,099] INFO in logger: [ADD_PRODUCT] User 2: Product added: bread2 | Affected: bread2
+[2025-04-28 11:04:32,710] INFO in logger: Wine Inventory API Started - Environment: development

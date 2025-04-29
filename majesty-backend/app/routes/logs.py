@@ -138,10 +138,10 @@ def get_sales_logs():
                         
                         # Add invoice items
                         for item in invoice.items:
-                            products = Product.query.get(item.wine_id)
+                            products = Product.query.get(item.product_id)
                             log_data['invoice']['items'].append({
-                                'wine_id': item.wine_id,
-                                'wine_name': products.name if products else 'Unknown',
+                                'product_id': item.product_id,
+                                'products_name': products.name if products else 'Unknown',
                                 'quantity': item.quantity,
                                 'price': item.price
                             })
@@ -239,8 +239,8 @@ def get_user_sales_logs():
                         'total': invoice.total_amount,
                         'date': invoice.created_at.isoformat(),
                         'items': [{
-                            'wine_id': item.wine_id,
-                            'Product_name': Product.query.get(item.wine_id).name,
+                            'product_id': item.product_id,
+                            'product_name': Product.query.get(item.product_id).name,
                             'quantity': item.quantity,
                             'price': item.price
                         } for item in invoice.items]

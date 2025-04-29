@@ -171,8 +171,8 @@ class Product(db.Model):
         return{
             "id": self.id,
             "name": self.name,
-            "price": self.property,
-            "quantity": self.quantity,
+            "price": str(self.price),
+            "in_stock": self.in_stock,
 
         }
 
@@ -209,6 +209,7 @@ class Cart(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    product = db.relationship('Product', backref='cart_items')
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
     quantity = db.Column(db.Integer, nullable=False, default=1)
     added_at = db.Column(db.DateTime, default=datetime.utcnow)

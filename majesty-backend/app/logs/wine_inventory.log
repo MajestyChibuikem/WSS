@@ -13092,3 +13092,94 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint fail
 [2025-04-24 07:53:29,626] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-04-24 07:53:52,012] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-04-24 07:54:08,440] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-24 08:15:26,393] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-28 05:42:10,578] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-28 05:43:34,027] INFO in logger: [LOGIN_SUCCESS] User 2: User logged in successfully | Affected: newadmin
+[2025-04-28 05:49:00,883] INFO in logger: [LOGIN_SUCCESS] User 2: User logged in successfully | Affected: newadmin
+[2025-04-28 05:49:30,572] ERROR in logger: [ADD_PRODUCT_ERROR] User 2: (sqlite3.IntegrityError) UNIQUE constraint failed: products.name
+[SQL: INSERT INTO products (name, abv, price, category_id, bottle_size, in_stock, added_by, added_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('bread', None, 29.99, 1, 750, 350, 2, '2025-04-28 04:49:30.568652')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) | Affected: bread
+[2025-04-28 05:49:56,099] INFO in logger: [ADD_PRODUCT] User 2: Product added: bread2 | Affected: bread2
+[2025-04-28 11:04:32,710] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-29 06:51:44,587] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-29 06:51:54,501] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-29 06:52:00,541] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-29 06:52:05,843] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-04-29 06:52:20,743] INFO in logger: [LOGIN_SUCCESS] User 2: User logged in successfully | Affected: newadmin
+[2025-04-29 06:53:16,898] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2025-04-29 06:53:16,903] ERROR in app: Exception on /wine/user-sales/1 [GET]
+Traceback (most recent call last):
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2025-04-29 06:53:16,909] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2025-04-29 06:54:13,266] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2025-04-29 06:54:13,270] ERROR in app: Exception on /logs/sales/user/1 [GET]
+Traceback (most recent call last):
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbookpro/Documents/projects/WSS/majesty-backend/venv/lib/python3.11/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2025-04-29 06:54:13,272] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError

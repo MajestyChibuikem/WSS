@@ -143,7 +143,7 @@ class Category(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     creator = db.relationship('User', foreign_keys=[created_by])
-    products = db.relationship('Product', backref='category')
+    products = db.relationship('Product', backref='category',cascade="all, delete-orphan")
 
     def to_dict(self):
         return {

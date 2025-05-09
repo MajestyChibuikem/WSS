@@ -1,28 +1,28 @@
 import { SortOrder } from "@/app/utils/mock_data";
-import { Wine } from "@/app/utils/types";
+import { Product } from "@/app/utils/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/app/store";
 
 interface InventoryState {
-  filteredData: Wine[];
-  productData: Wine[];
+  filteredData: Product[];
+  productData: Product[];
   inventoryFilter: {
     name: string;
-    categories: string[];
+    categories: string;
     sort_by: SortOrder;
     price_range: { min: number; max: number };
     abv_range: { min: number; max: number };
     bottle_size: { min: number; max: number };
   };
   discount: number;
-  cart: (Wine & { quantity: number })[]; // Ensure items have a quantity
+  cart: (Product & { quantity: number })[]; // Ensure items have a quantity
 }
 
 const initialState: InventoryState = {
   inventoryFilter: {
     name: "",
-    categories: [],
+    categories: "",
     sort_by: SortOrder.ASC,
     price_range: { min: 0, max: Number.POSITIVE_INFINITY },
     abv_range: { min: 0, max: Number.POSITIVE_INFINITY },
@@ -47,7 +47,7 @@ const inventorySlice = createSlice({
     },
 
     // ✅ Initial add to cart (adds new item with quantity 1)
-    addToCart: (state, action: PayloadAction<Wine>) => {
+    addToCart: (state, action: PayloadAction<Product>) => {
       const existingItem = state.cart.find(
         (item) => item.id === action.payload.id
       );
@@ -56,7 +56,7 @@ const inventorySlice = createSlice({
       }
     },
 
-    setWineData: (state, action: PayloadAction<Wine[]>) => {
+    setProductData: (state, action: PayloadAction<Product[]>) => {
       state.productData = action.payload;
       state.filteredData = state.productData;
     },
@@ -107,7 +107,8 @@ const inventorySlice = createSlice({
 
         // Categories filter
         if (categories.length > 0) {
-          if (!categories.includes(product.category)) {
+          const regex = new RegExp(categories.split("").join(".*"), "i");
+          if (!regex.test(product.category)) {
             return false;
           }
         }
@@ -151,7 +152,7 @@ const inventorySlice = createSlice({
     clearFilter: (state) => {
       state.inventoryFilter = {
         name: "",
-        categories: [],
+        categories: "",
         sort_by: SortOrder.ASC,
         price_range: { min: 0, max: Infinity },
         abv_range: { min: 0, max: Infinity },
@@ -172,7 +173,7 @@ export const {
   clearFilter,
   clearCart,
   resetInventoryFilter,
-  setWineData,
+  setProductData,
 } = inventorySlice.actions;
 export default inventorySlice.reducer;
 

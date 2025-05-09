@@ -8,7 +8,6 @@ import { useGetAllLogsQuery } from "../store/slices/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import {
-  applyFilters,
   clearFilters,
   setActivities,
   setFilters,
@@ -75,7 +74,7 @@ function Page() {
 
   return (
     <div className="w-[100vw] px-10">
-      <h1 className="text-2xl font-medium sticky top-[5rem] h-[4rem] items-center flex bg-wBrand-background">
+      <h1 className="text-2xl font-medium sticky top-0 h-[4rem] items-center flex bg-wBrand-background">
         Activity Log
       </h1>
       <section className="w-full flex">

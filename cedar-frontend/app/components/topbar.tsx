@@ -17,19 +17,21 @@ import { Roles } from "../utils/types";
 import { getRoleEnum } from "../utils/helpers";
 import { useLogoutMutation } from "../store/slices/apiSlice";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 
 function Topbar() {
   const pathname = usePathname();
   const [logout] = useLogoutMutation();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false); // Toggle sidebar
+  const dispatch = useDispatch();
 
   const links = [
     {
       name: "Dashboard",
       href: "/",
       icon: <LayoutDashboard className="h-4" />,
-      showFor: [Roles.ADMIN],
+      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPER_USER],
     },
     {
       name: "Inventory",
@@ -37,12 +39,12 @@ function Topbar() {
       icon: <ChartNoAxesGantt className="h-4" />,
       showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPER_USER],
     },
-    {
-      name: "Cart",
-      href: "/cart",
-      icon: <ShoppingBasket className="h-4" />,
-      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPER_USER],
-    },
+    // {
+    //   name: "Cart",
+    //   href: "/cart",
+    //   icon: <ShoppingBasket className="h-4" />,
+    //   showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPER_USER],
+    // },
     {
       name: "Activity",
       href: "/activity",
@@ -59,7 +61,7 @@ function Topbar() {
       name: "Users",
       href: "/users",
       icon: <UsersRound className="h-4" />,
-      showFor: [Roles.ADMIN],
+      showFor: [Roles.ADMIN, Roles.STAFF, Roles.SUPER_USER],
     },
   ];
 
@@ -92,7 +94,7 @@ function Topbar() {
               <path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z" />
             </svg>
           </div>
-          <h1 className="font-medium text-2xl text-wBrand-accent">WINERY</h1>
+          <h1 className="font-medium text-2xl text-wBrand-accent">SHOPME</h1>
         </div>
 
         {/* Desktop Links */}
@@ -126,6 +128,8 @@ function Topbar() {
               toast("Logging out...");
               localStorage.removeItem("wineryAuthToken");
               localStorage.removeItem("wineryUserRole");
+              localStorage.setItem("isAuth", "false");
+              dispatch({ type: "RESET_APP" });
               logout();
               toast.success("Logout successful");
               router.push("/login");
@@ -196,6 +200,8 @@ function Topbar() {
                 toast("Logging out...");
                 localStorage.removeItem("wineryAuthToken");
                 localStorage.removeItem("wineryUserRole");
+                localStorage.setItem("isAuth", "false");
+                dispatch({ type: "RESET_APP" });
                 logout();
                 toast.success("Logout successful");
                 router.push("/login");

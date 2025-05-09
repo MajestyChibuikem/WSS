@@ -49,9 +49,9 @@ const activitySlice = createSlice({
             "UPDATE_USER_SUCCESS",
             "DELETE_USER_SUCCESS",
             "CREATE_USER_SUCCESS",
-            "ADD_WINE_SUCCESS",
-            "UPDATE_WINE_SUCCESS",
-            "DELETE_WINE_SUCCESS",
+            "ADD_PRODUCT",
+            "UPDATE_PRODUCT_SUCCESS",
+            "DELETE_PRODUCT_SUCCESS",
           ].includes(activity.action)
         )
         .map((activity) => ({

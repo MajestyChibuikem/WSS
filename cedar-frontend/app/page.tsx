@@ -16,10 +16,10 @@ import {
   useGetInventoryValueQuery,
   useGetRevenueQuery,
   useGetStockByCategoryQuery,
-  useGetTopWinesQuery,
-  useGetTotalWineStockQuery,
+  useGetTopProductsQuery,
+  useGetTotalProductStockQuery,
   useGetUsersQuery,
-  useGetWinesQuery,
+  useGetProductsQuery,
 } from "./store/slices/apiSlice";
 import { RootState } from "./store";
 import { useDispatch, useSelector } from "react-redux";
@@ -61,7 +61,7 @@ export default function Home() {
     data: totalWineStock,
     error: totalWineStockErr,
     isLoading: loadingTotalWineStock,
-  } = useGetTotalWineStockQuery();
+  } = useGetTotalProductStockQuery();
   const {
     data: compareSales,
     error: compareSalesErr,
@@ -72,7 +72,7 @@ export default function Home() {
     data: totalStock,
     error: totalStockErr,
     isLoading: loadingTotalStock,
-  } = useGetTotalWineStockQuery();
+  } = useGetProductsQuery();
 
   const {
     data: userData,
@@ -84,7 +84,7 @@ export default function Home() {
     data: topWinesData,
     isLoading: loadingTopWines,
     error: topWinesErr,
-  } = useGetTopWinesQuery();
+  } = useGetTopProductsQuery();
 
   const defaultWine = {
     name: "N/A",
@@ -99,7 +99,7 @@ export default function Home() {
     defaultWine,
   ].slice(0, 3);
 
-  const { data: wineData, error, isLoading } = useGetWinesQuery();
+  const { data: wineData, error, isLoading } = useGetProductsQuery();
   const {
     data: inventoryValueData,
     error: inventoryValueErr,
@@ -212,12 +212,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="flex flex-col xl:flex-row gap-20 justify-between items-center">
-        <div className="space-y-2 text-center xl:text-left">
+      <section className="flex flex-col gap-10 justify-between items-center">
+        <div className="space-y-2 text-center ">
           <h3 className="font-medium">Revenue</h3>
           <div className="flex items-center gap-4">
             {revenueData && revenueData.revenue !== undefined && (
-              <h4 className="text-4xl font-semibold">
+              <h4 className="text-6xl font-semibold">
                 {revenueData.revenue &&
                   formatDecimal(
                     revenueData.revenue as number
@@ -289,7 +289,7 @@ export default function Home() {
           <div className="relative w-max">
             <div className="w-[13rem] h-[6rem] flex flex-col justify-center border relative z-10 border-wBrand-foreground/30 bg-wBrand-background rounded-xl p-3 space-y-1">
               <h5 className="text-xs text-gray-400 font-medium">
-                Total bottles in stock
+                Total products in stock
               </h5>
               <h4 className="text-xl font-semibold">
                 {totalWineStock && totalWineStock.total_stock}
@@ -320,38 +320,40 @@ export default function Home() {
                 Total Value of Inventory
               </h5>
               <h4 className="text-xl font-semibold">
-                {
+                {inventoryValueData &&
+                  inventoryValueData.inventory_value &&
                   formatDecimal(
                     //@ts-ignore
-                    Object.values(inventoryValueData).reduce(
+                    inventoryValueData.inventory_value.reduce(
                       //@ts-ignore
-                      (sum, value) => sum + parseFloat(value),
+                      (sum, value) => sum + parseFloat(value.total_value),
                       0
                     )
-                  ).formatted
-                }
+                  ).formatted}
               </h4>
               <div className="flex justify-between text-xs gap-2 text-gray-300 overflow-x-auto">
                 {inventoryValueData &&
-                  Object.entries(inventoryValueData).map(
-                    ([category, value]) => (
-                      <div key={category} className="flex gap-x-1">
-                        <p>{category}: </p>
-                        <p>
-                          {
-                            //@ts-ignore
-                            formatNumber(parseFloat(value))
-                          }
-                        </p>
-                      </div>
-                    )
-                  )}
+                  inventoryValueData.inventory_value &&
+                  ((inventoryValueData.inventory_value as unknown) as Array<{
+                    category: string;
+                    total_value: number;
+                  }>).map((item, idx) => (
+                    <div key={idx} className="flex gap-x-1">
+                      <p>{item.category}: </p>
+                      <p>
+                        {
+                          //@ts-ignore
+                          formatNumber(parseFloat(item.total_value))
+                        }
+                      </p>
+                    </div>
+                  ))}
               </div>
             </div>
             <div className="w-[11.3rem] h-[4rem] -top-2 translate-x-[50%] right-[50%] absolute rounded-xl bg-wBrand-foreground/10"></div>
           </div>
 
-          <div className="relative">
+          {/* <div className="relative">
             <h3 className=" font-medium absolute -top-8 text-wBrand-foreground/80">
               Top Bestsellers
             </h3>
@@ -387,7 +389,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -429,7 +431,7 @@ export default function Home() {
           <h3 className="text-xl font-medium">Inventory</h3>
           <div className="space-y-4">
             {wineData &&
-              wineData?.wines
+              wineData?.products
                 .slice(0, 5)
                 .map((product, idx) => (
                   <TableRowDashboard key={idx} product={product} />

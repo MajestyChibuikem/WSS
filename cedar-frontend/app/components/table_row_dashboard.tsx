@@ -1,8 +1,8 @@
 import React from "react";
-import { Wine } from "../utils/types";
+import { Product } from "../utils/types";
 
 interface Params {
-  product: Wine;
+  product: Product;
 }
 
 function TableRowDashboard({ product }: Params) {
@@ -19,15 +19,15 @@ function TableRowDashboard({ product }: Params) {
             NO IN STOCK:{" "}
             <span className="text-gray-200">{product.in_stock}</span>
           </p>
-          <div className="h-1 w-1 rounded-full bg-gray-400" />
+          {/* <div className="h-1 w-1 rounded-full bg-gray-400" />
           <p>
             ABV: <span className="text-gray-200">{product.abv}%</span>
-          </p>
-          <div className="h-1 w-1 rounded-full bg-gray-400" />
+          </p> */}
+          {/* <div className="h-1 w-1 rounded-full bg-gray-400" />
           <p>
             BOTTLE SIZE:{" "}
             <span className="text-gray-200">{product.bottle_size}ML</span>
-          </p>
+          </p> */}
         </div>
       </div>
 

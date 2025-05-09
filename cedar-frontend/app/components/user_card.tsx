@@ -8,7 +8,7 @@ import {
   toggleUserEditor,
   updateAction,
 } from "../store/slices/userSlice";
-import { getInitials, truncateText } from "../utils/helpers";
+import { getInitials, getRoleEnum, truncateText } from "../utils/helpers";
 
 interface Params {
   user: User;
@@ -16,6 +16,9 @@ interface Params {
 
 function UserCard({ user }: Params) {
   const dispatch = useDispatch();
+  const userRole = getRoleEnum(
+    localStorage.getItem("wineryUserRole")?.toLowerCase() ?? ""
+  );
   return (
     <div className="border border-wBrand-foreground/10 w-[18rem] flex items-center rounded-xl p-4 gap-x-3 bg-wBrand-background/5 relative">
       <div className="min-h-12 h-12 min-w-12 w-12 rounded-full flex items-center justify-center bg-wBrand-accent">
@@ -46,18 +49,25 @@ function UserCard({ user }: Params) {
           dispatch(updateAction(Actions.UPDATE));
         }}
       >
-        <PenLine className="absolute right-12 top-5 h-4 text-wBrand-accent/50 hover:text-wBrand-accent w-4 cursor-pointer" />
+        <PenLine
+          className={clsx(
+            "absolute top-5 h-4 text-wBrand-accent/50 hover:text-wBrand-accent w-4 cursor-pointer",
+            userRole == Roles.ADMIN ? "right-12" : "right-6"
+          )}
+        />
       </button>
-      <button
-        onClick={() => {
-          dispatch(toggleUserEditor());
-          dispatch(setCurrentlyEditing(user));
-          dispatch(setCurrentlyEditing({ roles: user.roles }));
-          dispatch(updateAction(Actions.DELETE));
-        }}
-      >
-        <Trash className="absolute right-5 top-5 h-4 text-red-600/50 hover:text-red-600 w-4 cursor-pointer" />
-      </button>
+      {userRole == Roles.ADMIN && (
+        <button
+          onClick={() => {
+            dispatch(toggleUserEditor());
+            dispatch(setCurrentlyEditing(user));
+            dispatch(setCurrentlyEditing({ roles: user.roles }));
+            dispatch(updateAction(Actions.DELETE));
+          }}
+        >
+          <Trash className="absolute right-5 top-5 h-4 text-red-600/50 hover:text-red-600 w-4 cursor-pointer" />
+        </button>
+      )}
     </div>
   );
 }

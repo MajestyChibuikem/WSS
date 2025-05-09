@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Wine } from "../utils/types";
+import { Product } from "../utils/types";
 import { Trash } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
@@ -12,7 +12,7 @@ import {
 import { formatDecimal } from "../utils/helpers";
 
 interface Params {
-  product: Wine;
+  product: Product;
   quantity: number;
 }
 

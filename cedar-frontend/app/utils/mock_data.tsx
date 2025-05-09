@@ -20,9 +20,9 @@ export const productCategories = [
 ];
 
 export const actions = [
-  "ADD WINE",
-  "DELETE WINE",
-  "UPDATE WINE",
+  "ADD PRODUCT",
+  "DELETE PRODUCT",
+  "UPDATE PRODUCT",
   "CREATE USER",
   "DELETE USER",
   "UPDATE USER",

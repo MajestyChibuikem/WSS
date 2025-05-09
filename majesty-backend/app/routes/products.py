@@ -46,7 +46,7 @@ def get_stock_by_category():
         current_user_id = current_user_id.get('id')
 
     try:
-        stock_data = db.session.query(Category.name, func.sum(Product.in_stock)).group_by(Product.category).all()
+        stock_data = db.session.query(Category.name,func.sum(Product.in_stock)).join(Product, Category.id == Product.category_id).group_by(Category.id, Category.name).all()
         
         if not stock_data:
             log_action(
@@ -198,14 +198,23 @@ def get_inventory_value():
         current_user_id = current_user_id.get('id')
 
     try:
-        inventory_value = Product.get_inventory_value_by_category()
+        # Get raw data from query
+        raw_data = Product.get_inventory_value_by_category()
+        
+        # Convert to serializable format
+        inventory_value = [{
+            'category': row[0],
+            'total_value': float(row[1]) if row[1] else 0.0
+        } for row in raw_data]
+        
         log_action(
             current_user_id, 
             'GET_INVENTORY_VALUE', 
             'Inventory value fetched',
             affected_name='Inventory Value by Category'
         )
-        return jsonify(inventory_value), 200
+        return jsonify({'inventory_value': inventory_value}), 200
+        
     except Exception as e:
         log_action(
             current_user_id, 
@@ -214,9 +223,7 @@ def get_inventory_value():
             level='error',
             affected_name='Inventory Value by Category'
         )
-        return jsonify({"error": f"Error fetching inventory value: {str(e)}"}), 500
-
-@products_bp.route('/user-sales/<int:user_id>', methods=['GET'])
+        return jsonify({"error": f"Error fetching inventory value: {str(e)}"}), 500@products_bp.route('/user-sales/<int:user_id>', methods=['GET'])
 @jwt_required()
 @token_required
 def get_user_sales(user_id):
@@ -266,18 +273,22 @@ def get_all_products():
 
     try:
         products = Product.query.join(Category).all()
-        products_list = [{
-            "id": products.id,
-            "name": products.name,
-            "abv": products.abv,
-            "price": float(products.price),
-            "category": products.category.name,
-            "category_id": products.category.id,
-            "bottle_size": products.bottle_size,
-            "in_stock": products.in_stock,
-            "added_by": products.added_by,
-            "added_at": products.added_at.isoformat() if products.added_at else None
-        } for product in products]
+        products_list = []
+        
+        for product in products:  # Using explicit loop for clarity
+            product_data = {
+                "id": product.id,
+                "name": product.name,
+                "abv": product.abv,
+                "price": float(product.price),
+                "category": product.category.name,
+                "category_id": product.category.id,
+                "bottle_size": product.bottle_size,
+                "in_stock": product.in_stock,
+                "added_by": product.added_by,
+                "added_at": product.added_at.isoformat() if product.added_at else None
+            }
+            products_list.append(product_data)
 
         log_action(
             current_user_id, 
@@ -286,6 +297,7 @@ def get_all_products():
             affected_name='All products'
         )
         return jsonify({"products": products_list}), 200
+        
     except Exception as e:
         log_action(
             current_user_id, 
@@ -295,7 +307,6 @@ def get_all_products():
             affected_name='All products'
         )
         return jsonify({"error": f"Error fetching products: {str(e)}"}), 500
-
 @products_bp.route('/add', methods=['POST'])
 @jwt_required()
 @token_required
@@ -357,10 +368,10 @@ def update_product(product_id):
     if not user.can_manage_inventory():
         log_action(
             current_user_id, 
-            'UPDATE_product_ERROR', 
+            'UPDATE_PRODUCT_ERROR', 
             'Unauthorized attempt',
             level='error',
-            affected_name='product Inventory'
+            affected_name='Product Inventory'
         )
         return jsonify({'message': 'Unauthorized'}), 403
 
@@ -390,7 +401,10 @@ def update_product(product_id):
         if 'name' in data: product.name = data['name']
         if 'abv' in data: product.abv = data['abv']
         if 'price' in data: product.price = data['price']
-        if 'category_id' in data: product.category = data['category_id']
+        if 'category_id' in data: 
+            category = Category.query.get(data['category_id'])
+            if category:
+                product.category = category
         if 'bottle_size' in data: product.bottle_size = data['bottle_size']
         if 'in_stock' in data: product.in_stock = data['in_stock']
 
@@ -408,7 +422,8 @@ def update_product(product_id):
                 'name': product.name,
                 'abv': product.abv,
                 'price': float(product.price),
-                'category': product.category,
+                'category_id': product.category.id if product.category else None,
+                'category_name': product.category.name if product.category else None,
                 'bottle_size': product.bottle_size,
                 'in_stock': product.in_stock
             }
@@ -423,7 +438,6 @@ def update_product(product_id):
             affected_name=product.name
         )
         return jsonify({'message': f'Update error: {str(e)}'}), 500
-
 @products_bp.route('/<int:product_id>', methods=['DELETE'])
 @jwt_required()
 @token_required
@@ -440,7 +454,7 @@ def delete_product(product_id):
             'DELETE_PRODUCT_ERROR', 
             'Unauthorized attempt',
             level='error',
-            affected_name=f'product ID {product_id}'
+            affected_name=f'Product ID {product_id}'
         )
         return jsonify({'message': 'Unauthorized'}), 403
 
@@ -456,16 +470,24 @@ def delete_product(product_id):
         return jsonify({'message': 'Product not found'}), 404
 
     try:
-        product_name = Product.name
-        db.session.delete(Product)
+        product_name = product.name  # ✅ Get name from instance
+        db.session.delete(product)   # ✅ Delete the instance
         db.session.commit()
+        
         log_action(
             current_user_id, 
             'DELETE_PRODUCT_SUCCESS', 
             f'Deleted {product_name}',
             affected_name=product_name
         )
-        return jsonify({'message': 'Product deleted'}), 200
+        return jsonify({
+            'message': 'Product deleted successfully',
+            'deleted_product': {
+                'id': product_id,
+                'name': product_name
+            }
+        }), 200
+        
     except Exception as e:
         db.session.rollback()
         log_action(
@@ -473,10 +495,12 @@ def delete_product(product_id):
             'DELETE_PRODUCT_ERROR', 
             str(e), 
             level='error',
-            affected_name=f'product ID {product_id}'
+            affected_name=f'Product ID {product_id}'
         )
-        return jsonify({'message': f'Delete error: {str(e)}'}), 500
-
+        return jsonify({
+            'message': f'Failed to delete product: {str(e)}',
+            'product_id': product_id
+        }), 500
 @products_bp.route('/top_selling', methods=['GET'])
 @token_required
 def get_top_selling():
@@ -527,3 +551,116 @@ def get_top_selling():
         })
 
     return jsonify(result)
+
+
+@products_bp.route('/by-category/<int:category_id>', methods=['GET'])
+@jwt_required()
+@token_required
+def get_products_by_category(category_id):
+    """Get all products in a specific category"""
+    current_user_id = get_jwt_identity()
+    if isinstance(current_user_id, dict):
+        current_user_id = current_user_id.get('id')
+
+    try:
+        # Verify category exists
+        category = Category.query.get(category_id)
+        if not category:
+            log_action(
+                current_user_id,
+                'GET_PRODUCTS_BY_CATEGORY_ERROR',
+                f'Category not found: {category_id}',
+                level='error',
+                affected_name=f'Category ID {category_id}'
+            )
+            return jsonify({'message': 'Category not found'}), 404
+
+        # Get products with category details
+        products = Product.query.filter_by(category_id=category_id).all()
+        
+        products_list = [{
+            "id": product.id,
+            "name": product.name,
+            "price": float(product.price),
+            "in_stock": product.in_stock,
+            "category": category.name,
+            "added_at": product.added_at.isoformat() if product.added_at else None
+        } for product in products]
+
+        log_action(
+            current_user_id,
+            'GET_PRODUCTS_BY_CATEGORY',
+            f'Fetched {len(products)} products from {category.name}',
+            affected_name=category.name
+        )
+        
+        return jsonify({
+            "category_id": category_id,
+            "category_name": category.name,
+            "product_count": len(products),
+            "products": products_list
+        }), 200
+
+    except Exception as e:
+        log_action(
+            current_user_id,
+            'GET_PRODUCTS_BY_CATEGORY_ERROR',
+            str(e),
+            level='error',
+            affected_name=f'Category ID {category_id}'
+        )
+        return jsonify({"error": f"Error fetching products: {str(e)}"}), 500
+    
+"""
+
+@products_bp.route('/by-category/<int:category_id>', methods=['GET'])
+@jwt_required()
+@token_required
+def get_products_by_category(category_id):
+    
+    current_user_id = get_jwt_identity()
+    if isinstance(current_user_id, dict):
+        current_user_id = current_user_id.get('id')
+
+    try:
+        # Verify category exists
+        category = Category.query.get(category_id)
+        if not category:
+            return jsonify({'message': 'Category not found'}), 404
+
+        # Get query parameters
+        in_stock_only = request.args.get('in_stock', 'false').lower() == 'true'
+        min_stock = request.args.get('min_stock', 0, type=int)
+
+        # Base query
+        query = Product.query.filter_by(category_id=category_id)
+
+        # Apply filters
+        if in_stock_only:
+            query = query.filter(Product.in_stock > 0)
+        if min_stock > 0:
+            query = query.filter(Product.in_stock >= min_stock)
+
+        products = query.all()
+        
+        # Format response
+        products_list = [{
+            "id": product.id,
+            "name": product.name,
+            "price": float(product.price),
+            "in_stock": product.in_stock,
+            "is_in_stock": product.in_stock > 0  # Additional helpful field
+        } for product in products]
+
+        return jsonify({
+            "category_id": category_id,
+            "category_name": category.name,
+            "in_stock_only": in_stock_only,
+            "min_stock": min_stock,
+            "product_count": len(products_list),
+            "products": products_list
+        }), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+"""

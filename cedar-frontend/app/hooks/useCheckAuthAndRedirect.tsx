@@ -6,11 +6,13 @@ const useCheckAuthAndRedirect = () => {
   const pathname = usePathname();
   const { data, error, isLoading } = useCheckTokenQuery();
   const [checked, setChecked] = useState(false); // Prevents unnecessary re-renders
+  const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("wineryAuthToken");
 
     if (!token && pathname !== "/login") {
+      localStorage.setItem("isAuth", "false");
       window.location.href = "/login";
       return;
     }
@@ -22,14 +24,18 @@ const useCheckAuthAndRedirect = () => {
         (error || data?.message !== "Token is valid") &&
         pathname !== "/login"
       ) {
+        localStorage.setItem("isAuth", "false");
         window.location.href = "/login";
+        setIsAuth(false);
       } else if (data?.message === "Token is valid" && pathname === "/login") {
+        setIsAuth(true);
+        localStorage.setItem("isAuth", "true");
         window.location.href = "/";
       }
     }
   }, [data, error, isLoading, pathname, checked]);
 
-  return { isLoading, error, data }; // Return any useful state if needed
+  return { isLoading, error, data, isAuth }; // Return any useful state if needed
 };
 
 export default useCheckAuthAndRedirect;

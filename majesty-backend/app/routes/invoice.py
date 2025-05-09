@@ -25,7 +25,7 @@ def manage_invoices():
             for invoice in invoices:
                 items = []
                 for item in invoice.items:
-                    products = Product.query.get(item.wine_id)
+                    products = Product.query.get(item.product_id)
                     items.append({
                         'item': {'name': products.name, 'id': products.id, 'category': products.category.name},
                         'number_sold': item.quantity,
@@ -74,14 +74,15 @@ def manage_invoices():
             db.session.add(new_invoice)
             db.session.commit()
 
+            # Add stock validation before creating invoice
             for item_data in data['items']:
-                new_item = InvoiceItem(
-                    invoice_id=new_invoice.id,
-                    wine_id=item_data['wine_id'],
-                    quantity=item_data['quantity'],
-                    price=item_data['price']
-                )
-                db.session.add(new_item)
+                product = Product.query.get(item_data['product_id'])  
+                if not product:
+                    return jsonify({'message': f'Product {item_data["product_id"]} not found'}), 404
+                if product.in_stock < item_data['quantity']:
+                    return jsonify({'message': f'Not enough stock for {product.name}'}), 400
+                product.in_stock -= item_data['quantity']  # Update stock
+                db.session.add(product)
             db.session.commit()
 
             log_action(
@@ -136,7 +137,7 @@ def manage_single_invoice(invoice_id):
             # Retrieve a single invoice with its items
             items = []
             for item in invoice.items:
-                product = Product.query.get(item.wine_id)
+                product = Product.query.get(item.product_id)
                 items.append({
                     'item': {'name': product.name, 'id': product.id, 'category': product.category.name},
                     'number_sold': item.quantity,
@@ -176,7 +177,7 @@ def manage_single_invoice(invoice_id):
                 for item_data in data['items']:
                     new_item = InvoiceItem(
                         invoice_id=invoice_id,
-                        wine_id=item_data['wine_id'],
+                        product_id=item_data['product_id'],
                         quantity=item_data['quantity'],
                         price=item_data['price']
                     )
@@ -254,7 +255,7 @@ def checkout():
                     'CHECKOUT_ERROR', 
                     f'Not enough stock for product {product.name}', 
                     level='error',
-                    affected_name=f'Wine ID {product.id}'
+                    affected_name=f'Product ID {product.id}'
                 )
                 return jsonify({'message': f'Not enough stock for product {product.name}'}), 400
 
@@ -273,7 +274,7 @@ def checkout():
         for item_data in data['items']:
             new_item = InvoiceItem(
                 invoice_id=new_invoice.id,
-                wine_id=item_data['item']['id'],
+                product_id=item_data['item']['id'],
                 quantity=item_data['number_sold'],
                 price=Product.query.get(item_data['item']['id']).price
             )

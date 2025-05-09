@@ -10,6 +10,24 @@ from functools import wraps
 from app.utils.decorators import token_required
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
+@auth_bp.route('/create_admin', methods=['POST'])
+def create_admin():
+    # Check if admin already exists
+    if User.query.filter_by(username='newadmin').first():
+        return jsonify({'message': 'Admin already exists'}), 400
+    
+    # Create new admin
+    admin = User(username='newadmin', is_admin=True)
+    admin.set_password('adminpassword')  # This will properly hash the password
+    db.session.add(admin)
+    
+    # Assign admin role
+    admin_role = Role.query.filter_by(name='admin').first()
+    if admin_role:
+        admin.roles.append(admin_role)
+    
+    db.session.commit()
+    return jsonify({'message': 'New admin created', 'username': 'newadmin', 'password': 'adminpassword'}), 201
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
@@ -234,48 +252,70 @@ def get_user(user_id):
     current_user_id = get_jwt_identity()
     if isinstance(current_user_id, dict):
         current_user_id = current_user_id.get('id')
-        
+
     current_user = User.query.get(current_user_id)
-    if not current_user or not current_user.can_manage_users():
+    if not current_user:
         log_action(
-            current_user_id, 
-            'GET_USER_UNAUTHORIZED', 
-            f'Unauthorized attempt to view user {user_id}',
+            current_user_id,
+            'GET_USER_UNAUTHORIZED',
+            f'Invalid token or user not found while accessing user {user_id}',
             affected_name=f'User ID {user_id}'
         )
-        return jsonify({'message': 'Unauthorized - only admins can view user details'}), 403
-    
-    user = User.query.get(user_id)
-    if not user:
+        return jsonify({'message': 'Unauthorized'}), 403
+
+    is_admin = current_user.can_manage_users()
+    is_self = current_user.id == user_id
+
+    if not is_admin and not is_self:
         log_action(
-            current_user_id, 
-            'GET_USER_NOT_FOUND', 
+            current_user_id,
+            'GET_USER_UNAUTHORIZED',
+            f'User {current_user_id} attempted unauthorized access to user {user_id}',
+            affected_name=f'User ID {user_id}'
+        )
+        return jsonify({'message': 'Unauthorized - access denied'}), 403
+
+    target_user = User.query.get(user_id)
+    if not target_user:
+        log_action(
+            current_user_id,
+            'GET_USER_NOT_FOUND',
             f'User not found: {user_id}',
             affected_name=f'User ID {user_id}'
         )
         return jsonify({'message': 'User not found'}), 404
-    
+
     user_data = {
-        'id': user.id,
-        'username': user.username,
-        'created_at': user.created_at.isoformat(),
-        'is_admin': user.is_admin,
-        'roles': [role.name for role in user.roles]
+        'id': target_user.id,
+        'username': target_user.username,
+        'created_at': target_user.created_at.isoformat(),
+        'is_admin': target_user.is_admin,
+        'roles': [role.name for role in target_user.roles]
     }
-    
+
     log_action(
-        current_user_id, 
-        'GET_USER_SUCCESS', 
-        f'Admin retrieved user details for user {user_id}',
-        affected_name=user.username
+        current_user_id,
+        'GET_USER_SUCCESS',
+        f'User data retrieved for user {user_id}',
+        affected_name=target_user.username
     )
     return jsonify({'user': user_data}), 200
+
 
 @auth_bp.route('/users/<int:user_id>', methods=['PUT'])
 @jwt_required()
 @token_required
 def update_user(user_id):
     current_user_id = get_jwt_identity()
+
+    # Normalize ID type
+    if isinstance(current_user_id, dict):
+        current_user_id = current_user_id.get('id')
+    try:
+        current_user_id = int(current_user_id)
+    except (TypeError, ValueError):
+        return jsonify({"message": "Invalid token identity"}), 400
+
     current_user = User.query.get(current_user_id)
     target_user = User.query.get(user_id)
 
@@ -289,7 +329,12 @@ def update_user(user_id):
         return jsonify({"message": "User not found"}), 404
 
     is_admin = current_user.can_manage_users()
-    if current_user_id != target_user.id and not is_admin:
+    is_self = current_user_id == target_user.id
+
+    print(f"current_user_id: {current_user_id} (type: {type(current_user_id)})")
+    print(f"target_user.id: {target_user.id} (type: {type(target_user.id)})")
+
+    if not is_admin and not is_self:
         log_action(
             current_user_id, 
             'UPDATE_USER_ERROR', 
@@ -308,9 +353,13 @@ def update_user(user_id):
         )
         return jsonify({"message": "No data provided"}), 400
 
+    # Handle username update
     if 'username' in data:
         new_username = data['username']
-        if User.query.filter(User.username == new_username).first() and new_username != target_user.username:
+        if (
+            User.query.filter(User.username == new_username).first()
+            and new_username != target_user.username
+        ):
             log_action(
                 current_user_id, 
                 'UPDATE_USER_ERROR', 
@@ -320,9 +369,11 @@ def update_user(user_id):
             return jsonify({"message": "Username already exists"}), 400
         target_user.username = new_username
 
+    # Handle password update
     if 'password' in data:
         target_user.set_password(data['password'])
 
+    # Only admins can update is_admin or roles
     if is_admin:
         if 'is_admin' in data:
             target_user.is_admin = data['is_admin']
@@ -335,7 +386,7 @@ def update_user(user_id):
             valid_roles = Role.query.filter(Role.name.in_(roles)).all()
             valid_role_names = [role.name for role in valid_roles]
             invalid_roles = set(roles) - set(valid_role_names)
-            
+
             if invalid_roles:
                 log_action(
                     current_user_id, 
@@ -345,15 +396,21 @@ def update_user(user_id):
                 )
                 return jsonify({"message": f"Invalid roles: {', '.join(invalid_roles)}"}), 400
 
-            for role in list(target_user.roles):
-                target_user.roles.remove(role)
-            
-            for role_name in valid_role_names:
-                role = Role.query.filter_by(name=role_name).first()
-                if role and role not in target_user.roles:
+            target_user.roles.clear()
+            for role in valid_roles:
+                if role not in target_user.roles:
                     target_user.roles.append(role)
 
             target_user.is_admin = 'admin' in valid_role_names
+    else:
+        # Strip out unauthorized fields if regular user attempts to send them
+        if 'is_admin' in data or 'roles' in data:
+            log_action(
+                current_user_id, 
+                'UPDATE_USER_IGNORED_FIELDS', 
+                'Ignored attempt to modify restricted fields (roles/is_admin)',
+                affected_name=target_user.username
+            )
 
     try:
         db.session.commit()
@@ -382,6 +439,8 @@ def update_user(user_id):
             affected_name=target_user.username
         )
         return jsonify({"message": f"Error updating user: {str(e)}"}), 500
+
+
 
 @auth_bp.route('/user/<int:user_id>', methods=['DELETE'])
 @jwt_required()

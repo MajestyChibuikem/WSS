@@ -7,7 +7,6 @@ import {
   LoaderCircle,
   User,
 } from "lucide-react";
-import { DatePickerWithRange } from "../components/range_calendar";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import SalesTableRow from "../components/sales_table_row";
@@ -19,6 +18,7 @@ import { Roles } from "../utils/types";
 
 function Page() {
   const { sales: data, loading, pagination, fetchSales } = useSales();
+  const [onlyToday, setOnlyToday] = useState(false);
   const {
     sales: userSalesData,
     loading: loadingUserSales,
@@ -35,9 +35,10 @@ function Page() {
   );
 
   const isAdmin = userRole && userRole == Roles.ADMIN ? true : false;
+  const isSuperuser = userRole && userRole == Roles.SUPER_USER ? true : false;
 
   useEffect(() => {
-    if (isAdmin) {
+    if (isAdmin || isSuperuser) {
       dispatch(setSales(data));
     } else if (!isAdmin) {
       dispatch(setSales(userSalesData));
@@ -61,6 +62,34 @@ function Page() {
   const calendarRange = useSelector(
     (state: RootState) => state.stats.calendarRanges["sales_date_range"]
   );
+
+  useEffect(() => {
+    if (onlyToday) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const endOfToday = new Date();
+      endOfToday.setHours(23, 59, 59, 999);
+
+      dispatch(
+        setSalesFilters({
+          dateRange: {
+            start: today.toISOString(),
+            end: endOfToday.toISOString(),
+          },
+        })
+      );
+    } else {
+      console.log("calendarRange: ", calendarRange);
+      dispatch(
+        setSalesFilters({
+          dateRange: {
+            start: "1970-01-01",
+            end: "2100-01-01",
+          },
+        })
+      );
+    }
+  }, [onlyToday, calendarRange]);
 
   useEffect(() => {
     if (!calendarRange) return;
@@ -94,7 +123,7 @@ function Page() {
 
   return (
     <div className="w-[100vw] px-10">
-      <h1 className="text-2xl font-medium sticky top-[5rem] h-[4rem] items-center flex bg-wBrand-background">
+      <h1 className="text-2xl font-medium sticky top-0 h-[4rem] items-center flex bg-wBrand-background">
         Sales
       </h1>
       <section className="w-full flex">
@@ -182,7 +211,21 @@ function Page() {
                     />
                   </div>
                 </div>
+                <label className="space-y-4 px-4 flex group-checked:border-wBrand-accent cursor-pointer w-full rounded-xl bg-wBrand-background/40 border border-wBrand-foreground/20 overflow-clip py-3">
+                  <label className="flex items-center space-x-2 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={onlyToday}
+                      onChange={(e) => setOnlyToday(e.target.checked)}
+                      className="accent-wBrand-accent group bg-none checked:bg-wBrand-accent cursor-pointer border border-wBrand-accent rounded-md outline-none appearance-none size-5"
+                    />
+                    <span className="pl-2 cursor-pointer">
+                      Show only today's sales
+                    </span>
+                  </label>
+                </label>
               </div>
+
               {/* <div className="relative w-max px-6 space-y-4">
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
                   FILTER BY DATE RANGE
@@ -201,10 +244,11 @@ function Page() {
           <div className="space-y-3">
             <div className="flex w-full gap-x-6 max-w-full bg-wBrand-background_light/60 text-wBrand-accent text-xs p-3 font-semibold sticky top-0 px-8 rounded-xl">
               <div className="w-[10%] text-left">ID</div>
-              <div className="w-[40%] ">ITEM</div>
+              <div className="w-[30%] ">ITEM</div>
               <div className="w-[20%] ">BY</div>
               <div className="w-[20%] ">DATE</div>
               <div className="w-[10%] text-right">COST</div>
+              <div className="w-[10%] text-center">RECEIPT</div>
             </div>
             {filteredSales.length == 0 && (
               <div className="w-full flex items-center justify-center text-2xl font-semibold text-wBrand-accent/20 h-[30vh]">
@@ -215,7 +259,7 @@ function Page() {
               <SalesTableRow sales={sales} key={idx} />
             ))}
           </div>
-          <div className="flex justify-end items-center space-x-4 mt-4">
+          {/* <div className="flex justify-end items-center space-x-4 mt-4">
             <button
               onClick={handlePrevPage}
               disabled={currentPage === 1}
@@ -233,7 +277,7 @@ function Page() {
             >
               <ArrowRight className="h-3" />
             </button>
-          </div>
+          </div> */}
         </div>
       </section>
     </div>

@@ -10,6 +10,7 @@ import { categoryDropdownItems } from "../utils/mock_data";
 import {
   useAddCategoryMutation,
   useAddProductMutation,
+  useDeleteCategoryMutation,
   useGetCategoriesQuery,
   useUpdateProductMutation,
 } from "../store/slices/apiSlice";
@@ -22,7 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "react-toastify";
-import { CheckIcon, Plus } from "lucide-react";
+import { CheckIcon, Plus, Trash } from "lucide-react";
 import clsx from "clsx";
 
 function NewProductSideBar() {
@@ -39,7 +40,7 @@ function NewProductSideBar() {
     data: categoryData,
   } = useGetCategoriesQuery();
 
-  console.log("categories: ", categoryIsLoading, categoryData, categoryErr);
+  // console.log("categories: ", categoryIsLoading, categoryData, categoryErr);
 
   const dropdown = useSelector(
     (state: RootState) =>
@@ -49,6 +50,7 @@ function NewProductSideBar() {
   const [addProduct] = useAddProductMutation();
   const [updateProduct] = useUpdateProductMutation();
   const [addCategory] = useAddCategoryMutation();
+  const [deleteCategory] = useDeleteCategoryMutation();
 
   const createCategory = async () => {
     setIsLoading(true);
@@ -58,13 +60,26 @@ function NewProductSideBar() {
         name: newCategoryValue,
         description: "",
       });
+      console.log("response: ", response);
       setIsLoading(false);
+
       if (response.error) {
+        //@ts-ignore
+        if (response.error.status == 409) {
+          toast.error("Category already exists.");
+          return;
+        }
         toast.error("Couldn't create category at the moment.");
         setShowNewCategoryInput(false);
         setNewCategoryValue("");
         return;
       }
+      dispatch(
+        setCurrentlyEditing({
+          category: String(response.data?.category.id),
+        })
+      );
+
       toast.success("Category created successfuly");
       setShowNewCategoryInput(false);
       setNewCategoryValue("");
@@ -89,7 +104,7 @@ function NewProductSideBar() {
         const response = await addProduct({
           ...productSelector.currentlyEditing,
           category_id: Number(productSelector.currentlyEditing.category),
-          bottle_size: productSelector.currentlyEditing.bottle_size,
+          bottle_size: 0,
         });
 
         if (response.error) {
@@ -114,13 +129,14 @@ function NewProductSideBar() {
         toast("Updating product...");
         const response = await updateProduct({
           ...productSelector.currentlyEditing,
+          category_id: Number(productSelector.currentlyEditing.category),
           in_stock: productSelector.currentlyEditing.in_stock,
           product_id: productSelector.currentlyEditing.id,
         });
 
         if (response.error) {
           setIsLoading(false);
-          toast.error("Couldn't updatew product at the moment.");
+          toast.error("Couldn't update product at the moment.");
           return;
         }
 
@@ -168,7 +184,7 @@ function NewProductSideBar() {
                 onValueChange={(value) => {
                   dispatch(
                     setCurrentlyEditing({
-                      category: value as ProductCategory,
+                      category: value,
                     })
                   );
                 }}
@@ -187,13 +203,32 @@ function NewProductSideBar() {
                       name: string;
                       id: number;
                     }>).map((item, idx) => (
-                      <SelectItem
-                        className="p-3"
-                        key={idx}
-                        value={String(item.id)}
-                      >
-                        {item.name}
-                      </SelectItem>
+                      <div className="flex justify-between">
+                        <SelectItem
+                          className="p-3 flex items-center"
+                          key={idx}
+                          value={String(item.id)}
+                        >
+                          <p>{item.name}</p>
+                        </SelectItem>
+                        <button
+                          onClick={() => {
+                            try {
+                              toast.info("Deleting category...");
+                              deleteCategory({ category_id: item.id });
+                              toast.success("Category deleted successfuly");
+                            } catch (e) {
+                              toast.error(
+                                "Couldn't delete category at this time."
+                              );
+                              console.log("error: ", e);
+                            }
+                          }}
+                          className="pr-3"
+                        >
+                          <Trash className="size-4" />
+                        </button>
+                      </div>
                     ))}
                 </SelectContent>
               </Select>
@@ -222,13 +257,41 @@ function NewProductSideBar() {
               )}
             </div>
             {showNewCategoryInput && (
-              <input
-                type="text"
-                value={newCategoryValue}
-                onChange={(e) => setNewCategoryValue(e.target.value)}
-                className="outline-none text-sm rounded-xl h-11 border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40 pl-4 w-full"
-                placeholder="Enter new category name"
-              />
+              <div
+                onClick={(e) => setShowNewCategoryInput(false)}
+                className="fixed top-0 right-0 justify-center flex w-[100vw] h-full z-40 bg-black/60"
+              >
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="w-[25rem] rounded-lg bg-wBrand-background h-max relative top-[30%] p-8 space-y-8"
+                >
+                  <h3 className="text-2xl text-wBrand-accent">
+                    Create new product category
+                  </h3>
+                  <input
+                    type="text"
+                    value={newCategoryValue}
+                    onChange={(e) => setNewCategoryValue(e.target.value)}
+                    className="outline-none text-sm rounded-xl h-11 border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40 pl-4 w-full"
+                    placeholder="Enter new category name"
+                  />
+                  <div className="flex w-full justify-end">
+                    <button
+                      onClick={() => createCategory()}
+                      disabled={newCategoryValue.trim() == ""}
+                      className={clsx(
+                        "h-11 px-4 rounded-xl border flex items-center justify-center",
+                        newCategoryValue.trim() == ""
+                          ? "text-wBrand-accent/20 border-wBrand-accent/20"
+                          : "text-wBrand-accent border-wBrand-accent"
+                      )}
+                    >
+                      <CheckIcon className="h-4" />
+                      <p>Create</p>
+                    </button>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
           {/* <div className="flex space-x-4">

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { toggleCheckboxSelectorItem } from "../store/slices/checkboxSelectorSlice";
 import clsx from "clsx";
+import { truncateText } from "../utils/helpers";
 
 interface Params {
   id: string;
@@ -38,7 +39,7 @@ function CheckboxSelector({ id, idx, item }: Params) {
           : "border-wBrand-foreground/20"
       )}
     >
-      <p>{item.content}</p>
+      <p>{truncateText(item.content, 11)}</p>
       {/* <p
         className={clsx(
           "p-1 px-2 text-xs bg-wBrand-foreground/10 rounded-lg",

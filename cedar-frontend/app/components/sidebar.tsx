@@ -45,7 +45,7 @@ function Sidebar() {
               <path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z" />
             </svg>
           </div>
-          <h1 className="font-medium">WINERY</h1>
+          <h1 className="font-medium">SHOPME</h1>
         </div>
         <ul className="space-y-2 px-4">
           {links.map((link, index) => {

@@ -25,6 +25,7 @@ import {
 import clsx from "clsx";
 import { toast } from "react-toastify";
 import { Eye, EyeOff } from "lucide-react"; // Import eye icons
+import { getRoleEnum } from "../utils/helpers";
 
 function NewUserSideBar() {
   const dispatch = useDispatch();
@@ -55,6 +56,10 @@ function NewUserSideBar() {
     setFormErrors(errors);
     return !Object.values(errors).some(Boolean);
   };
+
+  const userRole = getRoleEnum(
+    localStorage.getItem("wineryUserRole")?.toLowerCase() ?? ""
+  );
 
   const handleSubmit = async () => {
     if (!validateForm()) {
@@ -170,43 +175,46 @@ function NewUserSideBar() {
               )}
             </div>
           </div>
-          <div className="space-y-4 relative">
-            <p className="text-xs text-wBrand-foreground/60 font-medium">
-              ROLE {formErrors.role && <span className="text-red-500">*</span>}
-            </p>
-            <Select
-              value={user.currentlyEditing?.roles?.[0]?.toLowerCase() || ""}
-              onValueChange={(value) => {
-                dispatch(
-                  setCurrentlyEditing({
-                    roles: [value.toUpperCase()],
-                  })
-                );
-              }}
-            >
-              <SelectTrigger
-                className={`w-full rounded-xl h-max p-3 ${
-                  formErrors.role ? "border-red-500" : ""
-                }`}
+          {userRole == Roles.ADMIN && (
+            <div className="space-y-4 relative">
+              <p className="text-xs text-wBrand-foreground/60 font-medium">
+                ROLE{" "}
+                {formErrors.role && <span className="text-red-500">*</span>}
+              </p>
+              <Select
+                value={user.currentlyEditing?.roles?.[0]?.toLowerCase() || ""}
+                onValueChange={(value) => {
+                  dispatch(
+                    setCurrentlyEditing({
+                      roles: [value.toUpperCase()],
+                    })
+                  );
+                }}
               >
-                <SelectValue placeholder="Select user role" />
-              </SelectTrigger>
-              <SelectContent className="bg-wBrand-background mt-2 rounded-xl">
-                {usersDropdownItems.map((item, idx) => (
-                  <SelectItem
-                    className="p-3"
-                    key={idx}
-                    value={item.value.toString()}
-                  >
-                    {item.content}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {formErrors.role && (
-              <p className="text-red-500 text-xs mt-1">Role is required</p>
-            )}
-          </div>
+                <SelectTrigger
+                  className={`w-full rounded-xl h-max p-3 ${
+                    formErrors.role ? "border-red-500" : ""
+                  }`}
+                >
+                  <SelectValue placeholder="Select user role" />
+                </SelectTrigger>
+                <SelectContent className="bg-wBrand-background mt-2 rounded-xl">
+                  {usersDropdownItems.map((item, idx) => (
+                    <SelectItem
+                      className="p-3"
+                      key={idx}
+                      value={item.value.toString()}
+                    >
+                      {item.content}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {formErrors.role && (
+                <p className="text-red-500 text-xs mt-1">Role is required</p>
+              )}
+            </div>
+          )}
         </div>
         <div className="w-full flex gap-4 justify-end">
           <button

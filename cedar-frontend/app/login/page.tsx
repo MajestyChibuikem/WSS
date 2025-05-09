@@ -21,6 +21,10 @@ function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  // useEffect(() => {
+  //   dispatch({ type: "RESET_APP" });
+  // }, []);
+
   const handleChange = (field: "username" | "password", value: string) => {
     dispatch(updateUserField({ field, value }));
   };
@@ -34,17 +38,16 @@ function Page() {
     try {
       setIsLoading(true);
       toast("Logging you in...");
-      console.log("trying...");
       const response = await login({
         username: user.username,
         password: user.password,
       }).unwrap();
-      console.log("login response: ", response);
       localStorage.setItem("wineryAuthToken", response.token);
       localStorage.setItem("wineryUserRole", response.roles[0]);
       localStorage.setItem("wineryUserId", response.user_id.toString());
+      localStorage.setItem("isAuth", "true");
       setIsLoading(false);
-      router.push("/");
+      router.push("/inventory");
     } catch (error) {
       setIsLoading(false);
       toast.error("Login failed");

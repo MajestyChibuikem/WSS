@@ -2,10 +2,11 @@
   "name": "winery",
   "version": "0.1.0",
   "private": true,
-  "main": "main.mjs",
+  "main": "main.cjs",
   "scripts": {
     "dev": "next dev",
     "electron-dev": "concurrently \"next dev\" \"electron .\"",
+    "electron": "electron .",
     "start": "next start",
     "build": "next build && next export",
     "electron-pack": "cross-env NODE_ENV=production electron-builder"
@@ -23,6 +24,8 @@
     "date-fns": "^4.1.0",
     "electron-is-dev": "3.0.1",
     "express": "^4.21.2",
+    "html2pdf": "^0.0.11",
+    "html2pdf.js": "^0.10.3",
     "lucide-react": "^0.475.0",
     "next": "14.2.3",
     "react": "^18",

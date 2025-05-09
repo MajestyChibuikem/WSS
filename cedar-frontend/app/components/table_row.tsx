@@ -54,25 +54,25 @@ function TableRow({ product, id }: Params) {
   return (
     <div className="grid grid-cols-1 xl:flex w-full rounded-xl bg-wBrand-background_light/60 gap-6 justify-between p-4">
       <div className="space-y-2">
-        <h2 className="text-base font-medium">{product.name}</h2>
+        <h2 className="text-base font-medium capitalize">{product.name}</h2>
         <div className="text-gray-400 flex items-center gap-2 text-xs flex-wrap">
           <p>
             ID: <span className="text-gray-200">#{product.id}</span>
           </p>
-          <div className="h-1 w-1 rounded-full bg-gray-400" />
+          {/* <div className="h-1 w-1 rounded-full bg-gray-400" />
           <p>
             ABV: <span className="text-gray-200">{product.abv}%</span>
-          </p>
+          </p> */}
           <div className="h-1 w-1 rounded-full bg-gray-400" />
           <p>
             NO IN STOCK:{" "}
             <span className="text-gray-200">{product.in_stock ?? 1}</span>
           </p>
-          <div className="h-1 w-1 rounded-full bg-gray-400" />
+          {/* <div className="h-1 w-1 rounded-full bg-gray-400" />
           <p>
             BOTTLE SIZE:{" "}
             <span className="text-gray-200">{product.bottle_size}ML</span>
-          </p>
+          </p> */}
         </div>
       </div>
 
@@ -86,11 +86,11 @@ function TableRow({ product, id }: Params) {
           <p>{product.category}</p>
         </div>
         <div className="flex gap-3 items-center xl:flex-col xl:gap-2">
-          {(userRole == Roles.ADMIN || userRole == Roles.SUPER_USER) &&
+          {userRole == Roles.ADMIN &&
             !inventoryCart.some((item) => item.id === product.id) && (
               <DropdownMenu>
                 {" "}
-                <DropdownMenuTrigger className="text-sm flex items-center gap-2 w-[8.4rem] justify-center h-8 border-2 border-wBrand-foreground/40 rounded-lg">
+                <DropdownMenuTrigger className="text-sm flex items-center gap-2 w-[5.4rem] justify-center h-8 border-2 border-wBrand-foreground/40 rounded-lg">
                   <Ellipsis className="h-4" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-wBrand-background z-10 p-2 space-y-1 rounded-xl border border-wBrand-foreground/20 top-7 shadow-xl">
@@ -98,7 +98,12 @@ function TableRow({ product, id }: Params) {
                     <DropdownMenuItem
                       onClick={async () => {
                         if (item.value == Actions.UPDATE) {
-                          dispatch(setCurrentlyEditing(product));
+                          dispatch(
+                            setCurrentlyEditing({
+                              ...product,
+                              category: product.category,
+                            })
+                          );
                           dispatch(toggleProductEditor());
                           dispatch(dispatch(updateAction(Actions.UPDATE)));
                         } else if (item.value == Actions.DELETE) {
@@ -107,7 +112,7 @@ function TableRow({ product, id }: Params) {
                             product_id: product.id,
                           });
                           if (response.error) {
-                            toast.error("Couln't delet product at this time");
+                            toast.error("Coulnd't delete product at this time");
                             return;
                           }
                           toast.success("Product deleted successfuly");
@@ -123,16 +128,17 @@ function TableRow({ product, id }: Params) {
               </DropdownMenu>
             )}
 
-          {!inventoryCart.some((item) => item.id === product.id) && (
-            <button
-              disabled={product.in_stock == 0}
-              onClick={() => dispatch(addToCart(product))}
-              className="text-sm flex items-center gap-2 w-[8.4rem] disabled:bg-gray-50/10 justify-center h-8 bg-wBrand-accent/80 text-wBrand-background rounded-lg"
-            >
-              <ShoppingBasket className="h-4" />
-              <p>{product.in_stock == 0 ? "Out of stock" : "Add to cart"}</p>
-            </button>
-          )}
+          {userRole == Roles.STAFF &&
+            !inventoryCart.some((item) => item.id === product.id) && (
+              <button
+                disabled={product.in_stock == 0}
+                onClick={() => dispatch(addToCart(product))}
+                className="text-sm flex items-center gap-2 w-[8.4rem] disabled:bg-gray-50/10 justify-center h-8 bg-wBrand-accent/80 text-wBrand-background rounded-lg"
+              >
+                <ShoppingBasket className="h-4" />
+                <p>{product.in_stock == 0 ? "Out of stock" : "Add to cart"}</p>
+              </button>
+            )}
           {inventoryCart.some((item) => item.id === product.id) && (
             <div className="space-y-4 text-sm w-[8.4rem] flex flex-col justify-center">
               <div className="flex border border-wBrand-foreground/30 overflow-clip space-x-2 w-full h-8 justify-between items-center rounded-lg">
@@ -153,6 +159,11 @@ function TableRow({ product, id }: Params) {
                 <button
                   onClick={() =>
                     dispatch(incrementCartItemQuantity(product.id))
+                  }
+                  disabled={
+                    product.in_stock ==
+                    inventoryCart.find((item) => item.id == product.id)
+                      ?.quantity
                   }
                   className="h-8 w-8 hover:bg-wBrand-foreground/10"
                 >

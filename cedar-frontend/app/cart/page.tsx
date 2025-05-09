@@ -10,6 +10,7 @@ import { useCheckoutMutation } from "../store/slices/apiSlice";
 import clsx from "clsx";
 import { toast } from "react-toastify";
 import { formatDecimal } from "../utils/helpers";
+import Receipt from "../components/receipt";
 
 function Page() {
   const dispatch = useDispatch();
@@ -17,30 +18,53 @@ function Page() {
   const { total, discountedTotal } = useSelector(getCartTotal);
   const [checkout, { isLoading, error }] = useCheckoutMutation();
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showReceipt, setShowReceipt] = useState(false);
+  const [receiptData, setReceiptData] = useState<null | {
+    transactionId: string;
+    date: string;
+    time: string;
+    total: string;
+    cartItems: Array<{
+      id: number;
+      name: string;
+      price: number;
+      quantity: number;
+    }>;
+    status: "Successful" | "Pending" | "Failed";
+  }>(null);
 
   const handleCheckout = async () => {
     toast("Checking out cart items...");
-    const items: Array<{ item: { id: number }; number_sold: number }> = [];
-    inventoryCart.cart.forEach((item) => {
-      items.push({
-        item: { id: item.id },
-        number_sold: item.quantity,
-      });
-    });
-    if (items.length == 0) return;
+    const items = inventoryCart.cart.map((item) => ({
+      item: { id: item.id },
+      number_sold: item.quantity,
+    }));
+    if (items.length === 0) return;
+
     try {
       const response = await checkout({
         items,
         total_amount: discountedTotal,
       }).unwrap();
 
+      const now = new Date();
+      const receipt = {
+        transactionId: String(response?.invoice_id) ?? `TX${Date.now()}`,
+        date: now.toISOString().split("T")[0],
+        time: now.toTimeString().split(" ")[0],
+        cartItems: inventoryCart.cart,
+        total: `${formatDecimal(discountedTotal).formatted}`,
+        status: "Successful" as const,
+      };
+
+      setReceiptData(receipt);
+      setShowConfirmation(false);
       dispatch(clearCart());
       toast.success("Checkout successful");
-      setShowConfirmation(false);
+      setShowReceipt(true);
     } catch (err) {
-      toast.error("Couldn't checkout at the moment try again later");
+      toast.error("Couldn't checkout at the moment. Try again later.");
       console.error("Checkout failed:", err);
-      setShowConfirmation(false);
     }
   };
 
@@ -76,7 +100,7 @@ function Page() {
           <section className="fixed top-0 right-0 z-50 h-full w-full bg-black/70 flex justify-center items-center">
             <div className="w-[32rem] border border-wBrand-accent/30 shadow-xl p-5 px-6 bg-wBrand-background space-y-10 rounded-2xl">
               <h1 className="text-2xl font-medium">
-                Are you sure you want to checkout wines?
+                Are you sure you want to checkout products?
               </h1>
               <div className="flex justify-end gap-4">
                 <button
@@ -93,6 +117,15 @@ function Page() {
                 </button>
               </div>
             </div>
+          </section>
+        )}
+
+        {receiptData && (
+          <section
+            onClick={() => setReceiptData(null)}
+            className="fixed top-0 right-0 w-full h-full bg-wBrand-background/90 z-20 flex justify-center pt-[10%]"
+          >
+            <Receipt {...receiptData} />
           </section>
         )}
 

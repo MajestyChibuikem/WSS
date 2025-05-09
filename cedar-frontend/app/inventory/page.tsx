@@ -4,6 +4,7 @@ import TableRow from "../components/table_row";
 import { dropdownItems, productCategories } from "../utils/mock_data";
 import {
   DollarSign,
+  ForkKnifeCrossed,
   LoaderCircle,
   Search,
   ShoppingBasketIcon,
@@ -18,7 +19,7 @@ import {
 } from "../store/slices/productSlice";
 import {
   clearFilter,
-  setWineData,
+  setProductData,
   updateInventoryFilter,
 } from "../store/slices/inventorySlice";
 import {
@@ -61,20 +62,20 @@ function Page() {
 
   useEffect(() => {
     if (productData && productData.products) {
-      dispatch(setWineData(productData.products));
+      dispatch(setProductData(productData.products));
     }
   }, [productData]);
 
-  useEffect(() => {
-    if (categoryArr.length === 0 && inventoryFilter.categories?.length) {
-      dispatch(clearFilter());
-    } else if (categoryArr.length > 0) {
-      const prevCategories = inventoryFilter.categories || [];
-      if (JSON.stringify(prevCategories) !== JSON.stringify(categoryArr)) {
-        dispatch(updateInventoryFilter({ categories: categoryArr }));
-      }
-    }
-  }, [categoryArr, inventoryFilter.categories, dispatch]);
+  // useEffect(() => {
+  //   if (categoryArr.length === 0 && inventoryFilter.categories?.length) {
+  //     dispatch(clearFilter());
+  //   } else if (categoryArr.length > 0) {
+  //     const prevCategories = inventoryFilter.categories || [];
+  //     if (JSON.stringify(prevCategories) !== JSON.stringify(categoryArr)) {
+  //       dispatch(updateInventoryFilter({ categories: categoryArr }));
+  //     }
+  //   }
+  // }, [categoryArr, inventoryFilter.categories, dispatch]);
 
   const {
     data: totalWineStock,
@@ -98,13 +99,13 @@ function Page() {
   }
 
   const userRole = getRoleEnum(
-    localStorage.getItem("productryUserRole")?.toLowerCase() ?? ""
+    localStorage.getItem("wineryUserRole")?.toLowerCase() ?? ""
   );
 
   return (
     <div className="">
       {showWineEditor && <NewWineSideBar />}
-      <div className="flex items-start h-[4rem] bg-wBrand-background sticky px-10 w-[100vw]  top-[5rem]">
+      <div className="flex items-start h-[4rem] bg-wBrand-background sticky px-10 w-[100vw]  top-0">
         <div className="w-[calc(25rem)] flex items-baseline justify-between">
           <h1 className="text-2xl font-medium">Inventory</h1>
           <p className="border border-wBrand-foreground/20 px-3 text-sm rounded-full py-1">
@@ -131,7 +132,7 @@ function Page() {
           </div>
 
           <div className="flex items-center gap-3">
-            {userRole !== Roles.STAFF && (
+            {userRole !== Roles.STAFF && userRole !== Roles.SUPER_USER && (
               <button
                 onClick={() => {
                   dispatch(toggleProductEditor());
@@ -176,6 +177,26 @@ function Page() {
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
                   PRODUCT CATEGORY
                 </p>
+                <div className="text-sm">
+                  <div className="flex w-full rounded-xl border border-wBrand-foreground/20 overflow-clip bg-wBrand-background/40">
+                    <div className="border-r bg-wBrand-background border-wBrand-foreground/20 p-3">
+                      <ForkKnifeCrossed className="h-4" />
+                    </div>
+                    <input
+                      type="text"
+                      placeholder="ENTER PRODUCT CATEGORY"
+                      value={inventoryFilter.categories}
+                      onChange={(e) => {
+                        dispatch(
+                          updateInventoryFilter({
+                            categories: e.target.value,
+                          })
+                        );
+                      }}
+                      className="outline-none min-h-full pl-4 bg-transparent w-full"
+                    />
+                  </div>
+                </div>
                 {/* <div className="grid grid-cols-2 gap-2">
                   {productCategories.map((category, idx) => (
                     <CheckboxSelector
@@ -268,7 +289,7 @@ function Page() {
 
                 {/* <Dropdown id="inventory_abv_range" items={dropdownItems} /> */}
               </div>
-              <div className="space-y-4 px-6">
+              {/* <div className="space-y-4 px-6">
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
                   ABV RANGE
                 </p>
@@ -320,7 +341,7 @@ function Page() {
                     />
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

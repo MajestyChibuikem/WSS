@@ -13,7 +13,14 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Users", "Products", "Logs", "Categories"],
+  tagTypes: [
+    "Users",
+    "Products",
+    "Logs",
+    "Categories",
+    "Revenue",
+    "SingleUser",
+  ],
   endpoints: (builder) => ({
     // Login
     login: builder.mutation<
@@ -74,6 +81,7 @@ export const apiSlice = createApi({
       number
     >({
       query: (user_id) => `/auth/user/${user_id}`,
+      providesTags: ["SingleUser"],
     }),
 
     updateUser: builder.mutation<
@@ -99,7 +107,7 @@ export const apiSlice = createApi({
         method: "PUT",
         body: updateData,
       }),
-      invalidatesTags: ["Users", "Logs"],
+      invalidatesTags: ["Users", "Logs", "SingleUser"],
       transformResponse: (response: any) => response, // Optional: Modify response if needed
       transformErrorResponse: (error: any) => error.data, // Optional: Extract meaningful error data
     }),
@@ -140,7 +148,10 @@ export const apiSlice = createApi({
 
     // Add Product Category
     addCategory: builder.mutation<
-      { message: string; catgory: { name: string; description: string } },
+      {
+        message: string;
+        category: { id: number; name: string; description: string };
+      },
       {
         name: string;
         description: string;
@@ -180,15 +191,14 @@ export const apiSlice = createApi({
       {
         product_id: number;
         name?: string;
-        abv?: number;
         price?: number;
-        category?: string;
+        category_id?: number;
         bottle_size?: number;
         in_stock?: number;
       }
     >({
       query: ({ product_id, ...body }) => ({
-        url: `/products/$ product_id}`,
+        url: `/products/${product_id}`,
         method: "PUT",
         body,
       }),
@@ -225,10 +235,22 @@ export const apiSlice = createApi({
       { product_id: number }
     >({
       query: ({ product_id }) => ({
-        url: `/products/$ product_id}`,
+        url: `/products/${product_id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Products", "Logs"],
+    }),
+
+    // Delete Product
+    deleteCategory: builder.mutation<
+      { message: string },
+      { category_id: number }
+    >({
+      query: ({ category_id }) => ({
+        url: `/categories/delete/${category_id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Categories", "Logs"],
     }),
 
     // Get Inventory Value
@@ -285,6 +307,7 @@ export const apiSlice = createApi({
       transformErrorResponse: () => ({
         message: "Error fetching revenue data",
       }),
+      providesTags: ["Revenue"],
     }),
 
     // Get Stock by Category
@@ -343,7 +366,7 @@ export const apiSlice = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["Logs"],
+      invalidatesTags: ["Logs", "Revenue"],
     }),
   }),
 });
@@ -364,6 +387,7 @@ export const {
   useAddProductMutation,
   useUpdateProductMutation,
   useDeleteProductMutation,
+  useDeleteCategoryMutation,
   useCheckTokenQuery,
   useGetUserSalesQuery,
   useGetInventoryValueQuery,

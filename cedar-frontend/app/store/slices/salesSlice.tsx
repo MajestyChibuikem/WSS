@@ -1,6 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { isAfter, isBefore, parseISO } from "date-fns";
 
+type SaleItem = {
+  product_name: string;
+  quantity: number;
+  product_id: number;
+  price: string;
+};
+
 export interface Sale {
   id: number;
   username: string;
@@ -8,7 +15,7 @@ export interface Sale {
   invoiceId: number | null;
   date: string;
   total: string;
-  items: string[];
+  items: SaleItem[];
   message: string;
   ipAddress: string;
 }
@@ -68,11 +75,7 @@ const salesSlice = createSlice({
             : sale.invoice?.total
             ? sale.invoice?.total
             : "0.00",
-          items: sale.invoice?.items
-            ? sale.invoice.items.map(
-                (item) => `${item.wine_name} (${item.quantity})`
-              )
-            : [],
+          items: sale.invoice?.items ? sale.invoice.items : [],
           message: sale.message,
           ipAddress: sale.ip_address,
         })
@@ -83,15 +86,11 @@ const salesSlice = createSlice({
 
     setSalesFilters: (state, action: PayloadAction<Partial<FilterState>>) => {
       state.filters = { ...state.filters, ...action.payload };
-      console.log("filtered sales-1", state.filteredSales, {
-        ...action.payload,
-      });
       // Automatically apply filters when updating filters
       salesSlice.caseReducers.applyFilters(state);
     },
 
     applyFilters: (state) => {
-      console.log("sales: ", state.sales);
       state.filteredSales = state.sales.filter((sale) => {
         const {
           dateRange,
@@ -102,7 +101,6 @@ const salesSlice = createSlice({
           priceRange,
         } = state.filters;
 
-        console.log("filtered sales", dateRange, username, item, priceRange);
         // 🛑 Check if sale data is valid
         // if (!sale) return false;
 
@@ -112,7 +110,6 @@ const salesSlice = createSlice({
           sale.username &&
           !sale.username.toLowerCase().includes(username.toLowerCase())
         ) {
-          console.log("here");
           return false;
         }
 

@@ -35,7 +35,7 @@ export interface Product {
   name: string;
   abv: number; // Alcohol by Volume %
   price: number; // Price in Naira
-  category: ProductCategory;
+  category: string;
   bottle_size: number; // in ml
   in_stock: number; // Number of bottles available
 }

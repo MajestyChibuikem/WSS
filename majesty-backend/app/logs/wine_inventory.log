@@ -16600,3 +16600,122 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-05-09 10:40:00,019] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-05-09 10:40:45,390] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-05-09 10:40:59,631] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-05-09 21:30:31,234] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-05-09 21:30:34,039] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2025-05-09 21:30:34,095] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2025-05-09 21:30:34,105] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2025-05-09 21:30:36,837] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2025-05-09 21:30:36,841] ERROR in app: Exception on /favicon.ico [GET]
+Traceback (most recent call last):
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2025-05-09 21:30:36,850] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2025-05-09 21:33:28,481] INFO in logger: [LOGIN_SUCCESS] User 2: User logged in successfully | Affected: admin
+[2025-05-09 21:33:32,426] INFO in logger: [GET_TOTAL_STOCK] User 2: Total stock checked: 1360 | Affected: Total Stock
+[2025-05-09 21:33:32,458] INFO in logger: [GET_ALL_PRODUCTS] User 2: Fetched all products | Affected: All products
+[2025-05-09 21:33:53,043] INFO in logger: [ADD_PRODUCT] User 2: Product added: food | Affected: food
+[2025-05-09 21:33:53,082] INFO in logger: [GET_ALL_PRODUCTS] User 2: Fetched all products | Affected: All products
+[2025-05-09 21:34:31,147] INFO in logger: [GET_USERS_SUCCESS] User 2: Admin retrieved user list | Affected: User Management
+[2025-05-09 21:34:31,148] INFO in logger: [GET_USER_SUCCESS] User 2: User data retrieved for user 2 | Affected: admin
+[2025-05-09 21:34:40,024] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2025-05-09 21:34:40,035] ERROR in app: Exception on /products/top_wines [OPTIONS]
+Traceback (most recent call last):
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/macbook/EverythingProgramming/inventory_management_system/majesty-backend/backend/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2025-05-09 21:34:40,037] INFO in logger: [GET_REVENUE] User 2: Revenue calculated for the past 30 days: 15469.98 | Affected: Revenue
+[2025-05-09 21:34:40,066] INFO in logger: [GET_STOCK_BY_CATEGORY] User 2: Stock by category fetched successfully | Affected: Stock by Category
+[2025-05-09 21:34:40,080] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2025-05-09 21:34:40,090] INFO in logger: [GET_INVENTORY_VALUE] User 2: Inventory value fetched | Affected: Inventory Value by Category
+[2025-05-09 21:34:40,112] INFO in logger: [COMPARE_SALES] User 2: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
+[2025-05-17 17:43:20,067] INFO in logger: Wine Inventory API Started - Environment: development
+[2025-05-17 17:43:45,480] INFO in logger: Wine Inventory API Started - Environment: development

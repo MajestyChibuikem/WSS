@@ -46,8 +46,8 @@ function Page() {
       localStorage.setItem("wineryUserRole", response.roles[0]);
       localStorage.setItem("wineryUserId", response.user_id.toString());
       localStorage.setItem("isAuth", "true");
-      setIsLoading(false);
-      router.push("/inventory");
+      toast.success("Login successful!");
+      window.location.href = "/inventory";
     } catch (error) {
       setIsLoading(false);
       toast.error("Login failed");

@@ -94,7 +94,7 @@ function Topbar() {
               <path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z" />
             </svg>
           </div>
-          <h1 className="font-medium text-2xl text-wBrand-accent">SHOPME</h1>
+          <h1 className="font-medium text-2xl text-wBrand-accent">Store Star</h1>
         </div>
 
         {/* Desktop Links */}

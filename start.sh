@@ -17,10 +17,10 @@ trap cleanup SIGINT
 cd majesty-backend || { echo "Directory majesty-backend not found"; exit 1; }
 
 # Activate the virtual environment
-if [ -f "backend/bin/activate" ]; then
-    source backend/bin/activate
+if [ -f "venv/bin/activate" ]; then
+    source venv/bin/activate
 else
-    echo "Virtual environment not found in backend/bin/activate"
+    echo "Virtual environment not found in venv/bin/activate"
     exit 1
 fi
 

@@ -1,5 +1,6 @@
 "use client";
 import { LoaderCircle } from "lucide-react";
+import { useState, useEffect } from "react";
 import useCheckAuthAndRedirect from "./hooks/useCheckAuthAndRedirect";
 import Topbar from "./components/topbar";
 import Page from "./login/page";
@@ -9,9 +10,12 @@ export default function ProtectedRoute({
 }: {
   children: React.ReactNode;
 }) {
-  const { isLoading } = useCheckAuthAndRedirect();
+  const { isLoading, isAuth: hookIsAuth } = useCheckAuthAndRedirect();
+  const [isAuth, setIsAuth] = useState<string | null>(null);
 
-  const isAuth = localStorage.getItem("isAuth");
+  useEffect(() => {
+    setIsAuth(localStorage.getItem("isAuth"));
+  }, [hookIsAuth]);
 
   if (isLoading)
     return (

@@ -16719,3 +16719,310 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2025-05-09 21:34:40,112] INFO in logger: [COMPARE_SALES] User 2: Sales compared: Growth Factor = 2.0, Percentage Change = 100% | Affected: Sales Comparison
 [2025-05-17 17:43:20,067] INFO in logger: Wine Inventory API Started - Environment: development
 [2025-05-17 17:43:45,480] INFO in logger: Wine Inventory API Started - Environment: development
+[2026-01-18 10:00:54,719] INFO in logger: Wine Inventory API Started - Environment: development
+[2026-01-18 10:08:54,479] INFO in logger: [LOGIN_FAILURE] User None: Invalid login attempt | Affected: admin
+[2026-01-18 10:09:15,662] INFO in logger: [LOGIN_FAILURE] User None: Invalid login attempt | Affected: newadmin
+[2026-01-18 10:09:26,745] INFO in logger: Wine Inventory API Started - Environment: development
+[2026-01-18 10:11:03,388] INFO in logger: [LOGIN_FAILURE] User None: Invalid login attempt | Affected: newadmin
+[2026-01-18 10:11:50,172] INFO in logger: [LOGIN_SUCCESS] User 5: User logged in successfully | Affected: newadmin
+[2026-01-18 10:12:06,816] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2026-01-18 10:12:06,896] INFO in logger: [GET_TOTAL_STOCK] User 5: Total stock checked: 1361 | Affected: Total Stock
+[2026-01-18 10:12:06,913] INFO in logger: [GET_ALL_PRODUCTS] User 5: Fetched all products | Affected: All products
+[2026-01-18 10:12:11,323] INFO in logger: [GET_REVENUE] User 5: Revenue calculated for the past 30 days: 0 | Affected: Revenue
+[2026-01-18 10:12:11,329] INFO in logger: [GET_STOCK_BY_CATEGORY] User 5: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 10:12:11,341] INFO in logger: [GET_INVENTORY_VALUE] User 5: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 10:12:11,356] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2026-01-18 10:12:11,362] ERROR in app: Exception on /products/top_wines [OPTIONS]
+Traceback (most recent call last):
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2026-01-18 10:12:11,363] INFO in logger: [COMPARE_SALES] User 5: Sales compared: Growth Factor = 1.0, Percentage Change = 0% | Affected: Sales Comparison
+[2026-01-18 10:12:11,365] INFO in logger: [GET_USERS_SUCCESS] User 5: Admin retrieved user list | Affected: User Management
+[2026-01-18 10:12:11,374] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2026-01-18 10:12:41,737] INFO in logger: [GET_USER_SUCCESS] User 5: User data retrieved for user 5 | Affected: newadmin
+[2026-01-18 10:14:32,661] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2026-01-18 10:14:32,667] INFO in logger: [GET_REVENUE] User 5: Revenue calculated for the past 30 days: 0 | Affected: Revenue
+[2026-01-18 10:14:32,670] INFO in logger: [GET_STOCK_BY_CATEGORY] User 5: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 10:14:32,674] ERROR in app: Exception on /products/top_wines [OPTIONS]
+Traceback (most recent call last):
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2026-01-18 10:14:32,688] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2026-01-18 10:14:32,709] INFO in logger: [GET_USERS_SUCCESS] User 5: Admin retrieved user list | Affected: User Management
+[2026-01-18 10:14:32,712] INFO in logger: [COMPARE_SALES] User 5: Sales compared: Growth Factor = 1.0, Percentage Change = 0% | Affected: Sales Comparison
+[2026-01-18 10:14:32,714] INFO in logger: [GET_INVENTORY_VALUE] User 5: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 11:08:39,220] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2026-01-18 11:08:39,293] INFO in logger: [GET_TOTAL_STOCK] User 5: Total stock checked: 1361 | Affected: Total Stock
+[2026-01-18 11:08:39,304] INFO in logger: [GET_ALL_PRODUCTS] User 5: Fetched all products | Affected: All products
+[2026-01-18 11:08:49,767] INFO in logger: [LOGIN_SUCCESS] User 5: User logged in successfully | Affected: newadmin
+[2026-01-18 11:08:50,369] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2026-01-18 11:08:50,433] INFO in logger: [GET_TOTAL_STOCK] User 5: Total stock checked: 1361 | Affected: Total Stock
+[2026-01-18 11:08:50,439] INFO in logger: [GET_ALL_PRODUCTS] User 5: Fetched all products | Affected: All products
+[2026-01-18 11:08:57,045] INFO in logger: [LOGIN_SUCCESS] User 2: User logged in successfully | Affected: admin
+[2026-01-18 11:08:57,617] INFO in logger: [CHECK_TOKEN_VALID] User 2: Token is valid | Affected: Token System
+[2026-01-18 11:08:57,681] INFO in logger: [GET_TOTAL_STOCK] User 2: Total stock checked: 1361 | Affected: Total Stock
+[2026-01-18 11:08:57,686] INFO in logger: [GET_ALL_PRODUCTS] User 2: Fetched all products | Affected: All products
+[2026-01-18 11:09:00,133] INFO in logger: [GET_USER_SUCCESS] User 2: User data retrieved for user 2 | Affected: admin
+[2026-01-18 11:09:00,138] INFO in logger: [GET_USERS_SUCCESS] User 2: Admin retrieved user list | Affected: User Management
+[2026-01-18 11:09:06,689] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2026-01-18 11:09:06,695] INFO in logger: [GET_REVENUE] User 2: Revenue calculated for the past 30 days: 0 | Affected: Revenue
+[2026-01-18 11:09:06,697] ERROR in app: Exception on /products/top_wines [OPTIONS]
+Traceback (most recent call last):
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2026-01-18 11:09:06,711] INFO in logger: [GET_INVENTORY_VALUE] User 2: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 11:09:06,714] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2026-01-18 11:09:06,716] INFO in logger: [GET_STOCK_BY_CATEGORY] User 2: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 11:09:06,752] INFO in logger: [COMPARE_SALES] User 2: Sales compared: Growth Factor = 1.0, Percentage Change = 0% | Affected: Sales Comparison
+[2026-01-18 11:10:27,611] INFO in logger: [GET_USER_SUCCESS] User 2: User data retrieved for user 2 | Affected: admin
+[2026-01-18 11:10:27,612] INFO in logger: [GET_USERS_SUCCESS] User 2: Admin retrieved user list | Affected: User Management
+[2026-01-18 11:10:29,856] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2026-01-18 11:10:29,863] INFO in logger: [GET_REVENUE] User 2: Revenue calculated for the past 30 days: 0 | Affected: Revenue
+[2026-01-18 11:10:29,869] ERROR in app: Exception on /products/top_wines [OPTIONS]
+Traceback (most recent call last):
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2026-01-18 11:10:29,883] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2026-01-18 11:10:29,885] INFO in logger: [GET_STOCK_BY_CATEGORY] User 2: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 11:10:29,885] INFO in logger: [COMPARE_SALES] User 2: Sales compared: Growth Factor = 1.0, Percentage Change = 0% | Affected: Sales Comparison
+[2026-01-18 11:10:29,887] INFO in logger: [GET_INVENTORY_VALUE] User 2: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 11:11:25,305] INFO in logger: [CHECK_TOKEN_VALID] User 2: Token is valid | Affected: Token System
+[2026-01-18 11:11:27,308] INFO in logger: [GET_USER_SUCCESS] User 2: User data retrieved for user 2 | Affected: admin
+[2026-01-18 11:11:27,308] INFO in logger: [GET_USERS_SUCCESS] User 2: Admin retrieved user list | Affected: User Management
+[2026-01-18 11:11:33,644] INFO in logger: [GET_TOTAL_STOCK] User 2: Total stock checked: 1361 | Affected: Total Stock
+[2026-01-18 11:11:33,647] INFO in logger: [GET_ALL_PRODUCTS] User 2: Fetched all products | Affected: All products
+[2026-01-18 11:11:34,707] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2026-01-18 11:11:34,714] INFO in logger: [GET_REVENUE] User 2: Revenue calculated for the past 30 days: 0 | Affected: Revenue
+[2026-01-18 11:11:34,720] INFO in logger: [GET_STOCK_BY_CATEGORY] User 2: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 11:11:34,723] ERROR in app: Exception on /products/top_wines [OPTIONS]
+Traceback (most recent call last):
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2026-01-18 11:11:34,727] INFO in logger: [GET_INVENTORY_VALUE] User 2: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 11:11:34,734] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2026-01-18 11:11:34,743] INFO in logger: [COMPARE_SALES] User 2: Sales compared: Growth Factor = 1.0, Percentage Change = 0% | Affected: Sales Comparison
+[2026-01-18 11:11:55,780] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2026-01-18 11:11:55,782] ERROR in app: Exception on /products/top_wines [OPTIONS]
+Traceback (most recent call last):
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2026-01-18 11:11:55,789] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2026-01-18 11:12:39,499] INFO in logger: [CHECK_TOKEN_VALID] User 2: Token is valid | Affected: Token System
+[2026-01-18 11:12:39,631] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2026-01-18 11:12:39,638] ERROR in app: Exception on /products/top_wines [OPTIONS]
+Traceback (most recent call last):
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2026-01-18 11:12:39,649] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2026-01-18 11:12:39,660] INFO in logger: [GET_TOTAL_STOCK] User 2: Total stock checked: 1361 | Affected: Total Stock
+[2026-01-18 11:12:39,663] INFO in logger: [GET_REVENUE] User 2: Revenue calculated for the past 30 days: 0 | Affected: Revenue
+[2026-01-18 11:12:39,668] INFO in logger: [GET_STOCK_BY_CATEGORY] User 2: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 11:12:39,696] INFO in logger: [COMPARE_SALES] User 2: Sales compared: Growth Factor = 1.0, Percentage Change = 0% | Affected: Sales Comparison
+[2026-01-18 11:12:39,704] INFO in logger: [GET_ALL_PRODUCTS] User 2: Fetched all products | Affected: All products
+[2026-01-18 11:12:39,744] INFO in logger: [GET_INVENTORY_VALUE] User 2: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 11:12:39,751] INFO in logger: [GET_USERS_SUCCESS] User 2: Admin retrieved user list | Affected: User Management
+[2026-01-18 11:15:45,675] INFO in logger: [LOGIN_SUCCESS] User 5: User logged in successfully | Affected: newadmin
+[2026-01-18 11:15:46,081] INFO in logger: [GET_USERS_SUCCESS] User 5: Admin retrieved user list | Affected: User Management

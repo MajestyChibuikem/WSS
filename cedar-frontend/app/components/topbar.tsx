@@ -12,12 +12,14 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Roles } from "../utils/types";
 import { getRoleEnum } from "../utils/helpers";
 import { useLogoutMutation } from "../store/slices/apiSlice";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import logo from "../img/logo-black-white.png";
 
 function Topbar() {
   const pathname = usePathname();
@@ -70,29 +72,29 @@ function Topbar() {
   );
 
   return (
-    <div className="w-full h-[5rem] relative z-20 bg-wBrand-background">
+    <div className="w-full h-[5rem] relative z-20 bg-wBrand-background_dark">
       {/* Topbar */}
-      <div className="w-full h-[5rem] flex items-center px-5 xl:px-10 bg-wBrand-background justify-between fixed top-0 left-0">
+      <div className="w-full h-[5rem] flex items-center px-5 xl:px-10 bg-wBrand-background_dark justify-between fixed top-0 left-0">
         {/* Logo */}
-        <div className="text-sm flex gap-x-4 items-center">
-          <div className="p-2 text-2xl text-wBrand-background stroke-4 bg-wBrand-accent rounded-lg">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-product"
-            >
-              <path d="M8 22h8" />
-              <path d="M7 10h10" />
-              <path d="M12 15v7" />
-              <path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z" />
-            </svg>
+        <div className="flex items-center gap-x-4">
+          <div className="flex flex-col items-center">
+            <Image
+              src={logo}
+              alt="Logo"
+              height={40}
+              className="object-contain"
+            />
+            <span className="text-[10px] text-wBrand-foreground/50">
+              powered by{" "}
+              <a
+                href="https://teminix.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-wBrand-accent hover:underline"
+              >
+                Teminix.com
+              </a>
+            </span>
           </div>
           <h1 className="font-medium text-2xl text-wBrand-accent">Store Star</h1>
         </div>
@@ -154,7 +156,7 @@ function Topbar() {
 
       {/* Sidebar (Mobile) */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-wBrand-background shadow-md transform ${
+        className={`fixed top-0 left-0 h-full w-64 bg-wBrand-background_dark shadow-md transform ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 xl:hidden`}
       >

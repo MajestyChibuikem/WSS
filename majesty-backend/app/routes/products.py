@@ -285,6 +285,7 @@ def get_all_products():
                 "category_id": product.category.id,
                 "bottle_size": product.bottle_size,
                 "in_stock": product.in_stock,
+                "image_url": product.image_url,
                 "added_by": product.added_by,
                 "added_at": product.added_at.isoformat() if product.added_at else None
             }
@@ -327,6 +328,7 @@ def add_product():
             category_id=data.get('category_id'),
             bottle_size=data.get('bottle_size'),
             in_stock=data.get('in_stock'),
+            image_url=data.get('image_url'),
             added_by=current_user.id,
             added_at=datetime.utcnow()
         )
@@ -401,12 +403,13 @@ def update_product(product_id):
         if 'name' in data: product.name = data['name']
         if 'abv' in data: product.abv = data['abv']
         if 'price' in data: product.price = data['price']
-        if 'category_id' in data: 
+        if 'category_id' in data:
             category = Category.query.get(data['category_id'])
             if category:
                 product.category = category
         if 'bottle_size' in data: product.bottle_size = data['bottle_size']
         if 'in_stock' in data: product.in_stock = data['in_stock']
+        if 'image_url' in data: product.image_url = data['image_url']
 
         db.session.commit()
         log_action(
@@ -425,7 +428,8 @@ def update_product(product_id):
                 'category_id': product.category.id if product.category else None,
                 'category_name': product.category.name if product.category else None,
                 'bottle_size': product.bottle_size,
-                'in_stock': product.in_stock
+                'in_stock': product.in_stock,
+                'image_url': product.image_url
             }
         }), 200
     except Exception as e:

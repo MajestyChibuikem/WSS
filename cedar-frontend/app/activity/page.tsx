@@ -1,7 +1,7 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ActionTableRow from "../components/action_table_row";
-import { DollarSign, LoaderCircle, User } from "lucide-react";
+import { DollarSign, Filter, LoaderCircle, User, X } from "lucide-react";
 import { actions } from "../utils/mock_data";
 import { DatePickerWithRange } from "../components/range_calendar";
 import { useGetAllLogsQuery } from "../store/slices/apiSlice";
@@ -13,8 +13,11 @@ import {
   setFilters,
 } from "../store/slices/activitySlice";
 import CheckboxSelector from "../components/checkbox_selector";
+import clsx from "clsx";
+import { SalesPageSkeleton } from "../components/skeleton";
 
 function Page() {
+  const [filterOpen, setFilterOpen] = useState(false);
   const { data: allLogs, error: allLogsError, isLoading } = useGetAllLogsQuery(
     {}
   );
@@ -65,22 +68,47 @@ function Page() {
     }
   }, [categoryArr, activityFilter.categories, dispatch]);
 
-  if (isLoading)
-    return (
-      <div className="h-[85vh] w-full flex justify-center items-center">
-        <LoaderCircle className="text-wBrand-accent animate-spin stroke-wBrand-accent h-10 w-10" />
-      </div>
-    );
-
   return (
-    <div className="w-[100vw] px-10">
-      <h1 className="text-2xl font-medium sticky top-0 h-[4rem] items-center flex bg-wBrand-background">
-        Activity Log
-      </h1>
+    <div className="w-full px-4 lg:px-10">
+      <div className="flex items-center justify-between sticky top-0 h-[4rem] bg-wBrand-background z-10">
+        <h1 className="text-xl lg:text-2xl font-medium">Activity Log</h1>
+        <button
+          onClick={() => setFilterOpen(true)}
+          className="lg:hidden p-2 border border-wBrand-foreground/20 rounded-lg"
+        >
+          <Filter className="h-5 w-5" />
+        </button>
+      </div>
+
+      {/* Mobile filter overlay */}
+      {filterOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={() => setFilterOpen(false)}
+        />
+      )}
+
       <section className="w-full flex">
-        <div className="w-[25rem] h-[100vh]">
-          <div className="fixed w-[24rem] h-[calc(100vh-9rem)] top-[9rem] p-10 pr-0 pt-0 left-0">
-            <div className="rounded-lg space-y-8 py-10 overflow-y-auto relative bg-wBrand-background_light/60 h-full">
+        {/* Sidebar */}
+        <div
+          className={clsx(
+            "fixed lg:relative z-50 lg:z-auto",
+            "w-[85vw] sm:w-[320px] lg:w-[320px] xl:w-[380px]",
+            "h-full lg:h-auto",
+            "top-0 left-0",
+            "transform transition-transform duration-300 lg:transform-none",
+            filterOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+          )}
+        >
+          <div className="lg:fixed lg:w-[300px] xl:w-[360px] lg:h-[calc(100vh-9rem)] lg:top-[9rem] lg:left-0 lg:p-10 lg:pr-0 lg:pt-0 h-full">
+            <div className="rounded-none lg:rounded-lg space-y-8 py-10 overflow-y-auto relative bg-wBrand-background lg:bg-wBrand-background_light/60 h-full">
+              {/* Mobile header */}
+              <div className="flex items-center justify-between px-6 lg:hidden">
+                <h2 className="text-lg font-medium">Filters</h2>
+                <button onClick={() => setFilterOpen(false)}>
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
               <div className="space-y-4 px-6">
                 <p className="text-xs text-wBrand-foreground/60 font-medium">
                   FILTER BY ACTIONS
@@ -150,19 +178,31 @@ function Page() {
             </div>
           </div>
         </div>
-        <div className="w-[calc(100vw-25rem)] h-[calc(100vh-11rem)] overflow-y-auto right-0">
-          <div className="space-y-3">
-            <div className="flex w-full max-w-full bg-wBrand-background_light/60 text-wBrand-accent text-xs p-3 font-semibold sticky top-0 px-8 rounded-xl">
-              <div className="w-[10%] text-left">ID</div>
-              <div className="w-[40%] ">ITEM</div>
-              <div className="w-[20%] ">BY</div>
-              <div className="w-[20%] ">DATE</div>
-              <div className="w-[10%] text-right">ACTION</div>
+
+        {/* Activity list */}
+        <div className="flex-1 min-h-[calc(100vh-11rem)] overflow-y-auto pb-20">
+          {isLoading ? (
+            <SalesPageSkeleton />
+          ) : (
+            <div className="space-y-3">
+              {/* Table header - hidden on mobile */}
+              <div className="hidden sm:flex w-full max-w-full bg-wBrand-background_light/60 text-wBrand-accent text-xs p-3 font-semibold sticky top-0 px-4 lg:px-8 rounded-xl">
+                <div className="w-[10%] text-left">ID</div>
+                <div className="w-[40%]">ITEM</div>
+                <div className="w-[20%]">BY</div>
+                <div className="w-[20%]">DATE</div>
+                <div className="w-[10%] text-right">ACTION</div>
+              </div>
+              {filteredActivities.length === 0 && (
+                <div className="w-full flex items-center justify-center text-xl lg:text-2xl font-semibold text-wBrand-accent/20 h-[30vh]">
+                  <p>No activity logs found</p>
+                </div>
+              )}
+              {filteredActivities.map((activity, idx) => (
+                <ActionTableRow key={idx} activity={activity} />
+              ))}
             </div>
-            {filteredActivities.map((activity, idx) => (
-              <ActionTableRow key={idx} activity={activity} />
-            ))}
-          </div>
+          )}
         </div>
       </section>
     </div>

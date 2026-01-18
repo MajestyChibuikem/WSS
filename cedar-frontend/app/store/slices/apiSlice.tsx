@@ -343,7 +343,7 @@ export const apiSlice = createApi({
       }[],
       void
     >({
-      query: () => "/products/top_wines",
+      query: () => "/products/top_selling",
     }),
 
     getUserLogs: builder.query({

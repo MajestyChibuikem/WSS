@@ -38,6 +38,7 @@ import { Actions, Roles } from "./utils/types";
 import NewUserSideBar from "./components/new_user_sidebar";
 import { setActivities } from "./store/slices/activitySlice";
 import ActionRowCard from "./components/action_row_card";
+import { DashboardSkeleton } from "./components/skeleton";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -163,16 +164,16 @@ export default function Home() {
     loadingTopWines
   )
     return (
-      <div className="h-[85vh] gap-4 w-full flex justify-center items-center">
-        <LoaderCircle className="text-wBrand-accent animate-spin h-10 w-10" />
-      </div>
+      <main className="w-full px-4 lg:px-10 space-y-8 py-6 overflow-y-auto h-[calc(100vh-5rem)]">
+        <DashboardSkeleton />
+      </main>
     );
 
   return (
-    <main className="w-[100vw] px-10 space-y-8 py-6 overflow-y-auto h-[calc(100vh-5rem)]">
+    <main className="w-full px-4 lg:px-10 space-y-8 py-6 overflow-y-auto h-[calc(100vh-5rem)]">
       {showUserEditor && <NewUserSideBar />}
       {userRole == Roles.ADMIN && (
-        <section className="flex gap-x-2 text-xs xl:pt-10 items-center">
+        <section className="flex gap-2 text-xs pt-4 lg:pt-10 items-center flex-wrap">
           <button
             onClick={() => {
               dispatch(updateAction(Actions.CREATE));
@@ -182,8 +183,8 @@ export default function Home() {
           >
             <Plus className="h-4 w-4 stroke-wBrand-accent" />
           </button>
-          {userData?.users.map((user) => (
-            <button className="flex gap-x-2 py-1 px-1 pr-3 items-center rounded-full border border-wBrand-foreground/10">
+          {userData?.users.map((user, idx) => (
+            <button key={idx} className="flex gap-x-2 py-1 px-1 pr-3 items-center rounded-full border border-wBrand-foreground/10">
               <div className="p-1 flex items-center justify-center rounded-full bg-wBrand-accent text-xs">
                 {getInitials(user.username)}
               </div>
@@ -212,12 +213,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="flex flex-col gap-10 justify-between items-center">
-        <div className="space-y-2 text-center ">
+      <section className="flex flex-col gap-6 lg:gap-10 justify-between items-center">
+        <div className="space-y-2 text-center">
           <h3 className="font-medium">Revenue</h3>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
             {revenueData && revenueData.revenue !== undefined && (
-              <h4 className="text-6xl font-semibold">
+              <h4 className="text-4xl sm:text-5xl lg:text-6xl font-semibold">
                 {revenueData.revenue &&
                   formatDecimal(
                     revenueData.revenue as number
@@ -285,16 +286,16 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex gap-x-4">
-          <div className="relative w-max">
-            <div className="w-[13rem] h-[6rem] flex flex-col justify-center border relative z-10 border-wBrand-foreground/30 bg-wBrand-background rounded-xl p-3 space-y-1">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="relative">
+            <div className="w-full sm:w-[13rem] h-[6rem] flex flex-col justify-center border relative z-10 border-wBrand-foreground/30 bg-wBrand-background rounded-xl p-3 space-y-1">
               <h5 className="text-xs text-gray-400 font-medium">
                 Total products in stock
               </h5>
               <h4 className="text-xl font-semibold">
                 {totalWineStock && totalWineStock.total_stock}
               </h4>
-              <div className="flex justify-between text-xs gap-2 text-gray-300 overflow-x-auto">
+              <div className="flex flex-wrap gap-2 text-xs text-gray-300">
                 {stockCategoryData &&
                   Object.entries(stockCategoryData.stock_by_category).map(
                     ([category, value]) => (
@@ -311,11 +312,11 @@ export default function Home() {
                   )}
               </div>
             </div>
-            <div className="w-[11.3rem] h-[4rem] -top-2 translate-x-[50%] right-[50%] absolute rounded-xl bg-wBrand-foreground/10"></div>
+            <div className="hidden sm:block w-[11.3rem] h-[4rem] -top-2 translate-x-[50%] right-[50%] absolute rounded-xl bg-wBrand-foreground/10"></div>
           </div>
 
-          <div className="relative w-max">
-            <div className="w-[13rem] h-[6rem] flex flex-col justify-center border relative z-10 border-wBrand-foreground/30 bg-wBrand-background rounded-xl p-3 space-y-1">
+          <div className="relative">
+            <div className="w-full sm:w-[13rem] h-[6rem] flex flex-col justify-center border relative z-10 border-wBrand-foreground/30 bg-wBrand-background rounded-xl p-3 space-y-1">
               <h5 className="text-xs text-gray-400 font-medium">
                 Total Value of Inventory
               </h5>
@@ -331,7 +332,7 @@ export default function Home() {
                     )
                   ).formatted}
               </h4>
-              <div className="flex justify-between text-xs gap-2 text-gray-300 overflow-x-auto">
+              <div className="flex flex-wrap gap-2 text-xs text-gray-300">
                 {inventoryValueData &&
                   inventoryValueData.inventory_value &&
                   ((inventoryValueData.inventory_value as unknown) as Array<{
@@ -350,7 +351,7 @@ export default function Home() {
                   ))}
               </div>
             </div>
-            <div className="w-[11.3rem] h-[4rem] -top-2 translate-x-[50%] right-[50%] absolute rounded-xl bg-wBrand-foreground/10"></div>
+            <div className="hidden sm:block w-[11.3rem] h-[4rem] -top-2 translate-x-[50%] right-[50%] absolute rounded-xl bg-wBrand-foreground/10"></div>
           </div>
 
           {/* <div className="relative">
@@ -426,24 +427,35 @@ export default function Home() {
         </div>
       </section> */}
 
-      <section className="flex gap-10 pt-10">
-        <div className="w-[50%] space-y-4">
-          <h3 className="text-xl font-medium">Inventory</h3>
+      <section className="flex flex-col lg:flex-row gap-10 pt-10">
+        <div className="w-full lg:w-1/2 space-y-4">
+          <h3 className="text-lg lg:text-xl font-medium">Inventory</h3>
           <div className="space-y-4">
-            {wineData &&
-              wineData?.products
+            {wineData && wineData.products && wineData.products.length > 0 ? (
+              wineData.products
                 .slice(0, 5)
                 .map((product, idx) => (
                   <TableRowDashboard key={idx} product={product} />
-                ))}
+                ))
+            ) : (
+              <div className="flex items-center justify-center h-32 text-wBrand-foreground/30 text-sm">
+                No products in inventory
+              </div>
+            )}
           </div>
         </div>
-        <div className="w-[50%] space-y-4">
-          <h3 className="text-xl font-medium">Latest Activity</h3>
-          <div className="grid grid-cols-2 gap-6 gap-y-4">
-            {activities.slice(0, 10).map((activity, idx) => (
-              <ActionRowCard key={idx} activity={activity} />
-            ))}
+        <div className="w-full lg:w-1/2 space-y-4">
+          <h3 className="text-lg lg:text-xl font-medium">Latest Activity</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+            {activities.length > 0 ? (
+              activities.slice(0, 10).map((activity, idx) => (
+                <ActionRowCard key={idx} activity={activity} />
+              ))
+            ) : (
+              <div className="col-span-2 flex items-center justify-center h-32 text-wBrand-foreground/30 text-sm">
+                No recent activity
+              </div>
+            )}
           </div>
         </div>
       </section>

@@ -11,8 +11,8 @@ import {
 } from "../store/slices/apiSlice";
 import Empty from "../components/empty";
 import { Actions, Roles } from "../utils/types";
-import { LoaderCircle } from "lucide-react";
 import { getRoleEnum } from "../utils/helpers";
+import { UsersPageSkeleton } from "../components/skeleton";
 
 function Page() {
   const dispatch = useDispatch();
@@ -36,29 +36,32 @@ function Page() {
   if (error && singleUserDataErr) return <p>Error fetching users</p>;
   if (isLoading || loadingSingleUser)
     return (
-      <div className="h-[85vh] w-full flex justify-center items-center">
-        <LoaderCircle className="text-wBrand-accent animate-spin stroke-wBrand-accent h-10 w-10" />
+      <div className="px-4 lg:px-10 w-full overflow-y-auto h-[calc(100vh-5rem)]">
+        <div className="flex items-center justify-between py-6 lg:py-8">
+          <h1 className="text-2xl lg:text-3xl font-semibold">Users</h1>
+        </div>
+        <UsersPageSkeleton />
       </div>
     );
 
   return (
-    <div className="px-10 w-[100vw]">
+    <div className="px-4 lg:px-10 w-full overflow-y-auto h-[calc(100vh-5rem)]">
       {showUserEditor && <NewUserSideBar />}
-      <div className="flex items-center justify-between">
-        <h1 className="py-8 pl-2 text-2xl font-medium">Users</h1>
+      <div className="flex items-center justify-between py-6 lg:py-8">
+        <h1 className="text-2xl lg:text-3xl font-semibold">Users</h1>
         {userRole == Roles.ADMIN && (
           <button
             onClick={() => {
               dispatch(updateAction(Actions.CREATE));
               dispatch(toggleUserEditor());
             }}
-            className="px-5 py-2 font-medium bg-wBrand-accent text-wBrand-background rounded-xl"
+            className="px-4 lg:px-5 py-2 text-sm lg:text-base font-medium bg-wBrand-accent text-wBrand-background rounded-xl"
           >
             Add User
           </button>
         )}
       </div>
-      <div className="">
+      <div>
         {!userData && !singleUserData ? (
           <Empty
             info={
@@ -70,7 +73,7 @@ function Page() {
         ) : !userData && singleUserData?.user ? (
           <UserCard user={singleUserData.user} />
         ) : (
-          <div className="grid md:grid-cols-3 xl:grid-cols-4 gap-5 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5 w-full">
             {userData &&
               userData.users.map((user, idx) => (
                 <UserCard key={idx} user={user} />

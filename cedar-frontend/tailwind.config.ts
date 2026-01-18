@@ -12,6 +12,7 @@ const config: Config = {
       colors: {
         "wBrand-foreground": "#ffffff",
         "wBrand-background": "#0f171b",
+        "wBrand-background_dark": "#050505",
         "wBrand-accent": "#39da79",
         "wBrand-background_light": "#19262d",
       },

@@ -38,6 +38,7 @@ export interface Product {
   category: string;
   bottle_size: number; // in ml
   in_stock: number; // Number of bottles available
+  image_url?: string | null; // URL for product image
 }
 
 export const enum ProductCategoryEnum {

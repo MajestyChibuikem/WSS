@@ -4,6 +4,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/app/store";
 
+// Tax rate (7.5% VAT - common in Nigeria)
+export const TAX_RATE = 0.075;
+
 interface InventoryState {
   filteredData: Product[];
   productData: Product[];
@@ -16,6 +19,7 @@ interface InventoryState {
     bottle_size: { min: number; max: number };
   };
   discount: number;
+  taxEnabled: boolean;
   cart: (Product & { quantity: number })[]; // Ensure items have a quantity
 }
 
@@ -30,6 +34,7 @@ const initialState: InventoryState = {
   },
   filteredData: [],
   discount: 0,
+  taxEnabled: true,
   cart: [],
   productData: [],
 };
@@ -160,6 +165,19 @@ const inventorySlice = createSlice({
       };
       state.filteredData = state.productData;
     },
+
+    setDiscount: (state, action: PayloadAction<number>) => {
+      // Ensure discount is between 0 and 100
+      state.discount = Math.max(0, Math.min(100, action.payload));
+    },
+
+    toggleTax: (state) => {
+      state.taxEnabled = !state.taxEnabled;
+    },
+
+    setTaxEnabled: (state, action: PayloadAction<boolean>) => {
+      state.taxEnabled = action.payload;
+    },
   },
 });
 
@@ -174,6 +192,9 @@ export const {
   clearCart,
   resetInventoryFilter,
   setProductData,
+  setDiscount,
+  toggleTax,
+  setTaxEnabled,
 } = inventorySlice.actions;
 export default inventorySlice.reducer;
 
@@ -181,12 +202,27 @@ export default inventorySlice.reducer;
 export const getCartTotal = createSelector(
   (state: RootState) => state.inventory.cart,
   (state: RootState) => state.inventory.discount,
-  (cart, discount) => {
-    const total = cart.reduce(
+  (state: RootState) => state.inventory.taxEnabled,
+  (cart, discount, taxEnabled) => {
+    const subtotal = cart.reduce(
       (sum, item) => sum + item.price * item.quantity,
       0
     );
-    const discountedTotal = total * (1 - discount / 100);
-    return { total, discountedTotal };
+    const discountAmount = subtotal * (discount / 100);
+    const afterDiscount = subtotal - discountAmount;
+    const taxAmount = taxEnabled ? afterDiscount * TAX_RATE : 0;
+    const total = afterDiscount + taxAmount;
+
+    return {
+      subtotal,
+      discountAmount,
+      discountPercent: discount,
+      taxAmount,
+      taxEnabled,
+      taxRate: TAX_RATE,
+      total,
+      // Legacy support
+      discountedTotal: total,
+    };
   }
 );

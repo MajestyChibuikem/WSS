@@ -164,6 +164,7 @@ class Product(db.Model):
     # category = db.Column(db.Enum("Red", "White", "Rosé", "Sparkling", "Dessert", "Fortified", name="wine_category"), nullable=False)
     bottle_size = db.Column(db.Integer, nullable=False)  # Bottle size in ml
     in_stock = db.Column(db.Integer, default=0, nullable=False)  # Number of bottles available
+    image_url = db.Column(db.String(500), nullable=True)  # URL for product image
     added_by = db.Column(db.Integer, db.ForeignKey('users.id'))
     added_at = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -191,6 +192,7 @@ class Product(db.Model):
             category_id=product_data.get('category_id'),
             bottle_size=product_data.get('bottle_size'),
             in_stock=product_data.get('in_stock', 0),
+            image_url=product_data.get('image_url'),
             added_by=user.id
         )
         

@@ -17026,3 +17026,644 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 [2026-01-18 11:12:39,751] INFO in logger: [GET_USERS_SUCCESS] User 2: Admin retrieved user list | Affected: User Management
 [2026-01-18 11:15:45,675] INFO in logger: [LOGIN_SUCCESS] User 5: User logged in successfully | Affected: newadmin
 [2026-01-18 11:15:46,081] INFO in logger: [GET_USERS_SUCCESS] User 5: Admin retrieved user list | Affected: User Management
+[2026-01-18 11:17:42,034] INFO in logger: [LOGIN_SUCCESS] User 5: User logged in successfully | Affected: newadmin
+[2026-01-18 11:17:42,222] INFO in logger: [DELETE_USER_SUCCESS] User 5: Deleted user admin (ID: 2) | Affected: admin
+[2026-01-18 11:17:42,290] ERROR in logger: [EXCEPTION] User 5: Unhandled exception: IntegrityError
+[2026-01-18 11:17:42,290] ERROR in logger: Failed to save log entry to database: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.IntegrityError) NOT NULL constraint failed: invoices.user_id
+[SQL: UPDATE invoices SET user_id=? WHERE invoices.id = ?]
+[parameters: [(None, 1), (None, 2), (None, 3), (None, 4), (None, 5), (None, 6), (None, 7), (None, 8)  ... displaying 10 of 19 total bound parameter sets ...  (None, 21), (None, 22)]]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+[2026-01-18 11:17:42,302] ERROR in app: Exception on /auth/user/3 [DELETE]
+Traceback (most recent call last):
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1933, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 939, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: NOT NULL constraint failed: invoices.user_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 762, in handle_user_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/utils/decorators.py", line 51, in decorated
+    return f(*args, **kwargs)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/routes/auth.py", line 484, in delete_user
+    db.session.commit()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/persistence.py", line 85, in save_obj
+    _emit_update_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        update,
+        ^^^^^^^
+    )
+    ^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/persistence.py", line 912, in _emit_update_statements
+    c = connection.execute(
+        statement, multiparams, execution_options=execution_options
+    )
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1933, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 939, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: invoices.user_id
+[SQL: UPDATE invoices SET user_id=? WHERE invoices.id = ?]
+[parameters: [(None, 1), (None, 2), (None, 3), (None, 4), (None, 5), (None, 6), (None, 7), (None, 8)  ... displaying 10 of 19 total bound parameter sets ...  (None, 21), (None, 22)]]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+[2026-01-18 11:17:42,316] ERROR in logger: [EXCEPTION] User 5: Unhandled exception: InternalServerError
+[2026-01-18 11:17:42,353] ERROR in logger: [EXCEPTION] User 5: Unhandled exception: IntegrityError
+[2026-01-18 11:17:42,354] ERROR in logger: Failed to save log entry to database: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.IntegrityError) NOT NULL constraint failed: invoices.user_id
+[SQL: UPDATE invoices SET user_id=? WHERE invoices.id = ?]
+[parameters: [(None, 14), (None, 16), (None, 17)]]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+[2026-01-18 11:17:42,362] ERROR in app: Exception on /auth/user/4 [DELETE]
+Traceback (most recent call last):
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1933, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 939, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: NOT NULL constraint failed: invoices.user_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 762, in handle_user_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/utils/decorators.py", line 51, in decorated
+    return f(*args, **kwargs)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/routes/auth.py", line 484, in delete_user
+    db.session.commit()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/persistence.py", line 85, in save_obj
+    _emit_update_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        update,
+        ^^^^^^^
+    )
+    ^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/orm/persistence.py", line 912, in _emit_update_statements
+    c = connection.execute(
+        statement, multiparams, execution_options=execution_options
+    )
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1933, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 939, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: invoices.user_id
+[SQL: UPDATE invoices SET user_id=? WHERE invoices.id = ?]
+[parameters: [(None, 14), (None, 16), (None, 17)]]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+[2026-01-18 11:17:42,373] ERROR in logger: [EXCEPTION] User 5: Unhandled exception: InternalServerError
+[2026-01-18 11:17:56,428] INFO in logger: [LOGIN_SUCCESS] User 5: User logged in successfully | Affected: newadmin
+[2026-01-18 11:17:56,510] INFO in logger: [GET_USERS_SUCCESS] User 5: Admin retrieved user list | Affected: User Management
+[2026-01-18 11:19:13,579] INFO in logger: Wine Inventory API Started - Environment: development
+[2026-01-18 11:20:02,343] INFO in logger: [CHECK_TOKEN_VALID] User 2: Token is valid | Affected: Token System
+[2026-01-18 11:20:02,457] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2026-01-18 11:20:02,462] ERROR in app: Exception on /products/top_wines [OPTIONS]
+Traceback (most recent call last):
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2026-01-18 11:20:02,471] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2026-01-18 11:20:02,484] INFO in logger: [GET_REVENUE] User 2: Revenue calculated for the past 30 days: 5628.00 | Affected: Revenue
+[2026-01-18 11:20:02,484] INFO in logger: [GET_TOTAL_STOCK] User 2: Total stock checked: 825 | Affected: Total Stock
+[2026-01-18 11:20:02,484] INFO in logger: [GET_STOCK_BY_CATEGORY] User 2: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 11:20:02,505] INFO in logger: [GET_USERS_UNAUTHORIZED] User 2: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 11:20:02,528] INFO in logger: [COMPARE_SALES] User 2: Sales compared: Growth Factor = 1.08, Percentage Change = 7.67% | Affected: Sales Comparison
+[2026-01-18 11:20:02,528] INFO in logger: [GET_INVENTORY_VALUE] User 2: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 11:20:02,563] INFO in logger: [GET_ALL_PRODUCTS] User 2: Fetched all products | Affected: All products
+[2026-01-18 11:20:26,895] INFO in logger: [GET_USERS_UNAUTHORIZED] User 2: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 11:20:26,898] INFO in logger: [GET_USER_UNAUTHORIZED] User 2: Invalid token or user not found while accessing user 2 | Affected: User ID 2
+[2026-01-18 11:20:29,968] INFO in logger: [CHECK_TOKEN_VALID] User 2: Token is valid | Affected: Token System
+[2026-01-18 11:20:30,018] INFO in logger: [GET_USERS_UNAUTHORIZED] User 2: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 11:20:30,018] INFO in logger: [GET_USER_UNAUTHORIZED] User 2: Invalid token or user not found while accessing user 2 | Affected: User ID 2
+[2026-01-18 11:20:44,744] INFO in logger: Wine Inventory API Started - Environment: development
+[2026-01-18 11:21:34,904] INFO in logger: [CHECK_TOKEN_VALID] User 2: Token is valid | Affected: Token System
+[2026-01-18 11:21:34,961] INFO in logger: [GET_USERS_UNAUTHORIZED] User 2: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 11:21:34,963] INFO in logger: [GET_USER_UNAUTHORIZED] User 2: Invalid token or user not found while accessing user 2 | Affected: User ID 2
+[2026-01-18 11:22:03,520] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2026-01-18 11:22:03,525] ERROR in app: Exception on /products/top_wines [OPTIONS]
+Traceback (most recent call last):
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2026-01-18 11:22:03,536] INFO in logger: [GET_REVENUE] User 2: Revenue calculated for the past 30 days: 5628.00 | Affected: Revenue
+[2026-01-18 11:22:03,543] INFO in logger: [GET_STOCK_BY_CATEGORY] User 2: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 11:22:03,557] INFO in logger: [GET_TOTAL_STOCK] User 2: Total stock checked: 825 | Affected: Total Stock
+[2026-01-18 11:22:03,563] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2026-01-18 11:22:03,571] INFO in logger: [GET_ALL_PRODUCTS] User 2: Fetched all products | Affected: All products
+[2026-01-18 11:22:03,573] INFO in logger: [COMPARE_SALES] User 2: Sales compared: Growth Factor = 1.08, Percentage Change = 7.67% | Affected: Sales Comparison
+[2026-01-18 11:22:03,575] INFO in logger: [GET_USERS_UNAUTHORIZED] User 2: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 11:22:03,587] INFO in logger: [GET_INVENTORY_VALUE] User 2: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 11:22:19,511] INFO in logger: [LOGIN_SUCCESS] User 5: User logged in successfully | Affected: newadmin
+[2026-01-18 11:22:20,696] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2026-01-18 11:22:21,262] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2026-01-18 11:22:21,339] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2026-01-18 11:22:21,344] ERROR in app: Exception on /products/top_wines [OPTIONS]
+Traceback (most recent call last):
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2026-01-18 11:22:21,350] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2026-01-18 11:22:21,358] INFO in logger: [GET_REVENUE] User 5: Revenue calculated for the past 30 days: 5628.00 | Affected: Revenue
+[2026-01-18 11:22:21,360] INFO in logger: [GET_TOTAL_STOCK] User 5: Total stock checked: 825 | Affected: Total Stock
+[2026-01-18 11:22:21,374] INFO in logger: [GET_STOCK_BY_CATEGORY] User 5: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 11:22:21,391] INFO in logger: [GET_USERS_SUCCESS] User 5: Admin retrieved user list | Affected: User Management
+[2026-01-18 11:22:21,397] INFO in logger: [GET_INVENTORY_VALUE] User 5: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 11:22:21,398] INFO in logger: [GET_ALL_PRODUCTS] User 5: Fetched all products | Affected: All products
+[2026-01-18 11:22:21,418] INFO in logger: [COMPARE_SALES] User 5: Sales compared: Growth Factor = 1.08, Percentage Change = 7.67% | Affected: Sales Comparison
+[2026-01-18 11:22:23,144] INFO in logger: [GET_USER_SUCCESS] User 5: User data retrieved for user 5 | Affected: newadmin
+[2026-01-18 11:22:39,164] ERROR in logger: [EXCEPTION] User None: Unhandled exception: NotFound
+[2026-01-18 11:22:39,168] ERROR in app: Exception on /products/top_wines [OPTIONS]
+Traceback (most recent call last):
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 755, in handle_user_exception
+    return self.handle_http_exception(e)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 730, in handle_http_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/app/utils/logger.py", line 194, in log_exception
+    raise exception
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 844, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/app.py", line 453, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/majesty/Documents/projects/WSS/majesty-backend/venv/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2026-01-18 11:22:39,172] ERROR in logger: [EXCEPTION] User None: Unhandled exception: InternalServerError
+[2026-01-18 11:24:44,927] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2026-01-18 11:24:45,049] INFO in logger: [GET_REVENUE] User 5: Revenue calculated for the past 30 days: 5628.00 | Affected: Revenue
+[2026-01-18 11:24:45,051] INFO in logger: [GET_TOTAL_STOCK] User 5: Total stock checked: 825 | Affected: Total Stock
+[2026-01-18 11:24:45,059] INFO in logger: [GET_STOCK_BY_CATEGORY] User 5: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 11:24:45,070] INFO in logger: [COMPARE_SALES] User 5: Sales compared: Growth Factor = 1.08, Percentage Change = 7.67% | Affected: Sales Comparison
+[2026-01-18 11:24:45,091] INFO in logger: [GET_INVENTORY_VALUE] User 5: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 11:24:45,108] INFO in logger: [GET_ALL_PRODUCTS] User 5: Fetched all products | Affected: All products
+[2026-01-18 11:24:45,119] INFO in logger: [GET_USERS_SUCCESS] User 5: Admin retrieved user list | Affected: User Management
+[2026-01-18 11:24:59,975] INFO in logger: [GET_USER_SUCCESS] User 5: User data retrieved for user 5 | Affected: newadmin
+[2026-01-18 11:25:46,175] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2026-01-18 11:25:58,821] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2026-01-18 11:27:07,111] INFO in logger: Wine Inventory API Started - Environment: development
+[2026-01-18 11:29:36,904] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2026-01-18 11:29:37,037] INFO in logger: [GET_REVENUE] User 5: Revenue calculated for the past 30 days: 5628.00 | Affected: Revenue
+[2026-01-18 11:29:37,045] INFO in logger: [GET_TOTAL_STOCK] User 5: Total stock checked: 825 | Affected: Total Stock
+[2026-01-18 11:29:37,058] INFO in logger: [GET_STOCK_BY_CATEGORY] User 5: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 11:29:37,090] INFO in logger: [COMPARE_SALES] User 5: Sales compared: Growth Factor = 1.08, Percentage Change = 7.67% | Affected: Sales Comparison
+[2026-01-18 11:29:37,107] INFO in logger: [GET_ALL_PRODUCTS] User 5: Fetched all products | Affected: All products
+[2026-01-18 11:29:37,111] INFO in logger: [GET_INVENTORY_VALUE] User 5: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 11:29:37,117] INFO in logger: [GET_USERS_SUCCESS] User 5: Admin retrieved user list | Affected: User Management
+[2026-01-18 11:35:05,081] INFO in logger: [GET_USER_SUCCESS] User 5: User data retrieved for user 5 | Affected: newadmin
+[2026-01-18 11:47:02,872] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2026-01-18 11:47:18,129] INFO in logger: [GET_TOTAL_STOCK] User 5: Total stock checked: 825 | Affected: Total Stock
+[2026-01-18 11:47:18,140] INFO in logger: [GET_ALL_PRODUCTS] User 5: Fetched all products | Affected: All products
+[2026-01-18 11:58:53,447] INFO in logger: [GET_REVENUE] User 5: Revenue calculated for the past 30 days: 5628.00 | Affected: Revenue
+[2026-01-18 11:58:53,473] INFO in logger: [GET_INVENTORY_VALUE] User 5: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 11:58:53,475] INFO in logger: [GET_STOCK_BY_CATEGORY] User 5: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 11:58:53,509] INFO in logger: [COMPARE_SALES] User 5: Sales compared: Growth Factor = 1.08, Percentage Change = 7.67% | Affected: Sales Comparison
+[2026-01-18 11:58:53,513] INFO in logger: [GET_USERS_SUCCESS] User 5: Admin retrieved user list | Affected: User Management
+[2026-01-18 11:59:12,579] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2026-01-18 11:59:12,678] INFO in logger: [GET_TOTAL_STOCK] User 5: Total stock checked: 825 | Affected: Total Stock
+[2026-01-18 11:59:12,691] INFO in logger: [GET_ALL_PRODUCTS] User 5: Fetched all products | Affected: All products
+[2026-01-18 11:59:14,757] INFO in logger: [GET_REVENUE] User 5: Revenue calculated for the past 30 days: 5628.00 | Affected: Revenue
+[2026-01-18 11:59:14,770] INFO in logger: [GET_INVENTORY_VALUE] User 5: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 11:59:14,778] INFO in logger: [GET_STOCK_BY_CATEGORY] User 5: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 11:59:14,791] INFO in logger: [COMPARE_SALES] User 5: Sales compared: Growth Factor = 1.08, Percentage Change = 7.67% | Affected: Sales Comparison
+[2026-01-18 11:59:14,794] INFO in logger: [GET_USERS_SUCCESS] User 5: Admin retrieved user list | Affected: User Management
+[2026-01-18 11:59:26,631] INFO in logger: [GET_USER_SUCCESS] User 5: User data retrieved for user 5 | Affected: newadmin
+[2026-01-18 12:01:04,351] INFO in logger: [LOGIN_SUCCESS] User 7: User logged in successfully | Affected: sales
+[2026-01-18 12:01:04,985] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-01-18 12:01:05,088] INFO in logger: [GET_ALL_PRODUCTS] User 7: Fetched all products | Affected: All products
+[2026-01-18 12:01:05,088] INFO in logger: [GET_TOTAL_STOCK] User 7: Total stock checked: 825 | Affected: Total Stock
+[2026-01-18 12:01:15,685] INFO in logger: [GET_REVENUE] User 7: Revenue calculated for the past 30 days: 5628.00 | Affected: Revenue
+[2026-01-18 12:01:15,696] INFO in logger: [GET_STOCK_BY_CATEGORY] User 7: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 12:01:15,709] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 12:01:15,712] INFO in logger: [GET_INVENTORY_VALUE] User 7: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 12:01:15,745] INFO in logger: [COMPARE_SALES] User 7: Sales compared: Growth Factor = 1.08, Percentage Change = 7.67% | Affected: Sales Comparison
+[2026-01-18 12:02:29,411] INFO in logger: [GET_USER_SUCCESS] User 7: User data retrieved for user 7 | Affected: sales
+[2026-01-18 12:02:29,412] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 12:02:32,734] INFO in logger: [GET_REVENUE] User 7: Revenue calculated for the past 30 days: 5628.00 | Affected: Revenue
+[2026-01-18 12:02:32,736] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 12:02:32,747] INFO in logger: [GET_STOCK_BY_CATEGORY] User 7: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 12:02:32,752] INFO in logger: [GET_INVENTORY_VALUE] User 7: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 12:02:32,767] INFO in logger: [COMPARE_SALES] User 7: Sales compared: Growth Factor = 1.08, Percentage Change = 7.67% | Affected: Sales Comparison
+[2026-01-18 17:08:13,966] INFO in logger: Wine Inventory API Started - Environment: development
+[2026-01-18 17:09:06,812] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-01-18 17:09:06,946] INFO in logger: [GET_REVENUE] User 7: Revenue calculated for the past 30 days: 5806.00 | Affected: Revenue
+[2026-01-18 17:09:06,948] INFO in logger: [GET_TOTAL_STOCK] User 7: Total stock checked: 825 | Affected: Total Stock
+[2026-01-18 17:09:06,952] INFO in logger: [GET_STOCK_BY_CATEGORY] User 7: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 17:09:06,959] ERROR in logger: [GET_ALL_PRODUCTS_ERROR] User 7: (sqlite3.OperationalError) no such column: products.image_url
+[SQL: SELECT products.id AS products_id, products.name AS products_name, products.abv AS products_abv, products.price AS products_price, products.category_id AS products_category_id, products.bottle_size AS products_bottle_size, products.in_stock AS products_in_stock, products.image_url AS products_image_url, products.added_by AS products_added_by, products.added_at AS products_added_at 
+FROM products JOIN categories ON categories.id = products.category_id]
+(Background on this error at: https://sqlalche.me/e/20/e3q8) | Affected: All products
+[2026-01-18 17:09:06,960] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:09:06,982] INFO in logger: [COMPARE_SALES] User 7: Sales compared: Growth Factor = 1.20, Percentage Change = 20.01% | Affected: Sales Comparison
+[2026-01-18 17:09:07,009] INFO in logger: [GET_INVENTORY_VALUE] User 7: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 17:10:56,157] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-01-18 17:10:56,275] INFO in logger: [GET_REVENUE] User 7: Revenue calculated for the past 30 days: 5806.00 | Affected: Revenue
+[2026-01-18 17:10:56,299] INFO in logger: [GET_STOCK_BY_CATEGORY] User 7: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 17:10:56,301] INFO in logger: [GET_TOTAL_STOCK] User 7: Total stock checked: 825 | Affected: Total Stock
+[2026-01-18 17:10:56,303] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:10:56,320] INFO in logger: [COMPARE_SALES] User 7: Sales compared: Growth Factor = 1.20, Percentage Change = 20.01% | Affected: Sales Comparison
+[2026-01-18 17:10:56,383] ERROR in logger: [GET_ALL_PRODUCTS_ERROR] User 7: (sqlite3.OperationalError) no such column: products.image_url
+[SQL: SELECT products.id AS products_id, products.name AS products_name, products.abv AS products_abv, products.price AS products_price, products.category_id AS products_category_id, products.bottle_size AS products_bottle_size, products.in_stock AS products_in_stock, products.image_url AS products_image_url, products.added_by AS products_added_by, products.added_at AS products_added_at 
+FROM products JOIN categories ON categories.id = products.category_id]
+(Background on this error at: https://sqlalche.me/e/20/e3q8) | Affected: All products
+[2026-01-18 17:10:56,385] INFO in logger: [GET_INVENTORY_VALUE] User 7: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 17:11:24,332] INFO in logger: [LOGIN_SUCCESS] User 7: User logged in successfully | Affected: sales
+[2026-01-18 17:11:25,653] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-01-18 17:11:26,232] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-01-18 17:11:26,369] ERROR in logger: [GET_ALL_PRODUCTS_ERROR] User 7: (sqlite3.OperationalError) no such column: products.image_url
+[SQL: SELECT products.id AS products_id, products.name AS products_name, products.abv AS products_abv, products.price AS products_price, products.category_id AS products_category_id, products.bottle_size AS products_bottle_size, products.in_stock AS products_in_stock, products.image_url AS products_image_url, products.added_by AS products_added_by, products.added_at AS products_added_at 
+FROM products JOIN categories ON categories.id = products.category_id]
+(Background on this error at: https://sqlalche.me/e/20/e3q8) | Affected: All products
+[2026-01-18 17:11:26,371] INFO in logger: [GET_TOTAL_STOCK] User 7: Total stock checked: 825 | Affected: Total Stock
+[2026-01-18 17:11:26,371] INFO in logger: [GET_REVENUE] User 7: Revenue calculated for the past 30 days: 5806.00 | Affected: Revenue
+[2026-01-18 17:11:26,379] INFO in logger: [GET_STOCK_BY_CATEGORY] User 7: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 17:11:26,384] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:11:26,388] INFO in logger: [COMPARE_SALES] User 7: Sales compared: Growth Factor = 1.20, Percentage Change = 20.01% | Affected: Sales Comparison
+[2026-01-18 17:11:26,448] INFO in logger: [GET_INVENTORY_VALUE] User 7: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 17:11:40,805] INFO in logger: Wine Inventory API Started - Environment: development
+[2026-01-18 17:15:48,819] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-01-18 17:15:48,972] INFO in logger: [GET_REVENUE] User 7: Revenue calculated for the past 30 days: 5806.00 | Affected: Revenue
+[2026-01-18 17:15:48,972] ERROR in logger: [GET_ALL_PRODUCTS_ERROR] User 7: (sqlite3.OperationalError) no such column: products.image_url
+[SQL: SELECT products.id AS products_id, products.name AS products_name, products.abv AS products_abv, products.price AS products_price, products.category_id AS products_category_id, products.bottle_size AS products_bottle_size, products.in_stock AS products_in_stock, products.image_url AS products_image_url, products.added_by AS products_added_by, products.added_at AS products_added_at 
+FROM products JOIN categories ON categories.id = products.category_id]
+(Background on this error at: https://sqlalche.me/e/20/e3q8) | Affected: All products
+[2026-01-18 17:15:48,974] INFO in logger: [GET_TOTAL_STOCK] User 7: Total stock checked: 825 | Affected: Total Stock
+[2026-01-18 17:15:48,986] INFO in logger: [GET_STOCK_BY_CATEGORY] User 7: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 17:15:48,989] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:15:49,005] INFO in logger: [COMPARE_SALES] User 7: Sales compared: Growth Factor = 1.20, Percentage Change = 20.01% | Affected: Sales Comparison
+[2026-01-18 17:15:49,033] INFO in logger: [GET_INVENTORY_VALUE] User 7: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 17:19:53,604] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-01-18 17:19:56,935] INFO in logger: [GET_TOTAL_STOCK] User 7: Total stock checked: 825 | Affected: Total Stock
+[2026-01-18 17:19:56,936] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:19:56,936] INFO in logger: [GET_STOCK_BY_CATEGORY] User 7: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 17:19:56,939] ERROR in logger: [GET_ALL_PRODUCTS_ERROR] User 7: (sqlite3.OperationalError) no such column: products.image_url
+[SQL: SELECT products.id AS products_id, products.name AS products_name, products.abv AS products_abv, products.price AS products_price, products.category_id AS products_category_id, products.bottle_size AS products_bottle_size, products.in_stock AS products_in_stock, products.image_url AS products_image_url, products.added_by AS products_added_by, products.added_at AS products_added_at 
+FROM products JOIN categories ON categories.id = products.category_id]
+(Background on this error at: https://sqlalche.me/e/20/e3q8) | Affected: All products
+[2026-01-18 17:19:56,943] INFO in logger: [GET_REVENUE] User 7: Revenue calculated for the past 30 days: 5806.00 | Affected: Revenue
+[2026-01-18 17:19:56,952] INFO in logger: [COMPARE_SALES] User 7: Sales compared: Growth Factor = 1.20, Percentage Change = 20.01% | Affected: Sales Comparison
+[2026-01-18 17:19:56,978] INFO in logger: [GET_INVENTORY_VALUE] User 7: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 17:20:37,683] ERROR in logger: [GET_ALL_PRODUCTS_ERROR] User 7: (sqlite3.OperationalError) no such column: products.image_url
+[SQL: SELECT products.id AS products_id, products.name AS products_name, products.abv AS products_abv, products.price AS products_price, products.category_id AS products_category_id, products.bottle_size AS products_bottle_size, products.in_stock AS products_in_stock, products.image_url AS products_image_url, products.added_by AS products_added_by, products.added_at AS products_added_at 
+FROM products JOIN categories ON categories.id = products.category_id]
+(Background on this error at: https://sqlalche.me/e/20/e3q8) | Affected: All products
+[2026-01-18 17:22:55,246] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-01-18 17:22:55,350] INFO in logger: [GET_TOTAL_STOCK] User 7: Total stock checked: 825 | Affected: Total Stock
+[2026-01-18 17:22:55,356] INFO in logger: [GET_ALL_PRODUCTS] User 7: Fetched all products | Affected: All products
+[2026-01-18 17:22:58,847] INFO in logger: [GET_REVENUE] User 7: Revenue calculated for the past 30 days: 5806.00 | Affected: Revenue
+[2026-01-18 17:22:58,847] INFO in logger: [GET_STOCK_BY_CATEGORY] User 7: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 17:22:58,896] INFO in logger: [COMPARE_SALES] User 7: Sales compared: Growth Factor = 1.20, Percentage Change = 20.01% | Affected: Sales Comparison
+[2026-01-18 17:22:58,897] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:22:58,901] INFO in logger: [GET_INVENTORY_VALUE] User 7: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 17:24:14,123] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-01-18 17:24:14,252] INFO in logger: [GET_REVENUE] User 7: Revenue calculated for the past 30 days: 5806.00 | Affected: Revenue
+[2026-01-18 17:24:14,255] INFO in logger: [GET_TOTAL_STOCK] User 7: Total stock checked: 825 | Affected: Total Stock
+[2026-01-18 17:24:14,260] INFO in logger: [GET_STOCK_BY_CATEGORY] User 7: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 17:24:14,262] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:24:14,280] INFO in logger: [COMPARE_SALES] User 7: Sales compared: Growth Factor = 1.20, Percentage Change = 20.01% | Affected: Sales Comparison
+[2026-01-18 17:24:14,299] INFO in logger: [GET_ALL_PRODUCTS] User 7: Fetched all products | Affected: All products
+[2026-01-18 17:24:14,305] INFO in logger: [GET_INVENTORY_VALUE] User 7: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 17:24:17,180] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:24:17,190] INFO in logger: [GET_USER_SUCCESS] User 7: User data retrieved for user 7 | Affected: sales

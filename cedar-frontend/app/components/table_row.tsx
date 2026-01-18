@@ -1,4 +1,4 @@
-import { Ellipsis, ShoppingBasket, Trash } from "lucide-react";
+import { AlertTriangle, Ellipsis, Package, ShoppingBasket, Trash, XCircle } from "lucide-react";
 import React, { useEffect } from "react";
 import { actionDropdownItems } from "../utils/mock_data";
 import { Actions, Roles, Product } from "../utils/types";
@@ -32,6 +32,8 @@ import {
 import { useDeleteProductMutation } from "../store/slices/apiSlice";
 import { toast } from "react-toastify";
 import { formatDecimal, getRoleEnum } from "../utils/helpers";
+import Image from "next/image";
+import { StockBadge, StockIndicator } from "./stock_badge";
 
 interface Params {
   product: Product;
@@ -52,27 +54,34 @@ function TableRow({ product, id }: Params) {
   );
 
   return (
-    <div className="grid grid-cols-1 xl:flex w-full rounded-xl bg-wBrand-background_light/60 gap-6 justify-between p-4">
-      <div className="space-y-2">
-        <h2 className="text-base font-medium capitalize">{product.name}</h2>
-        <div className="text-gray-400 flex items-center gap-2 text-xs flex-wrap">
-          <p>
-            ID: <span className="text-gray-200">#{product.id}</span>
-          </p>
-          {/* <div className="h-1 w-1 rounded-full bg-gray-400" />
-          <p>
-            ABV: <span className="text-gray-200">{product.abv}%</span>
-          </p> */}
-          <div className="h-1 w-1 rounded-full bg-gray-400" />
-          <p>
-            NO IN STOCK:{" "}
-            <span className="text-gray-200">{product.in_stock ?? 1}</span>
-          </p>
-          {/* <div className="h-1 w-1 rounded-full bg-gray-400" />
-          <p>
-            BOTTLE SIZE:{" "}
-            <span className="text-gray-200">{product.bottle_size}ML</span>
-          </p> */}
+    <div className="grid grid-cols-1 xl:flex w-full rounded-xl bg-wBrand-background_light/60 gap-4 xl:gap-6 justify-between p-4">
+      <div className="flex items-center gap-4">
+        {/* Product image */}
+        <div className="h-14 w-14 flex-shrink-0 rounded-lg bg-wBrand-background overflow-hidden flex items-center justify-center">
+          {product.image_url ? (
+            <Image
+              src={product.image_url}
+              alt={product.name}
+              width={56}
+              height={56}
+              className="object-cover w-full h-full"
+            />
+          ) : (
+            <Package className="h-6 w-6 text-wBrand-foreground/20" />
+          )}
+        </div>
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <h2 className="text-base font-medium capitalize">{product.name}</h2>
+            <StockBadge stock={product.in_stock ?? 0} />
+          </div>
+          <div className="text-gray-400 flex items-center gap-2 text-xs flex-wrap">
+            <p>
+              ID: <span className="text-gray-200">#{product.id}</span>
+            </p>
+            <div className="h-1 w-1 rounded-full bg-gray-400" />
+            <StockIndicator stock={product.in_stock ?? 0} />
+          </div>
         </div>
       </div>
 

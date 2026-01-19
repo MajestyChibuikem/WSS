@@ -14,7 +14,7 @@ export default function RootLayout({
       <body>
         <ProviderWrapper>
           <ProtectedRoute>
-            <div className="overflow-hidden">{children}</div>
+            <div className="min-h-screen overflow-x-hidden">{children}</div>
           </ProtectedRoute>
         </ProviderWrapper>
         <ToastContainer />

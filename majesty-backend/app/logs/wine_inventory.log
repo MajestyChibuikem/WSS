@@ -17667,3 +17667,62 @@ FROM products JOIN categories ON categories.id = products.category_id]
 [2026-01-18 17:24:14,305] INFO in logger: [GET_INVENTORY_VALUE] User 7: Inventory value fetched | Affected: Inventory Value by Category
 [2026-01-18 17:24:17,180] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
 [2026-01-18 17:24:17,190] INFO in logger: [GET_USER_SUCCESS] User 7: User data retrieved for user 7 | Affected: sales
+[2026-01-18 17:31:36,868] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-01-18 17:31:36,960] INFO in logger: [GET_TOTAL_STOCK] User 7: Total stock checked: 945 | Affected: Total Stock
+[2026-01-18 17:31:36,972] INFO in logger: [GET_ALL_PRODUCTS] User 7: Fetched all products | Affected: All products
+[2026-01-18 17:31:52,564] INFO in logger: [GET_REVENUE] User 7: Revenue calculated for the past 30 days: 5806.00 | Affected: Revenue
+[2026-01-18 17:31:52,574] INFO in logger: [GET_STOCK_BY_CATEGORY] User 7: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 17:31:52,597] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:31:52,598] INFO in logger: [GET_INVENTORY_VALUE] User 7: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 17:31:52,628] INFO in logger: [COMPARE_SALES] User 7: Sales compared: Growth Factor = 1.20, Percentage Change = 20.01% | Affected: Sales Comparison
+[2026-01-18 17:33:39,904] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-01-18 17:33:39,999] INFO in logger: [GET_TOTAL_STOCK] User 7: Total stock checked: 945 | Affected: Total Stock
+[2026-01-18 17:33:40,011] INFO in logger: [GET_ALL_PRODUCTS] User 7: Fetched all products | Affected: All products
+[2026-01-18 17:33:55,431] INFO in logger: Wine Inventory API Started - Environment: development
+[2026-01-18 17:34:25,478] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-01-18 17:34:25,578] INFO in logger: [GET_TOTAL_STOCK] User 7: Total stock checked: 945 | Affected: Total Stock
+[2026-01-18 17:34:25,582] INFO in logger: [GET_ALL_PRODUCTS] User 7: Fetched all products | Affected: All products
+[2026-01-18 17:34:35,190] INFO in logger: [GET_REVENUE] User 7: Revenue calculated for the past 30 days: 5806.00 | Affected: Revenue
+[2026-01-18 17:34:35,201] INFO in logger: [GET_STOCK_BY_CATEGORY] User 7: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 17:34:35,211] INFO in logger: [GET_INVENTORY_VALUE] User 7: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 17:34:35,263] INFO in logger: [COMPARE_SALES] User 7: Sales compared: Growth Factor = 1.20, Percentage Change = 20.01% | Affected: Sales Comparison
+[2026-01-18 17:34:35,265] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:43:24,672] INFO in logger: [GET_STOCK_BY_CATEGORY] User 7: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 17:43:24,673] INFO in logger: [GET_REVENUE] User 7: Revenue calculated for the past 30 days: 5806.00 | Affected: Revenue
+[2026-01-18 17:43:24,679] INFO in logger: [GET_INVENTORY_VALUE] User 7: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 17:43:24,680] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:43:24,698] INFO in logger: [COMPARE_SALES] User 7: Sales compared: Growth Factor = 1.20, Percentage Change = 20.01% | Affected: Sales Comparison
+[2026-01-18 17:51:10,770] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-01-18 17:51:12,839] INFO in logger: [COMPARE_SALES] User 7: Sales compared: Growth Factor = 1.20, Percentage Change = 20.01% | Affected: Sales Comparison
+[2026-01-18 17:51:12,847] INFO in logger: [GET_ALL_PRODUCTS] User 7: Fetched all products | Affected: All products
+[2026-01-18 17:51:13,372] INFO in logger: [GET_REVENUE] User 7: Revenue calculated for the past 30 days: 5806.00 | Affected: Revenue
+[2026-01-18 17:51:13,397] INFO in logger: [GET_STOCK_BY_CATEGORY] User 7: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 17:51:13,397] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:51:13,398] INFO in logger: [GET_TOTAL_STOCK] User 7: Total stock checked: 945 | Affected: Total Stock
+[2026-01-18 17:51:13,405] INFO in logger: [GET_INVENTORY_VALUE] User 7: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 17:51:16,322] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:51:17,357] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:51:17,368] INFO in logger: [GET_USER_SUCCESS] User 7: User data retrieved for user 7 | Affected: sales
+[2026-01-18 17:51:24,517] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:51:47,579] INFO in logger: [CHECKOUT_SUCCESS] User 7: Checkout completed for invoice 38 | Affected: Invoice ID 38
+[2026-01-18 17:52:00,504] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-01-18 17:52:03,271] INFO in logger: [GET_TOTAL_STOCK] User 7: Total stock checked: 944 | Affected: Total Stock
+[2026-01-18 17:52:03,285] INFO in logger: [GET_ALL_PRODUCTS] User 7: Fetched all products | Affected: All products
+[2026-01-18 17:52:03,683] INFO in logger: [COMPARE_SALES] User 7: Sales compared: Growth Factor = 278.95, Percentage Change = 27794.92% | Affected: Sales Comparison
+[2026-01-18 17:58:13,522] INFO in logger: Wine Inventory API Started - Environment: development
+[2026-01-18 17:58:29,632] INFO in logger: [GET_REVENUE] User 7: Revenue calculated for the past 30 days: 1349556.00 | Affected: Revenue
+[2026-01-18 17:58:29,636] INFO in logger: [GET_INVENTORY_VALUE] User 7: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 17:58:29,641] INFO in logger: [GET_STOCK_BY_CATEGORY] User 7: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 17:58:29,671] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:59:19,206] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-01-18 17:59:19,350] INFO in logger: [GET_TOTAL_STOCK] User 7: Total stock checked: 944 | Affected: Total Stock
+[2026-01-18 17:59:19,350] INFO in logger: [GET_REVENUE] User 7: Revenue calculated for the past 30 days: 1349556.00 | Affected: Revenue
+[2026-01-18 17:59:19,360] INFO in logger: [GET_STOCK_BY_CATEGORY] User 7: Stock by category fetched successfully | Affected: Stock by Category
+[2026-01-18 17:59:19,403] INFO in logger: [GET_USERS_UNAUTHORIZED] User 7: Unauthorized attempt to view users | Affected: User Management
+[2026-01-18 17:59:19,408] INFO in logger: [GET_INVENTORY_VALUE] User 7: Inventory value fetched | Affected: Inventory Value by Category
+[2026-01-18 17:59:19,415] INFO in logger: [GET_ALL_PRODUCTS] User 7: Fetched all products | Affected: All products
+[2026-01-18 17:59:19,451] INFO in logger: [COMPARE_SALES] User 7: Sales compared: Growth Factor = 278.95, Percentage Change = 27794.92% | Affected: Sales Comparison
+[2026-01-19 10:19:59,731] INFO in logger: Wine Inventory API Started - Environment: development
+[2026-01-19 10:20:40,862] INFO in logger: [LOGIN_SUCCESS] User 7: User logged in successfully | Affected: sales
+[2026-01-19 10:20:43,299] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-01-19 10:20:44,482] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System

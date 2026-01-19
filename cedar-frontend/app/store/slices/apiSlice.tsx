@@ -13,6 +13,10 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
+  // Keep cached data for 5 minutes after last subscriber unsubscribes
+  keepUnusedDataFor: 300,
+  // Refetch on reconnect and focus for fresh data
+  refetchOnReconnect: true,
   tagTypes: [
     "Users",
     "Products",

@@ -29,7 +29,8 @@
 body {
   background: var(--wBrand-background);
   color: var(--wBrand-foreground);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .fs-h1 {

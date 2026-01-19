@@ -307,7 +307,7 @@ function Page() {
         </div>
 
         {/* Product list */}
-        <div className="flex-1 px-4 lg:px-8 pb-10 overflow-y-auto min-h-[calc(100vh-11rem)]">
+        <div className="flex-1 px-4 lg:px-8 pb-10">
           <div className="space-y-2">
             {isLoading || loadingTotalWineStock ? (
               <InventoryPageSkeleton />

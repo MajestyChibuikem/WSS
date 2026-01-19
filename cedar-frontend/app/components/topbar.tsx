@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import {
   Activity,
   Banknote,
@@ -16,17 +16,45 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Roles } from "../utils/types";
 import { getRoleEnum } from "../utils/helpers";
-import { useLogoutMutation } from "../store/slices/apiSlice";
+import { useLogoutMutation, apiSlice } from "../store/slices/apiSlice";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import logo from "../img/logo-black-white.png";
+import { AppDispatch } from "../store";
 
 function Topbar() {
   const pathname = usePathname();
   const [logout] = useLogoutMutation();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false); // Toggle sidebar
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+
+  // Prefetch data on hover for faster navigation
+  const prefetchData = useCallback(
+    (href: string) => {
+      switch (href) {
+        case "/":
+          dispatch(apiSlice.util.prefetch("getProducts", undefined, { force: false }));
+          dispatch(apiSlice.util.prefetch("compareSales", undefined, { force: false }));
+          dispatch(apiSlice.util.prefetch("getTopProducts", undefined, { force: false }));
+          break;
+        case "/inventory":
+          dispatch(apiSlice.util.prefetch("getProducts", undefined, { force: false }));
+          dispatch(apiSlice.util.prefetch("getTotalProductStock", undefined, { force: false }));
+          break;
+        case "/users":
+          dispatch(apiSlice.util.prefetch("getUsers", undefined, { force: false }));
+          break;
+        case "/activity":
+          dispatch(apiSlice.util.prefetch("getAllLogs", undefined, { force: false }));
+          break;
+        case "/sales":
+          dispatch(apiSlice.util.prefetch("compareSales", undefined, { force: false }));
+          break;
+      }
+    },
+    [dispatch]
+  );
 
   const links = [
     {
@@ -85,14 +113,14 @@ function Topbar() {
               className="object-contain"
             />
             <span className="text-[10px] text-wBrand-foreground/50">
-              powered by{" "}
+              {" "}
               <a
-                href="https://teminix.com"
+                href="https://temnix.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-wBrand-accent hover:underline"
               >
-                Teminix.com
+                Temnix.com
               </a>
             </span>
           </div>
@@ -106,7 +134,11 @@ function Topbar() {
             return (
               userRole &&
               link.showFor.includes(userRole) && (
-                <Link key={index} href={link.href}>
+                <Link
+                  key={index}
+                  href={link.href}
+                  onMouseEnter={() => prefetchData(link.href)}
+                >
                   <li
                     className={`hover:bg-wBrand-accent/10 px-4 border py-1 flex items-center gap-2 text-sm rounded-full cursor-pointer ${
                       isActive
@@ -178,7 +210,10 @@ function Topbar() {
                 <Link
                   key={index}
                   href={link.href}
-                  onClick={() => setSidebarOpen(false)}
+                  onClick={() => {
+                    prefetchData(link.href);
+                    setSidebarOpen(false);
+                  }}
                 >
                   <div
                     className={`flex items-center gap-2 p-3 rounded-lg cursor-pointer ${

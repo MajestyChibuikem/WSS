@@ -17726,3 +17726,30 @@ FROM products JOIN categories ON categories.id = products.category_id]
 [2026-01-19 10:20:40,862] INFO in logger: [LOGIN_SUCCESS] User 7: User logged in successfully | Affected: sales
 [2026-01-19 10:20:43,299] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
 [2026-01-19 10:20:44,482] INFO in logger: [CHECK_TOKEN_VALID] User 7: Token is valid | Affected: Token System
+[2026-02-02 14:40:52,642] INFO in logger: Wine Inventory API Started - Environment: development
+[2026-02-02 14:41:45,042] INFO in logger: [LOGIN_FAILURE] User None: Invalid login attempt | Affected: adminpassword
+[2026-02-02 14:41:52,452] INFO in logger: [LOGIN_FAILURE] User None: Invalid login attempt | Affected: adminpassword
+[2026-02-02 14:42:14,234] INFO in logger: [LOGIN_SUCCESS] User 5: User logged in successfully | Affected: newadmin
+[2026-02-02 14:42:15,830] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2026-02-02 14:42:16,727] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2026-02-02 14:42:17,488] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2026-02-02 14:42:17,613] INFO in logger: [GET_REVENUE] User 5: Revenue calculated for the past 30 days: 1346315.00 | Affected: Revenue
+[2026-02-02 14:42:17,614] INFO in logger: [GET_STOCK_BY_CATEGORY] User 5: Stock by category fetched successfully | Affected: Stock by Category
+[2026-02-02 14:42:17,615] INFO in logger: [GET_TOTAL_STOCK] User 5: Total stock checked: 944 | Affected: Total Stock
+[2026-02-02 14:42:17,661] INFO in logger: [COMPARE_SALES] User 5: Sales compared: Growth Factor = 258.66, Percentage Change = 25765.80% | Affected: Sales Comparison
+[2026-02-02 14:42:17,668] INFO in logger: [GET_INVENTORY_VALUE] User 5: Inventory value fetched | Affected: Inventory Value by Category
+[2026-02-02 14:42:17,702] INFO in logger: [GET_ALL_PRODUCTS] User 5: Fetched all products | Affected: All products
+[2026-02-02 14:42:17,705] INFO in logger: [GET_USERS_SUCCESS] User 5: Admin retrieved user list | Affected: User Management
+[2026-02-02 14:45:17,283] INFO in logger: [GET_USER_SUCCESS] User 5: User data retrieved for user 5 | Affected: newadmin
+[2026-02-16 22:40:37,191] INFO in logger: Wine Inventory API Started - Environment: development
+[2026-02-16 22:42:45,484] INFO in logger: [LOGIN_SUCCESS] User 5: User logged in successfully | Affected: newadmin
+[2026-02-16 22:42:47,635] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2026-02-16 22:42:48,695] INFO in logger: [CHECK_TOKEN_VALID] User 5: Token is valid | Affected: Token System
+[2026-02-16 22:42:48,869] INFO in logger: [GET_REVENUE] User 5: Revenue calculated for the past 30 days: 1343928.00 | Affected: Revenue
+[2026-02-16 22:42:48,885] INFO in logger: [GET_STOCK_BY_CATEGORY] User 5: Stock by category fetched successfully | Affected: Stock by Category
+[2026-02-16 22:42:48,887] INFO in logger: [GET_TOTAL_STOCK] User 5: Total stock checked: 944 | Affected: Total Stock
+[2026-02-16 22:42:48,931] INFO in logger: [GET_INVENTORY_VALUE] User 5: Inventory value fetched | Affected: Inventory Value by Category
+[2026-02-16 22:42:48,942] INFO in logger: [COMPARE_SALES] User 5: Sales compared: Growth Factor = 238.79, Percentage Change = 23779.32% | Affected: Sales Comparison
+[2026-02-16 22:42:48,944] INFO in logger: [GET_USERS_SUCCESS] User 5: Admin retrieved user list | Affected: User Management
+[2026-02-16 22:42:48,944] INFO in logger: [GET_ALL_PRODUCTS] User 5: Fetched all products | Affected: All products
+[2026-02-16 22:43:17,222] INFO in logger: [GET_USER_SUCCESS] User 5: User data retrieved for user 5 | Affected: newadmin

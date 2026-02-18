@@ -8,40 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 let mainWindow;
-let flaskProcess;
 let nextProcess;
-
-function startFlaskServer() {
-  console.log("Starting Flask backend...");
-
-  const backendPath = isDev
-    ? join(__dirname, "../majesty-backend")
-    : join(app.getAppPath(), "majesty-backend");
-
-  const venvCommand =
-    process.platform === "win32"
-      ? `cd "${backendPath}" && backend\\Scripts\\activate && flask run`
-      : `cd "${backendPath}" && source backend/bin/activate && flask run`;
-
-  try {
-    flaskProcess = exec(venvCommand, { windowsHide: true, shell: true });
-
-    flaskProcess.stdout.on("data", (data) => console.log(`[Flask]: ${data}`));
-    flaskProcess.stderr.on("data", (data) =>
-      console.error(`[Flask Error]: ${data}`)
-    );
-
-    flaskProcess.on("exit", (code) => {
-      console.log(`Flask process exited with code ${code}`);
-    });
-
-    flaskProcess.on("error", (err) => {
-      console.error("Error starting Flask server:", err);
-    });
-  } catch (error) {
-    console.error("Failed to start Flask backend:", error);
-  }
-}
 
 function startNextServer() {
   console.log("Starting Next.js server...");
@@ -112,10 +79,6 @@ function createWindow() {
 }
 
 function shutdownProcesses() {
-  if (flaskProcess) {
-    console.log("Killing Flask process...");
-    flaskProcess.kill();
-  }
   if (nextProcess) {
     console.log("Killing Next.js process...");
     nextProcess.kill();
@@ -123,7 +86,6 @@ function shutdownProcesses() {
 }
 
 app.whenReady().then(() => {
-  startFlaskServer();
   if (isDev) startNextServer();
   setTimeout(createWindow, 5000);
 });

@@ -1,10 +1,10 @@
+"use client";
+
 import React, { useRef, useState } from "react";
 import { Sale } from "../store/slices/salesSlice";
 import { formatDecimal } from "../utils/helpers";
 import { format, parseISO } from "date-fns";
 import { Download } from "lucide-react";
-//@ts-ignore
-import html2pdf from "html2pdf.js";
 import Receipt from "./receipt";
 
 function SalesTableRow({ sales }: { sales: Sale }) {

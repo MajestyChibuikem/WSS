@@ -250,7 +250,7 @@ function Page() {
                       className="accent-wBrand-accent group bg-none checked:bg-wBrand-accent cursor-pointer border border-wBrand-accent rounded-md outline-none appearance-none size-5"
                     />
                     <span className="pl-2 cursor-pointer">
-                      Show only today's sales
+                      Show only today&apos;s sales
                     </span>
                   </label>
                 </label>
@@ -277,7 +277,7 @@ function Page() {
               </div>
               {filteredSales.length == 0 && (
                 <div className="w-full flex items-center justify-center text-xl lg:text-2xl font-semibold text-wBrand-accent/20 h-[30vh]">
-                  <p>You haven't made any sales yet</p>
+                  <p>You haven&apos;t made any sales yet</p>
                 </div>
               )}
               {filteredSales.map((sales, idx) => (

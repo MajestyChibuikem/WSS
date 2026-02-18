@@ -203,10 +203,9 @@ function NewProductSideBar() {
                       name: string;
                       id: number;
                     }>).map((item, idx) => (
-                      <div className="flex justify-between">
+                      <div key={item.id ?? idx} className="flex justify-between">
                         <SelectItem
                           className="p-3 flex items-center"
-                          key={idx}
                           value={String(item.id)}
                         >
                           <p>{item.name}</p>

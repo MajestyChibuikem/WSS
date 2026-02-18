@@ -1,18 +1,22 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { User, Product } from "@/app/utils/types";
+import { API_BASE_URL, USE_MOCK_API } from "@/app/utils/runtimeConfig";
+import { mockBaseQuery } from "./mockBaseQuery";
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://127.0.0.1:5000",
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem("wineryAuthToken");
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
-  }),
+  baseQuery: USE_MOCK_API
+    ? mockBaseQuery
+    : fetchBaseQuery({
+        baseUrl: API_BASE_URL,
+        prepareHeaders: (headers) => {
+          const token = localStorage.getItem("wineryAuthToken");
+          if (token) {
+            headers.set("Authorization", `Bearer ${token}`);
+          }
+          return headers;
+        },
+      }),
   // Keep cached data for 5 minutes after last subscriber unsubscribes
   keepUnusedDataFor: 300,
   // Refetch on reconnect and focus for fresh data

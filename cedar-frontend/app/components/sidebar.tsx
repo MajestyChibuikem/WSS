@@ -51,9 +51,8 @@ function Sidebar() {
           {links.map((link, index) => {
             const isActive = pathname === link.href;
             return (
-              <Link href={link.href}>
+              <Link key={link.href} href={link.href}>
                 <li
-                  key={index}
                   className={`hover:bg-wBrand-accent/10 p-3 rounded-lg flex items-center gap-3 text-lg cursor-pointer ${
                     isActive
                       ? "bg-wBrand-accent/20"

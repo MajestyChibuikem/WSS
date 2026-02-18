@@ -2,8 +2,6 @@
 "use client";
 
 import { useRef } from "react";
-//@ts-ignore
-import html2pdf from "html2pdf.js";
 
 type ReceiptProps = {
   transactionId: string;
@@ -29,9 +27,10 @@ export default function Receipt({
 }: ReceiptProps) {
   const receiptRef = useRef<HTMLDivElement>(null);
 
-  const downloadPDF = () => {
+  const downloadPDF = async () => {
     if (!receiptRef.current) return;
 
+    const { default: html2pdf } = await import("html2pdf.js");
     html2pdf()
       .from(receiptRef.current)
       .set({

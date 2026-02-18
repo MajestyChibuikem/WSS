@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import { API_BASE_URL, USE_MOCK_API } from "../utils/runtimeConfig";
+import { getMockSalesPage } from "../utils/mockSales";
 
 // Define the interfaces for sales data
 interface SaleItem {
@@ -46,8 +48,6 @@ interface UseSales {
   refresh: () => void;
 }
 
-const API_BASE = "http://127.0.0.1:5000";
-
 export function useUserSales(userId?: number): UseSales {
   const [sales, setSales] = useState<Sale[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -66,30 +66,49 @@ export function useUserSales(userId?: number): UseSales {
       setError(null);
 
       try {
-        const response = await axios.get<SalesResponse>(
-          `${API_BASE}/logs/sales/user`,
-          {
-            params: {
-              user_id: userId,
-              page,
-              per_page: pagination.perPage,
-            },
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem(
-                "wineryAuthToken"
-              )}`,
-            },
-          }
-        );
+        const effectiveUserId =
+          userId ?? (Number(localStorage.getItem("wineryUserId") ?? "0") || undefined);
 
-        setSales(response.data.sales);
-        setPagination({
-          currentPage: response.data.current_page,
-          totalPages: response.data.pages,
-          totalItems: response.data.total,
-          perPage: pagination.perPage,
-        });
+        if (USE_MOCK_API) {
+          const mock = getMockSalesPage({
+            userId: effectiveUserId,
+            page,
+            perPage: pagination.perPage,
+          });
+          // Maintain historical shape from backend: { sales: [...] } vs { logs: [...] }
+          setSales((mock.logs as unknown) as Sale[]);
+          setPagination({
+            currentPage: mock.current_page,
+            totalPages: mock.pages,
+            totalItems: mock.total,
+            perPage: pagination.perPage,
+          });
+        } else {
+          const response = await axios.get<SalesResponse>(
+            `${API_BASE_URL}/logs/sales/user`,
+            {
+              params: {
+                user_id: effectiveUserId,
+                page,
+                per_page: pagination.perPage,
+              },
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem(
+                  "wineryAuthToken"
+                )}`,
+              },
+            }
+          );
+
+          setSales(response.data.sales);
+          setPagination({
+            currentPage: response.data.current_page,
+            totalPages: response.data.pages,
+            totalItems: response.data.total,
+            perPage: pagination.perPage,
+          });
+        }
       } catch (err) {
         setError("Failed to fetch sales data");
       } finally {

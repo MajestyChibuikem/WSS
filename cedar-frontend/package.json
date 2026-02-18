@@ -8,7 +8,7 @@
     "electron-dev": "concurrently \"next dev\" \"electron .\"",
     "electron": "electron .",
     "start": "next start",
-    "build": "next build && next export",
+    "build": "next build",
     "electron-pack": "cross-env NODE_ENV=production electron-builder"
   },
   "dependencies": {
@@ -62,10 +62,6 @@
     "files": [
       "main.mjs",
       "out/**/*",
-      {
-        "from": "../majesty-backend",
-        "to": "majesty-backend"
-      },
       {
         "from": "out",
         "to": "frontend"
